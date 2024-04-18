@@ -5,15 +5,12 @@ const {
 } = require("../middleware/notificationStoreValidator");
 
 const { mailList, auth } = require("../controllers/GmailController");
-const {
-  notificationView,
-} = require("../controllers/notificationViewController");
-const { fetchAll } = require("../controllers/NotificationFetchController");
+const { logout } = require("../controllers/GmailLogoutController");
 
 //////////////////// routers  start ////////////////
 router.route("/mail-list").post(mailList);
 router.route("/login").get(auth);
-
+router.route("/logout").get(logout);
 
 //////////////////// routers  end ///////////////
 

@@ -59,7 +59,7 @@ async function saveCredentials(client) {
   });
   await fs.writeFile(TOKEN_PATH, payload);
 }
-async function authorize() {
+async function auth() {
   console.log("auth");
   let client = await loadSavedCredentialsIfExist();
   if (client) {
@@ -74,9 +74,9 @@ async function authorize() {
   }
   return client;
 }
-async function auth() {
-  authorize().catch(console.error);
-}
+// async function auth() {
+  auth().catch(console.error);
+// }
 
 module.exports = {
   mailList,
