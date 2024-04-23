@@ -3,15 +3,16 @@ const router = express.Router();
 const {
   validateNotificationStoreData,
 } = require("../middleware/notificationStoreValidator");
-
-const { mailList, auth } = require("../controllers/GmailController");
-const { logout } = require("../controllers/GmailLogoutController");
+const {
+  login,
+  logout,
+  callback,
+} = require("../controllers/GmailAuthController");
 
 //////////////////// routers  start ////////////////
-router.route("/mail-list").post(mailList);
-router.route("/login").get(auth);
-router.route("/logout").get(logout);
-
+router.route("/google/login").get(login);
+router.route("/google/callback").get(callback);
+router.route("/google-logout").get(logout);
 //////////////////// routers  end ///////////////
 
 module.exports = router;
