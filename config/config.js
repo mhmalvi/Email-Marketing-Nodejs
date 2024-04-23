@@ -1,17 +1,23 @@
-const os = require("os");
-
-// Function to load configuration based on the host name
-function loadConfig() {
-  const hostname = os.hostname();
-  let config;
-  if (hostname === "development-hostname") {
-    config = require("./config.development");
-  } else if (hostname === "production-hostname") {
-    config = require("./config.production");
-  } else {
-    config = require("./config.default");
+{
+  "development": {
+    "username": "root",
+    "password": null,
+    "database": "database_development",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
   }
-  return config;
 }
-
-module.exports = loadConfig();
