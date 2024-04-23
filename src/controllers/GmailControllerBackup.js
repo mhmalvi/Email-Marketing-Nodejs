@@ -57,7 +57,7 @@ async function saveCredentials(client) {
     client_secret: key.client_secret,
     refresh_token: client.credentials.refresh_token,
   });
-  await fs.writeFile(TOKEN_PATH, payload);
+  // await fs.writeFile(TOKEN_PATH, payload);
 }
 async function authorize() {
   console.log("auth");
@@ -69,10 +69,10 @@ async function authorize() {
     scopes: SCOPES,
     keyfilePath: CREDENTIALS_PATH,
   });
-  if (client.credentials) {
-    await saveCredentials(client);
-  }
-  return client;
+  // if (client.credentials) {
+  //   await saveCredentials(client);
+  // }
+  // return client;
 }
 async function auth() {
   authorize().catch(console.error);
