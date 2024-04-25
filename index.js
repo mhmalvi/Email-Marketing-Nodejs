@@ -2,6 +2,10 @@ require("dotenv").config();
 const express = require("express");
 const passport = require("passport");
 const session = require("express-session");
+const User = require("./models").User;
+const Token = require("./models").Token;
+const GoogleUser = require("./models").GoogleUser
+const { randomAlphaNumeric, getIp } = require("./src/common/utils");
 require("./passport");
 
 const app = express();
@@ -59,9 +63,49 @@ app.get("/failed", (req, res) => {
 });
 
 // Success route if the authentication is successful
-app.get("/success", isLoggedIn, (req, res) => {
+app.get("/success", isLoggedIn, async (req, res) => {
   console.log("You are logged in");
-  console.log(req.user);
+  let ip = "";
+  fetch("https://api.ipify.org?format=json")
+    .then((response) => response.json())
+    .then((data) => {
+      //   console.log(data.ip);
+      ip = data.ip;
+    })
+    .catch((error) => {
+      console.log("Error:", error);
+    });
+  // console.log(req.user.email);
+  // credentials = JSON.stringify(req.user);
+  const token = "Bearer " + randomAlphaNumeric(60);
+  const user = await GoogleUser.findOne({
+    where: { googleId: req.user.email },
+  });
+  var newUser = "";
+  if (user === null) {
+    newUser = await User.create({
+      userName: req.user.displayName,
+      googleId: req.user.email,
+      role: 3,
+    });
+    console.log(newUser.id);
+    Token.create({
+      email: req.user.email,
+      token: token,
+      user_id: newUser.id,
+      role: newUser.role,
+      ip: ip,
+    });
+  } else {
+    Token.create({
+      email: req.user.email,
+      token: token,
+      user_id: user.id,
+      role: user.role,
+      ip: ip,
+    });
+  }
+
   res.send(
     "Welcome" +
       JSON.stringify(req.user.displayName) +
@@ -84,7 +128,7 @@ app.get("/logout", (req, res) => {
   });
 });
 
-app.listen(port,'0.0.0.0', () => console.log("server running on port" + port));
+app.listen(port, "0.0.0.0", () => console.log("server running on port" + port));
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
