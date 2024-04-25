@@ -1,3 +1,4 @@
+require("dotenv").config();
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
 
@@ -9,7 +10,6 @@ passport.deserializeUser(function (user, done) {
 });
 
 passport.use(
-    
   new GoogleStrategy(
     {
       clientID:
@@ -18,8 +18,8 @@ passport.use(
       callbackURL: "http://localhost:5000/google/callback",
       passReqToCallback: true,
     },
-      function (request, accessToken, refreshToken, profile, done) {
-        console.log("sffgsg");
+    function (request, accessToken, refreshToken, profile, done) {
+      console.log("sffgsg");
       return done(null, profile);
     }
   )
