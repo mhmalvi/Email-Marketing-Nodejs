@@ -1,7 +1,7 @@
 {
   "production": {
     "username": "root",
-    "password": "quadQue*2022Tech",
+    "password": "Quadque#2024",
     "database": "email_marketing",
     "host": "127.0.0.1",
     "dialect": "mysql"
