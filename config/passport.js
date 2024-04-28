@@ -13,10 +13,10 @@ passport.deserializeUser(function (user, done) {
 passport.use(
   new GoogleStrategy(
     {
-      clientID:
-        keys.google.clientID, // Your Credentials here.
+      clientID: keys.google.clientID, // Your Credentials here.
       clientSecret: keys.google.clientSecret, // Your Credentials here.
-      callbackURL: "http://localhost:5000/google/callback",
+      callbackURL: "https://backend.quemailer.com/google/callback",
+      // callbackURL: "http://localhost:5000/google/callback",
       passReqToCallback: true,
     },
     function (request, accessToken, refreshToken, profile, done) {
