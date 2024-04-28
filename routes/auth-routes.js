@@ -1,8 +1,8 @@
 const express = require("express");
 const passport = require("passport");
 const authRouter = express.Router();
-const GoogleUser = require('../models').GoogleUser
-const Token = require('../models').Token
+const GoogleUser = require("../models").GoogleUser;
+const Token = require("../models").Token;
 const { randomAlphaNumeric } = require("../src/common/utils");
 const { google } = require("googleapis");
 authRouter.get("/home", (req, res) => {
@@ -88,13 +88,23 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
       ip: ip,
     });
   }
-
-  res.send(
-    "Welcome" +
-      JSON.stringify(req.user.displayName) +
-      ".Your email is " +
-      req.user.email
-  );
+  const userData = {
+    email: req.user.email,
+    role: user.role,
+    token: token,
+  };
+  console.log(userData);
+  res.status(200).json({
+    message: "Login successful",
+    status: 200,
+    user: userData,
+  });
+  // res.send(
+  //   "Welcome" +
+  //     JSON.stringify(req.user.displayName) +
+  //     ".Your email is " +
+  //     req.user.email
+  // );
 });
 
 // Route that logs out the authenticated user
