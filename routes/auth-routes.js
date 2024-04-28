@@ -1,7 +1,7 @@
 const express = require("express");
 const passport = require("passport");
 const authRouter = express.Router();
-const User = require("../models").User;
+const User = require("../models").user;
 const Token = require("../models").Token;
 const { randomAlphaNumeric } = require("../src/common/utils");
 const { google } = require("googleapis");
