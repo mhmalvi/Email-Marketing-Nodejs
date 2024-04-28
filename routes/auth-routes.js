@@ -1,7 +1,7 @@
 const express = require("express");
 const passport = require("passport");
 const authRouter = express.Router();
-const GoogleUser = require("../models").GoogleUser;
+const User = require("../models").User;
 const Token = require("../models").Token;
 const { randomAlphaNumeric } = require("../src/common/utils");
 const { google } = require("googleapis");
@@ -62,12 +62,12 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
   // console.log(req.user.email);
   // credentials = JSON.stringify(req.user);
   const token = "Bearer " + randomAlphaNumeric(60);
-  const user = await GoogleUser.findOne({
+  const user = await User.findOne({
     where: { googleId: req.user.id },
   });
   var newUser = "";
   if (user === null) {
-    newUser = await GoogleUser.create({
+    newUser = await User.create({
       userName: req.user.displayName,
       email: req.user.email,
       googleId: req.user.id,
