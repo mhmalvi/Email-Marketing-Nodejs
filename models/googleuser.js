@@ -13,14 +13,19 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  GoogleUser.init({
-    userName: DataTypes.TEXT,
-    googleId: DataTypes.STRING,
-    role: DataTypes.INTEGER,
-    user_id: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'GoogleUser',
-  });
+  GoogleUser.init(
+    {
+      userName: DataTypes.TEXT,
+      email: DataTypes.STRING,
+      googleId: DataTypes.STRING,
+      role: DataTypes.INTEGER,
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
+    },
+    {
+      sequelize,
+      modelName: "GoogleUser",
+    }
+  );
   return GoogleUser;
 };

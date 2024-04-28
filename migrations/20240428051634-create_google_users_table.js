@@ -9,26 +9,12 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    await queryInterface.createTable("google_users", {
+    await queryInterface.createTable("googleUsers", {
       id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
-      userName: {
-        type: Sequelize.TEXT,
-        allowNull: false,
-      },
-      googleId: {
-        type: Sequlize.STRING,
-        allowNull: false,
-        unique: true,
-      },
-      role: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        comment: "1=superadmin,2=admin,3=customer",
-      },
-      user_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
+      userName: { type: Sequelize.TEXT, allowNull: false },
+      googleId: { type: Sequelize.STRING, allowNull: false },
+      email: { type: Sequelize.STRING, allowNull: false },
+      role: { type: Sequelize.INTEGER, allowNull: false },
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,

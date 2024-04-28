@@ -13,15 +13,20 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  Token.init({
-    email: DataTypes.STRING,
-    token: DataTypes.STRING,
-    ip: DataTypes.STRING,
-    user_id: DataTypes.INTEGER,
-    role: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'Token',
-  });
+  Token.init(
+    {
+      email: DataTypes.STRING,
+      token: DataTypes.STRING,
+      ip: DataTypes.STRING,
+      user_id: DataTypes.INTEGER,
+      role: DataTypes.INTEGER,
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
+    },
+    {
+      sequelize,
+      modelName: "Token",
+    }
+  );
   return Token;
 };
