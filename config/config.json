@@ -4,10 +4,7 @@
     "password": null,
     "database": "email_marketing",
     "host": "127.0.0.1",
-    "dialect": "mysql",
-    "define": {
-      "timestamps": false
-    }
+    "dialect": "mysql"
   },
   "test": {
     "username": "root",
@@ -18,8 +15,8 @@
   },
   "production": {
     "username": "root",
-    "password": null,
-    "database": "database_production",
+    "password": "quadQue*2022Tech",
+    "database": "email_marketing",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }
