@@ -14,50 +14,59 @@ const app = express();
 // const CREDENTIALS_PATH = path.join(process.cwd(), "credentials.json");
 const passport = require("passport");
 const session = require("express-session");
-require("../../passport");
+// const keys = require("../../config/keys");
+require("../../config/passport");
 
 // Middleware used in protected routes to check if the user has been authenticated
 
-function login(req, res, next) {
-  console.log("entry");
-  passport.authenticate("google", {
-    scope: ["email", "profile"],
-  })(req, res, next);
-};
+// function login(req, res, next) {
+//   console.log("entry");
+//   passport.authenticate("google", {
+//     scope: ["email", "profile"],
+//   })(req, res, next);
+// }
 
-const sessionCreator = () => {
-  session({
-    secret: process.env.secret,
-    resave: false,
-    saveUninitialized: false,
-  });
-};
+// const sessionCreator = () => {
+//   session({
+//     secret: process.env.secret,
+//     resave: false,
+//     saveUninitialized: false,
+//   });
+// };
 
-const callback = (req, res) => {
-  passport.authenticate("google", {
-    failureRedirect: "/failed",
-  }),
-    function (req, res) {
-      res.redirect("/success");
-    };
-};
+// const callback = (req, res) => {
+//   passport.authenticate("google", {
+//     failureRedirect: "/failed",
+//   }),
+//     function (req, res) {
+//       res.redirect("/success");
+//     };
+// };
 
-const logout = async (req, res) => {
-  await req.session.destroy((err) => {
-    if (err) {
-      console.log("Error while destroying session:", err);
-    } else {
-      req.logout(() => {
-        console.log("You are logged out");
-        res.redirect("/home");
-      });
-    }
-  });
+// const logout = async (req, res) => {
+//   await req.session.destroy((err) => {
+//     if (err) {
+//       console.log("Error while destroying session:", err);
+//     } else {
+//       req.logout(() => {
+//         console.log("You are logged out");
+//         res.redirect("/home");
+//       });
+//     }
+//   });
+// };
+const list = async (req, res) => {
+  // const list = await gmail.users.messages.list({
+  //   userId: "megatanjib@gmail.com",
+  //   maxResults: 10,
+  // });
+  // res.send(list);
 };
 
 module.exports = {
-  login,
-  logout,
-  callback,
-  sessionCreator,
+  // login,
+  // logout,
+  // callback,
+  // sessionCreator,
+  list,
 };

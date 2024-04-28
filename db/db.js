@@ -1,5 +1,5 @@
-import { Sequelize } from "@sequelize/core";
-import { MySqlDialect } from "@sequelize/mysql";
+const { Sequelize } = require("@sequelize/core");
+const { MySqlDialect } = require("@sequelize/mysql");
 
 const sequelize = new Sequelize({
   dialect: MySqlDialect,
