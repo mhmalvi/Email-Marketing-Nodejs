@@ -9,10 +9,16 @@ const { authRouter } = require("./routes/auth-routes");
 const { gmailRouter } = require("./routes/gmail-router");
 const { randomAlphaNumeric, getIp } = require("./src/common/utils");
 require("./config/passport");
-
+const cors = require("cors");
 const app = express();
 const port = 5000;
 
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
+  })
+);
 // express session
 app.use(
   session({
@@ -29,7 +35,7 @@ app.use(passport.session());
 
 // Base route
 
-app.listen(port, "0.0.0.0", () => console.log("server running on port" + port));
+app.listen(port, () => console.log("server running on port" + port));
 app.use("/google", authRouter);
 app.use("/api", gmailRouter);
 
