@@ -11,7 +11,7 @@ const isUserEmailExists = async (req, res) => {
     await transporter.sendMail({
       to: req.body.email, // list of receivers
       subject: "OTP verification", // Subject line
-      text: otp, // plain text body
+      text: `Your OTP is ${otp}`, // plain text body
       // html: "<b>Hello world?</b>", // html body
     });
     res.status(200).json({
