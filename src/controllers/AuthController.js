@@ -38,7 +38,7 @@ const verifyOTP = async (req, res) => {
     if (user) {
       const data = {
         email: req.body.email,
-        otp: req.body.otp,
+        token: req.body.token
       };
       user.otp = 0;
       await user.save();
