@@ -1,10 +1,18 @@
 const express = require("express");
 const Token = require("../../models").Token;
 const User = require("../../models").User;
+const { transporter, generateOTP } = require("../../config/utils");
 
 const isUserEmailExists = async (req, res) => {
   const user = await User.findOne({ where: { email: req.body.email } });
   if (user) {
+    const otp = generateOTP();
+    await transporter.sendMail({
+      to: req.body.email, // list of receivers
+      subject: "OTP verification", // Subject line
+      text: "Hello world?", // plain text body
+      // html: "<b>Hello world?</b>", // html body
+    });
     res.status(200).json({
       status: true,
     });
