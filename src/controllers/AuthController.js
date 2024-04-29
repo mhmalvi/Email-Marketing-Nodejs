@@ -1,6 +1,18 @@
 const express = require("express");
 const Token = require("../../models").Token;
 
+const isUserEmailExists = async (req, res) => {
+  const user = await User.findOne({ where: { email: req.body.email } });
+  if (user) {
+    res.status(200).json({
+      status: true,
+    });
+  } else {
+    res.status(404).json({
+      status: false,
+    });
+  }
+};
 const logout = async (req, res) => {
   console.log(req.body.token);
   const token = await Token.findOne({ where: { token: req.body.token } });
@@ -26,4 +38,4 @@ const logout = async (req, res) => {
   }
 };
 
-module.exports = { logout };
+module.exports = { logout, isUserEmailExists };

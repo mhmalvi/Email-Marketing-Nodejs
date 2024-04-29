@@ -9,7 +9,10 @@ const {
   getDrafts,
   readMail,
 } = require("../src/controllers/GmailApiController");
-const { logout } = require("../src/controllers/AuthController");
+const {
+  logout,
+  isUserEmailExists,
+} = require("../src/controllers/AuthController");
 
 //////////////////// routers  start ////////////////
 // gmailRouter.route("/google/login").get(login);
@@ -21,6 +24,8 @@ gmailRouter.route("/mail/user/:email").get(getUser);
 gmailRouter.route("/mail/send").get(sendMail);
 gmailRouter.route("/mail/drafts/:email").get(getDrafts);
 gmailRouter.route("/mail/read/:messageId").get(readMail);
+
+gmailRouter.route("/check-if-user-email-exists").post(isUserEmailExists);
 gmailRouter.route("/logout").post(logout);
 
 //////////////////// routers  end ///////////////
