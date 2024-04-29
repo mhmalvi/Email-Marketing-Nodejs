@@ -2,6 +2,7 @@ const express = require("express");
 const Token = require("../../models").Token;
 const User = require("../../models").User;
 const { transporter, generateOTP } = require("../../config/utils");
+const { saveToken } = require("../common/utils");
 
 const isUserEmailExists = async (req, res) => {
   const user = await User.findOne({ where: { email: req.body.email } });
@@ -35,12 +36,13 @@ const verifyOTP = async (req, res) => {
     });
 
     if (user) {
+      const data = {
+        email: req.body.email,
+        otp: req.body.otp,
+      };
       user.otp = 0;
       await user.save();
-      await Token.create({
-        email: req.body.email,
-        token: req.body.token,
-      });
+      await saveToken(data);
       res.status(200).json({
         message: "OTP found",
         status: 200,
