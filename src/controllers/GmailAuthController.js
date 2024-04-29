@@ -84,13 +84,13 @@ const saveCredentials = async (req, res) => {
         otp: 0
       });
       console.log(newUser.id);
-      Token.create({
+      await Token.create({
         email: req.body.email,
         token: req.body.token,
       });
     } else {
       console.log("2nd");
-      Token.create({
+      await Token.create({
         email: req.body.email,
         token: req.body.token,
       });
