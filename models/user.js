@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
       image: DataTypes.STRING,
+      otp: DataTypes.INTEGER,
     },
     {
       sequelize,
