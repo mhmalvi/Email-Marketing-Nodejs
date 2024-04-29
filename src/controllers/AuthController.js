@@ -8,8 +8,9 @@ const isUserEmailExists = async (req, res) => {
   if (user) {
     const otp = generateOTP();
     user.otp = otp;
+    console.log(user);
     await user.save();
-    console.log(otp);
+    
     await transporter.sendMail({
       to: req.body.email, // list of receivers
       subject: "OTP verification", // Subject line
