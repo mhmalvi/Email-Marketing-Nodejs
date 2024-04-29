@@ -1,5 +1,6 @@
 const express = require("express");
 const Token = require("../../models").Token;
+const User = require("../../models").User;
 
 const isUserEmailExists = async (req, res) => {
   const user = await User.findOne({ where: { email: req.body.email } });
