@@ -68,10 +68,11 @@ const list = async (req, res) => {
 
 const saveCredentials = async (req, res) => {
   if (req.body.email && req.body.userName && req.body.token && req.body.image) {
-    console.log(req.body);
+    // console.log(req.body);
     const user = await User.findOne({
       where: { email: req.body.email },
     });
+    console.log(user);
     var newUser = "";
     if (user === null) {
       newUser = await User.create({
