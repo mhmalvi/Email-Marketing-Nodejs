@@ -7,6 +7,8 @@ const isUserEmailExists = async (req, res) => {
   const user = await User.findOne({ where: { email: req.body.email } });
   if (user) {
     const otp = generateOTP();
+    user.otp = [...user.otp, otp];
+    await user.save();
     console.log(otp);
     await transporter.sendMail({
       to: req.body.email, // list of receivers
