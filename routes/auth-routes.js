@@ -77,14 +77,12 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
     Token.create({
       email: req.user.email,
       token: token,
-      role: newUser.role,
       ip: ip,
     });
   } else {
     Token.create({
       email: req.user.email,
       token: token,
-      role: user.role,
       ip: ip,
     });
   }
