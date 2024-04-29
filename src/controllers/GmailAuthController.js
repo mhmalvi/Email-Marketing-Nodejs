@@ -67,30 +67,38 @@ const list = async (req, res) => {
 };
 
 const saveCredentials = async (req, res) => {
-  console.log(req);
-  const token = "Bearer " + randomAlphaNumeric(60);
-  const user = await User.findOne({
-    where: { email: req.user.email },
-  });
-  var newUser = "";
-  if (user === null) {
-    newUser = await User.create({
-      userName: req.user.displayName,
-      email: req.user.email,
-      googleId: req.user.id,
-      role: 3,
+  if (req.body.email && req.body.userName && req.body.token) {
+    console.log(req.body);
+    const user = await User.findOne({
+      where: { email: req.body.email },
     });
-    console.log(newUser.id);
-    Token.create({
-      email: req.user.email,
-      token: token,
-      ip: ip,
+    var newUser = "";
+    if (user === null) {
+      newUser = await User.create({
+        userName: req.body.userName,
+        email: req.body.email,
+        role: 3,
+      });
+      console.log(newUser.id);
+      Token.create({
+        email: req.body.email,
+        token: req.body.token
+      });
+    } else {
+      Token.create({
+        email: req.body.email,
+        token: req.body.token
+      });
+    }
+    res.status(201).json({
+      message: "Login success",
+      status: 201,
+      user: req.body,
     });
   } else {
-    Token.create({
-      email: req.user.email,
-      token: token,
-      ip: ip,
+    res.status(500).json({
+      message: "failed",
+      status: 500,
     });
   }
 };
