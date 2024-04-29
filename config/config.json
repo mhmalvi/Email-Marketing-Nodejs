@@ -1,7 +1,7 @@
 {
   "production": {
     "username": "root",
-    "password": "Quadque#2024",
+    "password": null,
     "database": "email_marketing",
     "host": "127.0.0.1",
     "dialect": "mysql"
@@ -13,7 +13,7 @@
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
-  
+
   "test": {
     "username": "root",
     "password": null,

@@ -5,6 +5,7 @@ const session = require("express-session");
 const User = require("./models").User;
 const Token = require("./models").Token;
 const GoogleUser = require("./models").GoogleUser;
+const bodyParser = require("body-parser");
 const { authRouter } = require("./routes/auth-routes");
 const { gmailRouter } = require("./routes/gmail-router");
 const { randomAlphaNumeric, getIp } = require("./src/common/utils");
@@ -34,7 +35,7 @@ app.use(passport.session());
 // Middleware used in protected routes to check if the user has been authenticated
 
 // Base route
-
+app.use(bodyParser.json());
 app.listen(port, () => console.log("server running on port" + port));
 app.use("/google", authRouter);
 app.use("/api", gmailRouter);
