@@ -72,9 +72,10 @@ const saveCredentials = async (req, res) => {
     const user = await User.findOne({
       where: { email: req.body.email },
     });
-    console.log(user);
+    
     var newUser = "";
     if (user === null) {
+      console.log("1st");
       newUser = await User.create({
         userName: req.body.userName,
         email: req.body.email,
@@ -87,6 +88,7 @@ const saveCredentials = async (req, res) => {
         token: req.body.token,
       });
     } else {
+      console.log("2nd");
       Token.create({
         email: req.body.email,
         token: req.body.token,
