@@ -81,6 +81,7 @@ const saveCredentials = async (req, res) => {
         email: req.body.email,
         role: 3,
         image: req.body.image,
+        otp: 0
       });
       console.log(newUser.id);
       Token.create({
