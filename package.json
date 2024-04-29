@@ -27,6 +27,7 @@
     "moment-timezone": "^0.5.43",
     "mysql": "^2.18.1",
     "node-cron": "^3.0.2",
+    "nodemailer": "^6.9.13",
     "nodemon": "^2.0.22",
     "passport": "^0.7.0",
     "passport-google-oauth2": "^0.2.0",

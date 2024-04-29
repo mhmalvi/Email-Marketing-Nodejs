@@ -15,7 +15,8 @@ passport.use(
     {
       clientID: keys.google.clientID, // Your Credentials here.
       clientSecret: keys.google.clientSecret, // Your Credentials here.
-      callbackURL: "https://backend.quemailer.com/google/callback",
+      callbackURL: keys.redirectUi,
+      // callbackURL: "https://developers.google.com/oauthplayground",
       // callbackURL: "http://localhost:5000/google/callback",
       passReqToCallback: true,
     },
