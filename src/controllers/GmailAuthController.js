@@ -95,6 +95,7 @@ const saveCredentials = async (req, res) => {
 };
 
 module.exports = {
+  saveCredentials,
   // login,
   // logout,
   // callback,
