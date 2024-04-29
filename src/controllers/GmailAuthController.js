@@ -67,7 +67,7 @@ const list = async (req, res) => {
 };
 
 const saveCredentials = async (req, res) => {
-  if (req.body.email && req.body.userName && req.body.token) {
+  if (req.body.email && req.body.userName && req.body.token && req.body.image) {
     console.log(req.body);
     const user = await User.findOne({
       where: { email: req.body.email },
@@ -78,17 +78,17 @@ const saveCredentials = async (req, res) => {
         userName: req.body.userName,
         email: req.body.email,
         role: 3,
-        image: req.body.image
+        image: req.body.image,
       });
       console.log(newUser.id);
       Token.create({
         email: req.body.email,
-        token: req.body.token
+        token: req.body.token,
       });
     } else {
       Token.create({
         email: req.body.email,
-        token: req.body.token
+        token: req.body.token,
       });
     }
     res.status(201).json({
