@@ -21,7 +21,7 @@ gmailRouter.route("/mail/user/:email").get(getUser);
 gmailRouter.route("/mail/send").get(sendMail);
 gmailRouter.route("/mail/drafts/:email").get(getDrafts);
 gmailRouter.route("/mail/read/:messageId").get(readMail);
-authRouter.route("/logout").post(logout);
+gmailRouter.route("/logout").post(logout);
 
 //////////////////// routers  end ///////////////
 
