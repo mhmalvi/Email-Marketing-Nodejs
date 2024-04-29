@@ -67,6 +67,7 @@ const list = async (req, res) => {
 };
 
 const saveCredentials = async (req, res) => {
+  console.log(req.body);
   const token = "Bearer " + randomAlphaNumeric(60);
   const user = await User.findOne({
     where: { email: req.user.email },
