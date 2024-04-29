@@ -1,3 +1,5 @@
+const keys = require("./keys");
+
 const generateConfig = (url, accessToken) => {
   return {
     method: "get",
@@ -18,12 +20,31 @@ const randomAlphaNumeric = (length) => {
   return s.slice(0, length);
 };
 
+function generateOTP() {
+  const randomNum = Math.random() * 9000;
+  return Math.floor(1000 + randomNum);
+}
+
+const transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false, // Use `true` for port 465, `false` for all other ports
+  auth: {
+    user: keys.mail.user,
+    pass: keys.mail.pass,
+  },
+});
+
 const getIp = () => {
   var ip = "";
 };
 
 // randomAlphaNumeric(5); // '0afad'
 
-
-
-module.exports = { generateConfig, randomAlphaNumeric, getIp };
+module.exports = {
+  generateConfig,
+  randomAlphaNumeric,
+  getIp,
+  transporter,
+  generateOTP,
+};
