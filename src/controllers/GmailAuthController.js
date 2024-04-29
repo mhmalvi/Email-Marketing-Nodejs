@@ -10,6 +10,9 @@ const connection = require("../../db/db");
 const SCOPES = ["https://www.googleapis.com/auth/gmail.readonly"];
 const { isExists } = require("date-fns");
 const app = express();
+const User = require("../../models").User;
+const Token = require("../../models").Token;
+const { randomAlphaNumeric } = require("../../config/utils");
 // const TOKEN_PATH = path.join(process.cwd(), "../../token.json");
 // const CREDENTIALS_PATH = path.join(process.cwd(), "credentials.json");
 const passport = require("passport");
@@ -61,6 +64,34 @@ const list = async (req, res) => {
   //   maxResults: 10,
   // });
   // res.send(list);
+};
+
+const saveCredentials = async (req, res) => {
+  const token = "Bearer " + randomAlphaNumeric(60);
+  const user = await User.findOne({
+    where: { email: req.user.email },
+  });
+  var newUser = "";
+  if (user === null) {
+    newUser = await User.create({
+      userName: req.user.displayName,
+      email: req.user.email,
+      googleId: req.user.id,
+      role: 3,
+    });
+    console.log(newUser.id);
+    Token.create({
+      email: req.user.email,
+      token: token,
+      ip: ip,
+    });
+  } else {
+    Token.create({
+      email: req.user.email,
+      token: token,
+      ip: ip,
+    });
+  }
 };
 
 module.exports = {
