@@ -28,14 +28,19 @@ const isUserEmailExists = async (req, res) => {
 };
 
 const verifyOTP = async (req, res) => {
-  if (req.body.otp && req.body.email && req.body.otp!==0) {
+  if (req.body.otp && req.body.email && req.body.otp !== 0) {
     const user = await User.findOne({
       where: { email: req.body.email },
       where: { otp: req.body.otp },
     });
+
     if (user) {
       user.otp = 0;
       await user.save();
+      await Token.create({
+        email: req.body.email,
+        token: req.body.token,
+      });
       res.status(200).json({
         message: "OTP found",
         status: 200,
