@@ -1,4 +1,5 @@
 const keys = require("./keys");
+const nodemailer = require("nodemailer");
 
 const generateConfig = (url, accessToken) => {
   return {

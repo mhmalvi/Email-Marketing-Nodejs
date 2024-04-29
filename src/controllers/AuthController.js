@@ -1,5 +1,4 @@
 const express = require("express");
-const nodemailer = require("nodemailer");
 const Token = require("../../models").Token;
 const User = require("../../models").User;
 const { transporter, generateOTP } = require("../../config/utils");
