@@ -13,6 +13,7 @@ const app = express();
 const User = require("../../models").User;
 const Token = require("../../models").Token;
 const { randomAlphaNumeric } = require("../../config/utils");
+const { saveToken } = require("../common/utils");
 // const TOKEN_PATH = path.join(process.cwd(), "../../token.json");
 // const CREDENTIALS_PATH = path.join(process.cwd(), "credentials.json");
 const passport = require("passport");
@@ -72,7 +73,10 @@ const saveCredentials = async (req, res) => {
     const user = await User.findOne({
       where: { email: req.body.email },
     });
-    
+    const data = {
+      email: req.body.email,
+      token: req.body.token,
+    };
     var newUser = "";
     if (user === null) {
       console.log("1st");
@@ -81,19 +85,13 @@ const saveCredentials = async (req, res) => {
         email: req.body.email,
         role: 3,
         image: req.body.image,
-        otp: 0
+        otp: 0,
       });
       console.log(newUser.id);
-      await Token.create({
-        email: req.body.email,
-        token: req.body.token,
-      });
+      await saveToken(data);
     } else {
       console.log("2nd");
-      await Token.create({
-        email: req.body.email,
-        token: req.body.token,
-      });
+      await saveToken(data);
     }
     res.status(201).json({
       message: "Login success",
