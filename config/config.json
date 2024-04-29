@@ -8,7 +8,7 @@
   },
   "development": {
     "username": "root",
-    "password": null,
+    "password": "Quadque#2024",
     "database": "email_marketing",
     "host": "127.0.0.1",
     "dialect": "mysql"
