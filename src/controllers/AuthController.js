@@ -34,7 +34,7 @@ const verifyOTP = async (req, res) => {
       where: { otp: req.body.otp },
     });
     if (user) {
-      user.otp = "";
+      user.otp = 0;
       await user.save();
       res.status(200).json({
         message: "OTP found",
