@@ -5,6 +5,7 @@ const User = require("../models").User;
 const Token = require("../models").Token;
 const { randomAlphaNumeric } = require("../src/common/utils");
 const { google } = require("googleapis");
+const { saveCredentials } = require("../src/controllers/GmailAuthController");
 authRouter.get("/home", (req, res) => {
   res.send("Home Page");
 });
@@ -119,6 +120,8 @@ authRouter.get("/logout", (req, res) => {
     }
   });
 });
+
+authRouter.route("/gmail-login").post(saveCredentials);
 // authRouter.route("/google-list").get(list);
 // authRouter.get("/list", async (req, res) => {
 //   const list = await gmail.users.messages.list({
