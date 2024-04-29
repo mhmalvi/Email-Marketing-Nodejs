@@ -12,6 +12,7 @@ const {
 const {
   logout,
   isUserEmailExists,
+  verifyOTP,
 } = require("../src/controllers/AuthController");
 
 //////////////////// routers  start ////////////////
@@ -26,6 +27,7 @@ gmailRouter.route("/mail/drafts/:email").get(getDrafts);
 gmailRouter.route("/mail/read/:messageId").get(readMail);
 
 gmailRouter.route("/check-if-user-email-exists").post(isUserEmailExists);
+gmailRouter.route("/verify-otp").post(verifyOTP);
 gmailRouter.route("/logout").post(logout);
 
 //////////////////// routers  end ///////////////

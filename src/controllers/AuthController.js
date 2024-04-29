@@ -10,7 +10,7 @@ const isUserEmailExists = async (req, res) => {
     user.otp = otp;
     console.log(user);
     await user.save();
-    
+
     await transporter.sendMail({
       to: req.body.email, // list of receivers
       subject: "OTP verification", // Subject line
@@ -23,6 +23,33 @@ const isUserEmailExists = async (req, res) => {
   } else {
     res.status(404).json({
       status: false,
+    });
+  }
+};
+
+const verifyOTP = async (req, res) => {
+  if (req.body.otp && req.body.email) {
+    const user = await User.findOne({
+      where: { email: req.body.email },
+      where: { otp: req.body.otp },
+    });
+    if (user) {
+      user.otp = "";
+      await user.save();
+      res.status(200).json({
+        message: "OTP found",
+        status: 200,
+      });
+    } else {
+      res.status(404).json({
+        message: "OTP not found",
+        status: 404,
+      });
+    }
+  } else {
+    res.status(500).json({
+      message: "Failed",
+      status: 500,
     });
   }
 };
@@ -51,4 +78,4 @@ const logout = async (req, res) => {
   }
 };
 
-module.exports = { logout, isUserEmailExists };
+module.exports = { logout, isUserEmailExists, verifyOTP };
