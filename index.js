@@ -8,7 +8,7 @@ const GoogleUser = require("./models").GoogleUser;
 const bodyParser = require("body-parser");
 const { authRouter } = require("./routes/auth-routes");
 const { gmailRouter } = require("./routes/gmail-router");
-const { contactRouter } = require("./routes/contact-router");
+const { contactRouter } = require("./routes/contact-routes");
 const { randomAlphaNumeric, getIp } = require("./src/common/utils");
 require("./config/passport");
 const cors = require("cors");
