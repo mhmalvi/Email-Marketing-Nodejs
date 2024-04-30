@@ -5,4 +5,4 @@ const { saveContact } = require("../src/controllers/ContactInsertController");
 
 contactRouter.route("/contact-save").post(saveContact);
 
-module.exports = contactRouter;
+module.exports = {contactRouter};
