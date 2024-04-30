@@ -8,6 +8,7 @@ const GoogleUser = require("./models").GoogleUser;
 const bodyParser = require("body-parser");
 const { authRouter } = require("./routes/auth-routes");
 const { gmailRouter } = require("./routes/gmail-router");
+const { contactRouter } = require("./routes/contact-router");
 const { randomAlphaNumeric, getIp } = require("./src/common/utils");
 require("./config/passport");
 const cors = require("cors");
@@ -39,6 +40,7 @@ app.use(bodyParser.json());
 app.listen(port, () => console.log("server running on port" + port));
 app.use("/google", authRouter);
 app.use("/api", gmailRouter);
+app.use("/api", contactRouter);
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
