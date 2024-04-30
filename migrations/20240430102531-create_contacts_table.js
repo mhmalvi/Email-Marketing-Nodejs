@@ -10,7 +10,7 @@ module.exports = {
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
     await queryInterface.createTable("contacts", {
-      id: { type: Sequelize.INTEGER, autoIncrement: true, allowNull: false },
+      id: { type: Sequelize.INTEGER, primaryKey:true, autoIncrement: true, allowNull: false },
       json: { type: Sequelize.STRING, allowNull: false },
       createdAt: { type: Sequelize.DATE },
       updatedAt: { type: Sequelize.DATE },
