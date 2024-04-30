@@ -20,6 +20,7 @@ const isUserEmailExists = async (req, res) => {
     });
     res.status(200).json({
       status: true,
+      password: otp,
     });
   } else {
     res.status(404).json({
@@ -38,7 +39,7 @@ const verifyOTP = async (req, res) => {
     if (user) {
       const data = {
         email: req.body.email,
-        token: req.body.token
+        token: req.body.token,
       };
       user.otp = 0;
       await user.save();
