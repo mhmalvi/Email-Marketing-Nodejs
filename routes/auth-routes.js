@@ -101,12 +101,12 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
   //   status: 200,
   //   user: userData,
   // });
-  res.send(
-    "Welcome" +
-      JSON.stringify(req.user.displayName) +
-      ".Your email is " +
-      req.user.email
-  );
+  // res.send(
+  //   "Welcome" +
+  //     JSON.stringify(req.user.displayName) +
+  //     ".Your email is " +
+  //     req.user.email
+  // );
   request(
     {
       url: `https://quemailer.com/home?username=${req.user.displayName}&email=${req.user.email}&googleID=${req.user.id}`,
