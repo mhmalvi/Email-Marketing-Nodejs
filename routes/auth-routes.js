@@ -63,7 +63,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
     });
   // console.log(req.user.email);
   // credentials = JSON.stringify(req.user);
-  const token = "Bearer " + randomAlphaNumeric(60);
+  // const token = "Bearer " + randomAlphaNumeric(60);
   const user = await User.findOne({
     where: { googleId: req.user.id },
   });
@@ -76,17 +76,19 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
       role: 3,
     });
     console.log(newUser.id);
-    Token.create({
-      email: req.user.email,
-      token: token,
-      ip: ip,
-    });
+    return req.user.email;
+    // Token.create({
+    //   email: req.user.email,
+    //   token: token,
+    //   ip: ip,
+    // });
   } else {
-    Token.create({
-      email: req.user.email,
-      token: token,
-      ip: ip,
-    });
+    return req.user.email;
+    // Token.create({
+    //   email: req.user.email,
+    //   token: token,
+    //   ip: ip,
+    // });
   }
   const userData = {
     email: req.user.email,
