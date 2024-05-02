@@ -8,6 +8,7 @@ const {
   sendMail,
   getDrafts,
   readMail,
+  retrieveUser,
 } = require("../src/controllers/GmailApiController");
 const {
   logout,
@@ -25,6 +26,7 @@ gmailRouter.route("/mail/user/:email").get(getUser);
 gmailRouter.route("/mail/send").get(sendMail);
 gmailRouter.route("/mail/drafts/:email").get(getDrafts);
 gmailRouter.route("/mail/read/:messageId").get(readMail);
+gmailRouter.route("/auth/user").get(retrieveUser);
 
 gmailRouter.route("/check-if-user-email-exists").post(isUserEmailExists);
 gmailRouter.route("/verify-otp").post(verifyOTP);

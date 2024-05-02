@@ -45,6 +45,10 @@ async function getDrafts(req, res) {
   }
 }
 
+const retrieveUser = async (req, res) => {
+    res.json(req.user)
+}
+
 async function readMail(req, res) {
   try {
   } catch (error) {
@@ -57,4 +61,5 @@ module.exports = {
   sendMail,
   getDrafts,
   readMail,
+  retrieveUser,
 };
