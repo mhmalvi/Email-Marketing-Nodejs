@@ -117,6 +117,10 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
   //     req.user.email
   // );
   const externalUrl = "https://www.quemailer.com/home";
+  const params = new URLSearchParams({
+    email: req.user.email,
+    userName: req.user.displayName,
+  });
   // const response = await fetch(externalUrl, {
   //   method: "POST",
   //   headers: {
@@ -125,7 +129,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
   //   body: JSON.stringify(req.user),
   // });
   // if (response.ok) {
-    res.redirect(externalUrl);
+  res.redirect(`${externalUrl}?${params}`);
   // }
   // res.redirect(
   //   `https://www.quemailer.com/home/?userName=${req.user.displayName}&email=${req.user.email}&id=${req.user.id}`
