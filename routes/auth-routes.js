@@ -35,14 +35,11 @@ authRouter.get(
 authRouter.get(
   "/callback",
   passport.authenticate("google", {
-    // failureRedirect: "/google/failed",
-    function(req, res) {
-      res.redirect("/google/success");
-    },
-  })
-  // function (req, res) {
-  //   res.redirect("/google/success");
-  // }
+    failureRedirect: "/google/failed",
+  }),
+  function (req, res) {
+    res.redirect("/google/success");
+  }
 );
 
 // failed route if the authentication fails
@@ -127,7 +124,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
 });
 
 // Route that logs out the authenticated user
-authRouter.get("/logout", isLoggedIn, (req, res) => {
+authRouter.get("/logout", isLoggedIn,(req, res) => {
   req.session.destroy((err) => {
     if (err) {
       console.log("Error while destroying session:", err);
