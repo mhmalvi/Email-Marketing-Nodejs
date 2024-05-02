@@ -90,17 +90,17 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
     //   ip: ip,
     // });
   }
-  const userData = {
-    email: req.user.email,
-    role: user.role,
-    token: token,
-  };
+  // const userData = {
+  //   email: req.user.email,
+  //   role: user.role,
+  //   token: token,
+  // };
   console.log(userData);
-  res.status(200).json({
-    message: "Login successful",
-    status: 200,
-    user: userData,
-  });
+  // res.status(200).json({
+  //   message: "Login successful",
+  //   status: 200,
+  //   user: userData,
+  // });
   // res.send(
   //   "Welcome" +
   //     JSON.stringify(req.user.displayName) +
