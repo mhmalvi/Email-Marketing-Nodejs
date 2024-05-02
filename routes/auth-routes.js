@@ -25,7 +25,7 @@ const isLoggedIn = (req, res, next) => {
 };
 // Google Auth consent screen route
 authRouter.get(
-  "/login",isLoggedIn,
+  "/login",
   passport.authenticate("google", {
     scope: ["email", "profile"],
   })
