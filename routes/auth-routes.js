@@ -3,9 +3,10 @@ const passport = require("passport");
 const authRouter = express.Router();
 const User = require("../models").User;
 const Token = require("../models").Token;
-const { randomAlphaNumeric } = require("../src/common/utils");
+const { randomAlphaNumeric } = require("../config/utils");
 const { google } = require("googleapis");
 const { saveCredentials } = require("../src/controllers/GmailAuthController");
+const { saveToken } = require("../src/common/utils");
 
 authRouter.get("/home", (req, res) => {
   res.send("Home Page");
@@ -72,7 +73,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
     });
   // console.log(req.user.email);
   // credentials = JSON.stringify(req.user);
-  // const token = "Bearer " + randomAlphaNumeric(60);
+  const token = "Bearer " + randomAlphaNumeric(60);
   const user = await User.findOne({
     where: { email: req.user.email },
   });
@@ -84,20 +85,16 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
       googleId: req.user.id,
       role: 3,
     });
+    const data = {
+      email: req.user.email,
+      token: token,
+    };
     console.log(newUser.id);
     // return req.user.email;
-    // Token.create({
-    //   email: req.user.email,
-    //   token: token,
-    //   ip: ip,
-    // });
+    await saveToken(data);
   } else {
     // return req.user.email;
-    // Token.create({
-    //   email: req.user.email,
-    //   token: token,
-    //   ip: ip,
-    // });
+    await saveToken(data);
   }
   // const userData = {
   //   email: req.user.email,
@@ -120,6 +117,8 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
   const params = new URLSearchParams({
     email: req.user.email,
     userName: req.user.displayName,
+    id: req.user.id,
+    token: token,
   });
   // const response = await fetch(externalUrl, {
   //   method: "POST",
@@ -128,9 +127,9 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
   //   },
   //   body: JSON.stringify(req.user),
   // });
-  // if (response.ok) {
-  res.redirect(`${externalUrl}?${params}`);
-  // }
+  if (req.user) {
+    res.redirect(`${externalUrl}?${params}`);
+  }
   // res.redirect(
   //   `https://www.quemailer.com/home/?userName=${req.user.displayName}&email=${req.user.email}&id=${req.user.id}`
   // // );
