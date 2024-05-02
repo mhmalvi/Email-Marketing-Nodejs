@@ -114,13 +114,25 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
   //     ".Your email is " +
   //     req.user.email
   // );
-  const externalUrl = "https://www.quemailer.com/home";
-  const params = new URLSearchParams({
-    email: req.user.email,
-    userName: req.user.displayName,
-    id: req.user.id,
-    token: token,
-  });
+  if (req.user) {
+    res.status(200).json({
+      message: 'login success',
+      status: 200,
+      user:req.user
+    })
+  } else {
+    res.status(403).json({
+      message: "login failed",
+      status: 403,
+    });
+  }
+  // const externalUrl = "https://www.quemailer.com/home";
+  // const params = new URLSearchParams({
+  //   email: req.user.email,
+  //   userName: req.user.displayName,
+  //   id: req.user.id,
+  //   token: token,
+  // });
   // const response = await fetch(externalUrl, {
   //   method: "POST",
   //   headers: {
@@ -128,9 +140,9 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
   //   },
   //   body: JSON.stringify(req.user),
   // });
-  if (req.user) {
-    res.redirect(`${externalUrl}?${params}`);
-  }
+  // if (req.user) {
+  //   res.redirect(`${externalUrl}?${params}`);
+  // }
   // res.redirect(
   //   `https://www.quemailer.com/home/?userName=${req.user.displayName}&email=${req.user.email}&id=${req.user.id}`
   // // );
