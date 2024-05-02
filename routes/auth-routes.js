@@ -25,7 +25,7 @@ const isLoggedIn = (req, res, next) => {
 };
 // Google Auth consent screen route
 authRouter.get(
-  "/login",
+  "/login",isLoggedIn,
   passport.authenticate("google", {
     scope: ["email", "profile"],
   })
@@ -33,7 +33,7 @@ authRouter.get(
 
 // Call back route
 authRouter.get(
-  "/callback",
+  "/callback", is
   passport.authenticate("google", {
     failureRedirect: "/google/failed",
   }),
