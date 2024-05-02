@@ -28,6 +28,7 @@ authRouter.get(
   "/login",
   passport.authenticate("google", {
     scope: ["email", "profile"],
+    prompt: "select_account",
   })
 );
 
@@ -124,7 +125,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
 });
 
 // Route that logs out the authenticated user
-authRouter.get("/logout", isLoggedIn,(req, res) => {
+authRouter.get("/logout", isLoggedIn, (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       console.log("Error while destroying session:", err);
