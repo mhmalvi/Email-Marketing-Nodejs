@@ -33,7 +33,7 @@ authRouter.get(
 
 // Call back route
 authRouter.get(
-  "/callback", is
+  "/callback",
   passport.authenticate("google", {
     failureRedirect: "/google/failed",
   }),
