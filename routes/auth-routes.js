@@ -78,6 +78,10 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
     where: { email: req.user.email },
   });
   var newUser = "";
+  const data = {
+    email: req.user.email,
+    token: token,
+  };
   if (user === null) {
     newUser = await User.create({
       userName: req.user.displayName,
@@ -85,10 +89,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
       googleId: req.user.id,
       role: 3,
     });
-    const data = {
-      email: req.user.email,
-      token: token,
-    };
+    
     console.log(newUser.id);
     // return req.user.email;
     await saveToken(data);
