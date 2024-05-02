@@ -23,6 +23,14 @@ const isLoggedIn = (req, res, next) => {
     res.sendStatus(401);
   }
 };
+
+const isNotLoggedIn = (req, res, next) => {
+  if (req.user) {
+    next();
+  } else {
+    res.sendStatus(401);
+  }
+};
 // Google Auth consent screen route
 authRouter.get(
   "/login",
@@ -102,13 +110,13 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
   //   status: 200,
   //   user: userData,
   // });
-  res.send(
-    "Welcome" +
-      JSON.stringify(req.user.displayName) +
-      ".Your email is " +
-      req.user.email
-  );
-  // res.redirect("https://quemailer.com/home");
+  // res.send(
+  //   "Welcome" +
+  //     JSON.stringify(req.user.displayName) +
+  //     ".Your email is " +
+  //     req.user.email
+  // );
+  res.redirect("https://quemailer.com");
   // request(
   //   {
   //     url: `https://quemailer.com/home?username=${req.user.displayName}&email=${req.user.email}&googleID=${req.user.id}`,
