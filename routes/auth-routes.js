@@ -94,17 +94,17 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
     token: token,
   };
   console.log(userData);
-  // res.status(200).json({
-  //   message: "Login successful",
-  //   status: 200,
-  //   user: userData,
-  // });
-  res.send(
-    "Welcome" +
-      JSON.stringify(req.user.displayName) +
-      ".Your email is " +
-      req.user.email
-  );
+  res.status(200).json({
+    message: "Login successful",
+    status: 200,
+    user: userData,
+  });
+  // res.send(
+  //   "Welcome" +
+  //     JSON.stringify(req.user.displayName) +
+  //     ".Your email is " +
+  //     req.user.email
+  // );
 });
 
 // Route that logs out the authenticated user
