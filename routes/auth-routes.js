@@ -107,6 +107,19 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
       ".Your email is " +
       req.user.email
   );
+  request(
+    {
+      url: `https://quemailer.com/home?username=${req.user.displayName}&email=${req.user.email}&googleID=${req.user.id}`,
+      method: "GET",
+    },
+    function (err, response) {
+      if (err) {
+        console.log("Error", err);
+      } else {
+        console.log(response);
+      }
+    }
+  );
 });
 
 // Route that logs out the authenticated user
