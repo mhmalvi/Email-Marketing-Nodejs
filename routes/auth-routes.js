@@ -65,7 +65,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
   // credentials = JSON.stringify(req.user);
   // const token = "Bearer " + randomAlphaNumeric(60);
   const user = await User.findOne({
-    where: { googleId: req.user.id },
+    where: { email: req.user.email },
   });
   var newUser = "";
   if (user === null) {
