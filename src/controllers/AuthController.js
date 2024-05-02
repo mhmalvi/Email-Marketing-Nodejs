@@ -14,6 +14,7 @@ const isUserEmailExists = async (req, res) => {
   // console.log(user);
   // await user.save();
 
+  
   await transporter.sendMail(
     {
       from: keys.mail.user,
