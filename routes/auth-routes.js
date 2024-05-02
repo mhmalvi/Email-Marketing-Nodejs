@@ -76,14 +76,14 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
       role: 3,
     });
     console.log(newUser.id);
-    return req.user.email;
+    // return req.user.email;
     // Token.create({
     //   email: req.user.email,
     //   token: token,
     //   ip: ip,
     // });
   } else {
-    return req.user.email;
+    // return req.user.email;
     // Token.create({
     //   email: req.user.email,
     //   token: token,
