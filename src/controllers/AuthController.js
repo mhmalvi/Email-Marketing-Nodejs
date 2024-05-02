@@ -14,24 +14,24 @@ const isUserEmailExists = async (req, res) => {
     // console.log(user);
     // await user.save();
 
-    // await transporter.sendMail({
-    //   to: req.body.email, // list of receivers
-    //   subject: "Password verification", // Subject line
-    //   text: `Your Password is ${otp}`, // plain text body
-    //   // html: "<b>Hello world?</b>", // html body
-    // });
-    sendmail(
-      {
-        from: keys.mail.user,
-        to: req.body.email,
-        subject: "Password verification",
-        html: `Your Password is ${otp}`,
-      },
-      function (err, reply) {
-        console.log(err && err.stack);
-        console.dir(reply);
-      }
-    );
+    await transporter.sendMail({
+      to: req.body.email, // list of receivers
+      subject: "Password verification", // Subject line
+      text: `Your Password is ${otp}`, // plain text body
+      // html: "<b>Hello world?</b>", // html body
+    });
+    // sendmail(
+    //   {
+    //     from: keys.mail.user,
+    //     to: req.body.email,
+    //     subject: "Password verification",
+    //     html: `Your Password is ${otp}`,
+    //   },
+    //   function (err, reply) {
+    //     console.log(err && err.stack);
+    //     console.dir(reply);
+    //   }
+    // );
     res.status(200).json({
       status: true,
       password: otp,
