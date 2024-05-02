@@ -117,19 +117,19 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
   //     req.user.email
   // );
   const externalUrl = "https://www.quemailer.com/home";
-  const response = await fetch(externalUrl, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(req.user),
-  });
-  if (response.ok) {
-    res.redirect(externalUrl);
-  }
+  // const response = await fetch(externalUrl, {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   body: JSON.stringify(req.user),
+  // });
+  // if (response.ok) {
+  //   res.redirect(externalUrl);
+  // }
   // res.redirect(
   //   `https://www.quemailer.com/home/?userName=${req.user.displayName}&email=${req.user.email}&id=${req.user.id}`
-  // );
+  // // );
   // request(
   //   {
   //     url: `https://quemailer.com/home?username=${req.user.displayName}&email=${req.user.email}&googleID=${req.user.id}`,
