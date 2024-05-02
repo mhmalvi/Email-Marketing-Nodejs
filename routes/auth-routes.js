@@ -81,6 +81,9 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
   const data = {
     email: req.user.email,
     token: token,
+    googleId: req.user.id,
+    userName: req.user.displayName,
+    role: 3,
   };
   if (user === null) {
     newUser = await User.create({
@@ -116,10 +119,10 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
   // );
   if (req.user) {
     res.status(200).json({
-      message: 'login success',
+      message: "login success",
       status: 200,
-      user:req.user
-    })
+      user: data,
+    });
   } else {
     res.status(403).json({
       message: "login failed",
