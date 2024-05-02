@@ -95,7 +95,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
   //   role: user.role,
   //   token: token,
   // };
-  console.log(userData);
+  // console.log(userData);
   // res.status(200).json({
   //   message: "Login successful",
   //   status: 200,
