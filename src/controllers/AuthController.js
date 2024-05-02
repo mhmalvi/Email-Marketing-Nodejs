@@ -14,7 +14,7 @@ const isUserEmailExists = async (req, res) => {
   // console.log(user);
   // await user.save();
 
-  
+
   await transporter.sendMail(
     {
       from: keys.mail.user,
@@ -22,10 +22,6 @@ const isUserEmailExists = async (req, res) => {
       subject: "Password verification", // Subject line
       text: `Your Password is ${otp}`, // plain text body
       // html: "<b>Hello world?</b>", // html body
-    },
-    (err, info) => {
-      console.log(info.envelope);
-      console.log(info.messageId);
     }
   );
   // await sendmail(
