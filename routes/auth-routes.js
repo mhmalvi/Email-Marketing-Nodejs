@@ -91,8 +91,9 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
       email: req.user.email,
       googleId: req.user.id,
       role: 3,
+      photo: req.user.picture,
     });
-    
+
     console.log(newUser.id);
     // return req.user.email;
     await saveToken(data);
