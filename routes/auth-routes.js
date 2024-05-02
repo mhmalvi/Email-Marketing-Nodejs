@@ -124,7 +124,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
 });
 
 // Route that logs out the authenticated user
-authRouter.get("/logout", (req, res) => {
+authRouter.get("/logout", isLoggedIn,(req, res) => {
   req.session.destroy((err) => {
     if (err) {
       console.log("Error while destroying session:", err);
