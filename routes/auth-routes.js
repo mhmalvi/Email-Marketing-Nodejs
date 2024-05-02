@@ -119,6 +119,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
   //     ".Your email is " +
   //     req.user.email
   // );
+  res.redirect("https://www.quemailer.com/home");
   if (req.user) {
     res.status(200).json({
       message: "login success",
