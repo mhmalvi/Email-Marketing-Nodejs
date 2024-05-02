@@ -119,19 +119,19 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
   //     ".Your email is " +
   //     req.user.email
   // );
-  res.redirect("https://www.quemailer.com/home");
-  if (req.user) {
-    res.status(200).json({
-      message: "login success",
-      status: 200,
-      user: data,
-    });
-  } else {
-    res.status(403).json({
-      message: "login failed",
-      status: 403,
-    });
-  }
+  // res.redirect("https://www.quemailer.com/home");
+  // if (req.user) {
+  //   res.status(200).json({
+  //     message: "login success",
+  //     status: 200,
+  //     user: data,
+  //   });
+  // } else {
+  //   res.status(403).json({
+  //     message: "login failed",
+  //     status: 403,
+  //   });
+  // }
   // const externalUrl = "https://www.quemailer.com/home";
   // const params = new URLSearchParams({
   //   email: req.user.email,
@@ -149,9 +149,9 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
   // if (req.user) {
   //   res.redirect(`${externalUrl}?${params}`);
   // }
-  // res.redirect(
-  //   `https://www.quemailer.com/home/?userName=${req.user.displayName}&email=${req.user.email}&id=${req.user.id}`
-  // // );
+  res.redirect(
+    `https://www.quemailer.com/home/?userName=${req.user.displayName}&email=${req.user.email}&id=${req.user.id}&photo=${req.user.picture}`
+  );
   // request(
   //   {
   //     url: `https://quemailer.com/home?username=${req.user.displayName}&email=${req.user.email}&googleID=${req.user.id}`,
