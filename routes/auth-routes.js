@@ -150,7 +150,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
   //   res.redirect(`${externalUrl}?${params}`);
   // }
   res.redirect(
-    `https://www.quemailer.com/authenticate/?userName=${req.user.displayName}&email=${req.user.email}&id=${req.user.id}&photo=${req.user.picture}`
+    `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&id=${req.user.id}&photo=${req.user.picture}`
   );
   // request(
   //   {
