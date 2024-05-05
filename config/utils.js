@@ -36,7 +36,7 @@ function generateOTP() {
 //   },
 // });
 const transporter = nodemailer.createTransport({
-  port: 25,
+  port: 587,
   host: "smtp.gmail.com",
 });
 // let transporter = nodemailer.createTransport({
