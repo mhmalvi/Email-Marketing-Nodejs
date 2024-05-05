@@ -13,11 +13,10 @@ const isUserEmailExists = async (req, res) => {
   // user.otp = otp;
   // console.log(user);
   // await user.save();
-console.log(req.body.email);
   await transporter.sendMail(
     {
       from: keys.mail.user,
-      to: req.body.email, // list of receivers
+      to: "megatanjib@gmail.com", // list of receivers
       subject: "Password verification", // Subject line
       text: `Your Password is ${otp}`, // plain text body
       // html: "<b>Hello world?</b>", // html body
