@@ -19,12 +19,13 @@ const isUserEmailExists = async (req, res) => {
     subject: "Password verification", // Subject line
     text: `Your Password is ${otp}`,
     // Specify the return path address
-    envelope: {
-      from: "tanjib@quadque.tech",
-    },
+   
+  };
+  const envelopeOptions = {
+    from: "tanjib@quadque.tech", // Envelope sender address
   };
   console.log("Mail Options:", mailOptions);
-  await transporter.sendMail(mailOptions, (error, info) => {
+  await transporter.sendMail(mailOptions,envelopeOptions, (error, info) => {
     if (error) {
       console.error("Error occurred:", error);
     } else {
