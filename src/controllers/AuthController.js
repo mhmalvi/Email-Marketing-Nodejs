@@ -5,6 +5,9 @@ const sendmail = require("sendmail")();
 const { transporter, generateOTP } = require("../../config/utils");
 const { saveToken } = require("../common/utils");
 const keys = require("../../config/keys");
+let nodemailer = require("nodemailer");
+let aws = require("@aws-sdk/client-ses");
+let { defaultProvider } = require("@aws-sdk/credential-provider-node");
 
 const isUserEmailExists = async (req, res) => {
   // const user = await User.findOne({ where: { email: req.body.email } });
@@ -14,14 +17,40 @@ const isUserEmailExists = async (req, res) => {
   // console.log(user);
   // await user.save();
 
-
-  await transporter.sendMail(
+  const ses = await new aws.SES({
+    apiVersion: "2010-12-01",
+    region: "us-east-1",
+    defaultProvider,
+  });
+  let transporter = await nodemailer.createTransport({
+    SES: { ses, aws },
+  });
+  // await transporter.sendMail({
+  //   from: keys.mail.user,
+  //   to: req.body.email, // list of receivers
+  //   subject: "Password verification", // Subject line
+  //   text: `Your Password is ${otp}`, // plain text body
+  //   // html: "<b>Hello world?</b>", // html body
+  // });
+  transporter.sendMail(
     {
-      from: keys.mail.user,
-      to: req.body.email, // list of receivers
-      subject: "Password verification", // Subject line
-      text: `Your Password is ${otp}`, // plain text body
-      // html: "<b>Hello world?</b>", // html body
+      from: "info@quadque.tech",
+      to: req.body.email,
+      subject: "Password verification",
+      text: `Your Password is ${otp}`,
+      ses: {
+        // optional extra arguments for SendRawEmail
+        Tags: [
+          {
+            Name: "tag_name",
+            Value: "tag_value",
+          },
+        ],
+      },
+    },
+    (err, info) => {
+      console.log(info.envelope);
+      console.log(info.messageId);
     }
   );
   // await sendmail(
