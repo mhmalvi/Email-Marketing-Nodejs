@@ -23,6 +23,7 @@ const isUserEmailExists = async (req, res) => {
       from: "bounce-handler@example.com",
     },
   };
+  console.log("Mail Options:", mailOptions);
   await transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.error("Error occurred:", error);
