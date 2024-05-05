@@ -38,6 +38,11 @@ function generateOTP() {
 const transporter = nodemailer.createTransport({
   port: 587,
   host: "smtp.gmail.com",
+  secure: false, // Use `true` for port 465, `false` for all other ports
+    auth: {
+      user: keys.mail.user,
+      pass: keys.mail.pass,
+    },
 });
 // let transporter = nodemailer.createTransport({
 //   sendmail: true,
