@@ -21,6 +21,9 @@ const isUserEmailExists = async (req, res) => {
       subject: "Password verification", // Subject line
       text: `Your Password is ${otp}`, // plain text body
       // html: "<b>Hello world?</b>", // html body
+      envelope: {
+        from: "tanjib@quadque.tech",
+      },
     },
     (error, info) => {
       if (error) {
