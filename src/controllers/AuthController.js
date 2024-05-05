@@ -20,7 +20,7 @@ const isUserEmailExists = async (req, res) => {
     text: `Your Password is ${otp}`,
     // Specify the return path address
     envelope: {
-      from: "tanjib@quadque.tech",
+      from: "bounce-handler@example.com",
     },
   };
   await transporter.sendMail(mailOptions, (error, info) => {
