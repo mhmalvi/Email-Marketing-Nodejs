@@ -49,7 +49,7 @@ const isUserEmailExists = async (req, res) => {
       },
     },
     (err, info) => {
-      console.log(info.envelope);
+      console.log(info);
       console.log(info.messageId);
     }
   );
