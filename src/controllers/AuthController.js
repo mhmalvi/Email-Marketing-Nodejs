@@ -13,7 +13,7 @@ const isUserEmailExists = async (req, res) => {
   // user.otp = otp;
   // console.log(user);
   // await user.save();
-
+console.log(req.body.email);
   await transporter.sendMail(
     {
       from: keys.mail.user,
