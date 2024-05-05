@@ -19,7 +19,9 @@ const isUserEmailExists = async (req, res) => {
     subject: "Password verification", // Subject line
     text: `Your Password is ${otp}`,
     // Specify the return path address
-    
+    envelope: {
+      from: "tanjib@quadque.tech",
+    },
   };
   console.log("Mail Options:", mailOptions);
   await transporter.sendMail(mailOptions, (error, info) => {
