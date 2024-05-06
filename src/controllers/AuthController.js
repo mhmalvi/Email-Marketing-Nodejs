@@ -67,8 +67,8 @@ const verifyOTP = async (req, res) => {
       const data = {
         email: req.body.email,
         token: token,
-        username: user.userName,
-        image:user.image
+        userName: user.userName,
+        photo:user.image
       };
 
       user.otp = 0;
