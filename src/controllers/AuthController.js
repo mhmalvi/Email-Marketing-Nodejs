@@ -3,51 +3,51 @@ const Token = require("../../models").Token;
 const User = require("../../models").User;
 const sendmail = require("sendmail")();
 const { transporter, generateOTP } = require("../../config/utils");
+const { randomAlphaNumeric } = require("../../config/utils");
 const { saveToken } = require("../common/utils");
 const keys = require("../../config/keys");
 
 const isUserEmailExists = async (req, res) => {
   const user = await User.findOne({ where: { email: req.body.email } });
   if (user) {
-  const otp = generateOTP();
-  user.otp = otp;
-  // console.log(user);
-  await user.save();
-  const mailOptions = {
-    // from: keys.mail.user,
-    to: req.body.email, // list of receivers
-    subject: "OTP verification", // Subject line
-    text: `Your OTP is ${otp}`,
-    // Specify the return path address
-   
-  };
-  const envelopeOptions = {
-    from: "tanjib@quadque.tech", // Envelope sender address
-  };
-  console.log("Mail Options:", mailOptions);
-  await transporter.sendMail(mailOptions,envelopeOptions, (error, info) => {
-    if (error) {
-      console.error("Error occurred:", error);
-    } else {
-      console.log("Email sent:", info);
-    }
-  });
-  // await sendmail(
-  //   {
-  //     from: keys.mail.user,
-  //     to: req.body.email,
-  //     subject: "Password verification",
-  //     html: `Your Password is ${otp}`,
-  //   },
-  //   function (err, reply) {
-  //     console.log(err && err.stack);
-  //     console.dir(reply);
-  //   }
-  // );
-  res.status(200).json({
-    status: true,
-    password: otp,
-  });
+    const otp = generateOTP();
+    user.otp = otp;
+    // console.log(user);
+    await user.save();
+    const mailOptions = {
+      // from: keys.mail.user,
+      to: req.body.email, // list of receivers
+      subject: "OTP verification", // Subject line
+      text: `Your OTP is ${otp}`,
+      // Specify the return path address
+    };
+    const envelopeOptions = {
+      from: "tanjib@quadque.tech", // Envelope sender address
+    };
+    console.log("Mail Options:", mailOptions);
+    await transporter.sendMail(mailOptions, envelopeOptions, (error, info) => {
+      if (error) {
+        console.error("Error occurred:", error);
+      } else {
+        console.log("Email sent:", info);
+      }
+    });
+    // await sendmail(
+    //   {
+    //     from: keys.mail.user,
+    //     to: req.body.email,
+    //     subject: "Password verification",
+    //     html: `Your Password is ${otp}`,
+    //   },
+    //   function (err, reply) {
+    //     console.log(err && err.stack);
+    //     console.dir(reply);
+    //   }
+    // );
+    res.status(200).json({
+      status: true,
+      password: otp,
+    });
   } else {
     res.status(404).json({
       status: false,
@@ -63,10 +63,12 @@ const verifyOTP = async (req, res) => {
     });
 
     if (user) {
+      const token = "Bearer " + randomAlphaNumeric(60);
       const data = {
         email: req.body.email,
-        token: req.body.token,
+        token: token,
       };
+
       user.otp = 0;
       await user.save();
       await saveToken(data);
