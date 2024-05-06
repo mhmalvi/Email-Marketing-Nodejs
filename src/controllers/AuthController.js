@@ -16,8 +16,8 @@ const isUserEmailExists = async (req, res) => {
   const mailOptions = {
     // from: keys.mail.user,
     to: req.body.email, // list of receivers
-    subject: "Password verification", // Subject line
-    text: `Your Password is ${otp}`,
+    subject: "OTP verification", // Subject line
+    text: `Your OTP is ${otp}`,
     // Specify the return path address
    
   };
