@@ -86,6 +86,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
     role: 3,
     photo: req.user.picture,
   };
+  console.log(data);
   if (user === null) {
     newUser = await User.create({
       userName: req.user.displayName,
