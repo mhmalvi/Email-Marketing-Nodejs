@@ -71,10 +71,12 @@ const verifyOTP = async (req, res) => {
 
       user.otp = 0;
       await user.save();
+      user.push("token", token);
       await saveToken(data);
       res.status(200).json({
         message: "OTP found",
         status: 200,
+        user: user,
       });
     } else {
       res.status(404).json({
