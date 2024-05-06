@@ -130,7 +130,9 @@ const getUser = async (req, res) => {
   }
 };
 const logout = async (req, res) => {
-  console.log(req.body.token);
+  
+  const bearerHeader = req.headers["authorization"];
+  console.log(bearerHeader);
   const token = await Token.findOne({ where: { token: req.body.token } });
   if (token) {
     const result = await token.destroy();
