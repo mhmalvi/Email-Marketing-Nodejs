@@ -135,6 +135,7 @@ const logout = async (req, res) => {
   console.log(bearerHeader);
   const token = await Token.findOne({ where: { token: JSON.parse(bearerHeader) } });
   if (token) {
+    req.session.destroy;
     const result = await token.destroy();
     console.log(result);
     if (result) {
