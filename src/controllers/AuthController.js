@@ -24,7 +24,7 @@ const isUserEmailExists = async (req, res) => {
     const envelopeOptions = {
       from: "tanjib@quadque.tech", // Envelope sender address
     };
-    console.log("Mail Options:", mailOptions);
+    // console.log("Mail Options:", mailOptions);
     await transporter.sendMail(mailOptions, envelopeOptions, (error, info) => {
       if (error) {
         console.error("Error occurred:", error);
