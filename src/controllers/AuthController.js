@@ -46,7 +46,6 @@ const isUserEmailExists = async (req, res) => {
     // );
     res.status(200).json({
       status: true,
-      password: otp,
     });
   } else {
     res.status(404).json({
