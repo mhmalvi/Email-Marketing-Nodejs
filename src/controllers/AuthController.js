@@ -68,7 +68,7 @@ const verifyOTP = async (req, res) => {
         email: req.body.email,
         token: token,
         userName: user.userName,
-        photo:user.image
+        photo: user.image,
       };
 
       user.otp = 0;
@@ -90,6 +90,30 @@ const verifyOTP = async (req, res) => {
       message: "Failed",
       status: 500,
     });
+  }
+};
+
+const getUser = async (req, res) => {
+  const { email, token } = req.body;
+  if (email && token) {
+    const ifTokenExists = await Token.findOne({
+      where: { token: token },
+      where: { email: email },
+    });
+    if (ifTokenExists) {
+      const user = await User.findOne({ where: { email: email } });
+      const data = {
+        email: email,
+        userName: user.userName,
+        token: token,
+        photo: user.image,
+      };
+      res.status(200).json({
+        message: "success",
+        status: 200,
+        user: data,
+      });
+    }
   }
 };
 const logout = async (req, res) => {
@@ -117,4 +141,4 @@ const logout = async (req, res) => {
   }
 };
 
-module.exports = { logout, isUserEmailExists, verifyOTP };
+module.exports = { logout, isUserEmailExists, verifyOTP, getUser };
