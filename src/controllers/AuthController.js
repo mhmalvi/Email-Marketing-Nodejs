@@ -7,8 +7,8 @@ const { saveToken } = require("../common/utils");
 const keys = require("../../config/keys");
 
 const isUserEmailExists = async (req, res) => {
-  // const user = await User.findOne({ where: { email: req.body.email } });
-  // if (user) {
+  const user = await User.findOne({ where: { email: req.body.email } });
+  if (user) {
   const otp = generateOTP();
   user.otp = otp;
   // console.log(user);
@@ -48,11 +48,11 @@ const isUserEmailExists = async (req, res) => {
     status: true,
     password: otp,
   });
-  // } else {
-  //   res.status(404).json({
-  //     status: false,
-  //   });
-  // }
+  } else {
+    res.status(404).json({
+      status: false,
+    });
+  }
 };
 
 const verifyOTP = async (req, res) => {
