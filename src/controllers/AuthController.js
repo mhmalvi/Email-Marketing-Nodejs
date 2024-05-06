@@ -10,9 +10,9 @@ const isUserEmailExists = async (req, res) => {
   // const user = await User.findOne({ where: { email: req.body.email } });
   // if (user) {
   const otp = generateOTP();
-  // user.otp = otp;
+  user.otp = otp;
   // console.log(user);
-  // await user.save();
+  await user.save();
   const mailOptions = {
     // from: keys.mail.user,
     to: req.body.email, // list of receivers
