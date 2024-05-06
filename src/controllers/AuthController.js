@@ -108,12 +108,24 @@ const getUser = async (req, res) => {
         token: token,
         photo: user.image,
       };
-      res.status(200).json({
-        message: "success",
-        status: 200,
-        user: data,
-      });
+      if (user) {
+        res.status(200).json({
+          message: "success",
+          status: 200,
+          user: data,
+        });
+      } else {
+        res.status(404).json({
+          message: "Not found",
+          status: 404,
+        });
+      }
     }
+  } else {
+    res.status(404).json({
+      message: "Not found",
+      status: 404,
+    });
   }
 };
 const logout = async (req, res) => {
