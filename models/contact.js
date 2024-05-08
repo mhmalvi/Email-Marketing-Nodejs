@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   Contact.init(
     {
       json: DataTypes.JSON,
+      user_id: DataTypes.INTEGER,
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
     },
