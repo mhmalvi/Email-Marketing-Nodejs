@@ -1,6 +1,6 @@
 const express = require("express");
 const Contact = require("../../../models").Contact;
-const { saveContact } = require("../../common/contactsUtils.js/saveContact");
+const { saveContact } = require("../../common/contactsUtils/saveContact");
 const insertContact = async (req, res) => {
   console.log(req.params.userID);
   const json = req.body;
