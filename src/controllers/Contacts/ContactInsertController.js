@@ -1,0 +1,26 @@
+const express = require("express");
+const Contact = require("../../../models").Contact;
+const { saveContact } = require("../../common/contactsUtils.js/saveContact");
+const insertContact = async (req, res) => {
+  const json = req.body;
+  if (json) {
+    await json.forEach((element) => {
+      saveContact(element);
+    });
+    res.status(201).json({
+      message: "Contact inserted",
+      status: 201,
+      contact: JSON.stringify(json),
+    });
+  } else {
+    res.status(403),
+      json({
+        message: "No data given",
+        status: 403,
+      });
+  }
+};
+
+
+
+module.exports = { insertContact };
