@@ -2,7 +2,7 @@ const express = require("express");
 const Contact = require("../../models").Contact;
 const { saveContact } = require("../common/contactsUtils.js/saveContact");
 const insertContact = async (req, res) => {
-  const json = JSON.stringify(req.body);
+  const json = req.body;
   if (json) {
     await json.forEach((element) => {
       saveContact(element);
@@ -10,7 +10,7 @@ const insertContact = async (req, res) => {
     res.status(201).json({
       message: "Contact inserted",
       status: 201,
-      contact: json,
+      contact: JSON.stringify(json),
     });
   } else {
     res.status(403),
