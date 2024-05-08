@@ -3,7 +3,7 @@ const Contact = require("../../models").Contact;
 const { saveContact } = require("../common/contactsUtils.js/saveContact");
 const insertContact = async (req, res) => {
   const json = req.body;
-  if (response) {
+  if (json) {
     await json.forEach((element) => {
       saveContact(element);
     });
