@@ -9,6 +9,6 @@ const {
 } = require("../src/controllers/Contacts/ContactFetchController");
 
 contactRouter.route("/contact-save/:userID").post(insertContact);
-contactRouter.route("/contact-save").post(fetchContact);
+contactRouter.route("/contact-fetch").post(fetchContact);
 
 module.exports = { contactRouter };
