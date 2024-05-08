@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Contact.init(
     {
-      json: DataTypes.STRING,
+      json: DataTypes.JSON,
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
     },
