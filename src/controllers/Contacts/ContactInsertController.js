@@ -2,10 +2,12 @@ const express = require("express");
 const Contact = require("../../../models").Contact;
 const { saveContact } = require("../../common/contactsUtils.js/saveContact");
 const insertContact = async (req, res) => {
+  console.log(req.params.userID);
   const json = req.body;
-  if (json) {
+  const userID = req.params.userID;
+  if (json && userID) {
     await json.forEach((element) => {
-      saveContact(element);
+      saveContact(element, userID);
     });
     res.status(201).json({
       message: "Contact inserted",
@@ -20,7 +22,5 @@ const insertContact = async (req, res) => {
       });
   }
 };
-
-
 
 module.exports = { insertContact };
