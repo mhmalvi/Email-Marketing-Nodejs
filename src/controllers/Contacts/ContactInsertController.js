@@ -6,10 +6,9 @@ const insertContact = async (req, res) => {
   const json = req.body;
   const data = JSON.parse(req.params.userID);
   console.log(data);
-  const UserCollectionExist = JSON.stringify(await fetch(data));
-  console.log(UserCollectionExist);
   if (json !== null) {
     await json.forEach((element) => {
+      const UserCollectionExist = JSON.stringify(fetch(data));
       JSON.parse(UserCollectionExist).forEach((user) => {
         console.log(user.json.email);
         if (element.email !== user.json.email) {
