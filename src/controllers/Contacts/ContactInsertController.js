@@ -8,11 +8,11 @@ const insertContact = async (req, res) => {
   const data = JSON.parse(req.params.userID);
   console.log(data);
   if (json.length > 0) {
+    const UserCollectionExist = (await fetch(data));
     await json.forEach((element) => {
-      const UserCollectionExist = fetch(data);
       console.log("string", UserCollectionExist);
       const collection = JSON.parse(UserCollectionExist);
-      console.log(collection)
+      console.log(collection);
       if (Object.keys(collection).length > 0) {
         Object.keys(collection).forEach((user) => {
           console.log(user.json.email);
