@@ -6,7 +6,7 @@ const insertContact = (req, res) => {
   const json = req.body;
   const userID = JSON.parse(req.params.userID);
   // const existUserCollection = fetch(userID);
-  console.log(existUserCollection);
+  // console.log(existUserCollection);
   if (json !== null) {
     json.forEach((element) => {
       
