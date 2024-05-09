@@ -7,11 +7,11 @@ const insertContact = async (req, res) => {
   const data = JSON.parse(req.params.userID);
   console.log(data);
 
-  const UserCollectionExist = await Contact.findAll({
+  const UserCollectionExist = JSON.stringify(await Contact.findAll({
     where: { user_id: data },
     order: [["id", "DESC"]],
-  });
-  console.log(UserCollectionExist);
+  });)
+  console.log(JSONUserCollectionExist);
   if (json !== null) {
     await json.forEach((element) => {
       UserCollectionExist.forEach((user) => {
