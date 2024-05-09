@@ -23,11 +23,6 @@ const insertContact = async (req, res) => {
               status: 201,
               contact: JSON.stringify(json),
             });
-          } else {
-            // res.status(422).json({
-            //   message: "Data already exist",
-            //   status: 422,
-            // });
           }
         });
       } else {
