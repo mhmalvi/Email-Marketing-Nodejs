@@ -14,7 +14,7 @@ const fetchContact = async (req, res) => {
       });
     }
   } else {
-    res.status(403),
+    res.status(403).
       json({
         message: "No data given",
         status: 403,
