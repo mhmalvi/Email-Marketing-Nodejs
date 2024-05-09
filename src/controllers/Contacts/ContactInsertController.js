@@ -15,11 +15,10 @@ const insertContact = async (req, res) => {
       contact: JSON.stringify(json),
     });
   } else {
-    res.status(403),
-      json({
-        message: "No data given",
-        status: 403,
-      });
+    res.status(403).json({
+      message: "No data given",
+      status: 403,
+    });
   }
 };
 
