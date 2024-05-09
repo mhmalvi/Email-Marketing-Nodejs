@@ -13,7 +13,7 @@ const insertContact = async (req, res) => {
       JSON.parse(UserCollectionExist).forEach((user) => {
         // if(user.)
 
-        console.log(user);
+        console.log(user.json);
       });
       // saveContact(element, userID);
     });
