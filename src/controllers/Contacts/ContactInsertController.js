@@ -8,10 +8,11 @@ const insertContact = (req, res) => {
   if (json !== null) {
     json.forEach((element) => {
       const existUserCollection = fetch()
-      existUserCollection.forEach((user) => {
-        // if(user.)
-        console.log(user);
-      })
+      console.log(existUserCollection);
+      // existUserCollection.forEach((user) => {
+      //   // if(user.)
+      //   console.log(user);
+      // })
       // saveContact(element, userID);
     });
     res.status(201).json({
