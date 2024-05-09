@@ -97,11 +97,18 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
     });
 
     console.log(newUser.id);
+
     // return req.user.email;
     await saveToken(data);
+    res.redirect(
+      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&id=${userName.id}&photo=${req.user.picture}&token=${token}`
+    );
   } else {
     // return req.user.email;
-    await saveToken(data);
+    const token = await saveToken(data);
+    res.redirect(
+      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&id=${user.id}&photo=${req.user.picture}&token=${token}`
+    );
   }
   // const userData = {
   //   email: req.user.email,
@@ -150,9 +157,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
   // if (req.user) {
   //   res.redirect(`${externalUrl}?${params}`);
   // }
-  res.redirect(
-    `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&id=${req.user.id}&photo=${req.user.picture}&token=${token}`
-  );
+
   // request(
   //   {
   //     url: `https://quemailer.com/home?username=${req.user.displayName}&email=${req.user.email}&googleID=${req.user.id}`,

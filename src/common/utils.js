@@ -1,7 +1,7 @@
 const Token = require("../../models").Token;
 
 const saveToken = async (data) => {
-  await Token.create({
+  return await Token.create({
     email: data.email,
     token: data.token,
   });
