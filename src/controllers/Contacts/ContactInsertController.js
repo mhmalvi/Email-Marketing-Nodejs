@@ -16,12 +16,16 @@ const insertContact = async (req, res) => {
 
       if (collection.length > 0) {
         collection.forEach((user) => {
+          const count = 0;
           console.log("json", user.json);
 
-          if (element.email !== user.json.email) {
-            saveContact(element, data);
+          if (element.email === user.json.email) {
+            count += 1;
           }
         });
+        if (count < 1) {
+          saveContact(element, data);
+        }
       } else {
         saveContact(element, data);
       }
