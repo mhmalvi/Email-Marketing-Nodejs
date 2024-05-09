@@ -10,8 +10,8 @@ const insertContact = async (req, res) => {
   const UserCollectionExist = JSON.stringify(await Contact.findAll({
     where: { user_id: data },
     order: [["id", "DESC"]],
-  });)
-  console.log(JSONUserCollectionExist);
+  }))
+  console.log(UserCollectionExist);
   if (json !== null) {
     await json.forEach((element) => {
       UserCollectionExist.forEach((user) => {
