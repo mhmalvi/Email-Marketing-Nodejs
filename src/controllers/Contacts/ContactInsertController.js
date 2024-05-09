@@ -4,7 +4,7 @@ const { saveContact } = require("../../common/contactsUtils/saveContact");
 const insertContact = (req, res) => {
   console.log(JSON.parse(req.params.userID));
   const json = req.body;
-  const userID = req.params.userID;
+  const userID = JSON.parse(req.params.userID);
   const existUserCollection = fetch(userID);
   console.log(existUserCollection);
   if (json !== null) {
