@@ -18,6 +18,8 @@ const insertContact = async (req, res) => {
             saveContact(element, userID);
           }
         });
+      } else {
+        saveContact(element, userID);
       }
     });
 
