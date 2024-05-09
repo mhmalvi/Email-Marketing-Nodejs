@@ -1,7 +1,7 @@
 const Contact = require("../../../models").Contact;
 
-const saveContact = async (data, userID) => {
-  return await Contact.create({
+const saveContact = (data, userID) => {
+  return Contact.create({
     json: data,
     user_id: userID,
   });
