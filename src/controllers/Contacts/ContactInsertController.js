@@ -24,10 +24,10 @@ const insertContact = async (req, res) => {
               contact: JSON.stringify(json),
             });
           } else {
-            res.status(422).json({
-              message: "Data already exist",
-              status: 422,
-            });
+            // res.status(422).json({
+            //   message: "Data already exist",
+            //   status: 422,
+            // });
           }
         });
       } else {
