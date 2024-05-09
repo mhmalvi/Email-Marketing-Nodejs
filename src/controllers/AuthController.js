@@ -69,6 +69,7 @@ const verifyOTP = async (req, res) => {
         token: token,
         userName: user.userName,
         photo: user.image,
+        userID: user.id,
       };
 
       user.otp = 0;
@@ -129,10 +130,11 @@ const getUser = async (req, res) => {
   }
 };
 const logout = async (req, res) => {
-  
   const bearerHeader = req.headers["authorization"];
   console.log(bearerHeader);
-  const token = await Token.findOne({ where: { token: JSON.parse(bearerHeader) } });
+  const token = await Token.findOne({
+    where: { token: JSON.parse(bearerHeader) },
+  });
   if (token) {
     // req.session.destroy;
     const result = await token.destroy();
