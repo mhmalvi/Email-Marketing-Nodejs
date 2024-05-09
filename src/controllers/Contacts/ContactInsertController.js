@@ -8,7 +8,7 @@ const insertContact = async (req, res) => {
   const data = JSON.parse(req.params.userID);
   console.log(data);
   if (json.length > 0) {
-    const UserCollectionExist = (await fetch(data));
+    const UserCollectionExist = JSON.stringify(await fetch(data));
     await json.forEach((element) => {
       console.log("string", UserCollectionExist);
       const collection = JSON.parse(UserCollectionExist);
