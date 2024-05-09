@@ -14,6 +14,7 @@ const insertContact = async (req, res) => {
         where: { user_id: data },
         order: [["id", "DESC"]],
       });
+      console.log(UserCollectionExist);
       UserCollectionExist.forEach((user) => {
         // if(user.)
 
