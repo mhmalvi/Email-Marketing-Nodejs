@@ -13,12 +13,13 @@ const insertContact = async (req, res) => {
       // console.log("string", UserCollectionExist);
       const collection = JSON.parse(UserCollectionExist);
       console.log("abc", collection);
+
       if (collection.length > 0) {
         collection.forEach((user) => {
           console.log("json", user.json);
+
           if (element.email !== user.json.email) {
             saveContact(element, data);
-            
           }
         });
       } else {
