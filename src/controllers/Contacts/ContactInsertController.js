@@ -7,7 +7,12 @@ const insertContact = async (req, res) => {
   const userID = req.params.userID;
   if (json !== null) {
     await json.forEach((element) => {
-      saveContact(element, userID);
+      const existUserCollection = fetch()
+      existUserCollection.forEach((user) => {
+        // if(user.)
+        console.log(user);
+      })
+      // saveContact(element, userID);
     });
     res.status(201).json({
       message: "Contact inserted",
