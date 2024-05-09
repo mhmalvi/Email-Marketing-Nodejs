@@ -17,22 +17,18 @@ const insertContact = async (req, res) => {
         collection.forEach((user) => {
           console.log("json", user.json);
           if (element.email !== user.json.email) {
-            // saveContact(element, data);
-            res.status(201).json({
-              message: "Contact inserted",
-              status: 201,
-              contact: JSON.stringify(json),
-            });
+            saveContact(element, data);
+            
           }
         });
       } else {
         saveContact(element, data);
-        res.status(201).json({
-          message: "Contact inserted",
-          status: 201,
-          contact: JSON.stringify(json),
-        });
       }
+    });
+    res.status(201).json({
+      message: "Contact inserted",
+      status: 201,
+      contact: JSON.stringify(json),
     });
   } else {
     res.status(403).json({
