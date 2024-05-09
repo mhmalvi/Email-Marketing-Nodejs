@@ -2,9 +2,9 @@ const express = require("express");
 const Contact = require("../../../models").Contact;
 const { saveContact } = require("../../common/contactsUtils/saveContact");
 const insertContact = async (req, res) => {
-  console.log(JSON.parse(req.params.userID));
   const json = req.body;
   const data = JSON.parse(req.params.userID);
+  console.log(data);
   const UserCollectionExist = await fetch(data);
   console.log(UserCollectionExist);
   if (json !== null) {
