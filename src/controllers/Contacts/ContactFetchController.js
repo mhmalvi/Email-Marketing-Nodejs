@@ -3,7 +3,7 @@ const Contact = require("../../../models").Contact;
 const { saveContact } = require("../../common/contactsUtils/saveContact");
 const { fetch } = require("../../common/contactsUtils/fetch");
 const fetchContact = async (req, res) => {
-  const data = req.body.userID;
+  const data = JSON.parse(req.body.userID);
   if (data) {
     const result = await fetch(data);
     if (result) {
