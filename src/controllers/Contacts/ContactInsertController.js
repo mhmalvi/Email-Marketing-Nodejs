@@ -10,7 +10,7 @@ const insertContact = async (req, res) => {
     await json.forEach((element) => {
       const UserCollectionExist = JSON.stringify(fetch(data));
       const collection = JSON.parse(UserCollectionExist);
-      console.log(collection);
+      console.log(collection)
       if (Object.keys(collection).length > 0) {
         Object.keys(collection).forEach((user) => {
           console.log(user.json.email);
