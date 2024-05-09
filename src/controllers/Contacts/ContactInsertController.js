@@ -11,7 +11,7 @@ const insertContact = async (req, res) => {
   if (json !== null) {
     json.forEach((element) => {
       const UserCollectionExist = JSON.stringify(fetch(data));
-      existUserCollection.forEach((user) => {
+      UserCollectionExist.forEach((user) => {
         // if(user.)
 
         console.log(user);
