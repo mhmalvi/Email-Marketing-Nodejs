@@ -16,6 +16,11 @@ const insertContact = async (req, res) => {
           console.log(user.json.email);
           if (element.email !== user.json.email) {
             saveContact(element, data);
+            res.status(201).json({
+              message: "Contact inserted",
+              status: 201,
+              contact: JSON.stringify(json),
+            });
           } else {
             res.status(422).json({
               message: "Data already exist",
@@ -25,13 +30,12 @@ const insertContact = async (req, res) => {
         });
       } else {
         saveContact(element, data);
+        res.status(201).json({
+          message: "Contact inserted",
+          status: 201,
+          contact: JSON.stringify(json),
+        });
       }
-    });
-
-    res.status(201).json({
-      message: "Contact inserted",
-      status: 201,
-      contact: JSON.stringify(json),
     });
   } else {
     res.status(403).json({
