@@ -1,14 +1,14 @@
 const express = require("express");
 const Contact = require("../../../models").Contact;
 const { saveContact } = require("../../common/contactsUtils/saveContact");
-const insertContact = async(req, res) => {
+const insertContact = (req, res) => {
   console.log(req.params.userID);
   const json = req.body;
   const userID = req.params.userID;
   const existUserCollection = fetch(userID);
   console.log(existUserCollection);
   if (json !== null) {
-    await json.forEach((element) => {
+    json.forEach((element) => {
       
       // existUserCollection.forEach((user) => {
       //   // if(user.)
