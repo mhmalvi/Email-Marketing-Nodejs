@@ -6,11 +6,7 @@ const insertContact = async (req, res) => {
   const json = req.body;
   const data = JSON.parse(req.params.userID);
   console.log(data);
-
-  const UserCollectionExist = JSON.stringify(await Contact.findAll({
-    where: { user_id: data },
-    order: [["id", "DESC"]],
-  }))
+  const UserCollectionExist = JSON.stringify(await fetch(data))
   console.log(UserCollectionExist);
   if (json !== null) {
     await json.forEach((element) => {
@@ -19,7 +15,7 @@ const insertContact = async (req, res) => {
 
         console.log(user);
       });
-      saveContact(element, userID);
+      // saveContact(element, userID);
     });
     res.status(201).json({
       message: "Contact inserted",
