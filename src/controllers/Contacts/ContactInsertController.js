@@ -12,11 +12,15 @@ const insertContact = async (req, res) => {
       const collection = JSON.parse(UserCollectionExist);
       console.log(collection);
       if (Object.keys(collection).length > 0) {
-        console.log("ffhtfghgtfh");
         Object.keys(collection).forEach((user) => {
           console.log(user.json.email);
           if (element.email !== user.json.email) {
             saveContact(element, data);
+          } else {
+            res.status(422).json({
+              message: "Data already exist",
+              status: 422,
+            });
           }
         });
       } else {
