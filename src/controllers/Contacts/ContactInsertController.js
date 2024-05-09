@@ -7,14 +7,13 @@ const insertContact = async (req, res) => {
   const data = JSON.parse(req.params.userID);
   console.log(data);
 
-  // console.log(UserCollectionExist);
+  const UserCollectionExist = Contact.findAll({
+    where: { user_id: data },
+    order: [["id", "DESC"]],
+  });
+  console.log(UserCollectionExist);
   if (json !== null) {
     await json.forEach((element) => {
-      const UserCollectionExist = Contact.findAll({
-        where: { user_id: data },
-        order: [["id", "DESC"]],
-      });
-      console.log(UserCollectionExist);
       UserCollectionExist.forEach((user) => {
         // if(user.)
 
