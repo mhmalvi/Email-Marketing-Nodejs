@@ -101,13 +101,13 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
     // return req.user.email;
     await saveToken(data);
     res.redirect(
-      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&id=${userName.id}&photo=${req.user.picture}&token=${token}`
+      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${userName.id}&photo=${req.user.picture}&token=${token}`
     );
   } else {
     // return req.user.email;
     const token = await saveToken(data);
     res.redirect(
-      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&id=${user.id}&photo=${req.user.picture}&token=${token}`
+      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${user.id}&photo=${req.user.picture}&token=${token}`
     );
   }
   // const userData = {
