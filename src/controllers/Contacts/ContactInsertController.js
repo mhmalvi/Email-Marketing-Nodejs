@@ -5,7 +5,7 @@ const insertContact = async (req, res) => {
   console.log(req.params.userID);
   const json = req.body;
   const userID = req.params.userID;
-  if (json !== null || userID) {
+  if (json !== null) {
     await json.forEach((element) => {
       saveContact(element, userID);
     });
