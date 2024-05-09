@@ -7,7 +7,7 @@ const insertContact = (req, res) => {
   const userID = req.params.userID;
   if (json !== null) {
     json.forEach((element) => {
-      const existUserCollection = fetch()
+      const existUserCollection = fetch(userID);
       console.log(existUserCollection);
       // existUserCollection.forEach((user) => {
       //   // if(user.)
