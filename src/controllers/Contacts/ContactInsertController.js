@@ -12,7 +12,7 @@ const insertContact = async (req, res) => {
       const collection = JSON.parse(UserCollectionExist);
       console.log(collection);
       if (Object.keys(collection) !== null) {
-        JSON.parse(UserCollectionExist).forEach((user) => {
+        Object.keys(collection).forEach((user) => {
           console.log(user.json.email);
           if (element.email !== user.json.email) {
             saveContact(element, userID);
