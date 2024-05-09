@@ -6,14 +6,14 @@ const insertContact = async(req, res) => {
   const json = req.body;
   const userID = req.params.userID;
   if (json !== null) {
-    json.forEach((element) => {
-      const existUserCollection = fetch(userID);
-      console.log(existUserCollection);
+    await json.forEach((element) => {
+      // const existUserCollection = fetch(userID);
+      // console.log(existUserCollection);
       // existUserCollection.forEach((user) => {
       //   // if(user.)
       //   console.log(user);
       // })
-      // saveContact(element, userID);
+      saveContact(element, userID);
     });
     res.status(201).json({
       message: "Contact inserted",
