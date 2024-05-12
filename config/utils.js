@@ -59,7 +59,7 @@ const getPagingData = (data, page, limit) => {
   const currentPage = page ? +page : 0;
   const totalPages = Math.ceil(totalItems / limit);
 
-  return { totalItems, tutorials, totalPages, currentPage };
+  return { totalItems, Contacts, totalPages, currentPage };
 };
 
 const getPagination = (page, size) => {
