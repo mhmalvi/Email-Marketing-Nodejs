@@ -62,6 +62,13 @@ const getPagingData = (data, page, limit) => {
   return { totalItems, tutorials, totalPages, currentPage };
 };
 
+const getPagination = (page, size) => {
+  const limit = size ? +size : 3;
+  const offset = page ? page * limit : 0;
+
+  return { limit, offset };
+};
+
 // randomAlphaNumeric(5); // '0afad'
 
 module.exports = {
@@ -70,5 +77,6 @@ module.exports = {
   getIp,
   transporter,
   generateOTP,
+  getPagination,
   getPagingData,
 };
