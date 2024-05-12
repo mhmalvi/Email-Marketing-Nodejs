@@ -2,6 +2,7 @@ const express = require("express");
 const Contact = require("../../../models").Contact;
 const { saveContact } = require("../../common/contactsUtils/saveContact");
 const { fetch } = require("../../common/contactsUtils/fetch");
+const { getPagingData } = require("../../../config/utils");
 const fetchContact = async (req, res) => {
   const data = JSON.parse(req.body.userID);
   const page = req.body.page;
