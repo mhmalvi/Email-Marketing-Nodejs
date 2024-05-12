@@ -10,8 +10,8 @@ const fetchContact = async (req, res) => {
   if (data) {
     const { limit, offset } = getPagination(page, size);
     const result = JSON.stringify(await fetch(data));
-    console.log(result);
     const response = await getPagingData(result, page, limit);
+    console.log(response);
     if (response) {
       res.status(200).json({
         message: "success",
