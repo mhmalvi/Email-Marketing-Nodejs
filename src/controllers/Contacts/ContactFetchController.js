@@ -14,13 +14,11 @@ const fetchContact = async (req, res) => {
     // console.log(limit);
     offset = (page - 1) * page;
     // const result = await fetch(data, size, offset);
-    const total = JSON.stringify(
-      await Contact.findAll({
-        where: { user_id: data },
-        order: [["id", "DESC"]]
-      })
-    );
-    const count = total.length / size
+    const total = await Contact.findAll({
+      where: { user_id: data },
+      order: [["id", "DESC"]],
+    });
+    const count = total.length / size;
     console.log(total.length);
     const result = JSON.stringify(await fetch(data, size, offset));
     console.log(result);
