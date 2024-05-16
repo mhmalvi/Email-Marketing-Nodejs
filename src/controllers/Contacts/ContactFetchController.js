@@ -32,6 +32,7 @@ const fetchContact = async (req, res) => {
         contact: result,
         total: total.length,
         totalPages: Math.ceil(totalPages),
+        current_page: page,
       });
     }
   } else {
