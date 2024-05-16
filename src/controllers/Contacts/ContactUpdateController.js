@@ -3,6 +3,7 @@ const Contact = require("../../../models").Contact;
 const { saveContact } = require("../../common/contactsUtils/saveContact");
 const { fetch } = require("../../common/contactsUtils/fetch");
 const { updateOne } = require("../../common/contactsUtils/update");
+const { findOne } = require("../../common/contactsUtils/findOne");
 const { getPagingData, getPagination } = require("../../../config/utils");
 
 const updateContact = async (req, res) => {
