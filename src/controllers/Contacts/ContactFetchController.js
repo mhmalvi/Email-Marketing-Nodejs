@@ -21,7 +21,7 @@ const fetchContact = async (req, res) => {
       })
     );
     const count = total.length / size
-    console.log(count);
+    console.log(total.length);
     const result = JSON.stringify(await fetch(data, size, offset));
     console.log(result);
     // const response = await getPagingData(result, page, size);
