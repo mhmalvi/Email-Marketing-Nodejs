@@ -17,7 +17,7 @@ const fetchContact = async (req, res) => {
       res.status(200).json({
         message: "success",
         status: 200,
-        contact: response,
+        contact: result,
       });
     }
   } else {
