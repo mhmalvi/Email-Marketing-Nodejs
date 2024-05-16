@@ -19,7 +19,7 @@ const fetchContact = async (req, res) => {
       order: [["id", "DESC"]],
     });
     const totalPages = total.length / size;
-    console.log(Math.trunc(totalPages));
+    console.log(Math.ceil(totalPages));
     const result = await fetch(data, size, offset);
     // result.push(totalPages);
     // console.log(result);
@@ -31,7 +31,7 @@ const fetchContact = async (req, res) => {
         status: 200,
         contact: result,
         total: total.length,
-        totalPages: Math.trunc(totalPages) - 1,
+        totalPages: Math.ceil(totalPages) - 1,
       });
     }
   } else {
