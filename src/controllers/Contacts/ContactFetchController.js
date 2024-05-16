@@ -12,7 +12,7 @@ const fetchContact = async (req, res) => {
   if (data) {
     // const { limit, offset } = getPagination(page, size);
     // console.log(limit);
-    offset = (page - 1) * page;
+    offset = (page - 1) * size;
     // const result = await fetch(data, size, offset);
     const total = await Contact.findAll({
       where: { user_id: data },
