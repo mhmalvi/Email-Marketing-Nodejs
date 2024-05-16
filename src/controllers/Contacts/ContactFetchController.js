@@ -6,13 +6,13 @@ const { getPagingData, getPagination } = require("../../../config/utils");
 const fetchContact = async (req, res) => {
   const data = JSON.parse(req.body.userID);
   const page = req.body.page;
-  const size = req.body.size;
+  const size = req.body.per_page;
   if (data) {
     // const { limit, offset } = getPagination(page, size);
     // console.log(limit);
     offset = (page-1)*page
     const result = await fetch(data, size, offset);
-    // const response = await getPagingData(result, page, limit);
+    const response = await getPagingData(result, page, size);
     console.log(result);
     if (result) {
       res.status(200).json({
