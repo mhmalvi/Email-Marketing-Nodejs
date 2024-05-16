@@ -1,7 +1,7 @@
 const Contact = require("../../../models").Contact;
 
-const updateOne = async (id) => {
-  await Contact.update({ json: req.body.json });
+const updateOne = async (data) => {
+  await Contact.update({ json: data.json });
 };
 
 module.exports = { updateOne };
