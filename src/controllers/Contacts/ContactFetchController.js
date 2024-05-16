@@ -21,7 +21,7 @@ const fetchContact = async (req, res) => {
     const totalPages = total.length / size;
     console.log((Math.trunc(totalPages)));
     const result = JSON.stringify(await fetch(data, size, offset));
-    result.push(totalPages);
+    // result.push(totalPages);
     // console.log(result);
     // const response = await getPagingData(result, page, size);
     // console.log(response);
@@ -30,6 +30,7 @@ const fetchContact = async (req, res) => {
         message: "success",
         status: 200,
         contact: result,
+        totalPages: totalPages,
       });
     }
   } else {
