@@ -12,6 +12,7 @@ const updateContact = async (req, res) => {
     const result = await updateOne(req.body);
     console.log(result);
     if (result[0] === 1) {
+      let contact = await findOne(req.body.id);
       res.status(201).json({
         message: "Updated",
         status: 201,
