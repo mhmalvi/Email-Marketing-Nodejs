@@ -15,7 +15,7 @@ const updateContact = async (req, res) => {
       res.status(201).json({
         message: "Updated",
         status: 201,
-        data: result,
+        data: contact,
       });
     } else {
       res.status(500).json({
