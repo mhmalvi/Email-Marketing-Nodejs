@@ -7,6 +7,8 @@ const fetchContact = async (req, res) => {
   const data = JSON.parse(req.body.userID);
   const page = req.body.page;
   const size = req.body.per_page;
+  console.log(page);
+  console.log(size);
   if (data) {
     // const { limit, offset } = getPagination(page, size);
     // console.log(limit);
@@ -16,7 +18,7 @@ const fetchContact = async (req, res) => {
       where: { user_id: data },
       order: [["id", "DESC"]],
     });
-    console.log(result.toJSON());
+    console.log(result);
     const response = await getPagingData(result, page, size);
     // console.log(response);
     if (result) {
