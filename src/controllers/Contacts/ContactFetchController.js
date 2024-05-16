@@ -16,7 +16,7 @@ const fetchContact = async (req, res) => {
       where: { user_id: data },
       order: [["id", "DESC"]],
     });
-    console.log(result.json());
+    console.log(result.toJSON());
     const response = await getPagingData(result, page, size);
     // console.log(response);
     if (result) {
