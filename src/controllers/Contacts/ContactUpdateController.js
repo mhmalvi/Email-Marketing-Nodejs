@@ -7,11 +7,11 @@ const { findOne } = require("../../common/contactsUtils/findOne");
 const { getPagingData, getPagination } = require("../../../config/utils");
 
 const updateContact = async (req, res) => {
-  const contact = await findOne(req.body.id);
+  let contact = await findOne(req.body.id);
   if (contact) {
     const result = await updateOne(req.body);
     console.log(result);
-    if ((result[0] === 1)) {
+    if (result[0] === 1) {
       res.status(201).json({
         message: "Updated",
         status: 201,
