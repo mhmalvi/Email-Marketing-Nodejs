@@ -14,10 +14,10 @@ const fetchContact = async (req, res) => {
     // console.log(limit);
     offset = (page-1)*page
     // const result = await fetch(data, size, offset);
-    const result = await Contact.findAll({
+    const result = JSON.stringify(await Contact.findAll({
       where: { user_id: data },
       order: [["id", "DESC"]],
-    });
+    }));
     console.log(result);
     const response = await getPagingData(result, page, size);
     // console.log(response);
