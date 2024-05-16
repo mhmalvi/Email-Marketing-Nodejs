@@ -11,6 +11,18 @@ const updateContact = async (req, res) => {
   if (contact) {
     const result = await updateOne(req.body);
     console.log(result);
+    if ((result = 1)) {
+      res.status(201).json({
+        message: "Updated",
+        status: 201,
+        data: result,
+      });
+    } else {
+      res.status(500).json({
+        message: "Failed",
+        status: 500,
+      });
+    }
   } else {
     res.status(404).json({
       message: "Not found",
