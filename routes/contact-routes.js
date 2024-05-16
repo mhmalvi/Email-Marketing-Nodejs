@@ -7,8 +7,12 @@ const {
 const {
   fetchContact,
 } = require("../src/controllers/Contacts/ContactFetchController");
+const {
+  updateContact,
+} = require("../src/controllers/Contacts/ContactUpdateController");
 
 contactRouter.route("/contact-save/:userID").post(insertContact);
 contactRouter.route("/contact-fetch").post(fetchContact);
+contactRouter.route("/contact-update").post(updateContact);
 
 module.exports = { contactRouter };
