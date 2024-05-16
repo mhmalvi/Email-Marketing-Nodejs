@@ -19,9 +19,9 @@ const fetchContact = async (req, res) => {
       order: [["id", "DESC"]],
     });
     const totalPages = total.length / size;
-    console.log(totalPages);
+    console.log((Math.trunc(totalPages)));
     const result = JSON.stringify(await fetch(data, size, offset));
-    console.log(result);
+    // console.log(result);
     // const response = await getPagingData(result, page, size);
     // console.log(response);
     if (result) {
