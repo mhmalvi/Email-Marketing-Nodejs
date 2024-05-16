@@ -1,5 +1,6 @@
 const keys = require("./keys");
 const nodemailer = require("nodemailer");
+const Contacts = require('../models').Contacts
 
 const generateConfig = (url, accessToken) => {
   return {
@@ -56,10 +57,10 @@ const getIp = () => {
 
 const getPagingData = (data, page, limit) => {
   const { count: totalItems, rows: Contacts } = data;
-  const currentPage = page ? +page : 0;
+  const currentPage = page;
   const totalPages = Math.ceil(totalItems / limit);
 
-  return { totalItems, Contacts, totalPages, currentPage };
+  return { totalItems, contacts, totalPages, currentPage };
 };
 
 const getPagination = (page, size) => {
