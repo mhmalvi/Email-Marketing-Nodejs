@@ -30,7 +30,7 @@ const fetchContact = async (req, res) => {
         message: "success",
         status: 200,
         contact: result,
-        total: total,
+        total: total.length,
         totalPages: Math.trunc(totalPages),
       });
     }
