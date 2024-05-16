@@ -56,7 +56,7 @@ const getIp = () => {
 };
 
 const getPagingData = (data, page, limit) => {
-  const { count: totalItems, rows: Contacts } = data;
+  const { count: totalItems, rows: contacts } = data;
   const currentPage = page;
   const totalPages = Math.ceil(totalItems / limit);
 
