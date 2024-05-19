@@ -9,7 +9,7 @@ const destroyContact = async (req, res) => {
   if (contact) {
     const result = await destroy(req.body);
     console.log(result);
-    if (result[0] === 1) {
+    if (result === 1) {
       res.status(201).json({
         message: "Deleted",
         status: 201,
