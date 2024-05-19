@@ -28,10 +28,10 @@ const destroyContact = async (req, res) => {
       });
     }
   } else {
-      res.status(422).json({
-        message: "Please provide all the fields",
-        status: 422,
-      });
+    res.status(422).json({
+      message: "Please provide all the fields",
+      status: 422,
+    });
   }
 };
 
