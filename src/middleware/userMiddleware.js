@@ -12,11 +12,15 @@ module.exports.isUserAuthenticated = async (req, res, next) => {
 module.exports.isCustomerAuthenticated = async (req, res, next) => {
   const bearerHeader = req.headers["authorization"];
   // console.log(bearerHeader);
-  const isTokenExist = await Token.findOne({
-    where: { token: bearerHeader },
-  });
-  if (isTokenExist) {
-    next();
+  if (bearerHeader) {
+    const isTokenExist = await Token.findOne({
+      where: { token: bearerHeader },
+    });
+    if (isTokenExist) {
+      next();
+    } else {
+      res.status(401).send("You must login");
+    }
   } else {
     res.status(401).send("You must login");
   }
