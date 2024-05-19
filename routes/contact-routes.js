@@ -10,9 +10,13 @@ const {
 const {
   updateContact,
 } = require("../src/controllers/Contacts/ContactUpdateController");
+const {
+  destroyContact,
+} = require("../src/controllers/Contacts/ContactDestroyController");
 
 contactRouter.route("/contact-save/:userID").post(insertContact);
 contactRouter.route("/contact-fetch").post(fetchContact);
 contactRouter.route("/contact-update").post(updateContact);
+contactRouter.route("/destroy-update").post(destroyContact);
 
 module.exports = { contactRouter };
