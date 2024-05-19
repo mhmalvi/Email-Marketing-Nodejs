@@ -1,5 +1,4 @@
 const express = require("express");
-const Contact = require("../models").Contact;
 const templateRouter = express.Router();
 const { isCustomerAuthenticated } = require("../src/middleware/userMiddleware");
 const {
@@ -8,12 +7,18 @@ const {
 const {
   fetchTemplates,
 } = require("../src/controllers/Templates/TemplateFetchController");
+const {
+  templateDestroy,
+} = require("../src/controllers/Templates/TemplateDestroyController");
 // templateRouter
 //   .route("/template-save")
 //   .post(isCustomerAuthenticated, insertTemplate);
 templateRouter.route("/template-save").post(insertTemplate);
 templateRouter
   .route("/template-fetch")
-  .post(isCustomerAuthenticated,fetchTemplates);
+  .post(isCustomerAuthenticated, fetchTemplates);
+templateRouter
+  .route("/template-destroy")
+  .post( templateDestroy);
 
 module.exports = { templateRouter };
