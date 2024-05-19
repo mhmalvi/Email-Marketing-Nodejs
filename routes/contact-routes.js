@@ -17,6 +17,6 @@ const {
 contactRouter.route("/contact-save/:userID").post(insertContact);
 contactRouter.route("/contact-fetch").post(fetchContact);
 contactRouter.route("/contact-update").post(updateContact);
-contactRouter.route("/destroy-update").post(destroyContact);
+contactRouter.route("/contact-destroy").post(destroyContact);
 
 module.exports = { contactRouter };
