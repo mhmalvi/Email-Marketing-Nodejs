@@ -14,6 +14,6 @@ const {
 templateRouter.route("/template-save").post(insertTemplate);
 templateRouter
   .route("/template-fetch")
-  .post(fetchTemplates);
+  .post(isCustomerAuthenticated,fetchTemplates);
 
 module.exports = { templateRouter };
