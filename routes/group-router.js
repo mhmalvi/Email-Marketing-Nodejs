@@ -5,6 +5,6 @@ const {
   fetchGroups,
 } = require("../src/controllers/Groups/GroupFetchController");
 
-groupRouter.route("/group-fetch").post( fetchGroups);
+groupRouter.route("/group-fetch").post(isCustomerAuthenticated, fetchGroups);
 
 module.exports = { groupRouter };
