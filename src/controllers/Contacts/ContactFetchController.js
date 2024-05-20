@@ -53,7 +53,7 @@ const contactFetchByGroup = async (req, res) => {
       res.status(200).json({
         message: "success",
         status: 200,
-        contacts: result,
+        contacts: JSON.stringify(result),
       });
     } else {
       res.status(404).json({
