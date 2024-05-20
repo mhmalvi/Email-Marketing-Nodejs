@@ -1,14 +1,14 @@
 {
   "production": {
     "username": "root",
-    "password": "",
+    "password": "Quadque#2024",
     "database": "email_marketing",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "development": {
     "username": "root",
-    "password": "",
+    "password": "Quadque#2024",
     "database": "email_marketing",
     "host": "127.0.0.1",
     "dialect": "mysql"
