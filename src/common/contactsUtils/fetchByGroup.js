@@ -6,10 +6,7 @@ const fetchByGroup = async (user_id, group) => {
     where: { user_id: user_id },
   });
   contacts.forEach((contact) => {
-    if (
-      JSON.parse(contact.json).group &&
-      JSON.parse(contact.json).group === group
-    ) {
+    if (contact.json.group && contact.json.group === group) {
       contactsArray.push(contact.json);
     }
   });
