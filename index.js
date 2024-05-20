@@ -10,6 +10,7 @@ const { authRouter } = require("./routes/auth-routes");
 const { gmailRouter } = require("./routes/gmail-router");
 const { contactRouter } = require("./routes/contact-routes");
 const { templateRouter } = require("./routes/template-router");
+const { groupRouter } = require("./routes/group-router");
 const { randomAlphaNumeric, getIp } = require("./src/common/utils");
 require("./config/passport");
 const cors = require("cors");
@@ -43,7 +44,8 @@ app
   .use("/google", authRouter)
   .use("/api", gmailRouter)
   .use("/api", contactRouter)
-  .use("/api", templateRouter);
+  .use("/api", templateRouter)
+  .use("/api", groupRouter);
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
