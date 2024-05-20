@@ -2,6 +2,7 @@ const express = require("express");
 const Contact = require("../../../models").Contact;
 const { saveContact } = require("../../common/contactsUtils/saveContact");
 const { fetch } = require("../../common/contactsUtils/fetch");
+const { fetchByGroup } = require("../../common/contactsUtils/fetchByGroup");
 const { getPagingData, getPagination } = require("../../../config/utils");
 const fetchContact = async (req, res) => {
   const data = JSON.parse(req.body.userID);
@@ -43,4 +44,27 @@ const fetchContact = async (req, res) => {
   }
 };
 
-module.exports = { fetchContact };
+const contactFetchByGroup = async (req, res) => {
+  const { user_id, group } = req.body;
+  if (user_id && group) {
+    const result = await fetchByGroup(user_id, group);
+    if (result.length > 0) {
+      res.status(200).json({
+        message: "success",
+        status: 200,
+        contacts: result,
+      });
+    } else {
+      res.status(404).json({
+        message: "No contacts found",
+        status: 404,
+      });
+    }
+  } else {
+    res.status(422).json({
+      message: "Please provide details",
+      status: 422,
+    });
+  }
+};
+module.exports = { fetchContact, contactFetchByGroup };
