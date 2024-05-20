@@ -19,6 +19,6 @@ templateRouter
   .post(isCustomerAuthenticated, fetchTemplates);
 templateRouter
   .route("/template-destroy")
-  .post( templateDestroy);
+  .post(isCustomerAuthenticated, templateDestroy);
 
 module.exports = { templateRouter };
