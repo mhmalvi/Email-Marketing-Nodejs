@@ -18,9 +18,7 @@ const {
 } = require("../src/controllers/Contacts/ContactDestroyController");
 
 contactRouter.route("/contact-save/:userID").post(insertContact);
-contactRouter
-  .route("/contact-fetch", query("page").notEmpty())
-  .post(fetchContact);
+contactRouter.route("/contact-fetch").post(fetchContact);
 contactRouter.route("/contact-fetch-by-group").post(contactFetchByGroup);
 contactRouter.route("/contact-update").post(updateContact);
 contactRouter.route("/contact-destroy").post(destroyContact);
