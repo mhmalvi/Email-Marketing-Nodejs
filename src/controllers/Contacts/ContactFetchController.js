@@ -46,7 +46,6 @@ const fetchContact = async (req, res) => {
 
 const contactFetchByGroup = async (req, res) => {
   const { user_id, group } = req.body;
-  console.log(user_id);
   if (user_id && group) {
     const result = await fetchByGroup(user_id, group);
     if (result.length > 0) {
