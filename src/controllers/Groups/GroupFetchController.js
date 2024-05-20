@@ -10,7 +10,6 @@ const fetchGroups = async (req, res) => {
     //   console.log(contacts);
     await contacts.forEach((contact) => {
       const group = contact.json.group;
-      console.log(group);
       if (group) {
         //   console.log(contact.json.group);
         if (!contactArray.includes(group)) {
@@ -31,10 +30,10 @@ const fetchGroups = async (req, res) => {
       });
     }
   } else {
-      res.status(422).json({
-        message: "Invalid User",
-        status: 422,
-      });
+    res.status(422).json({
+      message: "Invalid User",
+      status: 422,
+    });
   }
 };
 
