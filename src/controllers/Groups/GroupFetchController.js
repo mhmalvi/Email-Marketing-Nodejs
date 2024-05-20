@@ -9,7 +9,7 @@ const fetchGroups = async (req, res) => {
     const contacts = await fetchContacts(user_id);
     //   console.log(contacts);
     await contacts.forEach((contact) => {
-      const group = JSON.parse(contact.json).group;
+      const group = contact.json.group;
       console.log(group);
       if (group) {
         //   console.log(contact.json.group);
