@@ -2,6 +2,7 @@ const express = require("express");
 const Contact = require("../models").Contact;
 const contactRouter = express.Router();
 const { isCustomerAuthenticated } = require("../src/middleware/userMiddleware");
+const { query, validationResult } = require("express-validator");
 const {
   insertContact,
 } = require("../src/controllers/Contacts/ContactInsertController");
