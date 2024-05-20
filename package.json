@@ -23,7 +23,7 @@
     "express": "^4.19.2",
     "express-router": "0.0.1",
     "express-session": "^1.18.0",
-    "express-validator": "^7.0.1",
+    "express-validator": "^7.1.0",
     "googleapis": "^105.0.0",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.43",
