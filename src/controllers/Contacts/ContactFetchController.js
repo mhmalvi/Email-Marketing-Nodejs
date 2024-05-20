@@ -4,6 +4,7 @@ const { saveContact } = require("../../common/contactsUtils/saveContact");
 const { fetch } = require("../../common/contactsUtils/fetch");
 const { fetchByGroup } = require("../../common/contactsUtils/fetchByGroup");
 const { getPagingData, getPagination } = require("../../../config/utils");
+const { query, validationResult } = require("express-validator");
 const fetchContact = async (req, res) => {
   const data = JSON.parse(req.body.userID);
   const page = req.body.page;
