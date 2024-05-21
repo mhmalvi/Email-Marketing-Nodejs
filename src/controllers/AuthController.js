@@ -14,13 +14,13 @@ const isUserEmailExists = async (req, res) => {
     user.otp = otp;
     // console.log(user);
     await user.save();
-    const mailOptions = {
-      from: "meganfox@gfdgfg.com",
-      to: req.body.email, // list of receivers
-      subject: "OTP verification", // Subject line
-      text: `Your OTP is ${otp}`,
-      // Specify the return path address
-    };
+    // const mailOptions = {
+    //   from: "meganfox@gfdgfg.com",
+    //   to: req.body.email, // list of receivers
+    //   subject: "OTP verification", // Subject line
+    //   text: `Your OTP is ${otp}`,
+    //   // Specify the return path address
+    // };
     // const envelopeOptions = {
     //   from: "tanjib@quadque.tech", // Envelope sender address
     // };
