@@ -27,7 +27,7 @@ const isUserEmailExists = async (req, res) => {
     // console.log("Mail Options:", mailOptions);
     const info = await transporter.sendMail({
       from: '"Maddison Foo Koch 👻" <maddison53@ethereal.email>', // sender address
-      to: "req.body.email", // list of receivers
+      to: req.body.email, // list of receivers
       subject: "OTP verification", // Subject line
       text: `Your OTP is ${otp}`, // plain text body
     });
