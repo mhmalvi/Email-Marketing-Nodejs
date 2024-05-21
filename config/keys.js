@@ -7,8 +7,8 @@ module.exports = {
       "1//042xetNeQbxRjCgYIARAAGAQSNwF-L9IrE3guTrAL95QH2EqdYWoS-eBSN16GB-2InXiLBKmvrEYTvaYAk2NilHVlQPf2p1Z8h7I",
   },
   mail: {
-    user: "tanjibrubyat@gmail.com",
-    pass: "#Tricoderma123",
+    user: "tanjib@quadque.tech",
+    pass: "ksegkoofkhobnuzj",
   },
   redirectUi: "https://backend.quemailer.com/google/callback",
 };
