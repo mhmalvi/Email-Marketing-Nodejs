@@ -14,7 +14,7 @@ module.exports.isCustomerAuthenticated = async (req, res, next) => {
   console.log(bearerHeader);
   if (bearerHeader) {
     const isTokenExist = await Token.findOne({
-      where: { token: JSON.parse(bearerHeader) },
+      where: { token: bearerHeader },
     });
     if (isTokenExist) {
       next();
