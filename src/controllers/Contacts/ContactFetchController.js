@@ -49,11 +49,10 @@ const fetchContact = async (req, res) => {
 };
 
 const contactFetchByGroup = async (req, res) => {
-  const { user_id, group, page } = req.body;
-  const size = req.body.per_page;
+  const { user_id, group } = req.body;
   if (user_id && group) {
-    offset = (page - 1) * size;
-    const result = await fetchByGroup(user_id, group, size, offset);
+    // offset = (page - 1) * size;
+    const result = await fetchByGroup(user_id, group);
 
     // const paginated_result = await fetchContactsByPagination(
     //   user_id,
@@ -65,9 +64,6 @@ const contactFetchByGroup = async (req, res) => {
         message: "success",
         status: 200,
         contacts: result,
-        total: result.length,
-        totalPages: Math.ceil(totalPages),
-        current_page: page,
       });
     } else {
       res.status(404).json({
