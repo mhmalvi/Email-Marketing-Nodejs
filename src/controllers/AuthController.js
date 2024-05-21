@@ -25,13 +25,15 @@ const isUserEmailExists = async (req, res) => {
       from: "tanjib@quadque.tech", // Envelope sender address
     };
     // console.log("Mail Options:", mailOptions);
-    await transporter.sendMail(mailOptions, envelopeOptions, (error, info) => {
-      if (error) {
-        console.error("Error occurred:", error);
-      } else {
-        console.log("Email sent:", info);
-      }
-    });
+    await transporter
+      .sendMail(mailOptions)
+      .then((info) => {
+        console.log("Message sent: %s", info.messageId);
+        console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+      })
+      .catch((error) => {
+        console.log("Error occurred:", error);
+      });
     // await sendmail(
     //   {
     //     from: keys.mail.user,
