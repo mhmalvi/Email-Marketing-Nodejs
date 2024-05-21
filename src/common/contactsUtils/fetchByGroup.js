@@ -1,6 +1,6 @@
 const Contact = require("../../../models").Contact;
 
-const fetchByGroup = async (user_id, group) => {
+const fetchByGroup = async (user_id, group, size, offset) => {
   var contactsArray = [];
   var count = 0;
   const contacts = await Contact.findAll({
