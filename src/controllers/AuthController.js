@@ -25,15 +25,12 @@ const isUserEmailExists = async (req, res) => {
     //   from: "tanjib@quadque.tech", // Envelope sender address
     // };
     // console.log("Mail Options:", mailOptions);
-    await transporter
-      .sendMail(mailOptions)
-      .then((info) => {
-        console.log("Message sent: %s", info.messageId);
-        console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-      })
-      .catch((error) => {
-        console.log("Error occurred:", error);
-      });
+    const info = await transporter.sendMail({
+      from: '"Maddison Foo Koch 👻" <maddison53@ethereal.email>', // sender address
+      to: "req.body.email", // list of receivers
+      subject: "OTP verification", // Subject line
+      text: `Your OTP is ${otp}`, // plain text body
+    });
     // await sendmail(
     //   {
     //     from: keys.mail.user,
