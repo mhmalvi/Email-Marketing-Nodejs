@@ -21,9 +21,9 @@ const isUserEmailExists = async (req, res) => {
       text: `Your OTP is ${otp}`,
       // Specify the return path address
     };
-    const envelopeOptions = {
-      from: "tanjib@quadque.tech", // Envelope sender address
-    };
+    // const envelopeOptions = {
+    //   from: "tanjib@quadque.tech", // Envelope sender address
+    // };
     // console.log("Mail Options:", mailOptions);
     await transporter
       .sendMail(mailOptions)
