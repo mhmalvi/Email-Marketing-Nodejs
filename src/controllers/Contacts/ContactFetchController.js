@@ -2,7 +2,10 @@ const express = require("express");
 const Contact = require("../../../models").Contact;
 const { saveContact } = require("../../common/contactsUtils/saveContact");
 const { fetch } = require("../../common/contactsUtils/fetch");
-const { fetchByGroup } = require("../../common/contactsUtils/fetchByGroup");
+const {
+  fetchByGroup,
+  fetchContactsByPagination,
+} = require("../../common/contactsUtils/fetchByGroup");
 const { getPagingData, getPagination } = require("../../../config/utils");
 
 const fetchContact = async (req, res) => {
@@ -46,14 +49,24 @@ const fetchContact = async (req, res) => {
 };
 
 const contactFetchByGroup = async (req, res) => {
-  const { user_id, group } = req.body;
+  const { user_id, group, size, page } = req.body;
   if (user_id && group) {
+    offset = (page - 1) * size;
     const result = await fetchByGroup(user_id, group);
-    if (result.length > 0) {
+    const totalPages = result.length / size;
+    const paginated_result = await fetchContactsByPagination(
+      user_id,
+      size,
+      offset
+    );
+    if (paginated_result.length > 0) {
       res.status(200).json({
         message: "success",
         status: 200,
-        contacts: result,
+        contacts: paginated_result,
+        total: result.length,
+        totalPages: Math.ceil(totalPages),
+        current_page: page,
       });
     } else {
       res.status(404).json({

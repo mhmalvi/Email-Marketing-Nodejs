@@ -4,6 +4,7 @@ const fetchByGroup = async (user_id, group) => {
   var contactsArray = [];
   const contacts = await Contact.findAll({
     where: { user_id: user_id },
+    order: [["id", "DESC"]],
   });
   contacts.forEach((contact) => {
     if (contact.json.group && contact.json.group === group) {
