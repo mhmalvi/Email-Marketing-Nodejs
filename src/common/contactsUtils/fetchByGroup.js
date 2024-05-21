@@ -10,12 +10,13 @@ const fetchByGroup = async (user_id, group, size, offset) => {
     offset: offset,
   });
 
-  contacts.forEach((contact) => {
+    contacts.forEach((contact) => {
+      console.log(contact);
     if (contact.json.group && contact.json.group === group) {
       contactsArray.push(contact);
     }
   });
-  console.log(contactsArray);
+//   console.log(contactsArray);
   return contactsArray;
 };
 
