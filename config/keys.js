@@ -8,7 +8,7 @@ module.exports = {
   },
   mail: {
     user: "tanjib@quadque.tech",
-    pass: "ksegkoofkhobnuzj",
+    pass: "#Tricoderma123",
   },
   redirectUi: "https://backend.quemailer.com/google/callback",
 };
