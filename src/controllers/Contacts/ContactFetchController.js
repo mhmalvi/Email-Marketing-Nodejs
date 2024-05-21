@@ -54,7 +54,7 @@ const contactFetchByGroup = async (req, res) => {
   if (user_id && group) {
     offset = (page - 1) * size;
     const result = await fetchByGroup(user_id, group, size, offset);
-    console.log((result));
+    console.log(result);
     const totalPages = result.length / size;
 
     // const paginated_result = await fetchContactsByPagination(
