@@ -37,12 +37,15 @@ function generateOTP() {
 //   },
 // });
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
+  host: "localhost",
   port: 587,
   secure: false, // Use `true` for port 465, `false` for all other ports
-  auth: {
-    user: keys.mail.user,
-    pass: keys.mail.pass,
+  // auth: {
+  //   user: keys.mail.user,
+  //   pass: keys.mail.pass,
+  // },
+  tls: {
+    rejectUnauthorized: false,
   },
 });
 // let transporter = nodemailer.createTransport({
