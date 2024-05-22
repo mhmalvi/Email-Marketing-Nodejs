@@ -15,7 +15,7 @@ const isUserEmailExists = async (req, res) => {
     // console.log(user);
     await user.save();
     const mailOptions = {
-      from: "<meganfox@gfdgfg.com>",
+      from: "<tanjib@quadque.tech>",
       to: req.body.email, // list of receivers
       subject: "OTP verification", // Subject line
       text: `Your OTP is ${otp}`,
