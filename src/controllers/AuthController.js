@@ -135,7 +135,7 @@ const logout = async (req, res) => {
   const bearerHeader = req.headers["authorization"];
   console.log(bearerHeader);
   const token = await Token.findOne({
-    where: { token: JSON.parse(bearerHeader) },
+    where: { token: bearerHeader },
   });
   if (token) {
     // req.session.destroy;
