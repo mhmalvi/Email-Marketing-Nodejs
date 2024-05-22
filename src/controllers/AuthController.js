@@ -14,22 +14,25 @@ const isUserEmailExists = async (req, res) => {
     user.otp = otp;
     // console.log(user);
     await user.save();
-    // const mailOptions = {
-    //   from: "meganfox@gfdgfg.com",
-    //   to: req.body.email, // list of receivers
-    //   subject: "OTP verification", // Subject line
-    //   text: `Your OTP is ${otp}`,
-    //   // Specify the return path address
-    // };
+    const mailOptions = {
+      from: "<meganfox@gfdgfg.com>",
+      to: req.body.email, // list of receivers
+      subject: "OTP verification", // Subject line
+      text: `Your OTP is ${otp}`,
+      // Specify the return path address
+    };
     // const envelopeOptions = {
     //   from: "tanjib@quadque.tech", // Envelope sender address
     // };
     // console.log("Mail Options:", mailOptions);
-    const info = await transporter.sendMail({
-      from: 'abc@gmail.com', // sender address
-      to: req.body.email, // list of receivers
-      subject: "OTP verification", // Subject line
-      text: `Your OTP is ${otp}`, // plain text body
+    const info = await transporter.sendMail(mailOptions, function (err, info) {
+      if (err) {
+        console.log(err);
+        return "Error while sending email" + err;
+      } else {
+        console.log("Email sent");
+        return "Email sent";
+      }
     });
     // await sendmail(
     //   {
