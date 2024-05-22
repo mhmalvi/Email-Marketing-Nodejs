@@ -1,6 +1,6 @@
 const keys = require("./keys");
 const nodemailer = require("nodemailer");
-const Contacts = require('../models').Contacts
+const Contacts = require("../models").Contacts;
 
 const generateConfig = (url, accessToken) => {
   return {
@@ -37,12 +37,13 @@ function generateOTP() {
 //   },
 // });
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp.gmail.com",
+  port: 587,
   secure: false, // Use `true` for port 465, `false` for all other ports
-    auth: {
-      user: keys.mail.user,
-      pass: keys.mail.pass,
-    },
+  auth: {
+    user: keys.mail.user,
+    pass: keys.mail.pass,
+  },
 });
 // let transporter = nodemailer.createTransport({
 //   sendmail: true,
