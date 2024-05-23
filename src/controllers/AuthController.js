@@ -9,7 +9,7 @@ const keys = require("../../config/keys");
 const { validate } = require("deep-email-validator");
 
 const isUserEmailExists = async (req, res) => {
-  let result = await validate("asdf@gmail.com");
+  let result = await validate(req.body.email);
   console.log(result);
   // const user = await User.findOne({ where: { email: req.body.email } });
   // if (user) {
