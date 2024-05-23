@@ -8,12 +8,12 @@ const { saveToken } = require("../common/utils");
 const keys = require("../../config/keys");
 
 const isUserEmailExists = async (req, res) => {
-  // const user = await User.findOne({ where: { email: req.body.email } });
-  // if (user) {
+  const user = await User.findOne({ where: { email: req.body.email } });
+  if (user) {
   const otp = generateOTP();
-  // user.otp = otp;
+  user.otp = otp;
   // console.log(user);
-  // await user.save();
+  await user.save();
   const mailOptions = {
     from: "<tanjib@quadque.tech>",
     to: req.body.email, // list of receivers
@@ -55,11 +55,11 @@ const isUserEmailExists = async (req, res) => {
   res.status(200).json({
     status: true,
   });
-  // } else {
-  //   res.status(404).json({
-  //     status: false,
-  //   });
-  // }
+  } else {
+    res.status(404).json({
+      status: false,
+    });
+  }
 };
 
 const verifyOTP = async (req, res) => {
