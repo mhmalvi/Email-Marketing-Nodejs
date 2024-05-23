@@ -13,8 +13,6 @@ const { verifyEmail } = require("@devmehq/email-validator-js");
 const isUserEmailExists = async (req, res) => {
   const { validFormat, validSmtp, validMx } = await verifyEmail({
     emailAddress: req.body.email,
-    verifyMx: true,
-    verifySmtp: true,
     timeout: 3000,
   });
   console.log(validFormat);
