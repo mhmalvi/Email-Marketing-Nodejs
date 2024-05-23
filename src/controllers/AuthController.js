@@ -11,13 +11,13 @@ const EmailValidator = require("email-deep-validator");
 const { verifyEmail } = require("@devmehq/email-validator-js");
 
 const isUserEmailExists = async (req, res) => {
-  const { validFormat, validSmtp, validMx } = await verifyEmail({
-    emailAddress: req.body.email,
-    timeout: 3000,
-  });
-  console.log(validFormat);
-  console.log(validSmtp);
-  console.log(validMx);
+  const emailValidator = new EmailValidator();
+  const { wellFormed, validDomain, validMailbox } = await emailValidator.verify(
+    req.body.email
+  );
+  console.log(wellFormed);
+  console.log(validDomain);
+  console.log(validMailbox);
   // const user = await User.findOne({ where: { email: req.body.email } });
   // if (user) {
   // const otp = generateOTP();
