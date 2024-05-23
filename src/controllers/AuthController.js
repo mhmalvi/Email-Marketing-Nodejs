@@ -6,9 +6,6 @@ const { transporter, generateOTP } = require("../../config/utils");
 const { randomAlphaNumeric } = require("../../config/utils");
 const { saveToken } = require("../common/utils");
 const keys = require("../../config/keys");
-const { validate } = require("deep-email-validator");
-const EmailValidator = require("email-deep-validator");
-const { verifyEmail } = require("@devmehq/email-validator-js");
 const { emailValidator } = require("node-email-verifier");
 
 const isUserEmailExists = async (req, res) => {
