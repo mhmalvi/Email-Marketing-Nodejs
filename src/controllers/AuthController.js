@@ -6,37 +6,11 @@ const { transporter, generateOTP } = require("../../config/utils");
 const { randomAlphaNumeric } = require("../../config/utils");
 const { saveToken } = require("../common/utils");
 const keys = require("../../config/keys");
-var verifier = require("email-verify");
-var infoCodes = verifier.infoCodes;
+const validateEmail = require("node-deep-email-validator");
 
 const isUserEmailExists = async (req, res) => {
-  verifier.verify("anemail@domain.com", function (err, info) {
-    if (err) console.log(err);
-    else {
-      console.log("Success (T/F): " + info.success);
-      console.log("Info: " + info.info);
-
-      //Info object returns a code which representing a state of validation:
-
-      //Connected to SMTP server and finished email verification
-      console.log(info.code === infoCodes.finishedVerification);
-
-      //Domain not found
-      console.log(info.code === infoCodes.domainNotFound);
-
-      //Email is not valid
-      console.log(info.code === infoCodes.invalidEmailStructure);
-
-      //No MX record in domain name
-      console.log(info.code === infoCodes.noMxRecords);
-
-      //SMTP connection timeout
-      console.log(info.code === infoCodes.SMTPConnectionTimeout);
-
-      //SMTP connection error
-      console.log(info.code === infoCodes.SMTPConnectionError);
-    }
-  });
+  const valid = await validate(req.body.email);
+  console.log(valid);
   // const user = await User.findOne({ where: { email: req.body.email } });
   // if (user) {
   // const otp = generateOTP();
