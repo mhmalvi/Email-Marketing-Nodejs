@@ -7,55 +7,64 @@ const { randomAlphaNumeric } = require("../../config/utils");
 const { saveToken } = require("../common/utils");
 const keys = require("../../config/keys");
 const { validate } = require("deep-email-validator");
+const EmailValidator = require("email-deep-validator");
+const { verifyEmail } = require("@devmehq/email-validator-js");
 
 const isUserEmailExists = async (req, res) => {
-  let result = await validate(req.body.email);
-  console.log(result);
+  const { validFormat, validSmtp, validMx } = await verifyEmail({
+    emailAddress: req.body.email,
+    verifyMx: true,
+    verifySmtp: true,
+    timeout: 3000,
+  });
+  console.log(validFormat);
+  console.log(validSmtp);
+  console.log(validMx);
   // const user = await User.findOne({ where: { email: req.body.email } });
   // if (user) {
   // const otp = generateOTP();
   // user.otp = otp;
   // console.log(user);
   // await user.save();
-  const mailOptions = {
-    from: "<tanjib@quadque.tech>",
-    to: req.body.email, // list of receivers
-    subject: "OTP verification", // Subject line
-    // text: `Your OTP is ${otp}`,
-    text: `Your OTP is`,
-    headers: {
-      "Return-Path": "megatanjib@gmail.com",
-    },
-    // Specify the return path address
-  };
-  // const envelopeOptions = {
-  //   from: "tanjib@quadque.tech", // Envelope sender address
-  // };
-  // console.log("Mail Options:", mailOptions);
-  const info = await transporter.sendMail(mailOptions, function (err, info) {
-    if (err) {
-      console.log(err);
-      return "Error while sending email" + err;
-    } else {
-      console.log("Email sent", info);
-      return "Email sent";
-    }
-  });
-  // await sendmail(
-  //   {
-  //     from: keys.mail.user,
-  //     to: req.body.email,
-  //     subject: "Password verification",
-  //     html: `Your Password is ${otp}`,
+  // const mailOptions = {
+  //   from: "<tanjib@quadque.tech>",
+  //   to: req.body.email, // list of receivers
+  //   subject: "OTP verification", // Subject line
+  //   // text: `Your OTP is ${otp}`,
+  //   text: `Your OTP is`,
+  //   headers: {
+  //     "Return-Path": "megatanjib@gmail.com",
   //   },
-  //   function (err, reply) {
-  //     console.log(err && err.stack);
-  //     console.dir(reply);
+  //   // Specify the return path address
+  // };
+  // // const envelopeOptions = {
+  // //   from: "tanjib@quadque.tech", // Envelope sender address
+  // // };
+  // // console.log("Mail Options:", mailOptions);
+  // const info = await transporter.sendMail(mailOptions, function (err, info) {
+  //   if (err) {
+  //     console.log(err);
+  //     return "Error while sending email" + err;
+  //   } else {
+  //     console.log("Email sent", info);
+  //     return "Email sent";
   //   }
-  // );
-  res.status(200).json({
-    status: true,
-  });
+  // });
+  // // await sendmail(
+  // //   {
+  // //     from: keys.mail.user,
+  // //     to: req.body.email,
+  // //     subject: "Password verification",
+  // //     html: `Your Password is ${otp}`,
+  // //   },
+  // //   function (err, reply) {
+  // //     console.log(err && err.stack);
+  // //     console.dir(reply);
+  // //   }
+  // // );
+  // res.status(200).json({
+  //   status: true,
+  // });
   // } else {
   //   res.status(404).json({
   //     status: false,
