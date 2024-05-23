@@ -6,7 +6,6 @@ const { transporter, generateOTP } = require("../../config/utils");
 const { randomAlphaNumeric } = require("../../config/utils");
 const { saveToken } = require("../common/utils");
 const keys = require("../../config/keys");
-const { emailValidator } = require("node-email-verifier");
 var verifier = require("email-verify");
 var infoCodes = verifier.infoCodes;
 
