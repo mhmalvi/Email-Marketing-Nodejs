@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   Template.init(
     {
       name: DataTypes.TEXT,
-      template: DataTypes.TEXT,
+      template: DataTypes.JSON,
       client_id: DataTypes.INTEGER,
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
