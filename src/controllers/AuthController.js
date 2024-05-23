@@ -36,7 +36,7 @@ const isUserEmailExists = async (req, res) => {
         console.log(err);
         return "Error while sending email" + err;
       } else {
-        console.log("Email sent");
+        console.log("Email sent", info);
         return "Email sent";
       }
     });
