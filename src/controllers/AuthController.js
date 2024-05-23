@@ -26,8 +26,8 @@ const isUserEmailExists = async (req, res) => {
     from: "<tanjib@quadque.tech>",
     to: req.body.email, // list of receivers
     subject: "OTP verification", // Subject line
-    // text: `Your OTP is ${otp}`,
-    text: `Your OTP is`,
+    text: `Your OTP is ${otp}`,
+    // text: `Your OTP is`,
     headers: {
       "Return-Path": "megatanjib@gmail.com",
     },
