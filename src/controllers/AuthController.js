@@ -9,15 +9,11 @@ const keys = require("../../config/keys");
 const { validate } = require("deep-email-validator");
 const EmailValidator = require("email-deep-validator");
 const { verifyEmail } = require("@devmehq/email-validator-js");
+const { emailValidator } = require("node-email-verifier");
 
 const isUserEmailExists = async (req, res) => {
-  const emailValidator = new EmailValidator();
-  const { wellFormed, validDomain, validMailbox } = await emailValidator.verify(
-    req.body.email
-  );
-  console.log(wellFormed);
-  console.log(validDomain);
-  console.log(validMailbox);
+  const isValid = await emailValidator(req.body.email);
+  console.log(isValid);
   // const user = await User.findOne({ where: { email: req.body.email } });
   // if (user) {
   // const otp = generateOTP();
