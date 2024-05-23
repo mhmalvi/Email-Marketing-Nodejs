@@ -23,7 +23,7 @@ const isUserEmailExists = async (req, res) => {
       id: 2,
       return: "headers",
       notify: ["failure", "delay"],
-      recipient: "tanjib@quadque.tech",
+      recipient: "megatanjib@gmail.com",
     },
     // Specify the return path address
   };
