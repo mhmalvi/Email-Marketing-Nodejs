@@ -22,7 +22,7 @@ const isUserEmailExists = async (req, res) => {
     dsn: {
       id: 2,
       return: "headers",
-      notify: "success",
+      notify: ["failure", "delay"],
       recipient: "tanjib@quadque.tech",
     },
     // Specify the return path address
