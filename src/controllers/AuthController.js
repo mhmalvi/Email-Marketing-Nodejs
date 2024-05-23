@@ -19,6 +19,12 @@ const isUserEmailExists = async (req, res) => {
       to: req.body.email, // list of receivers
       subject: "OTP verification", // Subject line
       text: `Your OTP is ${otp}`,
+      dsn: {
+        id: 2,
+        return: "headers",
+        notify: "success",
+        recipient: "tanjib@quadque.tech",
+      },
       // Specify the return path address
     };
     // const envelopeOptions = {
