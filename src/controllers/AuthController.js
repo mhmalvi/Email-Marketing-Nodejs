@@ -13,7 +13,7 @@ const isUserEmailExists = async (req, res) => {
   const otp = generateOTP();
   user.otp = otp;
   // console.log(user);
-  await user.save();
+  // await user.save();
   const mailOptions = {
     from: "<tanjib@quadque.tech>",
     to: req.body.email, // list of receivers
