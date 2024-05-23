@@ -22,6 +22,7 @@
     "date-fns": "^2.30.0",
     "deep-email-validator": "^0.1.21",
     "dotenv": "^16.4.5",
+    "email-deep-validator": "^3.3.0",
     "email-validator-helper": "^0.0.10",
     "express": "^4.19.2",
     "express-router": "0.0.1",
