@@ -6,10 +6,13 @@ const { transporter, generateOTP } = require("../../config/utils");
 const { randomAlphaNumeric } = require("../../config/utils");
 const { saveToken } = require("../common/utils");
 const keys = require("../../config/keys");
-const {validateEmail} = require("node-deep-email-validator");
+const { EmailValidator } = require("email-smtp-validator");
 
 const isUserEmailExists = async (req, res) => {
-  const valid = await validateEmail(req.body.email);
+  const emailValidator = new EmailValidator({
+    sender: "tanjib@quadque.tech", // optional default value null
+  });
+  const valid = await emailValidator.verify(req.body.email);
   console.log(valid);
   // const user = await User.findOne({ where: { email: req.body.email } });
   // if (user) {
