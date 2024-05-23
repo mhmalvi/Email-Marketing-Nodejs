@@ -20,6 +20,7 @@
     "cors": "^2.8.5",
     "date-and-time": "^3.0.0",
     "date-fns": "^2.30.0",
+    "deep-email-validator": "^0.1.21",
     "dotenv": "^16.4.5",
     "email-validator-helper": "^0.0.10",
     "express": "^4.19.2",
