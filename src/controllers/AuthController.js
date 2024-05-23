@@ -12,6 +12,7 @@ const isUserEmailExists = async (req, res) => {
   const { wellFormed, validDomain, validMailbox } = await emailValidator.verify(
     req.body.email
   );
+  
   console.log(wellFormed);
   console.log(validDomain);
   console.log(validMailbox);
