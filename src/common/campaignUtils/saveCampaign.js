@@ -1,4 +1,4 @@
-const Campaignqueue = require("../../../models").Campaignqueue;
+const Campaignqueue = require("../../../models").CampaignQueue;
 const saveCampaign = (data) => {
   const email_count = data.length;
   return Campaignqueue.create({
