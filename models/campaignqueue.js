@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class CampaignQueue extends Model {
     /**
@@ -13,14 +11,22 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  CampaignQueue.init({
-    id: DataTypes.INTEGER,
-    fromMail: DataTypes.STRING,
-    fromName: DataTypes.TEXT,
-    count: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'CampaignQueue',
-  });
+  CampaignQueue.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrementtrue,
+      },
+      fromMail: DataTypes.STRING,
+      fromName: DataTypes.TEXT,
+      count: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: "CampaignQueue",
+    }
+  );
   return CampaignQueue;
 };
