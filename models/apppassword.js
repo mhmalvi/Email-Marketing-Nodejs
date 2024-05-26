@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "AppPassword",
-      tableName:"App_passwords"
+      tableName:"app_passwords"
     }
   );
   return AppPassword;
