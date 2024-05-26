@@ -13,15 +13,11 @@ module.exports = (sequelize, DataTypes) => {
   }
   CampaignQueue.init(
     {
-      id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        primaryKey: true,
-        autoIncrement: true,
-      },
-      fromMail: { type: DataTypes.STRING },
-      fromName: { type: DataTypes.TEXT },
-      count: { type: DataTypes.INTEGER },
+      fromMail: DataTypes.STRING,
+      fromName: DataTypes.TEXT,
+      count: DataTypes.INTEGER,
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
     },
     {
       sequelize,
