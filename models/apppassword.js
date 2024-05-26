@@ -15,14 +15,15 @@ module.exports = (sequelize, DataTypes) => {
     {
       email: DataTypes.STRING,
       app_password: DataTypes.STRING,
-      user_id:DataTypes.INTEGER,
+      user_id: DataTypes.INTEGER,
+      provider: DataTypes.TEXT,
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
     },
     {
       sequelize,
       modelName: "AppPassword",
-      tableName:"app_passwords"
+      tableName: "app_passwords",
     }
   );
   return AppPassword;
