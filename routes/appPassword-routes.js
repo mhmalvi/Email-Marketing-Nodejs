@@ -7,12 +7,16 @@ const {
 const {
   fetchAppPasswords,
 } = require("../src/controllers/AppPasswords/fetchAppPasswordsController");
+const {
+  destroyAppPassword,
+} = require("../src/controllers/AppPasswords/destroyAppPasswordController");
 
 appPasswordRouter
   .route("/app-password-save")
   .post(isCustomerAuthenticated, saveAppPassword);
 appPasswordRouter
   .route("/app-password-fetch")
-  .post(isCustomerAuthenticated,fetchAppPasswords);
+  .post(isCustomerAuthenticated, fetchAppPasswords);
+appPasswordRouter.route("/app-password-destroy").post(destroyAppPassword);
 
 module.exports = { appPasswordRouter };
