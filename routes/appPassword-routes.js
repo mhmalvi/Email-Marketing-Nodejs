@@ -10,6 +10,9 @@ const {
 const {
   destroyAppPassword,
 } = require("../src/controllers/AppPasswords/destroyAppPasswordController");
+const {
+  updateAppPassword,
+} = require("../src/controllers/AppPasswords/updateAppPasswordController");
 
 appPasswordRouter
   .route("/app-password-save")
