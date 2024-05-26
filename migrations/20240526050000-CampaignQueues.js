@@ -13,8 +13,8 @@ module.exports = {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
+        autoIncrement: true,
       },
       fromMail: {
         type: Sequelize.STRING,
