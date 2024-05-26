@@ -7,7 +7,7 @@ const saveAppPassword = async (req, res) => {
   if (
     req.body.email &&
     req.body.appPassword &&
-    req.body.email &&
+    req.body.userID &&
     req.body.provider
   ) {
     const isEmailExist = await fetchOne(req.body);
