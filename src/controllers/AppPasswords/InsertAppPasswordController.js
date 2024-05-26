@@ -1,9 +1,11 @@
 const express = require("express");
 const AppPassword = require("../../../models").AppPassword;
 const { save } = require("../../common/appPassUtils/save");
+const { fetchOne } = require("../../common/appPassUtils/fetchOne");
 
 const saveAppPassword = async (req, res) => {
-  if (req.body.email && req.body.email && req.body.email) {
+    if (req.body.email && req.body.email && req.body.email) {
+      await fetchOne(req.body)
     const app = await save(req.body);
     if (app) {
       res.status(201).json({
