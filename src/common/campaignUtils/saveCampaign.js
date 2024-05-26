@@ -1,5 +1,5 @@
 const Campaignqueue = require("../../../models").Campaignqueue;
-const insertCampaign = (data) => {
+const saveCampaign = (data) => {
   const email_count = data.length;
   return Campaignqueue.create({
     fromMail: data.campaignInfo.fromMail,
@@ -9,4 +9,4 @@ const insertCampaign = (data) => {
   });
 };
 
-module.exports = { insertCampaign };
+module.exports = { saveCampaign };
