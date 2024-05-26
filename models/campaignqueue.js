@@ -1,6 +1,8 @@
 "use strict";
 const { Model } = require("sequelize");
+const { Table } = require("@sequelize/core/decorators-legacy");
 module.exports = (sequelize, DataTypes) => {
+  Table({ tableName: "Campaign_queues" });
   class CampaignQueue extends Model {
     /**
      * Helper method for defining associations.
@@ -22,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "CampaignQueue",
+      tableName: "Campaigns_queues",
     }
   );
   return CampaignQueue;
