@@ -17,6 +17,8 @@ appPasswordRouter
 appPasswordRouter
   .route("/app-password-fetch")
   .post(isCustomerAuthenticated, fetchAppPasswords);
-appPasswordRouter.route("/app-password-destroy").post(destroyAppPassword);
+appPasswordRouter
+  .route("/app-password-destroy")
+  .post(isCustomerAuthenticated, destroyAppPassword);
 
 module.exports = { appPasswordRouter };
