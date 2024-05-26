@@ -13,9 +13,9 @@ const destroyAppPassword = async (req, res) => {
         status: 200,
       });
     } else {
-      res.status(500).json({
-        message: "Failed",
-        status: 500,
+      res.status(404).json({
+        message: "Email not found",
+        status: 404,
       });
     }
   } else {
