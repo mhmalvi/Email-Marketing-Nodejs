@@ -6,13 +6,8 @@ const Campaignqueue = require("../../../models").CampaignQueue;
 
 const campaignQueue = async (req, res) => {
   console.log(req.body);
-  //   const campaign = await saveCampaign(req.body);
-  const campaign = await Campaignqueue.create({
-    fromMail: req.body.campaignInfo.fromMail,
-    fromName: req.body.campaignInfo.fromName,
-    count: 5,
-    userID: req.body.userID,
-  });
+    const campaign = await saveCampaign(req.body);
+  
   console.log(campaign);
 };
 

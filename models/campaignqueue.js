@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       fromMail: DataTypes.STRING,
       fromName: DataTypes.TEXT,
       count: DataTypes.INTEGER,
+      userID: DataTypes.INTEGER,
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
     },
