@@ -12,6 +12,7 @@ const { contactRouter } = require("./routes/contact-routes");
 const { templateRouter } = require("./routes/template-router");
 const { groupRouter } = require("./routes/group-router");
 const { campaignRouter } = require("./routes/campaign-routes");
+const { appPasswordRouter } = require("./routes/appPassword-routes");
 const { randomAlphaNumeric, getIp } = require("./src/common/utils");
 require("./config/passport");
 const cors = require("cors");
@@ -47,7 +48,8 @@ app
   .use("/api", contactRouter)
   .use("/api", templateRouter)
   .use("/api", groupRouter)
-  .use("/api", campaignRouter);
+  .use("/api", campaignRouter)
+  .use("/api", appPasswordRouter);
 
 /////////////////////////////////////////////////////////////////////////////////////////
 

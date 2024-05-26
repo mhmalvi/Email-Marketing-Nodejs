@@ -8,7 +8,8 @@ const campaignQueue = async (req, res) => {
   console.log(req.body);
     const campaign = await saveCampaign(req.body);
   
-  console.log(campaign);
+    console.log(campaign);
+    // if()
 };
 
 module.exports = { campaignQueue };
