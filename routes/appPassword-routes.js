@@ -1,7 +1,12 @@
 const express = require("express");
 const appPasswordRouter = express.Router();
-const {saveAppPassword}=require("../src/controllers/AppPasswords/InsertAppPasswordController")
+const { isCustomerAuthenticated } = require("../src/middleware/userMiddleware");
+const {
+  saveAppPassword,
+} = require("../src/controllers/AppPasswords/InsertAppPasswordController");
 
-appPasswordRouter.route("/app-password-save").post(saveAppPassword);
+appPasswordRouter
+  .route("/app-password-save")
+  .post(isCustomerAuthenticated, saveAppPassword);
 
-module.exports = {appPasswordRouter};
+module.exports = { appPasswordRouter };
