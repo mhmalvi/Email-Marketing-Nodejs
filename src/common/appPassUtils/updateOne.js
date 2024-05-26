@@ -5,7 +5,7 @@ const updateOne = async (data) => {
   return await AppPassword.update(
     { email: data.email },
     { app_password: data.app_password },
-    { where: { id: data.id, user_id: data.userID } }
+    { where: { id: data.email, user_id: data.userID } }
   );
 };
 

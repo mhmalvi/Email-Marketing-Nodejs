@@ -1,17 +1,18 @@
 const express = require("express");
-const AppPassword = require("../../../models").AppPassword;
+const { updateOne } = require("../../common/appPassUtils/update");
+const { fetchOne } = require("../../common/appPassUtils/fetchOne");
 const updateAppPassword = async (req, res) => {
-  if (req.body.id && req.body.user_id) {
-    let contact = await findOne(req.body.id);
-    if (contact) {
+  if (req.body.email && req.body.userID) {
+    let app = await fetchOne(req.body);
+    if (app) {
       const result = await updateOne(req.body);
       console.log(result);
       if (result[0] === 1) {
-        let contact = await findOne(req.body.id);
+        let pass = await fetchOne(req.body);
         res.status(201).json({
           message: "Updated",
           status: 201,
-          data: contact,
+          data: pass,
         });
       } else {
         res.status(500).json({

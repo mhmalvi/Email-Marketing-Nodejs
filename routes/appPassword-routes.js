@@ -17,6 +17,7 @@ appPasswordRouter
 appPasswordRouter
   .route("/app-password-fetch")
   .post(isCustomerAuthenticated, fetchAppPasswords);
+appPasswordRouter.route("/app-password-update").post(updateAppPassword);
 appPasswordRouter
   .route("/app-password-destroy")
   .post(isCustomerAuthenticated, destroyAppPassword);
