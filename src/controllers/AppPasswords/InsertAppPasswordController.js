@@ -4,7 +4,12 @@ const { save } = require("../../common/appPassUtils/save");
 const { fetchOne } = require("../../common/appPassUtils/fetchOne");
 
 const saveAppPassword = async (req, res) => {
-  if (req.body.email && req.body.email && req.body.email) {
+  if (
+    req.body.email &&
+    req.body.appPassword &&
+    req.body.email &&
+    req.body.provider
+  ) {
     const isEmailExist = await fetchOne(req.body);
     if (isEmailExist) {
       res.status(409).json({
