@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   EmailQueue.init({
-    id: DataTypes.INTEGER,
+    id: {type:DataTypes.INTEGER,allowNull:false,primaryKey:true,autoIncrementtrue},
     subject: DataTypes.TEXT,
     fromName: DataTypes.TEXT,
     fromMail: DataTypes.STRING,
