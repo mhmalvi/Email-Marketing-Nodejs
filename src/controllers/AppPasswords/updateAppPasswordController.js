@@ -1,5 +1,5 @@
 const express = require("express");
-const { updateOne } = require("../../common/appPassUtils/update");
+const { updateOne } = require("../../common/appPassUtils/updateOne");
 const { fetchOne } = require("../../common/appPassUtils/fetchOne");
 const updateAppPassword = async (req, res) => {
   if (req.body.email && req.body.userID) {
