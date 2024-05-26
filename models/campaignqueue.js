@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
-        autoIncrementtrue,
+        autoIncrement:true,
       },
       fromMail: DataTypes.STRING,
       fromName: DataTypes.TEXT,

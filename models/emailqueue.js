@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class EmailQueue extends Model {
     /**
@@ -13,25 +11,33 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  EmailQueue.init({
-    id: {type:DataTypes.INTEGER,allowNull:false,primaryKey:true,autoIncrementtrue},
-    subject: DataTypes.TEXT,
-    fromName: DataTypes.TEXT,
-    fromMail: DataTypes.STRING,
-    recipientName: DataTypes.TEXT,
-    recipientEmail: DataTypes.STRING,
-    group: DataTypes.INTEGER,
-    templateName: DataTypes.TEXT,
-    templateData: DataTypes.TEXT("long"),
-    campaignID: DataTypes.INTEGER,
-    userID: DataTypes.INTEGER,
-    open: DataTypes.INTEGER,
-    click: DataTypes.INTEGER,
-    bounce: DataTypes.INTEGER,
-    deliver: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'EmailQueue',
-  });
+  EmailQueue.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      subject: DataTypes.TEXT,
+      fromName: DataTypes.TEXT,
+      fromMail: DataTypes.STRING,
+      recipientName: DataTypes.TEXT,
+      recipientEmail: DataTypes.STRING,
+      group: DataTypes.INTEGER,
+      templateName: DataTypes.TEXT,
+      templateData: DataTypes.TEXT("long"),
+      campaignID: DataTypes.INTEGER,
+      userID: DataTypes.INTEGER,
+      open: DataTypes.INTEGER,
+      click: DataTypes.INTEGER,
+      bounce: DataTypes.INTEGER,
+      deliver: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: "EmailQueue",
+    }
+  );
   return EmailQueue;
 };
