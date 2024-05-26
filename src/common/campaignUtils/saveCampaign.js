@@ -1,6 +1,7 @@
 const Campaignqueue = require("../../../models").CampaignQueue;
 const saveCampaign = (data) => {
   const email_count = data.length;
+  console.log(email_count);
   return Campaignqueue.create({
     fromMail: data.campaignInfo.fromMail,
     fromName: data.campaignInfo.fromName,
