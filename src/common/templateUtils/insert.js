@@ -5,7 +5,7 @@ const saveTemplate = (data) => {
   return Template.create({
     name: data.name,
     template: data.template,
-    client_id: data.user_id,
+    client_id: JSON.parse(data.user_id),
   });
 };
 
