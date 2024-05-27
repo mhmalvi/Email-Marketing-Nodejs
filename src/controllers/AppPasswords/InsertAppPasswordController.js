@@ -1,5 +1,4 @@
 const express = require("express");
-const AppPassword = require("../../../models").AppPassword;
 const { save } = require("../../common/appPassUtils/save");
 const { fetchOne } = require("../../common/appPassUtils/fetchOne");
 
