@@ -4,7 +4,7 @@ const { fetchAll } = require("../../common/templateUtils/fetchAll");
 const fetchTemplates = async (req, res) => {
   console.log(req.body);
   if (req.body.client_id) {
-    const templates = await fetchAll(req.body.client_id);
+    const templates = await fetchAll(JSON.parse(req.body.client_id));
     if (templates) {
       res.status(200).json({
         message: "success",
