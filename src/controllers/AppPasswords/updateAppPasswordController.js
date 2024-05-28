@@ -1,6 +1,6 @@
 const express = require("express");
 const { updateOne } = require("../../common/appPassUtils/updateOne");
-const { fetchOne } = require("../../common/appPassUtils/fetchOne");
+const { fetchByID } = require("../../common/appPassUtils/fetchByID");
 const updateAppPassword = async (req, res) => {
   if (req.body.email && req.body.userID) {
     let app = await fetchOne(req.body);
