@@ -2,7 +2,7 @@ const AppPassword = require("../../../models").AppPassword;
 
 const fetchOne = async (data) => {
   return await AppPassword.findOne({
-    where: { provider: data.provider, user_id: data.userID },
+    where: { provider: data.id, user_id: data.userID },
   });
 };
 module.exports = { fetchOne };
