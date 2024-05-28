@@ -1,6 +1,6 @@
 const AppPassword = require("../../../models").AppPassword;
 
-const fetchAll = async (userID) => {
+const fetchAll = (userID) => {
   let google = AppPassword.findOne({
     where: { user_id: userID, provider:"Google" },
   })
