@@ -12,7 +12,7 @@ const saveAppPassword = async (req, res) => {
     const isEmailExist = await fetchOne(req.body);
     if (isEmailExist) {
       res.status(409).json({
-        message: "Email already exists",
+        message: "An Email with " + req.body.provider + "  already exists",
         status: 409,
       });
     } else {
