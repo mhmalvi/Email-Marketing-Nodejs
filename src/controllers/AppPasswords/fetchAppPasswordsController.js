@@ -11,7 +11,7 @@ const fetchAppPasswords = async (req, res) => {
       res.status(200).json({
         message: "success",
         status: 200,
-        emails: emails,
+        emails,
       });
     } else {
       res.status(404).json({
