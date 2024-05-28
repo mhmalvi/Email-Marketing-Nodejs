@@ -1,19 +1,19 @@
 const AppPassword = require("../../../models").AppPassword;
 
-const fetchAll = (userID) => {
-  let google = AppPassword.findOne({
+const fetchAll = async (userID) => {
+  let google = await AppPassword.findOne({
     where: { user_id: userID, provider:"Google" },
   })
   console.log(google);
   // google = google?google:null
-  let yahoo = AppPassword.findOne({
+  let yahoo = await AppPassword.findOne({
     where: { user_id: userID, provider:"Yahoo" },
-  })?AppPassword.findOne({
+  })? await AppPassword.findOne({
     where: { user_id: userID, provider:"Yahoo" },
   }):null
-  let outlook = AppPassword.findOne({
+  let outlook = await AppPassword.findOne({
     where: { user_id: userID, provider:"Outlook" },
-  })?AppPassword.findOne({
+  })?await AppPassword.findOne({
     where: { user_id: userID, provider:"Outlook" },
   }):null
 
