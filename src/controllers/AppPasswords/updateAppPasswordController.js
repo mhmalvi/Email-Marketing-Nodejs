@@ -8,7 +8,7 @@ const updateAppPassword = async (req, res) => {
       const result = await updateOne(req.body);
       console.log(result);
       if (result[0] === 1) {
-        let pass = await fetchOne(req.body);
+        let pass = await fetchByID(req.body);
         res.status(201).json({
           message: "Updated",
           status: 201,
