@@ -4,6 +4,7 @@ const fetchAll = async (userID) => {
   let google = AppPassword.findOne({
     where: { user_id: userID, provider:"Google" },
   })
+  console.log(google);
   // google = google?google:null
   let yahoo = AppPassword.findOne({
     where: { user_id: userID, provider:"Yahoo" },
