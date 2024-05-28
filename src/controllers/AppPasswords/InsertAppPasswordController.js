@@ -5,7 +5,7 @@ const { fetchOne } = require("../../common/appPassUtils/fetchOne");
 const saveAppPassword = async (req, res) => {
   if (
     req.body.email &&
-    req.body.app_password &&
+    req.body.appPassword &&
     req.body.userID &&
     req.body.provider
   ) {
