@@ -6,6 +6,7 @@ const fetchAppPasswords = async (req, res) => {
   if (req.body.userID) {
     console.log(req.body.userID);
     const emails = await fetchAll(req.body.userID);
+    console.log(emails);
     if (emails) {
       res.status(200).json({
         message: "success",
