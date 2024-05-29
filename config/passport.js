@@ -26,20 +26,13 @@ passport.deserializeUser(function (user, done) {
 passport.use(
   new OAuth2Strategy(
     {
-      clientID: keys.google.clientID, // Your Credentials here.
-      clientSecret: keys.google.clientSecret, // Your Credentials here.
-      callbackURL: keys.redirectUi,
-      // callbackURL: "https://developers.google.com/oauthplayground",
-      // callbackURL: "http://localhost:5000/google/callback",
+      clientID: keys.google.clientID,
+      clientSecret: keys.google.clientSecret,
+      callbackURL: keys.redirectUri,
       passReqToCallback: true,
     },
-    //     function (request, accessToken, refreshToken, profile, done) {
-    //       console.log("sffgsg");
-    //       return done(null, profile);
-    //     }
-    //   )
-    // );
     function (request, accessToken, refreshToken, profile, done) {
+      console.log("Google profile:", profile); // Log profile to debug
       oauth2Client.setCredentials({
         access_token: accessToken,
         refresh_token: refreshToken,
@@ -48,3 +41,28 @@ passport.use(
     }
   )
 );
+// passport.use(
+//   new OAuth2Strategy(
+//     {
+//       clientID: keys.google.clientID, // Your Credentials here.
+//       clientSecret: keys.google.clientSecret, // Your Credentials here.
+//       callbackURL: keys.redirectUi,
+//       // callbackURL: "https://developers.google.com/oauthplayground",
+//       // callbackURL: "http://localhost:5000/google/callback",
+//       passReqToCallback: true,
+//     },
+//     //     function (request, accessToken, refreshToken, profile, done) {
+//     //       console.log("sffgsg");
+//     //       return done(null, profile);
+//     //     }
+//     //   )
+//     // );
+//     function (request, accessToken, refreshToken, profile, done) {
+//       oauth2Client.setCredentials({
+//         access_token: accessToken,
+//         refresh_token: refreshToken,
+//       });
+//       return done(null, profile);
+//     }
+//   )
+// );
