@@ -193,6 +193,15 @@ authRouter.post("/send-email", async (req, res) => {
   // if (!isLoggedIn) {
   //   return res.status(401).send("Unauthorized");
   // }
+  const CLIENT_ID =
+    "491721270445-154edfaqh36aac6lt07h7ea2a6ic8r9o.apps.googleusercontent.com";
+  const CLIENT_SECRET = "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";
+  const REDIRECT_URI = "https://backend.quemailer.com/google/callback";
+  const oAuth2Client = new google.auth.OAuth2(
+    CLIENT_ID,
+    CLIENT_SECRET,
+    REDIRECT_URI
+  );
   const { to, subject, text } = req.body;
   const gmail = google.gmail({ version: "v1", auth: oAuth2Client });
   const message = [
