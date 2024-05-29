@@ -194,14 +194,13 @@ authRouter.post("/send-email", async (req, res) => {
   // if (!isLoggedIn) {
   //   return res.status(401).send("Unauthorized");
   // }
-  const { from, to, subject, text } = req.body;
+  const { to, subject, text } = req.body;
   const gmail = google.gmail({ version: "v1", auth: oauth2Client });
   const message = [
     'Content-Type: text/plain; charset="UTF-8"\n',
     "MIME-Version: 1.0\n",
     "Content-Transfer-Encoding: 7bit\n",
     `to: ${to}\n`,
-    `from: ${from}`,
     `subject: ${subject}\n\n`,
     text,
   ].join("");
