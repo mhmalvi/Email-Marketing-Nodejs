@@ -1,6 +1,6 @@
 require("dotenv").config();
 const passport = require("passport");
-const OAuth2Strategy  = require("passport-google-oauth2");
+const OAuth2Strategy = require("passport-google-oauth2");
 const { google } = require("googleapis");
 const keys = require("./keys");
 
@@ -33,18 +33,22 @@ passport.use(
     },
     function (request, accessToken, refreshToken, profile, done) {
       console.log("Google profile:", profile); // Log profile to debug
-      oauth2Client.setCredentials({
-        access_token: accessToken,
-        refresh_token: refreshToken,
-      });
-      oauth2Client.on("tokens", (tokens) => {
-        if (tokens.refresh_token) {
-          // Store the refresh_token in your database
-          console.log(`Refresh Token: ${tokens.refresh_token}`);
-        }
-        console.log(`Access Token: ${tokens.access_token}`);
-      });
-      return done(null, profile);
+      try {
+        oauth2Client.setCredentials({
+          access_token: accessToken,
+          refresh_token: refreshToken,
+        });
+        oauth2Client.on("tokens", (tokens) => {
+          if (tokens.refresh_token) {
+            // Store the refresh_token in your database
+            console.log(`Refresh Token: ${tokens.refresh_token}`);
+          }
+          console.log(`Access Token: ${tokens.access_token}`);
+        });
+        return done(null, profile);
+      } catch (error) {
+        return done(error, null);
+      }
     }
   )
 );
