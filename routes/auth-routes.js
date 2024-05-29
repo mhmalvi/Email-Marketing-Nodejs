@@ -217,7 +217,7 @@ authRouter.post("/send-email", async (req, res) => {
     "MIME-Version: 1.0\n",
     "Content-Transfer-Encoding: 7bit\n",
     `to: ${to}\n`,
-    `from: megatanjib@gmail.com`,
+    `from: ${from}`,
     `subject: ${subject}\n\n`,
     text,
   ].join("");
