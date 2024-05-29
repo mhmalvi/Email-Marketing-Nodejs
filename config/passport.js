@@ -36,8 +36,6 @@ passport.use(
       oauth2Client.setCredentials({
         access_token: accessToken,
         refresh_token: refreshToken,
-        scope: "https://www.googleapis.com/auth/gmail.send",
-        token_type: "Bearer",
       });
       oauth2Client.on("tokens", (tokens) => {
         if (tokens.refresh_token) {
