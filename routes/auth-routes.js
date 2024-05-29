@@ -189,7 +189,7 @@ authRouter.get("/logout", isLoggedIn, (req, res) => {
 });
 
 authRouter.post("/send-email", async (req, res) => {
-  console.log(req);
+  console.log(req.body);
   // if (!isLoggedIn) {
   //   return res.status(401).send("Unauthorized");
   // }
