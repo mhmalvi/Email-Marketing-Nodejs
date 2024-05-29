@@ -62,6 +62,7 @@ authRouter.get("/failed", (req, res) => {
 // Success route if the authentication is successful
 authRouter.get("/success", isLoggedIn, async (req, res) => {
   console.log("You are logged in");
+  console.log(req);
   let ip = "";
   fetch("https://api.ipify.org?format=json")
     .then((response) => response.json())
