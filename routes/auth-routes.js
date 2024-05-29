@@ -8,6 +8,19 @@ const { google } = require("googleapis");
 const { saveCredentials } = require("../src/controllers/GmailAuthController");
 const { saveToken } = require("../src/common/utils");
 
+const CLIENT_ID =
+  "491721270445-154edfaqh36aac6lt07h7ea2a6ic8r9o.apps.googleusercontent.com";
+const CLIENT_SECRET = "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";
+const REDIRECT_URI = "https://backend.quemailer.com/google/callback";
+const REFRESH_TOKEN =
+  "1//042xetNeQbxRjCgYIARAAGAQSNwF-L9IrE3guTrAL95QH2EqdYWoS-eBSN16GB-2InXiLBKmvrEYTvaYAk2NilHVlQPf2p1Z8h7I";
+
+  const oauth2Client = new google.auth.OAuth2(
+    CLIENT_ID,
+    CLIENT_SECRET,
+    REDIRECT_URI
+  );
+
 authRouter.get("/home", (req, res) => {
   res.send("Home Page");
 });
@@ -193,23 +206,6 @@ authRouter.post("/send-email", async (req, res) => {
   // if (!isLoggedIn) {
   //   return res.status(401).send("Unauthorized");
   // }
-  const CLIENT_ID =
-    "491721270445-154edfaqh36aac6lt07h7ea2a6ic8r9o.apps.googleusercontent.com";
-  const CLIENT_SECRET = "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";
-  const REDIRECT_URI = "https://backend.quemailer.com/google/callback";
-  const REFRESH_TOKEN =
-    "1//042xetNeQbxRjCgYIARAAGAQSNwF-L9IrE3guTrAL95QH2EqdYWoS-eBSN16GB-2InXiLBKmvrEYTvaYAk2NilHVlQPf2p1Z8h7I";
-  const oauth2Client = new google.auth.OAuth2(
-    CLIENT_ID,
-    CLIENT_SECRET,
-    REDIRECT_URI
-  );
-  oauth2Client.setCredentials({
-    access_token:
-      "ya29.a0AXooCguLcCf05r1HVpfP1i0e2bKHegZVCV0-19s0DUpnJCUvmZ939E8t5LrVbdfy2lk19xL55YFm8C30TmXnQ6CKQgJgizW4YuL-DU3E_XQCyp3z1GIuE6gPE1qqQBVt8Wvuo0rytE9DbH1J2UZvqQYwrIHoJ9Ii-EDsaCgYKAT0SARMSFQHGX2MivVkEeDoZ9avmI-6D67y6eQ0171",
-    refresh_token:
-      "1//042xetNeQbxRjCgYIARAAGAQSNwF-L9IrE3guTrAL95QH2EqdYWoS-eBSN16GB-2InXiLBKmvrEYTvaYAk2NilHVlQPf2p1Z8h7I",
-  });
   const { from,to, subject, text } = req.body;
   const gmail = google.gmail({ version: "v1", auth: oauth2Client });
   const message = [
