@@ -39,10 +39,10 @@ passport.use(
     //     }
     //   )
     // );
-    function (token, tokenSecret, profile, done) {
+    function (request, accessToken, refreshToken, profile, done) {
       oauth2Client.setCredentials({
-        access_token: token,
-        refresh_token: tokenSecret,
+        access_token: accessToken,
+        refresh_token: refreshToken,
       });
       return done(null, profile);
     }
