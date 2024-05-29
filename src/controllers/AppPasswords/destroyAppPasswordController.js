@@ -10,7 +10,7 @@ const destroyAppPassword = async (req, res) => {
     if (result === 1) {
       res.status(201).json({
         message: "Deleted",
-        status: 200,
+        status: 201,
       });
     } else {
       res.status(404).json({
