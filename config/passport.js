@@ -31,7 +31,7 @@ passport.use(
       callbackURL: keys.redirectUri,
       passReqToCallback: true,
     },
-    function (request, accessToken, refreshToken, profile, done) {
+    function ( accessToken, refreshToken, profile, done) {
       console.log("Google profile:", profile); // Log profile to debug
       try {
         oauth2Client.setCredentials({
