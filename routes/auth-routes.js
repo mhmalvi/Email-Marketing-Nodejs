@@ -38,7 +38,7 @@ const isNotLoggedIn = (req, res, next) => {
 authRouter.get(
   "/login",
   passport.authenticate("google", {
-    scope: ["email", "profile", "https://www.googleapis.com/auth/gmail.send"],
+    scope: ["profile", "https://www.googleapis.com/auth/gmail.send"],
     prompt: "select_account",
   })
 );
