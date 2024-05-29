@@ -7,11 +7,12 @@ async function saveToken(data) {
     refreshToken: data.refreshToken,
     expiryDate: data.expiryDate,
   });
-  await Token.create({
+  await token.save();
+  return await Token.create({
     email: data.email,
     token: token,
   });
-  await token.save();
+  
 }
 // const saveToken = async (data) => {
 //   return await Token.create({
