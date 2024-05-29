@@ -1,6 +1,6 @@
 require("dotenv").config();
 const passport = require("passport");
-const OAuth2Strategy = require("passport-google-oauth2");
+const OAuth2Strategy  = require("passport-google-oauth2");
 const { google } = require("googleapis");
 const keys = require("./keys");
 
@@ -36,6 +36,15 @@ passport.use(
       oauth2Client.setCredentials({
         access_token: accessToken,
         refresh_token: refreshToken,
+        scope: "https://www.googleapis.com/auth/gmail.send",
+        token_type: "Bearer",
+      });
+      oauth2Client.on("tokens", (tokens) => {
+        if (tokens.refresh_token) {
+          // Store the refresh_token in your database
+          console.log(`Refresh Token: ${tokens.refresh_token}`);
+        }
+        console.log(`Access Token: ${tokens.access_token}`);
       });
       return done(null, profile);
     }
