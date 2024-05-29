@@ -15,7 +15,7 @@ passport.use(
     {
       clientID: keys.google.clientID, // Your Credentials here.
       clientSecret: keys.google.clientSecret, // Your Credentials here.
-      callbackURL: keys.redirectUi,
+      callbackURL: keys.redirectUri,
       // callbackURL: "https://developers.google.com/oauthplayground",
       // callbackURL: "http://localhost:5000/google/callback",
       passReqToCallback: true,
