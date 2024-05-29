@@ -1,7 +1,7 @@
 require("dotenv").config();
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
-const keys = require('./keys')
+const keys = require("./keys");
 
 passport.serializeUser((user, done) => {
   done(null, user);
@@ -20,8 +20,17 @@ passport.use(
       // callbackURL: "http://localhost:5000/google/callback",
       passReqToCallback: true,
     },
-    function (request, accessToken, refreshToken, profile, done) {
-      console.log("sffgsg");
+    //     function (request, accessToken, refreshToken, profile, done) {
+    //       console.log("sffgsg");
+    //       return done(null, profile);
+    //     }
+    //   )
+    // );
+    function (token, tokenSecret, profile, done) {
+      oAuth2Client.setCredentials({
+        access_token: token,
+        refresh_token: tokenSecret,
+      });
       return done(null, profile);
     }
   )
