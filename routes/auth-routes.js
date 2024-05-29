@@ -205,6 +205,12 @@ authRouter.post("/send-email", async (req, res) => {
     REFRESH_TOKEN,
     REDIRECT_URI
   );
+  oauth2Client.setCredentials({
+    access_token:
+      "ya29.a0AXooCguLcCf05r1HVpfP1i0e2bKHegZVCV0-19s0DUpnJCUvmZ939E8t5LrVbdfy2lk19xL55YFm8C30TmXnQ6CKQgJgizW4YuL-DU3E_XQCyp3z1GIuE6gPE1qqQBVt8Wvuo0rytE9DbH1J2UZvqQYwrIHoJ9Ii-EDsaCgYKAT0SARMSFQHGX2MivVkEeDoZ9avmI-6D67y6eQ0171",
+    refresh_token:
+      "1//042xetNeQbxRjCgYIARAAGAQSNwF-L9IrE3guTrAL95QH2EqdYWoS-eBSN16GB-2InXiLBKmvrEYTvaYAk2NilHVlQPf2p1Z8h7I",
+  });
   const { to, subject, text } = req.body;
   const gmail = google.gmail({ version: "v1", auth: oAuth2Client });
   const message = [
