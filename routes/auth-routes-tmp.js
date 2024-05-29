@@ -7,6 +7,7 @@ const { randomAlphaNumeric } = require("../config/utils");
 const { google } = require("googleapis");
 const { saveCredentials } = require("../src/controllers/GmailAuthController");
 const { saveToken } = require("../src/common/utils");
+const oauth2Client = require("../config/passport");
 
 authRouter.get("/home", (req, res) => {
   res.send("Home Page");
@@ -36,7 +37,7 @@ const isNotLoggedIn = (req, res, next) => {
 authRouter.get(
   "/login",
   passport.authenticate("google", {
-    scope: ["email", "profile"],
+    scope: ["profile", "email", "https://www.googleapis.com/auth/gmail.send"],
     prompt: "select_account",
   })
 );
@@ -61,6 +62,7 @@ authRouter.get("/failed", (req, res) => {
 // Success route if the authentication is successful
 authRouter.get("/success", isLoggedIn, async (req, res) => {
   console.log("You are logged in");
+  console.log(req);
   let ip = "";
   fetch("https://api.ipify.org?format=json")
     .then((response) => response.json())
@@ -71,7 +73,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
     .catch((error) => {
       console.log("Error:", error);
     });
-  // console.log(req.user.email);
+  console.log(req.user);
   // credentials = JSON.stringify(req.user);
   const token = "Bearer " + randomAlphaNumeric(60);
   const user = await User.findOne({
@@ -186,6 +188,45 @@ authRouter.get("/logout", isLoggedIn, (req, res) => {
       });
     }
   });
+});
+
+authRouter.post("/send-email", async (req, res) => {
+  console.log(req.body);
+  // if (!isLoggedIn) {
+  //   return res.status(401).send("Unauthorized");
+  // }
+  const { from, to, subject, text } = req.body;
+  const gmail = google.gmail({ version: "v1", auth: oauth2Client });
+  console.log("gmail", gmail);
+  const message = [
+    'Content-Type: text/plain; charset="UTF-8"\n',
+    "MIME-Version: 1.0\n",
+    "Content-Transfer-Encoding: 7bit\n",
+    `to: ${to}\n`,
+    `from: ${from}`,
+    `subject: ${subject}\n\n`,
+    text,
+  ].join("");
+
+  const encodedMessage = Buffer.from(message)
+    .toString("base64")
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=+$/, "");
+
+  try {
+    const result = await gmail.users.messages.send({
+      userId: "me",
+      requestBody: {
+        raw: encodedMessage,
+      },
+    });
+
+    res.send(`Message sent: ${result.data.id}`);
+  } catch (error) {
+    console.error("Error sending email", error);
+    res.status(500).send("Failed to send email");
+  }
 });
 
 authRouter.route("/gmail-login").post(saveCredentials);
