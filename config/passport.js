@@ -27,7 +27,7 @@ passport.use(
     //   )
     // );
     function (token, tokenSecret, profile, done) {
-      oAuth2Client.setCredentials({
+      oauth2Client.setCredentials({
         access_token: token,
         refresh_token: tokenSecret,
       });
