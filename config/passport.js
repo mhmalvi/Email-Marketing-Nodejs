@@ -1,6 +1,6 @@
 require("dotenv").config();
 const passport = require("passport");
-const GoogleStrategy = require("passport-google-oauth2").Strategy;
+const { OAuth2Strategy } = require("passport-google-oauth");
 const { google } = require("googleapis");
 const keys = require("./keys");
 
@@ -24,7 +24,7 @@ passport.deserializeUser(function (user, done) {
 });
 
 passport.use(
-  new GoogleStrategy(
+  new OAuth2Strategy(
     {
       clientID: keys.google.clientID, // Your Credentials here.
       clientSecret: keys.google.clientSecret, // Your Credentials here.
