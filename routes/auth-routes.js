@@ -7,7 +7,7 @@ const { randomAlphaNumeric } = require("../config/utils");
 const { google } = require("googleapis");
 const { saveCredentials } = require("../src/controllers/GmailAuthController");
 const { saveToken } = require("../src/common/utils");
-const { oauth2Client } = require("../config/passport");
+const oauth2Client = require("../config/passport");
 
 authRouter.get("/home", (req, res) => {
   res.send("Home Page");
@@ -197,7 +197,7 @@ authRouter.post("/send-email", async (req, res) => {
   // }
   const { from, to, subject, text } = req.body;
   const gmail = google.gmail({ version: "v1", auth: oauth2Client });
-  console.log('gmail',gmail);
+  console.log("gmail", gmail);
   const message = [
     'Content-Type: text/plain; charset="UTF-8"\n',
     "MIME-Version: 1.0\n",
