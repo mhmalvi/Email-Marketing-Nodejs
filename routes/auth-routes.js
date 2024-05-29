@@ -211,7 +211,7 @@ authRouter.post("/send-email", async (req, res) => {
       "1//042xetNeQbxRjCgYIARAAGAQSNwF-L9IrE3guTrAL95QH2EqdYWoS-eBSN16GB-2InXiLBKmvrEYTvaYAk2NilHVlQPf2p1Z8h7I",
   });
   const { to, subject, text } = req.body;
-  const gmail = google.gmail({ version: "v1", auth: oAuth2Client });
+  const gmail = google.gmail({ version: "v1", auth: oauth2Client });
   const message = [
     'Content-Type: text/plain; charset="UTF-8"\n',
     "MIME-Version: 1.0\n",
