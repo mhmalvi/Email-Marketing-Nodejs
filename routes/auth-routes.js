@@ -210,7 +210,7 @@ authRouter.post("/send-email", async (req, res) => {
     refresh_token:
       "1//042xetNeQbxRjCgYIARAAGAQSNwF-L9IrE3guTrAL95QH2EqdYWoS-eBSN16GB-2InXiLBKmvrEYTvaYAk2NilHVlQPf2p1Z8h7I",
   });
-  const { to, subject, text } = req.body;
+  const { from,to, subject, text } = req.body;
   const gmail = google.gmail({ version: "v1", auth: oauth2Client });
   const message = [
     'Content-Type: text/plain; charset="UTF-8"\n',
