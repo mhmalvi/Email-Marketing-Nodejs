@@ -8,6 +8,8 @@ const { google } = require("googleapis");
 const { saveCredentials } = require("../src/controllers/GmailAuthController");
 const { saveToken } = require("../src/common/utils");
 
+
+
 authRouter.get("/home", (req, res) => {
   res.send("Home Page");
 });
@@ -36,7 +38,7 @@ const isNotLoggedIn = (req, res, next) => {
 authRouter.get(
   "/login",
   passport.authenticate("google", {
-    scope: ["profile", "email", "https://www.googleapis.com/auth/gmail.send"],
+    scope: ["profile","email", "https://www.googleapis.com/auth/gmail.send"],
     prompt: "select_account",
   })
 );
@@ -99,12 +101,11 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
     console.log(newUser.id);
 
     // return req.user.email;
-    await saveToken({ ...data, userID: newUser.id });
+    await saveToken(data);
     res.redirect(
       `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${userName.id}&photo=${req.user.picture}&token=${token}`
     );
   } else {
-    await saveToken({ ...data, userID: user.id });
     // return req.user.email;
     const token = await saveToken(data);
     res.redirect(
@@ -194,7 +195,7 @@ authRouter.post("/send-email", async (req, res) => {
   // if (!isLoggedIn) {
   //   return res.status(401).send("Unauthorized");
   // }
-  const { from, to, subject, text } = req.body;
+  const { from,to, subject, text } = req.body;
   const gmail = google.gmail({ version: "v1", auth: oauth2Client });
   const message = [
     'Content-Type: text/plain; charset="UTF-8"\n',
