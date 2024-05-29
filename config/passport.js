@@ -42,6 +42,7 @@ passport.use(
   )
 );
 
+module.exports = { oauth2Client };
 // passport.use(
 //   new OAuth2Strategy(
 //     {

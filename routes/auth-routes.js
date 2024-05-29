@@ -7,6 +7,7 @@ const { randomAlphaNumeric } = require("../config/utils");
 const { google } = require("googleapis");
 const { saveCredentials } = require("../src/controllers/GmailAuthController");
 const { saveToken } = require("../src/common/utils");
+const { oauth2Client } = require("../config/passport");
 
 authRouter.get("/home", (req, res) => {
   res.send("Home Page");
