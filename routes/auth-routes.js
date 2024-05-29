@@ -188,6 +188,46 @@ authRouter.get("/logout", isLoggedIn, (req, res) => {
   });
 });
 
+app.post("/send-email", async (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.status(401).send("Unauthorized");
+  }
+
+  const { to, subject, text } = req.body;
+
+  const gmail = google.gmail({ version: "v1", auth: oAuth2Client });
+
+  const message = [
+    'Content-Type: text/plain; charset="UTF-8"\n',
+    "MIME-Version: 1.0\n",
+    "Content-Transfer-Encoding: 7bit\n",
+    `to: ${to}\n`,
+    `from: tanjib@quadque.tech\n`,
+    `subject: ${subject}\n\n`,
+    text,
+  ].join("");
+
+  const encodedMessage = Buffer.from(message)
+    .toString("base64")
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=+$/, "");
+
+  try {
+    const result = await gmail.users.messages.send({
+      userId: "me",
+      requestBody: {
+        raw: encodedMessage,
+      },
+    });
+
+    res.send(`Message sent: ${result.data.id}`);
+  } catch (error) {
+    console.error("Error sending email", error);
+    res.status(500).send("Failed to send email");
+  }
+});
+
 authRouter.route("/gmail-login").post(saveCredentials);
 
 // authRouter.route("/google-list").get(list);
