@@ -197,9 +197,12 @@ authRouter.post("/send-email", async (req, res) => {
     "491721270445-154edfaqh36aac6lt07h7ea2a6ic8r9o.apps.googleusercontent.com";
   const CLIENT_SECRET = "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";
   const REDIRECT_URI = "https://backend.quemailer.com/google/callback";
+  const REFRESH_TOKEN =
+    "1//042xetNeQbxRjCgYIARAAGAQSNwF-L9IrE3guTrAL95QH2EqdYWoS-eBSN16GB-2InXiLBKmvrEYTvaYAk2NilHVlQPf2p1Z8h7I";
   const oAuth2Client = new google.auth.OAuth2(
     CLIENT_ID,
     CLIENT_SECRET,
+    REFRESH_TOKEN,
     REDIRECT_URI
   );
   const { to, subject, text } = req.body;
