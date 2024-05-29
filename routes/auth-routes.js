@@ -60,35 +60,31 @@ authRouter.get("/failed", (req, res) => {
 
 // Success route if the authentication is successful
 authRouter.get("/success", isLoggedIn, async (req, res) => {
-  console.log("You are logged in");
+  console.log("User info in success route:", req.user); // Debug log
+
+  if (!req.user || !req.user.email) {
+    return res.status(400).send("User email is missing");
+  }
+
   let ip = "";
   fetch("https://api.ipify.org?format=json")
     .then((response) => response.json())
     .then((data) => {
-      //   console.log(data.ip);
       ip = data.ip;
     })
     .catch((error) => {
       console.log("Error:", error);
     });
+
   console.log(req.user);
-  // credentials = JSON.stringify(req.user);
+
   const token = "Bearer " + randomAlphaNumeric(60);
   const user = await User.findOne({
     where: { email: req.user.email },
   });
-  var newUser = "";
-  const data = {
-    email: req.user.email,
-    token: token,
-    googleId: req.user.id,
-    userName: req.user.displayName,
-    role: 3,
-    photo: req.user.picture,
-  };
-  console.log(data);
+
   if (user === null) {
-    newUser = await User.create({
+    const newUser = await User.create({
       userName: req.user.displayName,
       email: req.user.email,
       googleId: req.user.id,
@@ -96,82 +92,18 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
       photo: req.user.picture,
     });
 
-    console.log(newUser.id);
-
-    // return req.user.email;
-    await saveToken(data);
+    await saveToken({ ...data, userID: newUser.id });
     res.redirect(
-      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${userName.id}&photo=${req.user.picture}&token=${token}`
+      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${newUser.id}&photo=${req.user.picture}&token=${token}`
     );
   } else {
-    // return req.user.email;
-    const token = await saveToken(data);
+    await saveToken({ ...data, userID: user.id });
     res.redirect(
-      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${user.id}&photo=${req.user.picture}&token=${token.token}`
+      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${user.id}&photo=${req.user.picture}&token=${token}`
     );
   }
-  // const userData = {
-  //   email: req.user.email,
-  //   role: user.role,
-  //   token: token,
-  // };
-  // console.log(userData);
-  // res.status(200).json({
-  //   message: "Login successful",
-  //   status: 200,
-  //   user: userData,
-  // });
-  // res.send(
-  //   "Welcome" +
-  //     JSON.stringify(req.user.displayName) +
-  //     ".Your email is " +
-  //     req.user.email
-  // );
-  // res.redirect("https://www.quemailer.com/home");
-  // if (req.user) {
-  //   res.status(200).json({
-  //     message: "login success",
-  //     status: 200,
-  //     user: data,
-  //   });
-  // } else {
-  //   res.status(403).json({
-  //     message: "login failed",
-  //     status: 403,
-  //   });
-  // }
-  // const externalUrl = "https://www.quemailer.com/home";
-  // const params = new URLSearchParams({
-  //   email: req.user.email,
-  //   userName: req.user.displayName,
-  //   id: req.user.id,
-  //   token: token,
-  // });
-  // const response = await fetch(externalUrl, {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify(req.user),
-  // });
-  // if (req.user) {
-  //   res.redirect(`${externalUrl}?${params}`);
-  // }
-
-  // request(
-  //   {
-  //     url: `https://quemailer.com/home?username=${req.user.displayName}&email=${req.user.email}&googleID=${req.user.id}`,
-  //     method: "GET",
-  //   },
-  //   function (err, response) {
-  //     if (err) {
-  //       console.log("Error", err);
-  //     } else {
-  //       console.log(response);
-  //     }
-  //   }
-  // );
 });
+
 
 // Route that logs out the authenticated user
 authRouter.get("/logout", isLoggedIn, (req, res) => {
