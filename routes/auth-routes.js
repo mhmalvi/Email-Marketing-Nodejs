@@ -73,7 +73,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
     .catch((error) => {
       console.log("Error:", error);
     });
-  // console.log(req.user.email);
+  console.log(req.user);
   // credentials = JSON.stringify(req.user);
   const token = "Bearer " + randomAlphaNumeric(60);
   const user = await User.findOne({
