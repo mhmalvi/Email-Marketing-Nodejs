@@ -1,6 +1,6 @@
 require("dotenv").config();
 const passport = require("passport");
-const { OAuth2Strategy } = require("passport-google-oauth2");
+const OAuth2Strategy = require("passport-google-oauth2");
 const { google } = require("googleapis");
 const keys = require("./keys");
 
