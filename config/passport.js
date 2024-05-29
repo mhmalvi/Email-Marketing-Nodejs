@@ -1,6 +1,6 @@
 require("dotenv").config();
 const passport = require("passport");
-const OAuth2Strategy = require("passport-google-oauth20").Strategy;
+const { OAuth2Strategy } = require("passport-google-oauth2").Strategy;
 const { google } = require("googleapis");
 const keys = require("./keys");
 
@@ -28,7 +28,7 @@ passport.use(
     {
       clientID: keys.google.clientID,
       clientSecret: keys.google.clientSecret,
-      callbackURL: keys.redirectUi,
+      callbackURL: keys.redirectUri,
       passReqToCallback: true,
     },
     function (request, accessToken, refreshToken, profile, done) {
@@ -41,8 +41,6 @@ passport.use(
     }
   )
 );
-
-module.exports = { oauth2Client };
 // passport.use(
 //   new OAuth2Strategy(
 //     {
