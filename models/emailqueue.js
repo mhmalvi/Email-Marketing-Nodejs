@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       subject: DataTypes.TEXT,
       fromName: DataTypes.TEXT,
-      fromMail: DataTypes.STRING,
+      fromEmail: DataTypes.STRING,
       recipientName: DataTypes.TEXT,
       recipientEmail: DataTypes.STRING,
       group: DataTypes.INTEGER,
@@ -33,6 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "EmailQueue",
+      tableName: "email_queues",
     }
   );
   return EmailQueue;
