@@ -1,15 +1,29 @@
 const express = require("express");
-const Campaign = require("../../../models").Campaignqueue;
-const Emailqueue = require("../../../models").Emailqueue;
 const { saveCampaign } = require("../../common/campaignUtils/saveCampaign");
-const Campaignqueue = require("../../../models").CampaignQueue;
+const { queueMail } = require("../../common/campaignUtils/queueMail");
 
 const campaignQueue = async (req, res) => {
   console.log(req.body);
-    const campaign = await saveCampaign(req.body);
-  
-    console.log(campaign);
-    // if()
+  const data = req.body;
+  const campaign = await saveCampaign(req.body); ////// create individual campaigns
+  console.log(campaign.id);
+
+  //////////////////////////////////////////////
+  if (campaign) {
+    const result = await queueMail(data, campaign.id); //////queue emails////////
+    console.log(result);
+    if (result === 1) {
+      res.status(200).json({
+        message: "Queued",
+        status: 200,
+      });
+    } else {
+      res.status(500).json({
+        message: "Failed",
+        status: 500,
+      });
+    }
+  }
 };
 
 module.exports = { campaignQueue };
