@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "CampaignQueue",
-      tableName: "Campaigns_queues",
+      tableName: "campaigns_queues",
     }
   );
   return CampaignQueue;
