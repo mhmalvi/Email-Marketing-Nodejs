@@ -27,9 +27,9 @@ const campaignQueue = async (req, res) => {
   }
 };
 
-cron.schedule("* * * * *", () => {
-  console.log("job");
-  sendMail();
-});
+// cron.schedule("* * * * *", () => {
+//   console.log("job");
+//   sendMail();
+// });
 
 module.exports = { campaignQueue };
