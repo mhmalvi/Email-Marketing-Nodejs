@@ -55,16 +55,15 @@ const contactFetchByGroup = async (req, res) => {
   const { user_id, group, page, per_page } = req.body;
   if (user_id && group) {
     offset = (page - 1) * per_page;
-    console.log(group);
     const result = await fetchByGroup(user_id, group); /////// fetch contacts by group //////
     const totalPages = result.length / per_page;
     const count = result.length;
     const result2 = await fetchByGroupPagination(
-      group,user_id,
+      group,
+      user_id,
       per_page,
       offset
-    );
-    console.log(result2);
+    ); //////// fetch contacts by group with pagination //////////////
     if (result2.length > 0) {
       res.status(200).json({
         message: "success",
