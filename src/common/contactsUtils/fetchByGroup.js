@@ -7,7 +7,7 @@ const fetchByGroup = async (user_id, group) => {
     where: { user_id: user_id },
     order: [["id", "DESC"]],
   });
-  const count = 0;
+  let count = 0;
   contacts.forEach((contact) => {
     console.log(contact);
     if (contact.json.group && contact.json.group === group) {
