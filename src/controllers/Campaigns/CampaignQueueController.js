@@ -1,4 +1,5 @@
 const express = require("express");
+const cron = require("node-cron");
 const { saveCampaign } = require("../../common/campaignUtils/saveCampaign");
 const { queueMail } = require("../../common/campaignUtils/queueMail");
 
@@ -7,7 +8,6 @@ const campaignQueue = async (req, res) => {
   const data = req.body;
   const campaign = await saveCampaign(req.body); ////// create individual campaigns
   console.log(campaign.id);
-
   //////////////////////////////////////////////
   if (campaign) {
     const result = await queueMail(data, campaign.id); //////queue emails////////
@@ -25,5 +25,9 @@ const campaignQueue = async (req, res) => {
     }
   }
 };
+
+cron.schedule('* * * * *', () => {
+  console.log('job');
+})
 
 module.exports = { campaignQueue };
