@@ -1,5 +1,5 @@
 "use strict";
-const { Model } = require("sequelize");
+const { Model, TEXT } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Contact extends Model {
     /**
@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       json: DataTypes.JSON,
       user_id: DataTypes.INTEGER,
+      group: DataTypes.TEXT,
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
     },
