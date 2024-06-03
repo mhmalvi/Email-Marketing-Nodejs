@@ -1,5 +1,4 @@
 const Contact = require("../../../models").Contact;
-
 const fetchByGroup = async (user_id, group) => {
   //   console.log(size, offset);
   var contactsArray = [];
@@ -9,7 +8,7 @@ const fetchByGroup = async (user_id, group) => {
     // include: includes,
     include: [{ model: Contact, as: "parent" }],
     where: {
-      json: { [Sequelize.group]: group },
+      [json.group]: group,
       user_id: user_id,
     },
 
