@@ -1,6 +1,6 @@
 const Contact = require("../../../models").Contact;
 
-const fetchByGroupPagination = async (user_id, per_page, offset) => {
+const fetchByGroupPagination = async (group, user_id, per_page, offset) => {
   //   console.log(size, offset);
   var contactsArray = [];
   return await Contact.findAll({
