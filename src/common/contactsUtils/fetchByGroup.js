@@ -3,11 +3,11 @@ const Contact = require("../../../models").Contact;
 const fetchByGroup = async (user_id, group) => {
   //   console.log(size, offset);
   var contactsArray = [];
-  var includes = [{ model: Contact, as: "Contact" }];
+  // var includes = [{ model: Contact, as: "Contact.json" }];
   var filter = { "Contact.json.group": group, "Contact.user_id": user_id };
   const contacts = await Contact.findAll({
-    include: includes,
-    where: filter,
+    // include: includes,
+    where: { "Contact.json.group": group, "Contact.user_id": user_id },
     order: [["id", "DESC"]],
   });
   console.log(contacts);
