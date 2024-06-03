@@ -12,11 +12,10 @@ const fetchByGroup = async (user_id, group) => {
     console.log(contact);
     if (contact.json.group && contact.json.group === group) {
       contactsArray.push(contact);
-      count = contactsArray.length;
     }
   });
   //   console.log(contactsArray);
-  contactsArray.push({total:count});
+  // contactsArray.push({ total: count });
   return contactsArray;
 };
 
