@@ -16,7 +16,7 @@ const fetchByGroup = async (user_id, group) => {
     }
   });
   //   console.log(contactsArray);
-  contactsArray.push(count);
+  contactsArray.push('total',count);
   return contactsArray;
 };
 
