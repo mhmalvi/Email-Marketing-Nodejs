@@ -49,17 +49,21 @@ const fetchContact = async (req, res) => {
 };
 
 const contactFetchByGroup = async (req, res) => {
-  const { user_id, group } = req.body;
+  const { user_id, group, page, per_page } = req.body;
   if (user_id && group) {
-    // offset = (page - 1) * size;
+    offset = (page - 1) * per_page;
     const result = await fetchByGroup(user_id, group); /////// fetch contacts by group //////
+    const totalPages = result.length / per_page;
     const count = result.length;
-    if (result.length > 0) {
+    const result2 = await fetch(data, size, offset);
+    if (result2.length > 0) {
       res.status(200).json({
         message: "success",
         status: 200,
-        contacts: result,
         total: count,
+        contacts: result2,
+        totalPages: Math.ceil(totalPages),
+        current_page: page,
       });
     } else {
       res.status(404).json({
