@@ -7,8 +7,8 @@ const fetchByGroup = async (user_id, group) => {
   // var filter = { "Contact.json.group": group, "Contact.user_id": user_id };
   const contacts = await Contact.findAll({
     // include: includes,
-    where: { ["$contact.json.group$"]: group, ["$contact.user_id$"]: user_id },
-    include: [{ model: Contact, as: "contact" }],
+    where: { ["$parent.json.group$"]: group, ["$parent.user_id$"]: user_id },
+    include: [{ model: Contact, as: "parent" }],
     order: [["id", "DESC"]],
   });
   console.log(contacts);
