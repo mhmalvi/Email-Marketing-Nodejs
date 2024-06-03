@@ -20,7 +20,7 @@ const fetchByGroup = async (user_id, group) => {
   // });
   //   console.log(contactsArray);
   // contactsArray.push({ total: count });
-  return contactsArray;
+  // return contactsArray;
 };
 
 module.exports = { fetchByGroup };
