@@ -4,6 +4,9 @@ const { saveContact } = require("../../common/contactsUtils/saveContact");
 const { fetch } = require("../../common/contactsUtils/fetch");
 const { fetchByGroup } = require("../../common/contactsUtils/fetchByGroup");
 const {
+  fetchByGroupPagination,
+} = require("../../common/contactsUtils/fetchByGroupPagination");
+const {
   fetchContactsByPagination,
 } = require("../../common/groupsUtils/fetchContactsPagination");
 const { getPagingData, getPagination } = require("../../../config/utils");
@@ -55,7 +58,7 @@ const contactFetchByGroup = async (req, res) => {
     const result = await fetchByGroup(user_id, group); /////// fetch contacts by group //////
     const totalPages = result.length / per_page;
     const count = result.length;
-    const result2 = await fetch(data, size, offset);
+    const result2 = await fetchByGroupPagination(result, size, offset);
     if (result2.length > 0) {
       res.status(200).json({
         message: "success",
