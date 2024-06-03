@@ -11,7 +11,7 @@ module.exports = {
      */
     await queryInterface.addColumn("Contacts", "group", {
       type: Sequelize.TEXT,
-      allowNull: false,
+      allowNull: true,
     });
   },
 

@@ -12,6 +12,7 @@ module.exports = {
     await queryInterface.createTable("contacts", {
       id: { type: Sequelize.INTEGER, primaryKey:true, autoIncrement: true, allowNull: false },
       json: { type: Sequelize.STRING, allowNull: false },
+      group:{type:Sequelize.TEXT,allowNull:true},
       createdAt: { type: Sequelize.DATE },
       updatedAt: { type: Sequelize.DATE },
     });
