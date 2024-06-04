@@ -27,9 +27,10 @@ const insertContact = async (req, res) => {
           }
         });
         
-      } else {
-        saveContact(element, data);
       }
+      // else {
+      //   saveContact(element, data);
+      // }
     });
     res.status(201).json({
       message: "Contact inserted",
