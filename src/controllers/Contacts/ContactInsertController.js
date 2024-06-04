@@ -2,7 +2,7 @@ const express = require("express");
 const Contact = require("../../../models").Contact;
 const { saveContact } = require("../../common/contactsUtils/saveContact");
 const { fetch } = require("../../common/contactsUtils/fetch");
-const { ifContactExist } = require("../../common/contactsUtils/ifContactExist");
+const { ifContactExist } = require("../../common/contactsUtils/checkIfContactExist");
 const insertContact = async (req, res) => {
   const json = req.body;
   console.log(json);
