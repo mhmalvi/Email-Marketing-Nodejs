@@ -11,7 +11,7 @@ const campaignQueue = async (req, res) => {
   console.log(campaign.id);
   //////////////////////////////////////////////
   if (campaign) {
-    const result = await queueMail(data, campaign.id); //////queue emails////////
+    const result = await queueMail(data, campaign.id); ////// queue emails ////////
     console.log(result);
     if (result === 1) {
       res.status(200).json({
