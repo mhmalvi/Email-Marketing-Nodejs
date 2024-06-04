@@ -2,7 +2,7 @@ const Contact = require("../../../models").Contact;
 
 const ifContactExist = async (user_id, email) => {
   return await Contact.findOne({
-    where: { user_id: data, email: email },
+    where: { user_id: user_id, email: email },
   });
 };
 
