@@ -22,12 +22,11 @@ const insertContact = async (req, res) => {
           if (element.email === user.json.email) {
             count = 1;
           }
-          console.log('count',count);
+          console.log("count", count);
           if (count === 0) {
             saveContact(element, data);
           }
         });
-        
       }
       // else {
       //   saveContact(element, data);
