@@ -81,5 +81,4 @@ module.exports = {
   generateOTP,
   getPagination,
   getPagingData,
-  onlyUnique,
 };
