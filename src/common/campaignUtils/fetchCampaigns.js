@@ -1,7 +1,7 @@
 const CampaignQueue = require("../../../models").CampaignQueue;
 
 const fetchCampaigns = async (req, res) => {
-  await CampaignQueue.fetchAll({});
+  await CampaignQueue.findAll({});
 };
 
 module.exports = { fetchCampaigns };
