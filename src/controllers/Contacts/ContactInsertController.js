@@ -22,8 +22,6 @@ const insertContact = async (req, res) => {
         if (!UserCollectionExist.includes(element.email)) {
           saveContact(element, data);
         }
-      } else {
-        saveContact(element, data);
       }
       // else {
       //   saveContact(element, data);
