@@ -2,7 +2,7 @@ const Emailqueue = require("../../../models").EmailQueue;
 
 const queueMail = async (data, campaignID) => {
   try {
-    await data.recipient.forEach((element) => {
+    await data.recipient.list.forEach((element) => {
       Emailqueue.create({
         subject: data.campaignInfo.subject,
         fromName: data.campaignInfo.fromName,
