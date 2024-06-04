@@ -21,6 +21,7 @@ const insertContact = async (req, res) => {
           if (element.email === user.json.email) {
             count += 1;
           }
+          console.log(count);
         });
         if (count < 1) {
           saveContact(element, data);

@@ -2,6 +2,7 @@ const Emailqueue = require("../../../models").EmailQueue;
 const { transporter } = require("../../../config/utils");
 
 const sendMail = async (req, res) => {
+    
   const mailOptions = {
     from: "<tanjib@quadque.tech>",
     to: "megatanjib@gmail.com", // list of receivers
