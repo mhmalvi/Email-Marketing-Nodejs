@@ -22,10 +22,11 @@ const insertContact = async (req, res) => {
             count += 1;
           }
           console.log(count);
+          if (count < 1) {
+            saveContact(element, data);
+          }
         });
-        if (count < 1) {
-          saveContact(element, data);
-        }
+        
       } else {
         saveContact(element, data);
       }
