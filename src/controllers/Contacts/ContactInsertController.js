@@ -18,11 +18,9 @@ const insertContact = async (req, res) => {
       // const collection = JSON.parse(UserCollectionExist);
       // console.log("abc", collection);
       var count = 0;
-      const userCollectionExist = await ifContactExist(data);
-      console.log(userCollectionExist);
+      const userCollectionExist = await ifContactExist(data, element);
+      console.log("userCollectionExist", userCollectionExist);
       if (!userCollectionExist) {
-        saveContact(element, data);
-      } else {
         saveContact(element, data);
       }
     });
