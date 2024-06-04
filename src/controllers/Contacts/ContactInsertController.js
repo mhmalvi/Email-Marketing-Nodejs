@@ -9,22 +9,22 @@ const insertContact = async (req, res) => {
   const json = req.body;
   console.log(json);
   const data = JSON.parse(req.params.userID);
-
+  console.log(data);
   if (json.length > 0) {
-    await json.forEach(async (element) => {
-      // console.log(data);
+    // const UserCollectionExist = JSON.stringify(await fetch(data));
+
+    await json.forEach(async(element) => {
+      // console.log("string", UserCollectionExist);
       // const collection = JSON.parse(UserCollectionExist);
       // console.log("abc", collection);
       var count = 0;
-      // if (UserCollectionExist.length > 0) {
-      //   if (!UserCollectionExist.includes(element.email)) {
-          saveContact(element, data);
-      //   }
-      // } else {
-        //   const UserCollectionExist = await ifContactExist(data);
-        //   if (!UserCollectionExist.includes(element.email)) {
-        // saveContact(element, data);
-        //   }
+      const userCollectionExist = ifContactExist(data);
+      console.log(userCollectionExist);
+      if (!userCollectionExist) {
+        saveContact(element, data);
+      }
+      // else {
+      //   saveContact(element, data);
       // }
     });
     res.status(201).json({
