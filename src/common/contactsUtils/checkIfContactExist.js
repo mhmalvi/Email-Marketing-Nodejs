@@ -1,7 +1,7 @@
 const Contact = require("../../../models").Contact;
 
 const ifContactExist = async (user_id) => {
-    console.log(user_id);
+    // console.log(user_id);
   return await Contact.findAll({
     attributes: ["email"],
     where: { user_id: user_id },
