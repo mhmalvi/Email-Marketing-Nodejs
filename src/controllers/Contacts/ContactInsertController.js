@@ -18,6 +18,8 @@ const insertContact = async (req, res) => {
       const userCollectionExist = Contact.findOne({
         where: { user_id: data, email: element.email },
       });
+      console.log("data", data);
+      console.log("userCollectionExist", userCollectionExist);
       if (!userCollectionExist) {
         saveContact(element, data);
       }
