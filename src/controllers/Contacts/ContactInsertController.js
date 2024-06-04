@@ -18,13 +18,13 @@ const insertContact = async (req, res) => {
       var count = 0;
       // if (UserCollectionExist.length > 0) {
       //   if (!UserCollectionExist.includes(element.email)) {
-      saveContact(element, data);
+          saveContact(element, data);
       //   }
       // } else {
-      //   const UserCollectionExist = await ifContactExist(data);
-      //   if (!UserCollectionExist.includes(element.email)) {
-      //     saveContact(element, data);
-      //   }
+        //   const UserCollectionExist = await ifContactExist(data);
+        //   if (!UserCollectionExist.includes(element.email)) {
+        // saveContact(element, data);
+        //   }
       // }
     });
     res.status(201).json({
