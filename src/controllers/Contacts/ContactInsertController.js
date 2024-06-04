@@ -13,7 +13,7 @@ const insertContact = async (req, res) => {
   if (json.length > 0) {
     await json.forEach(async (element) => {
       const UserCollectionExist = await JSON.stringify(fetch(data));
-      // console.log("string", UserCollectionExist);
+      console.log("string", UserCollectionExist);
       // const collection = JSON.parse(UserCollectionExist);
       // console.log("abc", collection);
       var count = 0;
