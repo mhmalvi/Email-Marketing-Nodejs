@@ -70,6 +70,10 @@ const getPagination = (page, size) => {
   return { limit, offset };
 };
 
+function onlyUnique(value, index, array) {
+  return array.indexOf(value) === index;
+}
+
 // randomAlphaNumeric(5); // '0afad'
 
 module.exports = {
@@ -80,4 +84,5 @@ module.exports = {
   generateOTP,
   getPagination,
   getPagingData,
+  onlyUnique,
 };
