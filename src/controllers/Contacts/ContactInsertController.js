@@ -8,25 +8,18 @@ const insertContact = async (req, res) => {
   const data = JSON.parse(req.params.userID);
   console.log(data);
   if (json.length > 0) {
-    const UserCollectionExist = JSON.stringify(await fetch(data));
+    // const UserCollectionExist = JSON.stringify(await fetch(data));
+
     await json.forEach((element) => {
       // console.log("string", UserCollectionExist);
       const collection = JSON.parse(UserCollectionExist);
       console.log("abc", collection);
       var count = 0;
-      if (collection.length > 0) {
-        collection.forEach((user) => {
-          console.log("user", user.json.email);
-          console.log("json", element.email);
-
-          if (element.email === user.json.email) {
-            count = 1;
-          }
-          console.log("count", count);
-          if (count === 0) {
-            saveContact(element, data);
-          }
-        });
+      const userCollectionExist = Contact.findOne({
+        where: { user_id: data, email: element.email },
+      });
+      if (!userCollectionExist) {
+        saveContact(element, data);
       }
       // else {
       //   saveContact(element, data);
