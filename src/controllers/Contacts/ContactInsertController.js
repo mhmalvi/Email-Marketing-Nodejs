@@ -2,6 +2,7 @@ const express = require("express");
 const Contact = require("../../../models").Contact;
 const { saveContact } = require("../../common/contactsUtils/saveContact");
 const { fetch } = require("../../common/contactsUtils/fetch");
+const { ifContactExist } = require("../../common/contactsUtils/ifContactExist");
 const insertContact = async (req, res) => {
   const json = req.body;
   console.log(json);
@@ -15,9 +16,7 @@ const insertContact = async (req, res) => {
       // const collection = JSON.parse(UserCollectionExist);
       // console.log("abc", collection);
       var count = 0;
-      const userCollectionExist = Contact.findOne({
-        where: { user_id: data, email: element.email },
-      });
+      const userCollectionExist = ifContactExist(data, element.email);
       console.log("data", data);
       console.log("userCollectionExist", userCollectionExist);
       if (!userCollectionExist) {
