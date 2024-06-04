@@ -1,10 +1,10 @@
 const Emailqueue = require("../../../models").EmailQueue;
 const { transporter } = require("../../../config/utils");
-const { fetchCampaigns } = require("./fetchCampaigns");
+const { fetchQueuedMails } = require("./queueMail");
 
 const sendMail = async (req, res) => {
-  var campaigns = await fetchCampaigns();
-  console.log(campaigns);
+  const mails = await fetchQueuedMails()
+  console.log(mails);
   // const mailOptions = {
   //   from: "<tanjib@quadque.tech>",
   //   to: "megatanjib@gmail.com", // list of receivers

@@ -22,4 +22,8 @@ const queueMail = async (data, campaignID) => {
   }
 };
 
-module.exports = { queueMail };
+const fetchQueuedMails = async () => {
+  return await Emailqueue.findAll({});
+};
+
+module.exports = { queueMail, fetchQueuedMails };
