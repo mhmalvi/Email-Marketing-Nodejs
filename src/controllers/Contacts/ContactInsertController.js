@@ -13,7 +13,7 @@ const insertContact = async (req, res) => {
   if (json.length > 0) {
     // const UserCollectionExist = JSON.stringify(await fetch(data));
 
-    await json.forEach(async(element) => {
+    await json.forEach(async (element) => {
       // console.log("string", UserCollectionExist);
       // const collection = JSON.parse(UserCollectionExist);
       // console.log("abc", collection);
@@ -22,10 +22,9 @@ const insertContact = async (req, res) => {
       console.log(userCollectionExist);
       if (!userCollectionExist) {
         saveContact(element, data);
+      } else {
+        saveContact(element, data);
       }
-      // else {
-      //   saveContact(element, data);
-      // }
     });
     res.status(201).json({
       message: "Contact inserted",
