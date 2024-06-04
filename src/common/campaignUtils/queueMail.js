@@ -25,7 +25,6 @@ const queueMail = async (data, campaignID) => {
 const fetchQueuedMails = async () => {
   return await Emailqueue.findAll({
     where: { deliver: 0 },
-    where: { deliver: 2 },
   });
 };
 
