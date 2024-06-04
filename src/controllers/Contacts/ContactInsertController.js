@@ -19,10 +19,10 @@ const insertContact = async (req, res) => {
           console.log("json", user.json);
 
           if (element.email === user.json.email) {
-            count += 1;
+            count = 1;
           }
           console.log('count',count);
-          if (count < 1) {
+          if (count !== 1) {
             saveContact(element, data);
           }
         });
