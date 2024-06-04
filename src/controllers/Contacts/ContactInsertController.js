@@ -12,8 +12,8 @@ const insertContact = async (req, res) => {
 
     await json.forEach((element) => {
       // console.log("string", UserCollectionExist);
-      const collection = JSON.parse(UserCollectionExist);
-      console.log("abc", collection);
+      // const collection = JSON.parse(UserCollectionExist);
+      // console.log("abc", collection);
       var count = 0;
       const userCollectionExist = Contact.findOne({
         where: { user_id: data, email: element.email },
