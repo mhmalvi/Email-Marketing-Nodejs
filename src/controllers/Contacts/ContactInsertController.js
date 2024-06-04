@@ -16,7 +16,7 @@ const insertContact = async (req, res) => {
       var count = 0;
       if (collection.length > 0) {
         collection.forEach((user) => {
-          console.log("json", user.json);
+          console.log("json", user.json.email);
 
           if (element.email === user.json.email) {
             count = 1;
