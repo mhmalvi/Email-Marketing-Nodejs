@@ -5,9 +5,11 @@ const { fetch } = require("../../common/contactsUtils/fetch");
 const {
   ifContactExist,
 } = require("../../common/contactsUtils/checkIfContactExist");
+const { onlyUnique } = require("../../../config/utils");
 const insertContact = async (req, res) => {
   const json = req.body;
-  console.log(json);
+  var unique = json.filter(onlyUnique);
+  console.log(unique);
   const data = JSON.parse(req.params.userID);
 
   if (json.length > 0) {
