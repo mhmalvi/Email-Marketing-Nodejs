@@ -23,6 +23,7 @@ const insertContact = async (req, res) => {
           saveContact(element, data);
         }
       }
+      
       // else {
       //   saveContact(element, data);
       // }
