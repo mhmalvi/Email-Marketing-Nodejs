@@ -9,14 +9,14 @@ const insertContact = async (req, res) => {
   const json = req.body;
   console.log(json);
   const data = JSON.parse(req.params.userID);
-  
+
   if (json.length > 0) {
     await json.forEach(async (element) => {
       // console.log(data);
       const UserCollectionExist = await ifContactExist(data);
-      console.log("string", UserCollectionExist);
-      // const collection = JSON.parse(UserCollectionExist);
-      // console.log("abc", collection);
+      // console.log("string", UserCollectionExist);
+      const collection = JSON.parse(UserCollectionExist);
+      console.log("abc", collection);
       var count = 0;
       if (UserCollectionExist.length > 0) {
         if (!UserCollectionExist.includes(element.email)) {
