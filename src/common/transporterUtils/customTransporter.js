@@ -6,8 +6,8 @@ const transporter = async (data) => {
     port: 587,
     secure: false, // Use `true` for port 465, `false` for all other ports
     auth: {
-      user: sender.email,
-      pass: sender.app_password,
+      user: data.email,
+      pass: data.app_password,
     },
   });
   return customTransporter;
