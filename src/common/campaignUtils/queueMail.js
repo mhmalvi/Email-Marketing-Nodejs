@@ -2,6 +2,7 @@ const Emailqueue = require("../../../models").EmailQueue;
 
 const queueMail = async (data, campaignID) => {
   try {
+    console.log(data.userID);
     if (data.recipient.group) {
       const results = await Emailqueue.findAll({
         where: { user_id: data.userID, group: data.recipient.group },
