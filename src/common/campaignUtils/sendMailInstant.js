@@ -27,6 +27,7 @@ const sendMail = async (req, res) => {
         console.log(err);
         return "Error while sending email" + err;
       } else {
+        console.log(info.accepted);
         const emailValidator = new EmailValidator();
         const { wellFormed, validDomain, validMailbox } =
           await emailValidator.verify(info.accepted);
