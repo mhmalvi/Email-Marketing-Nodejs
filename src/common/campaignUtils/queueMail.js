@@ -9,6 +9,20 @@ const queueMail = async (data, campaignID) => {
         where: { user_id: data.userID, group: data.recipient.group },
       });
       console.log(results);
+      results.forEach(async (element) => {
+        await Emailqueue.create({
+          subject: data.campaignInfo.subject,
+          fromName: data.campaignInfo.fromName,
+          fromEmail: data.campaignInfo.fromMail,
+          recipientName: element.json.name,
+          recipientEmail: element.json.email,
+          group: element.json.group,
+          templateName: data.template.name,
+          templateData: data.template.data,
+          campaignID: campaignID,
+          userID: data.userID,
+        });
+      });
     } else {
       await data.recipient.list.forEach(async (element) => {
         await Emailqueue.create({
