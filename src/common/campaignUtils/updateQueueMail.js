@@ -8,6 +8,7 @@ const updateDeliveryStatus = async (email) => {
 };
 
 const updateBounceStatus = async (email) => {
+  console.log(email);
   return await Emailqueue.update(
     { deliver: 2, bounce: 1 },
     { where: { recipientEmail: email, deliver: 0 } }
