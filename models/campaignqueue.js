@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       fromName: DataTypes.TEXT,
       count: DataTypes.INTEGER,
       userID: DataTypes.INTEGER,
+      campaignName: DataTypes.TEXT,
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
     },
