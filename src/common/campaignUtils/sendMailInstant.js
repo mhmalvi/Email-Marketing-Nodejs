@@ -2,7 +2,7 @@ const Emailqueue = require("../../../models").EmailQueue;
 const {
   transporter,
 } = require("../../common/transporterUtils/customTransporter");
-const nodemailer = require("nodemailer");
+
 const AppPassword = require("../../../models").AppPassword;
 const { fetchQueuedMails } = require("./queueMail");
 const sendMail = async (req, res) => {
@@ -12,7 +12,7 @@ const sendMail = async (req, res) => {
     const sender = await AppPassword.findOne({
       where: { email: mail.fromEmail },
     });
-    let transporter = await transporter(sender);
+    let transporterResponse = await transporter(sender);
     // const customTransporter = nodemailer.createTransport({
     //   host: "smtp.gmail.com",
     //   port: 587,
@@ -29,16 +29,19 @@ const sendMail = async (req, res) => {
       // text: `Your OTP is`,
       // Specify the return path address
     };
-    const info = await transporter.sendMail(mailOptions, function (err, info) {
-      if (err) {
-        console.log(err);
-        return "Error while sending email" + err;
-      } else {
-        console.log("Email sent", info.accepted);
-        return "Email sent";
+    const info = await transporterResponse.sendMail(
+      mailOptions,
+      function (err, info) {
+        if (err) {
+          console.log(err);
+          return "Error while sending email" + err;
+        } else {
+          console.log("Email sent", info.accepted);
+          return "Email sent";
+        }
+        // });
       }
-      // });
-    });
+    );
 
     //
   });
