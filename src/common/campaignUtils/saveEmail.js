@@ -1,6 +1,6 @@
 const Emailqueue = require("../../../models").EmailQueue;
 
-const saveEmail = async () => {
+const saveEmail = async (data, results) => {
   try {
     results.forEach(async (element) => {
       await Emailqueue.create({
