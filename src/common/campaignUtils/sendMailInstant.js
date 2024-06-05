@@ -38,7 +38,7 @@ const sendMail = async (req, res) => {
         console.log(wellFormed);
         console.log(validDomain);
         console.log(validMailbox);
-        if (validDomain === "false") {
+        if (!validDomain) {
           await updateBounceStatus(mail.recipientEmail);
         } else {
           await updateDeliveryStatus(mail.recipientEmail);
