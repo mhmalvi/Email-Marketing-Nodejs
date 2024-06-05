@@ -11,7 +11,7 @@ const queueMail = async (data, campaignID) => {
         where: { user_id: data.userID, group: data.recipient.group },
       });
       console.log(JSON.stringify(results));
-      const response = await saveEmail(data, results);
+      const response = await saveEmail(data, results, campaignID);
       console.log(response);
       // return 1;
     } else {
