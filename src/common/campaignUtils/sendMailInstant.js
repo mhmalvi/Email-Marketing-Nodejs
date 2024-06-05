@@ -36,9 +36,9 @@ const sendMail = async (req, res) => {
         console.log(validDomain);
         console.log(validMailbox);
         if (validDomain === "false") {
-          await updateBounceStatus(info.accepted);
+          await updateBounceStatus(mail.recipientEmail);
         } else {
-          await updateDeliveryStatus(info.accepted);
+          await updateDeliveryStatus(mail.recipientEmail);
         }
 
         console.log("Email sent", info.accepted);
