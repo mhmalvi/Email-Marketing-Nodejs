@@ -1,5 +1,6 @@
 const Emailqueue = require("../../../models").EmailQueue;
 const { transporter } = require("../../../config/utils");
+const nodemailer = require("nodemailer");
 const { customTransporter } = require("../transporterUtils/customTransporter");
 const AppPassword = require("../../../models").AppPassword;
 const { fetchQueuedMails } = require("./queueMail");
