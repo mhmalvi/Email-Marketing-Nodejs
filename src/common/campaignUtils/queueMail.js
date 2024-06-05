@@ -1,7 +1,7 @@
 const { saveEmail } = require("./saveEmail");
 
 const Contact = require("../../../models").Contact;
-
+const Emailqueue = require("../../../models").EmailQueue;
 const queueMail = async (data, campaignID) => {
   try {
     console.log(data.userID);

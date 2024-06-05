@@ -16,6 +16,7 @@ const saveEmail = async (data, results, campaignID) => {
         userID: data.userID,
       });
     });
+      return 1
   } catch (error) {}
 };
 
