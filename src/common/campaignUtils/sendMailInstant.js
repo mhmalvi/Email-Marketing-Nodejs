@@ -6,6 +6,7 @@ const {
 const AppPassword = require("../../../models").AppPassword;
 const { fetchQueuedMails } = require("./queueMail");
 const { updateDeliveryStatus } = require("./updateQueueMail");
+const EmailValidator = require("email-deep-validator");
 const sendMail = async (req, res) => {
   const mails = await fetchQueuedMails(); /////////////  get queued recipients from db ///////////
   console.log(mails);
@@ -26,6 +27,13 @@ const sendMail = async (req, res) => {
         console.log(err);
         return "Error while sending email" + err;
       } else {
+        const emailValidator = new EmailValidator();
+        const { wellFormed, validDomain, validMailbox } =
+          await emailValidator.verify(req.body.email);
+
+        console.log(wellFormed);
+        console.log(validDomain);
+        console.log(validMailbox);
         await updateDeliveryStatus(info.accepted);
         console.log("Email sent", info.accepted);
         return "Email sent";
