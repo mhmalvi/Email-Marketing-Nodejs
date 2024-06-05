@@ -4,6 +4,7 @@ const Contact = require("../../../models").Contact;
 const queueMail = async (data, campaignID) => {
   try {
     console.log(data.userID);
+    console.log('group',data.recipient.group);
     if (data.recipient.group) {
       const results = await Contact.findAll({
         where: { user_id: data.userID, group: data.recipient.group },
