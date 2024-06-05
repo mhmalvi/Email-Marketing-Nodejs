@@ -5,7 +5,10 @@ const {
 
 const AppPassword = require("../../../models").AppPassword;
 const { fetchQueuedMails } = require("./queueMail");
-const { updateDeliveryStatus } = require("./updateQueueMail");
+const {
+  updateDeliveryStatus,
+  updateBounceStatus,
+} = require("./updateQueueMail");
 const EmailValidator = require("email-deep-validator");
 const sendMail = async (req, res) => {
   const mails = await fetchQueuedMails(); /////////////  get queued recipients from db ///////////
