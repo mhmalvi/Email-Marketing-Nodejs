@@ -29,7 +29,7 @@ const sendMail = async (req, res) => {
       } else {
         const emailValidator = new EmailValidator();
         const { wellFormed, validDomain, validMailbox } =
-          await emailValidator.verify(req.body.email);
+          await emailValidator.verify(info.accepted);
 
         console.log(wellFormed);
         console.log(validDomain);
