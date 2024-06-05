@@ -34,13 +34,17 @@ const sendMail = async (req, res) => {
         console.log(wellFormed);
         console.log(validDomain);
         console.log(validMailbox);
-        await updateDeliveryStatus(info.accepted);
+        if (validDomain === "false") {
+          await updateBounceStatus(info.accepted);
+        } else {
+          await updateDeliveryStatus(info.accepted);
+        }
+
         console.log("Email sent", info.accepted);
         return "Email sent";
       }
       // });
     });
-
     //
   });
 };

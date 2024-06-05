@@ -7,4 +7,11 @@ const updateDeliveryStatus = async (email) => {
   );
 };
 
-module.exports = { updateDeliveryStatus };
+const updateBounceStatus = async (email) => {
+  return await Emailqueue.update(
+    { deliver: 2, bounce: 1 },
+    { where: { recipientEmail: email, deliver: 0 } }
+  );
+};
+
+module.exports = { updateDeliveryStatus, updateBounceStatus };
