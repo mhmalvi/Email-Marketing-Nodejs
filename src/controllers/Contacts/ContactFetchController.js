@@ -64,6 +64,7 @@ const contactFetchByGroup = async (req, res) => {
       per_page,
       offset
     ); //////// fetch contacts by group with pagination //////////////
+    console.log(result2);
     if (result2.length > 0) {
       res.status(200).json({
         message: "success",
