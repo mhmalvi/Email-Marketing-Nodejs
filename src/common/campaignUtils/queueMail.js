@@ -9,7 +9,7 @@ const queueMail = async (data, campaignID) => {
       const results = await Contact.findAll({
         where: { user_id: data.userID, group: data.recipient.group },
       });
-      console.log(results);
+      console.log(JSON.stringify(results));
       results.forEach(async (element) => {
         await Emailqueue.create({
           subject: data.campaignInfo.subject,
