@@ -1,4 +1,5 @@
 const Emailqueue = require("../../../models").EmailQueue;
+const ejs = require("ejs");
 const {
   transporter,
 } = require("../../common/transporterUtils/customTransporter");
@@ -17,39 +18,45 @@ const sendMail = async (req, res) => {
     const sender = await AppPassword.findOne({
       where: { email: mail.fromEmail },
     }); ////////////  get app password of the sender from db //////////////////
-    let transporterResponse = await transporter(sender);
-    const mailOptions = {
-      to: mail.recipientEmail, // list of receivers
-      subject: mail.subject, // Subject line
-      text: mail.templateData, // email body
-      // text: `Your OTP is`,
-      // Specify the return path address
-    };
-    const emailValidator = new EmailValidator();
-    const { wellFormed, validDomain, validMailbox } =
-      await emailValidator.verify(mail.recipientEmail);
+    const template = mail.templateData;
+    ejs.renderFile(
+      __dirname + "/src/ejs/mail.ejs",
+      { template },
+      async (err, data) => {
+        let transporterResponse = await transporter(sender);
+        const mailOptions = {
+          to: mail.recipientEmail, // list of receivers
+          subject: mail.subject, // Subject line
+          text: mail.templateData, // email body
+          // text: `Your OTP is`,
+          // Specify the return path address
+        };
+        const emailValidator = new EmailValidator();
+        const { wellFormed, validDomain, validMailbox } =
+          await emailValidator.verify(mail.recipientEmail);
 
-    console.log(wellFormed);
-    console.log(validDomain);
-    console.log(validMailbox);
-    if (!validDomain || !wellFormed) {
-      await updateBounceStatus(mail.recipientEmail);
-    } else {
-      await transporterResponse.sendMail(mailOptions, async (err, info) => {
-        if (err) {
-          console.log(err);
-          return "Error while sending email" + err;
+        console.log(wellFormed);
+        console.log(validDomain);
+        console.log(validMailbox);
+        if (!validDomain || !wellFormed) {
+          await updateBounceStatus(mail.recipientEmail);
         } else {
-          console.log(info.accepted[0]);
+          await transporterResponse.sendMail(mailOptions, async (err, info) => {
+            if (err) {
+              console.log(err);
+              return "Error while sending email" + err;
+            } else {
+              console.log(info.accepted[0]);
 
-          console.log("Email sent", info.accepted);
-          return "Email sent";
+              console.log("Email sent", info.accepted);
+              return "Email sent";
+            }
+            // });
+          });
+          await updateDeliveryStatus(mail.recipientEmail);
         }
-        // });
-      });
-      await updateDeliveryStatus(mail.recipientEmail);
-    }
-
+      }
+    );
     //
   });
 };
