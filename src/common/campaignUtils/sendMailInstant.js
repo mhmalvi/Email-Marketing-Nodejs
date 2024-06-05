@@ -7,7 +7,7 @@ const sendMail = async (req, res) => {
   console.log(mails);
   mails.forEach(async (mail) => {
     const mailOptions = {
-      from: "<tanjib@quadque.tech>",
+      from: "<zulker@quadque.tech>",
       to: mail.recipientEmail, // list of receivers
       subject: "OTP verification", // Subject line
       text: `Your OTP is 4567`,
