@@ -16,6 +16,7 @@ const { appPasswordRouter } = require("./routes/appPassword-routes");
 const { randomAlphaNumeric, getIp } = require("./src/common/utils");
 require("./config/passport");
 const cors = require("cors");
+const { pixelTracker } = require("./routes/pixelTracker-routes");
 const app = express();
 const port = 5000;
 
@@ -49,7 +50,8 @@ app
   .use("/api", templateRouter)
   .use("/api", groupRouter)
   .use("/api", campaignRouter)
-  .use("/api", appPasswordRouter);
+  .use("/api", appPasswordRouter)
+  .use("/", pixelTracker);
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
