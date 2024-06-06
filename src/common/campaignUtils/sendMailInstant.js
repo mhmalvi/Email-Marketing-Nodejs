@@ -23,7 +23,7 @@ const sendMail = async (req, res) => {
     if (mail.createdAt > new Date()) {
       console.log('true');
     } else {
-      console.log("true");
+      console.log("false");
     }
     // const sender = await AppPassword.findOne({
     //   where: { email: mail.fromEmail },
