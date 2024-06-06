@@ -1,5 +1,6 @@
 const Emailqueue = require("../../../models").EmailQueue;
 const ejs = require("ejs");
+const path = require("path");
 const { convert } = require("html-to-text");
 const {
   transporter,
@@ -19,11 +20,12 @@ const sendMail = async (req, res) => {
     const sender = await AppPassword.findOne({
       where: { email: mail.fromEmail },
     }); ////////////  get app password of the sender from db //////////////////
+
     const template = mail.templateData;
-    // ejs.renderFile(
-    //   __dirname + "/src/ejs/mail.ejs",
-    //   { template },
-    //   async (err, data) => {
+    const file = path.join(__dirname, "../../ejs/mail.ejs");
+    const data = await ejs.renderFile(file, {
+      template,
+    });
     let transporterResponse = await transporter(sender);
     const mailOptions = {
       to: mail.recipientEmail, // list of receivers
