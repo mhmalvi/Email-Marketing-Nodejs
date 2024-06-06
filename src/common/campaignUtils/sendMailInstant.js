@@ -26,7 +26,7 @@ const sendMail = async (req, res) => {
         where: { email: mail.fromEmail },
       }); ////////////  get app password of the sender from db //////////////////
 
-      const template = convert(mail.templateData); ////////// convert from html to plain text /////////
+      const template = mail.templateData; ////////// convert from html to plain text /////////
       const id = mail.id;
       const file = path.join(__dirname, "../../ejs/mail.ejs");
       const data = await ejs.renderFile(file, {
@@ -52,6 +52,7 @@ const sendMail = async (req, res) => {
       if (!validDomain || !wellFormed) {
         await updateBounceStatus(mail.id);
       } else {
+        await updateDeliveryStatus(mail.id);
         await transporterResponse.sendMail(mailOptions, async (err, info) => {
           if (err) {
             console.log(err);
@@ -64,7 +65,7 @@ const sendMail = async (req, res) => {
           }
           // });
         });
-        await updateDeliveryStatus(mail.id);
+        
       }
     } else {
       console.log("false");
