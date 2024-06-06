@@ -5,7 +5,7 @@ const saveCampaign = (data) => {
   return Campaignqueue.create({
     fromMail: data.campaignInfo.fromMail,
     fromName: data.campaignInfo.fromName,
-    campaignName: data.campaignInfo,
+    campaignName: data.campaignInfo.campaignName,
     count: email_count,
     userID: data.userID,
   });
