@@ -27,55 +27,53 @@ const sendMail = async (req, res) => {
       }); ////////////  get app password of the sender from db //////////////////
 
       var template = convert(mail.templateData); ////////// convert from html to plain text /////////
-      let regex = /\{([^}]+)\}/g;
-      let matches = [];
-      let match;
-      while ((match = regex.exec(str)) !== null) {
-        matches.push(match[0]);
+      var subject = mail.subject
+        .replace("{email}", mail.recipientEmail)
+        .replace("{name}", mail.recipientName)
+        .replace("{group}", mail.group);
+      template = template
+        .replace("{email}", mail.recipientEmail)
+        .replace("{name}", mail.recipientName)
+        .replace("{group}", mail.group);
+      const id = mail.id;
+      const file = path.join(__dirname, "../../ejs/mail.ejs");
+      const data = await ejs.renderFile(file, {
+        template,
+        id,
+      });
+      let transporterResponse = await transporter(sender);
+      const mailOptions = {
+        to: mail.recipientEmail, // list of receivers
+        subject: subject, // Subject line
+        // text: mail.templateData, // email body
+        html: data,
+        // text: `Your OTP is`,
+        // Specify the return path address
+      };
+      const emailValidator = new EmailValidator();
+      const { wellFormed, validDomain, validMailbox } =
+        await emailValidator.verify(mail.recipientEmail);
+
+      console.log(wellFormed);
+      console.log(validDomain);
+      console.log(validMailbox);
+      if (!validDomain || !wellFormed) {
+        await updateBounceStatus(mail.id);
+      } else {
+        await updateDeliveryStatus(mail.id);
+        await transporterResponse.sendMail(mailOptions, async (err, info) => {
+          if (err) {
+            console.log(err);
+            return "Error while sending email" + err;
+          } else {
+            console.log(info.accepted[0]);
+
+            console.log("Email sent", info.accepted);
+            return "Email sent";
+          }
+          // });
+        });
       }
-      console.log(matches);
-      // template = template
-      //   .replace("{EMAIL}", mail.recipientEmail)
-      //   .replace("{NAME}", mail.recipientName);
-      // const id = mail.id;
-      // const file = path.join(__dirname, "../../ejs/mail.ejs");
-      // const data = await ejs.renderFile(file, {
-      //   template,
-      //   id,
-      // });
-      // let transporterResponse = await transporter(sender);
-      // const mailOptions = {
-      //   to: mail.recipientEmail, // list of receivers
-      //   subject: mail.subject, // Subject line
-      //   // text: mail.templateData, // email body
-      //   html: data,
-      //   // text: `Your OTP is`,
-      //   // Specify the return path address
-      // };
-      // const emailValidator = new EmailValidator();
-      // const { wellFormed, validDomain, validMailbox } =
-      //   await emailValidator.verify(mail.recipientEmail);
-
-      // console.log(wellFormed);
-      // console.log(validDomain);
-      // console.log(validMailbox);
-      // if (!validDomain || !wellFormed) {
-      //   await updateBounceStatus(mail.id);
-      // } else {
-      //   await updateDeliveryStatus(mail.id);
-      //   await transporterResponse.sendMail(mailOptions, async (err, info) => {
-      //     if (err) {
-      //       console.log(err);
-      //       return "Error while sending email" + err;
-      //     } else {
-      //       console.log(info.accepted[0]);
-
-      //       console.log("Email sent", info.accepted);
-      //       return "Email sent";
-      //     }
-      //     // });
-      //   });
-      // }
     } else {
       console.log("false");
     }
