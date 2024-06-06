@@ -16,12 +16,12 @@ const EmailValidator = require("email-deep-validator");
 const { log } = require("console");
 const sendMail = async (req, res) => {
   const mails = await fetchQueuedMails(); /////////////  get queued recipients from db ///////////
-  console.log(mails);
+  // console.log(mails);
   mails.forEach(async (mail) => {
-    console.log("db_time", mail.createdAt);
+    console.log("db_time", mail.schedule);
     console.log("curr time", new Date());
-    if (mail.createdAt <= new Date()) {
-      console.log('true');
+    if (mail.schedule <= new Date()) {
+      console.log("true");
     } else {
       console.log("false");
     }
