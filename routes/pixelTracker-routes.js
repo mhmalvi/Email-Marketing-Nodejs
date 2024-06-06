@@ -7,4 +7,4 @@ pixelTracker.get(`/open/:id`, (req, res) => {
   res.sendFile("1x1.png", { root: __dirname });
 });
 
-module.exports = pixelTracker;
+module.exports = { pixelTracker };
