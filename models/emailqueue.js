@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       templateData: DataTypes.TEXT("long"),
       campaignID: DataTypes.INTEGER,
       userID: DataTypes.INTEGER,
-      schedule: DataTypes.DATE,
+      schedule: DataTypes.STRING,
       open: DataTypes.INTEGER,
       click: DataTypes.INTEGER,
       bounce: DataTypes.INTEGER,
@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
     },
-    
+
     {
       sequelize,
       modelName: "EmailQueue",
