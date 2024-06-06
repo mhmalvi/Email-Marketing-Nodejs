@@ -20,7 +20,7 @@ const sendMail = async (req, res) => {
   mails.forEach(async (mail) => {
     console.log("db_time", mail.createdAt);
     console.log("curr time", new Date());
-    if (mail.createdAt > new Date()) {
+    if (mail.createdAt <= new Date()) {
       console.log('true');
     } else {
       console.log("false");
