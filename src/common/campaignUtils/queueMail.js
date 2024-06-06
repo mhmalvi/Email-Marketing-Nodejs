@@ -13,7 +13,7 @@ const queueMail = async (data, campaignID) => {
         recipientName: element.json.name,
         recipientEmail: element.json.email,
         group: element.json.group,
-        schedule: element.schedule,
+        schedule: data.schedule,
         templateName: data.template.name,
         templateData: data.template.data,
         campaignID: campaignID,
