@@ -28,6 +28,7 @@ const sendMail = async (req, res) => {
 
       var template = convert(mail.templateData); ////////// convert from html to plain text /////////
       template = template.replace("{EMAIL}", mail.recipientEmail);
+      template = template.replace("{NAME}", mail.recipientName);
       const id = mail.id;
       const file = path.join(__dirname, "../../ejs/mail.ejs");
       const data = await ejs.renderFile(file, {
