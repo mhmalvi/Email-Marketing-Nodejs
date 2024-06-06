@@ -1,17 +1,17 @@
 const Emailqueue = require("../../../models").EmailQueue;
 
-const updateDeliveryStatus = async (email) => {
+const updateDeliveryStatus = async (id) => {
   return await Emailqueue.update(
     { deliver: 1 },
-    { where: { recipientEmail: email, deliver: 0 } }
+    { where: { id: id, deliver: 0 } }
   );
 };
 
-const updateBounceStatus = async (email) => {
-  console.log(email);
+const updateBounceStatus = async (id) => {
+  console.log(id);
   return await Emailqueue.update(
     { deliver: 2, bounce: 1 },
-    { where: { recipientEmail: email, deliver: 0 } }
+    { where: { id: id, deliver: 0 } }
   );
 };
 

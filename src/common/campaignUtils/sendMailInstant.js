@@ -41,7 +41,7 @@ const sendMail = async (req, res) => {
     console.log(validDomain);
     console.log(validMailbox);
     if (!validDomain || !wellFormed) {
-      await updateBounceStatus(mail.recipientEmail);
+      await updateBounceStatus(mail.id);
     } else {
       await transporterResponse.sendMail(mailOptions, async (err, info) => {
         if (err) {
@@ -55,7 +55,7 @@ const sendMail = async (req, res) => {
         }
         // });
       });
-      await updateDeliveryStatus(mail.recipientEmail);
+      await updateDeliveryStatus(mail.id);
     }
     // }
     // );
