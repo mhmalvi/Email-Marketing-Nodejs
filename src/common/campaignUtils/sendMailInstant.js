@@ -20,6 +20,11 @@ const sendMail = async (req, res) => {
   mails.forEach(async (mail) => {
     console.log("db_time", mail.createdAt);
     console.log("curr time", new Date());
+    if (mail.createdAt < new Date()) {
+      console.log('true');
+    } else {
+      console.log("true");
+    }
     // const sender = await AppPassword.findOne({
     //   where: { email: mail.fromEmail },
     // }); ////////////  get app password of the sender from db //////////////////
