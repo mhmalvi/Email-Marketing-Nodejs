@@ -26,7 +26,8 @@ const sendMail = async (req, res) => {
         where: { email: mail.fromEmail },
       }); ////////////  get app password of the sender from db //////////////////
 
-      const template = convert(mail.templateData); ////////// convert from html to plain text /////////
+      var template = convert(mail.templateData); ////////// convert from html to plain text /////////
+      template = template.replace("{EMAIL}", mail.recipientEmail);
       const id = mail.id;
       const file = path.join(__dirname, "../../ejs/mail.ejs");
       const data = await ejs.renderFile(file, {
@@ -65,7 +66,6 @@ const sendMail = async (req, res) => {
           }
           // });
         });
-        
       }
     } else {
       console.log("false");
