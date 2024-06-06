@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       templateData: DataTypes.TEXT("long"),
       campaignID: DataTypes.INTEGER,
       userID: DataTypes.INTEGER,
-      schedule: DataTypes.STRING,
+      schedule: DataTypes.DATE,
       open: DataTypes.INTEGER,
       click: DataTypes.INTEGER,
       bounce: DataTypes.INTEGER,
