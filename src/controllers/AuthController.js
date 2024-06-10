@@ -24,7 +24,7 @@ const isUserEmailExists = async (req, res) => {
     user.otp = otp;
     console.log(user);
     await user.save();
-    const file = path.join(__dirname, "../../ejs/otp-mail.ejs");
+    const file = path.join(__dirname, "../ejs/otp-mail.ejs");
     const data = await ejs.renderFile(file, {
       otp,
     });
