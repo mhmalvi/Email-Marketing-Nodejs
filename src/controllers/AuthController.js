@@ -1,6 +1,7 @@
 const express = require("express");
+require("dotenv").config();
 const Token = require("../../models").Token;
-const path = require('path')
+const path = require("path");
 const ejs = require("ejs");
 const { convert } = require("html-to-text");
 const User = require("../../models").User;
@@ -11,14 +12,7 @@ const { saveToken } = require("../common/utils");
 const keys = require("../../config/keys");
 const EmailValidator = require("email-deep-validator");
 const isUserEmailExists = async (req, res) => {
-  // const emailValidator = new EmailValidator();
-  // const { wellFormed, validDomain, validMailbox } = await emailValidator.verify(
-  //   req.body.email
-  // );
-
-  // console.log(wellFormed);
-  // console.log(validDomain);
-  // console.log(validMailbox);
+  const baseUrl = process.env.BASE_URL;
   const user = await User.findOne({ where: { email: req.body.email } });
   if (user) {
     const otp = generateOTP();
@@ -28,19 +22,14 @@ const isUserEmailExists = async (req, res) => {
     const file = path.join(__dirname, "../ejs/otp-mail.ejs");
     const data = await ejs.renderFile(file, {
       otp,
+      baseUrl,
     });
     const mailOptions = {
       from: "<tanjib@quadque.tech>",
       to: req.body.email, // list of receivers
       subject: "OTP verification", // Subject line
       html: data,
-      // text: `Your OTP is`,
-      // Specify the return path address
     };
-    // const envelopeOptions = {
-    //   from: "tanjib@quadque.tech", // Envelope sender address
-    // };
-    // console.log("Mail Options:", mailOptions);
     const info = await transporter.sendMail(mailOptions, function (err, info) {
       if (err) {
         console.log(err);
