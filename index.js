@@ -43,15 +43,15 @@ app.use(passport.session());
 // Base route
 app.use(bodyParser.json());
 app.listen(port, () => console.log("server running on port" + port));
-// app
-//   .use("/google", authRouter)
-//   .use("/api", gmailRouter)
-//   .use("/api", contactRouter)
-//   .use("/api", templateRouter)
-//   .use("/api", groupRouter)
-//   .use("/api", campaignRouter)
-//   .use("/api", appPasswordRouter)
-//   .use("/", pixelTracker);
+app
+  .use("/google", authRouter)
+  .use("/api", gmailRouter)
+  .use("/api", contactRouter)
+  .use("/api", templateRouter)
+  .use("/api", groupRouter)
+  .use("/api", campaignRouter)
+  .use("/api", appPasswordRouter)
+  .use("/", pixelTracker);
 app.get("/otp", async (req, res) => {
   res.render(process.cwd() + "/src/ejs/otp-mail.ejs");
 });
