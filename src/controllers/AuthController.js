@@ -1,6 +1,7 @@
 const express = require("express");
 const Token = require("../../models").Token;
 const path = require('path')
+const ejs = require("ejs");
 const User = require("../../models").User;
 const sendmail = require("sendmail")();
 const { transporter, generateOTP } = require("../../config/utils");
