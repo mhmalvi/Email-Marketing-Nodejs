@@ -11,10 +11,10 @@ const deleteOTP = async () => {
     },
   });
   users.forEach(async (element) => {
-      await console.log("curr", new Date());
-      await console.log("db", element.updatedAt);
-    const addTwentyMinutes = element.updatedAt.setMinutes(
-      element.updatedAt.getMinutes() + 20
+    await console.log("curr", new Date());
+    await console.log("db", element.updatedAt);
+    const addTwentyMinutes = new Date(
+      element.updatedAt.setMinutes(element.updatedAt.getMinutes() + 20)
     );
     await console.log("db twenty", addTwentyMinutes);
 
