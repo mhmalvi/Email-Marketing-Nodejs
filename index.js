@@ -52,6 +52,7 @@ app
   .use("/api", campaignRouter)
   .use("/api", appPasswordRouter)
   .use("/", pixelTracker);
+  app.use(express.static("uploads"));
 app.get("/otp", async (req, res) => {
   res.render(process.cwd() + "/src/ejs/otp-mail.ejs");
 });
