@@ -20,30 +20,24 @@ const { pixelTracker } = require("./routes/pixelTracker-routes");
 const app = express();
 const port = 5000;
 
-app.use(
-  cors({
-    origin: "*",
-    methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
-  })
-);
-// express session
-app.use(
-  session({
-    secret: process.env.secret,
-    resave: false,
-    saveUninitialized: false,
-  })
-);
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-// Middleware used in protected routes to check if the user has been authenticated
-
-// Base route
-app.use(bodyParser.json());
-app.listen(port, () => console.log("server running on port" + port));
 app
+  .use(
+    cors({
+      origin: "*",
+      methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
+    })
+  )
+  .use(
+    session({
+      secret: process.env.secret,
+      resave: false,
+      saveUninitialized: false,
+    })
+  )
+  .use(passport.initialize())
+  .use(passport.session())
+  .use(bodyParser.json())
+  .listen(port, () => console.log("server running on port" + port))
   .use("/google", authRouter)
   .use("/api", gmailRouter)
   .use("/api", contactRouter)
