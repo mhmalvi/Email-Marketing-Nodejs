@@ -37,7 +37,8 @@ app
   .use(passport.initialize())
   .use(passport.session())
   .use(bodyParser.json())
-  .listen(port, () => console.log("server running on port" + port))
+  .listen(port, () => console.log("server running on port" + port));
+app
   .use("/google", authRouter)
   .use("/api", gmailRouter)
   .use("/api", contactRouter)
