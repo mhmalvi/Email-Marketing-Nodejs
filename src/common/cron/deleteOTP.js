@@ -5,9 +5,7 @@ const deleteOTP = async () => {
   const users = await User.findAll({
     where: {
       otp: {
-        [Op.not]: null,
-      },
-      otp: {
+        [Op.ne]: null,
         [Op.not]: 0,
       },
     },
