@@ -1,3 +1,4 @@
+const cron = require("node-cron");
 const { sendMail } = require("../../common/campaignUtils/sendMailInstant");
 const { deleteOTPCron } = require("./CronMethods/deleteOTPCron");
 
