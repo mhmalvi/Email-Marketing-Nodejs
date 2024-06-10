@@ -14,7 +14,7 @@ const deleteOTP = async () => {
     await console.log("curr", new Date());
     await console.log("db", element.updatedAt);
     const addTwentyMinutes = new Date(
-      element.updatedAt.setMinutes(element.updatedAt.getMinutes() + 20)
+      element.updatedAt.setMinutes(element.updatedAt.getMinutes() + 2)
     );
     await console.log("db twenty", addTwentyMinutes);
 
