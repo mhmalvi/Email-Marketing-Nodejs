@@ -1,5 +1,5 @@
 const express = require("express");
-const cron = require("node-cron");
+// const cron = require("node-cron");
 const { saveCampaign } = require("../../common/campaignUtils/saveCampaign");
 const { queueMail } = require("../../common/campaignUtils/queueMail");
 
