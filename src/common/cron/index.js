@@ -7,3 +7,4 @@ cron.schedule("* * * * *", () => {
   sendMail();
   deleteOTPCron();
 });
+
