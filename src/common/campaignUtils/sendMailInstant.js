@@ -29,7 +29,7 @@ const sendMail = async (req, res) => {
       var template = convert(mail.templateData); ////////// convert from html to plain text /////////
       var subject = mail.subject
         .replace("{email}", mail.recipientEmail)
-        .replace("{name}", mail.recipientName)
+        .replace("{N}", mail.recipientName)
         .replace("{group}", mail.group);
       template = template
         .replace("{email}", mail.recipientEmail)

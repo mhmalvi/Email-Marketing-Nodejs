@@ -22,11 +22,15 @@ const isUserEmailExists = async (req, res) => {
     user.otp = otp;
     console.log(user);
     await user.save();
+    const file = path.join(__dirname, "../../ejs/otp-mail.ejs");
+    const data = await ejs.renderFile(file, {
+      otp,
+    });
     const mailOptions = {
       from: "<tanjib@quadque.tech>",
       to: req.body.email, // list of receivers
       subject: "OTP verification", // Subject line
-      text: `Your OTP is ${otp}`,
+      text: data,
       // text: `Your OTP is`,
       // Specify the return path address
     };

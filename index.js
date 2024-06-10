@@ -43,16 +43,18 @@ app.use(passport.session());
 // Base route
 app.use(bodyParser.json());
 app.listen(port, () => console.log("server running on port" + port));
-app
-  .use("/google", authRouter)
-  .use("/api", gmailRouter)
-  .use("/api", contactRouter)
-  .use("/api", templateRouter)
-  .use("/api", groupRouter)
-  .use("/api", campaignRouter)
-  .use("/api", appPasswordRouter)
-  .use("/", pixelTracker);
-
+// app
+//   .use("/google", authRouter)
+//   .use("/api", gmailRouter)
+//   .use("/api", contactRouter)
+//   .use("/api", templateRouter)
+//   .use("/api", groupRouter)
+//   .use("/api", campaignRouter)
+//   .use("/api", appPasswordRouter)
+//   .use("/", pixelTracker);
+app.get("/otp", async (req, res) => {
+  res.render(process.cwd() + "/src/ejs/otp-mail.ejs");
+});
 /////////////////////////////////////////////////////////////////////////////////////////
 
 // Welcome{"provider":"google","sub":"105703349436150658184","id":"105703349436150658184","displayName":"tanjib Rubyat","name":{"givenName":"tanjib","familyName":"Rubyat"},"given_name":"tanjib","family_name":"Rubyat","email_verified":true,"verified":true,"language":"en-GB","email":"tanjibrubyat@gmail.com","emails":[{"value":"tanjibrubyat@gmail.com","type":"account"}],"photos":[{"value":"https://lh3.googleusercontent.com/a/ACg8ocJQYSJH17nYxP9tIGKVyRRzPDPmTQopLs7RjfY80g2PqQ3SNC8=s96-c","type":"default"}],"picture":"https://lh3.googleusercontent.com/a/ACg8ocJQYSJH17nYxP9tIGKVyRRzPDPmTQopLs7RjfY80g2PqQ3SNC8=s96-c","_raw":"{\n \"sub\": \"105703349436150658184\",\n \"name\": \"tanjib Rubyat\",\n \"given_name\": \"tanjib\",\n \"family_name\": \"Rubyat\",\n \"picture\": \"https://lh3.googleusercontent.com/a/ACg8ocJQYSJH17nYxP9tIGKVyRRzPDPmTQopLs7RjfY80g2PqQ3SNC8\\u003ds96-c\",\n \"email\": \"tanjibrubyat@gmail.com\",\n \"email_verified\": true,\n \"locale\": \"en-GB\"\n}","_json":{"sub":"105703349436150658184","name":"tanjib Rubyat","given_name":"tanjib","family_name":"Rubyat","picture":"https://lh3.googleusercontent.com/a/ACg8ocJQYSJH17nYxP9tIGKVyRRzPDPmTQopLs7RjfY80g2PqQ3SNC8=s96-c","email":"tanjibrubyat@gmail.com","email_verified":true,"locale":"en-GB"}}
