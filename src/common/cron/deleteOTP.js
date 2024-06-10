@@ -6,13 +6,15 @@ const deleteOTP = async () => {
     where: {
       otp: {
         [Op.not]: null,
+      },
+      otp: {
         [Op.not]: 0,
       },
     },
   });
   users.forEach(async (element) => {
-      await console.log('curr',new Date());
-      await console.log('db',element.updatedAt);
+    await console.log("curr", new Date());
+    await console.log("db", element.updatedAt);
   });
 };
 
