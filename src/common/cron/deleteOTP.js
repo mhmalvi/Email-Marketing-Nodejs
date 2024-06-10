@@ -1,3 +1,4 @@
+const Op = Sequelize.Op;
 const User = require("../../../models").User;
 const deleteOTP = async () => {
   const users = await User.findAll({
