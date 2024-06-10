@@ -52,12 +52,7 @@ app
     campaignRouter,
     appPasswordRouter
   )
-  // .use("/api", contactRouter)
-  // .use("/api", templateRouter)
-  // .use("/api", groupRouter)
-  // .use("/api", campaignRouter)
-  // .use("/api", appPasswordRouter)
-  .use("/", pixelTracker, cronRoutes)
+  .use("/", pixelTracker)
   .use(express.static("public/assets")); /////////// routes //////////
 
 // app.get("/otp", async (req, res) => {
