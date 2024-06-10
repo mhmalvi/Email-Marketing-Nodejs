@@ -79,7 +79,7 @@ const verifyOTP = async (req, res) => {
         userID: user.id,
       };
 
-      user.otp = 0;
+      user.otp = null;
       await user.save();
       await saveToken(data);
       res.status(200).json({
