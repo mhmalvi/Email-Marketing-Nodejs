@@ -13,10 +13,12 @@ const { templateRouter } = require("./routes/template-router");
 const { groupRouter } = require("./routes/group-router");
 const { campaignRouter } = require("./routes/campaign-routes");
 const { appPasswordRouter } = require("./routes/appPassword-routes");
+const { cronRoutes } = require("./routes/cron-routes");
 const { randomAlphaNumeric, getIp } = require("./src/common/utils");
 require("./config/passport");
 const cors = require("cors");
 const { pixelTracker } = require("./routes/pixelTracker-routes");
+
 const app = express();
 const port = 5000;
 
@@ -48,6 +50,7 @@ app
   .use("/api", campaignRouter)
   .use("/api", appPasswordRouter)
   .use("/", pixelTracker)
+  .use("/", cronRoutes)
   .use(express.static("public/assets")); /////////// routes //////////
 
 // app.get("/otp", async (req, res) => {
