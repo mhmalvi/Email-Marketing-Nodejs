@@ -18,7 +18,7 @@ const deleteOTP = async () => {
     );
     await console.log("db twenty", addTwentyMinutes);
 
-    if (new Date() >= element.updatedAt) {
+    if (new Date() >= addTwentyMinutes) {
       element.otp = null;
       await element.save();
     }
