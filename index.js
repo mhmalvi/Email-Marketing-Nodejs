@@ -43,14 +43,21 @@ app
 
 app
   .use("/google", authRouter)
-  .use("/api", gmailRouter)
-  .use("/api", contactRouter)
-  .use("/api", templateRouter)
-  .use("/api", groupRouter)
-  .use("/api", campaignRouter)
-  .use("/api", appPasswordRouter)
-  .use("/", pixelTracker)
-  .use("/", cronRoutes)
+  .use(
+    "/api",
+    gmailRouter,
+    contactRouter,
+    templateRouter,
+    groupRouter,
+    campaignRouter,
+    appPasswordRouter
+  )
+  // .use("/api", contactRouter)
+  // .use("/api", templateRouter)
+  // .use("/api", groupRouter)
+  // .use("/api", campaignRouter)
+  // .use("/api", appPasswordRouter)
+  .use("/", pixelTracker, cronRoutes)
   .use(express.static("public/assets")); /////////// routes //////////
 
 // app.get("/otp", async (req, res) => {
