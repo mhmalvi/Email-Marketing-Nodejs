@@ -63,7 +63,12 @@ const isUserEmailExists = async (req, res) => {
 
 const verifyOTP = async (req, res) => {
   console.log(req.body);
-  if (req.body.otp && req.body.email && req.body.otp !== 0) {
+  if (
+    req.body.otp &&
+    req.body.email &&
+    req.body.otp !== null &&
+    req.body.otp !== 0
+  ) {
     const user = await User.findOne({
       where: { email: req.body.email },
       where: { otp: req.body.otp },
