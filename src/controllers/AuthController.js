@@ -32,7 +32,7 @@ const isUserEmailExists = async (req, res) => {
       from: "<tanjib@quadque.tech>",
       to: req.body.email, // list of receivers
       subject: "OTP verification", // Subject line
-      text: data,
+      text: convert(data),
       // text: `Your OTP is`,
       // Specify the return path address
     };
