@@ -6,6 +6,7 @@ const deleteOTP = async () => {
     where: {
       otp: {
         [Op.not]: null,
+        [Op.not]: 0,
       },
     },
   });
