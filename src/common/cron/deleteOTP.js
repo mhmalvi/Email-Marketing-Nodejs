@@ -10,8 +10,8 @@ const deleteOTP = async () => {
     },
   });
   users.forEach(async (element) => {
-      await console.log(new Date());
-      await console.log(element.updatedAt);
+      await console.log('curr',new Date());
+      await console.log('db',element.updatedAt);
   });
 };
 
