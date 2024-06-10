@@ -35,18 +35,25 @@ app
       origin: "*",
       methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
     })
-  )
-  .use(
-    session({
-      secret: process.env.secret,
-      resave: false,
-      saveUninitialized: false,
-    })
-  )
-  .use(passport.initialize())
-  .use(passport.session())
-  .use(bodyParser.json())
-  .listen(port, () => console.log("server running on port" + port));
+  );
+// express session
+app.use(
+  session({
+    secret: process.env.secret,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Middleware used in protected routes to check if the user has been authenticated
+
+// Base route
+app.use(bodyParser.json());
+app.listen(port, () => console.log("server running on port" + port));
+app;
 
 // app.get("/otp", async (req, res) => {
 //   res.render(process.cwd() + "/src/ejs/otp-mail.ejs");
