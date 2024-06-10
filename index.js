@@ -20,22 +20,12 @@ const { pixelTracker } = require("./routes/pixelTracker-routes");
 const app = express();
 const port = 5000;
 
-app
-  .use("/google", authRouter)
-  .use("/api", gmailRouter)
-  .use("/api", contactRouter)
-  .use("/api", templateRouter)
-  .use("/api", groupRouter)
-  .use("/api", campaignRouter)
-  .use("/api", appPasswordRouter)
-  .use("/", pixelTracker)
-  .use(express.static("public/assets"))
-  .use(
-    cors({
-      origin: "*",
-      methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
-    })
-  );
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
+  })
+);
 // express session
 app.use(
   session({
@@ -53,8 +43,16 @@ app.use(passport.session());
 // Base route
 app.use(bodyParser.json());
 app.listen(port, () => console.log("server running on port" + port));
-app;
-
+app
+  .use("/google", authRouter)
+  .use("/api", gmailRouter)
+  .use("/api", contactRouter)
+  .use("/api", templateRouter)
+  .use("/api", groupRouter)
+  .use("/api", campaignRouter)
+  .use("/api", appPasswordRouter)
+  .use("/", pixelTracker)
+  .use(express.static("public/assets"));
 // app.get("/otp", async (req, res) => {
 //   res.render(process.cwd() + "/src/ejs/otp-mail.ejs");
 // });
