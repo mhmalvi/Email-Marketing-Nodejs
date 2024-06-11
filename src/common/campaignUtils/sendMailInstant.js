@@ -27,14 +27,12 @@ const sendMail = async (req, res) => {
       }); ////////////  get app password of the sender from db //////////////////
 
       var template = convert(mail.templateData); ////////// convert from html to plain text /////////
-      var subject = mail.subject
-        // .replace("{email}", mail.recipientEmail)
-        .replace("{name}", mail.recipientName)
-        .replace("{group}", mail.group);
-      template = template
-        .replace("{email}", mail.recipientEmail)
-        .replace("{name}", mail.recipientName)
-        .replace("{group}", mail.group);
+      var subject = mail.subject.replace("{email}", mail.recipientEmail);
+      var subject = mail.subject.replace("{name}", mail.recipientName);
+      var subject = mail.subject.replace("{group}", mail.group);
+      template = template.replace("{email}", mail.recipientEmail);
+      template = template.replace("{name}", mail.recipientName);
+      template = template.replace("{group}", mail.group);
       const id = mail.id;
       const file = path.join(__dirname, "../../ejs/mail.ejs");
       const data = await ejs.renderFile(file, {
@@ -45,8 +43,8 @@ const sendMail = async (req, res) => {
       const mailOptions = {
         to: mail.recipientEmail, // list of receivers
         subject: subject, // Subject line
-        text: data, // email body
-        // html: data,
+        // text: data, // email body
+        html: data,
         // text: `Your OTP is`,
         // Specify the return path address
       };
