@@ -44,7 +44,7 @@ const sendMail = async (req, res) => {
         to: mail.recipientEmail, // list of receivers
         subject: subject, // Subject line
         // text: data, // email body
-        html: data,
+        html: convert(data),
         // text: `Your OTP is`,
         // Specify the return path address
       };
