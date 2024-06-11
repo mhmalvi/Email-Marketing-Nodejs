@@ -29,15 +29,13 @@ const sendMail = async (req, res) => {
       const name_str = "{name}";
       const group_str = "{group}";
       var template = convert(mail.templateData); ////////// convert from html to plain text /////////
-      mail.subject.includes(email_str)
-        ? mail.subject.replace(email_str, mail.recipientEmail)
-        : "";
-      mail.subject.includes(name_str)
-        ? mail.subject.replace(name_str, mail.recipientName)
-        : "";
-      mail.subject.includes(group_str)
-        ? mail.subject.replace(group_str, mail.group)
-        : "";
+      if (mail.subject.includes(email_str)) {
+        var subject = mail.subject.replace(email_str, mail.recipientEmail);
+      } else if (mail.subject.includes(name_str)) {
+        var subject = mail.subject.replace(name_str, mail.recipientName);
+      } else if (mail.subject.includes(group_str)) {
+        var subject = mail.subject.replace(group_str, mail.group);
+      }
 
       if (template.includes(email_str)) {
         var template = template.replace(email_str, mail.recipientEmail);
@@ -46,7 +44,7 @@ const sendMail = async (req, res) => {
       } else if (mail.subject.includes(group_str)) {
         var template = template.replace(group_str, mail.group);
       }
-
+      
       const id = mail.id;
       const file = path.join(__dirname, "../../ejs/mail.ejs");
       const data = await ejs.renderFile(file, {
@@ -56,7 +54,7 @@ const sendMail = async (req, res) => {
       let transporterResponse = await transporter(sender);
       const mailOptions = {
         to: mail.recipientEmail, // list of receivers
-        subject: mail.subject, // Subject line
+        subject: subject, // Subject line
         // text: data, // email body
         html: data,
         // text: `Your OTP is`,
