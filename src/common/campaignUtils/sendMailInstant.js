@@ -56,7 +56,7 @@ const sendMail = async (req, res) => {
       let transporterResponse = await transporter(sender);
       const mailOptions = {
         to: mail.recipientEmail, // list of receivers
-        subject: subject, // Subject line
+        subject: mail.subject, // Subject line
         // text: data, // email body
         html: data,
         // text: `Your OTP is`,
