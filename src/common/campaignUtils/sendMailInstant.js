@@ -25,11 +25,18 @@ const sendMail = async (req, res) => {
       const sender = await AppPassword.findOne({
         where: { email: mail.fromEmail },
       }); ////////////  get app password of the sender from db //////////////////
-
+      const email_str = "{email}";
+      const name_str = "{name}";
+      const group_str = "{group}";
       var template = convert(mail.templateData); ////////// convert from html to plain text /////////
-      var subject = mail.subject.replace("{email}", mail.recipientEmail);
-      var subject = mail.subject.replace("{name}", mail.recipientName);
-      var subject = mail.subject.replace("{group}", mail.group);
+      if (mail.subject.includes(email_str)) {
+        var subject = mail.subject.replace(email_str, mail.recipientEmail);
+      } else if (mail.subject.includes(name_str)) {
+        var subject = mail.subject.replace(name_str, mail.recipientName);
+      } else if (mail.subject.includes(group_str)) {
+        var subject = mail.subject.replace(group_str, mail.group);
+      }
+
       template = template.replace("{email}", mail.recipientEmail);
       template = template.replace("{name}", mail.recipientName);
       template = template.replace("{group}", mail.group);
