@@ -26,7 +26,7 @@ const sendMail = async (req, res) => {
         where: { email: mail.fromEmail },
       }); ////////////  get app password of the sender from db //////////////////
 
-      var template = convert(mail.templateData); ////////// convert from html to plain text /////////
+      var template = mail.templateData; ////////// convert from html to plain text /////////
       var subject = mail.subject.replace("{email}", mail.recipientEmail);
       var subject = mail.subject.replace("{name}", mail.recipientName);
       var subject = mail.subject.replace("{group}", mail.group);
