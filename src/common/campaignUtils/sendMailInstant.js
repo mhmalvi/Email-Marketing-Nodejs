@@ -29,17 +29,24 @@ const sendMail = async (req, res) => {
       const name_str = "{name}";
       const group_str = "{group}";
       var template = convert(mail.templateData); ////////// convert from html to plain text /////////
-      if (mail.subject.includes(email_str)) {
-        var subject = mail.subject.replace(email_str, mail.recipientEmail);
+      mail.subject.includes(email_str)
+        ? mail.subject.replace(email_str, mail.recipientEmail)
+        : "";
+      mail.subject.includes(name_str)
+        ? mail.subject.replace(name_str, mail.recipientName)
+        : "";
+      mail.subject.includes(group_str)
+        ? mail.subject.replace(group_str, mail.group)
+        : "";
+
+      if (template.includes(email_str)) {
+        var template = template.replace(email_str, mail.recipientEmail);
       } else if (mail.subject.includes(name_str)) {
-        var subject = mail.subject.replace(name_str, mail.recipientName);
+        var template = template.replace(name_str, mail.recipientName);
       } else if (mail.subject.includes(group_str)) {
-        var subject = mail.subject.replace(group_str, mail.group);
+        var template = template.replace(group_str, mail.group);
       }
 
-      template = template.replace("{email}", mail.recipientEmail);
-      template = template.replace("{name}", mail.recipientName);
-      template = template.replace("{group}", mail.group);
       const id = mail.id;
       const file = path.join(__dirname, "../../ejs/mail.ejs");
       const data = await ejs.renderFile(file, {
