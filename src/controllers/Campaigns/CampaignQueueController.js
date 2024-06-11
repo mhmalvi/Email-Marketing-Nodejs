@@ -1,8 +1,6 @@
 const express = require("express");
-// const cron = require("node-cron");
 const { saveCampaign } = require("../../common/campaignUtils/saveCampaign");
 const { queueMail } = require("../../common/campaignUtils/queueMail");
-
 
 const campaignQueue = async (req, res) => {
   console.log(req.body);
@@ -26,11 +24,5 @@ const campaignQueue = async (req, res) => {
     }
   }
 };
-
-// cron.schedule("* * * * *", () => {
-//   console.log("job");
-//   sendMail();
-//   deleteOTPCron();
-// });
 
 module.exports = { campaignQueue };
