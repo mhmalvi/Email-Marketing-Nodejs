@@ -1,6 +1,9 @@
 const Emailqueue = require("../../../models").EmailQueue;
 const ejs = require("ejs");
 const path = require("path");
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
+const cheerio = require('cheerio');
 const { convert } = require("html-to-text");
 const {
   transporter,
@@ -28,7 +31,8 @@ const sendMail = async (req, res) => {
       const email_str = "{email}";
       const name_str = "{name}";
       const group_str = "{group}";
-      var template = convert(mail.templateData); ////////// convert from html to plain text /////////
+      // var template = convert(mail.templateData); ////////// convert from html to plain text /////////
+      // const dom = new JSDOM(mail.templateData); ////////// convert from html to plain text /////////
 
       if (template.includes(email_str)) {
         var template = template.replace(email_str, mail.recipientEmail);
@@ -44,13 +48,15 @@ const sendMail = async (req, res) => {
         template,
         id,
       });
+      const $ = cheerio.load(data);
+      const styledText = $('body').text();
       let transporterResponse = await transporter(sender);
       const mailOptions = {
         to: mail.recipientEmail, // list of receivers
         subject: mail.subject, // Subject line
         // text: data, // email body
-        html: template,
-        // text: `Your OTP is`,
+        // html: data,
+        text: styledText,
         // Specify the return path address
       };
       const emailValidator = new EmailValidator();
