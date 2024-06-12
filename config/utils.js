@@ -70,46 +70,30 @@ const getPagination = (page, size) => {
   return { limit, offset };
 };
 
-const convert_curly_brace_email_and_name_to_recipient_email_and_name = async (
-  data,
-  element
-) => {
-  const email_str = "{email}";
-  const name_str = "{name}";
-  const group_str = "{group}";
-  if (data.campaignInfo.subject.includes(email_str)) {
-    var subject = data.campaignInfo.subject.replace(
-      email_str,
-      element.json.email
-    );
-  } else if (data.campaignInfo.subject.includes(name_str)) {
-    var subject = data.campaignInfo.subject.replace(
-      name_str,
-      element.json.name
-    );
-  } else if (data.campaignInfo.subject.includes(group_str)) {
-    var subject = data.campaignInfo.subject.replace(
-      group_str,
-      element.json.group
-    );
-  } ////// replace subject {email},{name},{group} with recipients' email,name,group //////
+const convert_curly_brace_email_name_and_group_to_recipient_email_and_name_and_group =
+  async (data, element) => {
+    const email_str = "{email}";
+    const name_str = "{name}";
+    const group_str = "{group}";
+    if (data.campaignInfo.subject.includes(email_str)) {
+      var subject = data.campaignInfo.subject.replace(
+        email_str,
+        element.json.email
+      );
+    } else if (data.campaignInfo.subject.includes(name_str)) {
+      var subject = data.campaignInfo.subject.replace(
+        name_str,
+        element.json.name
+      );
+    } else if (data.campaignInfo.subject.includes(group_str)) {
+      var subject = data.campaignInfo.subject.replace(
+        group_str,
+        element.json.group
+      );
+    } ////// replace subject {email},{name},{group} with recipients' email,name,group //////
 
-  if (data.template.data.includes(email_str)) {
-    var template = data.template.data.replace(
-      email_str,
-      element.json.recipientEmail
-    );
-  } else if (data.template.data.includes(name_str)) {
-    var template = data.template.data.replace(
-      name_str,
-      element.json.recipientName
-    );
-  } else if (data.template.data.includes(group_str)) {
-    var template = data.template.data.replace(group_str, element.json.group);
-  } ////// replace template {email},{name},{group} with recipients' email,name,group //////
-
-  return { template, subject };
-};
+    return { subject };
+  };
 
 // randomAlphaNumeric(5); // '0afad'
 
@@ -121,5 +105,5 @@ module.exports = {
   generateOTP,
   getPagination,
   getPagingData,
-  convert_curly_brace_email_and_name_to_recipient_email_and_name,
+  convert_curly_brace_email_name_and_group_to_recipient_email_and_name_and_group,
 };
