@@ -29,14 +29,7 @@ const sendMail = async (req, res) => {
       const name_str = "{name}";
       const group_str = "{group}";
       var template = convert(mail.templateData); ////////// convert from html to plain text /////////
-      if (mail.subject.includes(email_str)) {
-        var subject = mail.subject.replace(email_str, mail.recipientEmail);
-      } else if (mail.subject.includes(name_str)) {
-        var subject = mail.subject.replace(name_str, mail.recipientName);
-      } else if (mail.subject.includes(group_str)) {
-        var subject = mail.subject.replace(group_str, mail.group);
-      } ////// replace subject {email},{name},{group} with recipients' email,name,group //////
-
+      
       if (template.includes(email_str)) {
         var template = template.replace(email_str, mail.recipientEmail);
       } else if (mail.subject.includes(name_str)) {

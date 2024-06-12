@@ -10,12 +10,12 @@ const queueMail = async (data, campaignID) => {
     console.log(data);
     await data.recipient.forEach(async (element) => {
       const template = data.template.data;
-      const subjectAndTemplate =
+      const subject =
         await convert_curly_brace_email_and_name_to_recipient_email_and_name(
           data,
           element
         );
-      console.log(subjectAndTemplate);
+      console.log(subject);
       // await Emailqueue.create({
       //   subject: subject,
       //   fromName: data.campaignInfo.fromName,
