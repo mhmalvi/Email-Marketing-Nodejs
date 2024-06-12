@@ -1,10 +1,7 @@
 const Emailqueue = require("../../../models").EmailQueue;
 const ejs = require("ejs");
 const path = require("path");
-const jsdom = require("jsdom");
-const { JSDOM } = jsdom;
 const cheerio = require('cheerio');
-const { convert } = require("html-to-text");
 const {
   transporter,
 } = require("../../common/transporterUtils/customTransporter");
@@ -31,8 +28,7 @@ const sendMail = async (req, res) => {
       const email_str = "{email}";
       const name_str = "{name}";
       const group_str = "{group}";
-      var template = mail.templateData; ////////// convert from html to plain text /////////
-      // const dom = new JSDOM(mail.templateData); ////////// convert from html to plain text /////////
+      var template = mail.templateData; 
 
       if (template.includes(email_str)) {
         var template = template.replace(email_str, mail.recipientEmail);
@@ -48,8 +44,8 @@ const sendMail = async (req, res) => {
         template,
         id,
       });
-      const $ = cheerio.load(data);
-      const styledText = $('body').text();
+      const $ = cheerio.load(data);  ////////// load html to cheerio /////////
+      const styledText = $('body').text();  ////////// render html to plain text  /////////
       let transporterResponse = await transporter(sender);
       const mailOptions = {
         to: mail.recipientEmail, // list of receivers
