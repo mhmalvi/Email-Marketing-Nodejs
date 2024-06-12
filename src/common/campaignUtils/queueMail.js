@@ -15,20 +15,20 @@ const queueMail = async (data, campaignID) => {
           data,
           element
         );
-      console.log(subject);
-      // await Emailqueue.create({
-      //   subject: subject,
-      //   fromName: data.campaignInfo.fromName,
-      //   fromEmail: data.campaignInfo.fromMail,
-      //   recipientName: element.json.name,
-      //   recipientEmail: element.json.email,
-      //   group: element.json.group,
-      //   schedule: data.schedule,
-      //   templateName: data.template.name,
-      //   templateData: template,
-      //   campaignID: campaignID,
-      //   userID: data.userID,
-      // });
+      // console.log(subject);
+      await Emailqueue.create({
+        subject: subject.subject,
+        fromName: data.campaignInfo.fromName,
+        fromEmail: data.campaignInfo.fromMail,
+        recipientName: element.json.name,
+        recipientEmail: element.json.email,
+        group: element.json.group,
+        schedule: data.schedule,
+        templateName: data.template.name,
+        templateData: template,
+        campaignID: campaignID,
+        userID: data.userID,
+      });
     });
     return 1;
     // }
