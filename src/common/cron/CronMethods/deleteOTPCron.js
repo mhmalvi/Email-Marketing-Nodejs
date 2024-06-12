@@ -21,9 +21,10 @@ const deleteOTPCron = async () => {
       await console.log("db twenty", addTwentyMinutes);
 
       if (new Date() >= addTwentyMinutes) {
+        ////  if current date time is equal or greater than updatedAt+20_minutes delete that otp ////
         element.otp = null;
         await element.save();
-      } ////  if current date time is equal or greater than updatedAt+20_minutes delete that otp ////
+      }
     });
   }
 };
