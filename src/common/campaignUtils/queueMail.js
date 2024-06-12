@@ -15,9 +15,9 @@ const queueMail = async (data, campaignID) => {
           data,
           element
         );
-      // console.log(subject);
+      console.log(subject);
       await Emailqueue.create({
-        subject: subject.subject,
+        subject: subject,
         fromName: data.campaignInfo.fromName,
         fromEmail: data.campaignInfo.fromMail,
         recipientName: element.json.name,
