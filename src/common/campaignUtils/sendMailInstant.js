@@ -35,7 +35,7 @@ const sendMail = async (req, res) => {
         var subject = mail.subject.replace(name_str, mail.recipientName);
       } else if (mail.subject.includes(group_str)) {
         var subject = mail.subject.replace(group_str, mail.group);
-      }
+      } ////// replace subject {email},{name},{group} with recipients' email,name,group //////
 
       if (template.includes(email_str)) {
         var template = template.replace(email_str, mail.recipientEmail);
@@ -43,8 +43,8 @@ const sendMail = async (req, res) => {
         var template = template.replace(name_str, mail.recipientName);
       } else if (mail.subject.includes(group_str)) {
         var template = template.replace(group_str, mail.group);
-      }
-      
+      } ////// replace template {email},{name},{group} with recipients' email,name,group //////
+
       const id = mail.id;
       const file = path.join(__dirname, "../../ejs/mail.ejs");
       const data = await ejs.renderFile(file, {

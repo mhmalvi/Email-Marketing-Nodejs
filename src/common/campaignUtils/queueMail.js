@@ -1,3 +1,6 @@
+const {
+  convert_curly_brace_email_and_name_to_recipient_email_and_name,
+} = require("../../../config/utils");
 const { saveEmail } = require("./saveEmail");
 
 const Contact = require("../../../models").Contact;
@@ -6,19 +9,26 @@ const queueMail = async (data, campaignID) => {
   try {
     console.log(data);
     await data.recipient.forEach(async (element) => {
-      await Emailqueue.create({
-        subject: data.campaignInfo.subject,
-        fromName: data.campaignInfo.fromName,
-        fromEmail: data.campaignInfo.fromMail,
-        recipientName: element.json.name,
-        recipientEmail: element.json.email,
-        group: element.json.group,
-        schedule: data.schedule,
-        templateName: data.template.name,
-        templateData: data.template.data,
-        campaignID: campaignID,
-        userID: data.userID,
-      });
+      const template = data.template.data;
+      const subjectAndTemplate =
+        await convert_curly_brace_email_and_name_to_recipient_email_and_name(
+          data,
+          element
+        );
+      console.log(subjectAndTemplate);
+      // await Emailqueue.create({
+      //   subject: subject,
+      //   fromName: data.campaignInfo.fromName,
+      //   fromEmail: data.campaignInfo.fromMail,
+      //   recipientName: element.json.name,
+      //   recipientEmail: element.json.email,
+      //   group: element.json.group,
+      //   schedule: data.schedule,
+      //   templateName: data.template.name,
+      //   templateData: template,
+      //   campaignID: campaignID,
+      //   userID: data.userID,
+      // });
     });
     return 1;
     // }
