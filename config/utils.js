@@ -95,14 +95,17 @@ const convert_curly_brace_email_and_name_to_recipient_email_and_name = async (
   } ////// replace subject {email},{name},{group} with recipients' email,name,group //////
 
   if (data.template.includes(email_str)) {
-    var template = data.template.replace(
+    var template = data.template.data.replace(
       email_str,
       element.json.recipientEmail
     );
-  } else if (data.template.includes(name_str)) {
-    var template = data.template.replace(name_str, element.json.recipientName);
-  } else if (data.template.includes(group_str)) {
-    var template = data.template.replace(group_str, element.json.group);
+  } else if (data.template.data.includes(name_str)) {
+    var template = data.template.data.replace(
+      name_str,
+      element.json.recipientName
+    );
+  } else if (data.template.data.includes(group_str)) {
+    var template = data.template.data.replace(group_str, element.json.group);
   } ////// replace template {email},{name},{group} with recipients' email,name,group //////
 
   return { template, subject };
