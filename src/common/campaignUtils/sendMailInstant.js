@@ -31,7 +31,7 @@ const sendMail = async (req, res) => {
       const email_str = "{email}";
       const name_str = "{name}";
       const group_str = "{group}";
-      // var template = convert(mail.templateData); ////////// convert from html to plain text /////////
+      var template = mail.templateData; ////////// convert from html to plain text /////////
       // const dom = new JSDOM(mail.templateData); ////////// convert from html to plain text /////////
 
       if (template.includes(email_str)) {
