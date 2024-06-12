@@ -1,5 +1,5 @@
 const {
-  convert_curly_brace_email_and_name_to_recipient_email_and_name,
+  convert_curly_brace_email_name_and_group_to_recipient_email_and_name_and_group,
 } = require("../../../config/utils");
 const { saveEmail } = require("./saveEmail");
 
@@ -11,7 +11,7 @@ const queueMail = async (data, campaignID) => {
     await data.recipient.forEach(async (element) => {
       const template = data.template.data;
       const subject =
-        await convert_curly_brace_email_and_name_to_recipient_email_and_name(
+        await convert_curly_brace_email_name_and_group_to_recipient_email_and_name_and_group(
           data,
           element
         );
