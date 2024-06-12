@@ -94,7 +94,7 @@ const convert_curly_brace_email_and_name_to_recipient_email_and_name = async (
     );
   } ////// replace subject {email},{name},{group} with recipients' email,name,group //////
 
-  if (data.template.includes(email_str)) {
+  if (data.template.data.includes(email_str)) {
     var template = data.template.data.replace(
       email_str,
       element.json.recipientEmail
