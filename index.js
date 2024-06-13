@@ -15,6 +15,8 @@ const { campaignRouter } = require("./routes/campaign-routes");
 const { appPasswordRouter } = require("./routes/appPassword-routes");
 const { cronRoutes } = require("./routes/cron-routes");
 const { randomAlphaNumeric, getIp } = require("./src/common/utils");
+const path = require('path')
+
 require("./config/passport");
 const cors = require("cors");
 const { pixelTracker } = require("./routes/pixelTracker-routes");
@@ -39,8 +41,12 @@ app
   .use(passport.initialize())
   .use(passport.session())
   .use(bodyParser.json())
-  .listen(port, () => console.log("server running on port" + port));
-
+  .listen(port, () => console.log("server running on port" + port))
+//   app.set("views", path.join(__dirname, "./src/ejs/mail.ejs"));
+//   app.set("view engine", "ejs");
+// app.get("/", (req, res) => {
+//   res.render("mail", { name: "World" });
+// });
 app
   .use("/google", authRouter)
   .use(
