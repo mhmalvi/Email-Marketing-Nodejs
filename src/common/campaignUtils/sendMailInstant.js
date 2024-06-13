@@ -39,12 +39,12 @@ const sendMail = async (req, res) => {
       } ////// replace template {email},{name},{group} with recipients' email,name,group //////
 
       const id = mail.id;
-      // var pixel_url = "https://backend.quemailer.com/open/" + id;
-      // var pixel = "<img src=" + pixel_url + " />";
-      // console.log(pixel);
+      var pixel_url = "https://backend.quemailer.com/open/" + id;
+      var pixel = "<img src=" + pixel_url + " />";
+      console.log(pixel);
       const file = path.join(__dirname, "../../ejs/mail.ejs");
       const data = await ejs.renderFile(file, {
-        id,
+        pixel,
         template,
       });
       const $ = cheerio.load(data); ////////// load html to cheerio /////////
