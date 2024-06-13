@@ -70,21 +70,32 @@ const getPagination = (page, size) => {
   return { limit, offset };
 };
 
+function replaceMultipleStrings(str, replacements) {
+  let hasReplacements = false;
+
+  // Check for matches and apply replacements
+  const replacedStr = replacements.reduce((acc, replacement) => {
+    const regex = new RegExp(escapeRegExp(replacement.search), "g");
+    if (regex.test(acc)) {
+      hasReplacements = true;
+      return acc.replace(regex, replacement.replace);
+    }
+    return acc;
+  }, str);
+
+  return hasReplacements ? replacedStr : str;
+}
+
 const convert_curly_brace_email_name_and_group_to_recipient_email_and_name_and_group =
   async (data, element) => {
-    const email_str = "{email}";
-    const name_str = "{name}";
-    const group_str = "{group}";
     const subject = data.campaignInfo.subject;
-    if (subject.includes(email_str)) {
-      var converted_subject = subject.replace(email_str, element.json.email);
-    } else if (subject.includes(name_str)) {
-      var converted_subject = subject.replace(name_str, element.json.name);
-    } else if (subject.includes(group_str)) {
-      var converted_subject = subject.replace(group_str, element.json.group);
-    } ////// replace subject {email},{name},{group} with recipients' email,name,group //////
-
-    return converted_subject;
+    const replacementsMatch = [
+      { search: "{email}", replace: element.json.email },
+      { search: "{name}", replace: element.json.name },
+      { search: "{group}", replace: element.json.group },
+    ];
+    const newStrMatch = replaceMultipleStrings(subject, replacementsMatch);
+    return newStrMatch
   };
 
 // randomAlphaNumeric(5); // '0afad'
