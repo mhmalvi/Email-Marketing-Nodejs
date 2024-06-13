@@ -1,7 +1,7 @@
 const Emailqueue = require("../../../models").EmailQueue;
 const ejs = require("ejs");
 const path = require("path");
-const cheerio = require('cheerio');
+const cheerio = require("cheerio");
 const {
   transporter,
 } = require("../../common/transporterUtils/customTransporter");
@@ -28,8 +28,7 @@ const sendMail = async (req, res) => {
       const email_str = "{email}";
       const name_str = "{name}";
       const group_str = "{group}";
-      var template = mail.templateData; 
-      
+      var template = mail.templateData;
 
       if (template.includes(email_str)) {
         var template = template.replace(email_str, mail.recipientEmail);
@@ -40,14 +39,14 @@ const sendMail = async (req, res) => {
       } ////// replace template {email},{name},{group} with recipients' email,name,group //////
 
       const id = mail.id;
-      var pixel = "https://backend.quemailer.com/open/"+id
+      // var pixel = "https://backend.quemailer.com/open/" + id;
       const file = path.join(__dirname, "../../ejs/mail.ejs");
       const data = await ejs.renderFile(file, {
         template,
-        pixel,
+        id,
       });
-      const $ = cheerio.load(data);  ////////// load html to cheerio /////////
-      const styledText = $('body').text();  ////////// render html to plain text  /////////
+      const $ = cheerio.load(data); ////////// load html to cheerio /////////
+      const styledText = $("body").text(); ////////// render html to plain text  /////////
       let transporterResponse = await transporter(sender);
       const mailOptions = {
         to: mail.recipientEmail, // list of receivers
