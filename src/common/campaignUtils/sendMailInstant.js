@@ -43,7 +43,7 @@ const sendMail = async (req, res) => {
       console.log(pixel);
       const file = path.join(__dirname, "../../ejs/mail.ejs");
       const data = await ejs.renderFile(file, {
-        id,
+        pixel,
         template,
       });
       const $ = cheerio.load(data); ////////// load html to cheerio /////////
