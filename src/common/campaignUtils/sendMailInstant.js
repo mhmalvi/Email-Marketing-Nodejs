@@ -29,6 +29,7 @@ const sendMail = async (req, res) => {
       const name_str = "{name}";
       const group_str = "{group}";
       var template = mail.templateData; 
+      
 
       if (template.includes(email_str)) {
         var template = template.replace(email_str, mail.recipientEmail);
@@ -39,10 +40,11 @@ const sendMail = async (req, res) => {
       } ////// replace template {email},{name},{group} with recipients' email,name,group //////
 
       const id = mail.id;
+      var pixel = "https://backend.quemailer.com/open/"+id
       const file = path.join(__dirname, "../../ejs/mail.ejs");
       const data = await ejs.renderFile(file, {
         template,
-        id,
+        pixel,
       });
       const $ = cheerio.load(data);  ////////// load html to cheerio /////////
       const styledText = $('body').text();  ////////// render html to plain text  /////////
