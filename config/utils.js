@@ -70,6 +70,10 @@ const getPagination = (page, size) => {
   return { limit, offset };
 };
 
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 function replaceMultipleStrings(str, replacements) {
   let hasReplacements = false;
 
@@ -95,7 +99,7 @@ const convert_curly_brace_email_name_and_group_to_recipient_email_and_name_and_g
       { search: "{group}", replace: element.json.group },
     ];
     const newStrMatch = replaceMultipleStrings(subject, replacementsMatch);
-    return newStrMatch
+    return newStrMatch;
   };
 
 // randomAlphaNumeric(5); // '0afad'
