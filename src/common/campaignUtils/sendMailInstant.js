@@ -46,10 +46,10 @@ const sendMail = async (req, res) => {
       // console.log(pixel);
       const file = path.join(__dirname, "../../ejs/mail.ejs");
       const data = await ejs.renderFile(file, {
-        styledText,
         id,
+        styledText,
       });
-      
+
       let transporterResponse = await transporter(sender);
       const mailOptions = {
         to: mail.recipientEmail, // list of receivers
