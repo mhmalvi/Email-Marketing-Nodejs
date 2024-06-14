@@ -54,7 +54,7 @@ const sendMail = async (req, res) => {
         to: mail.recipientEmail, // list of receivers
         subject: mail.subject, // Subject line
         // text: data, // email body
-        html: styledText + pixel,
+        html: styledText,
         // text: styledText,
         // Specify the return path address
       };
