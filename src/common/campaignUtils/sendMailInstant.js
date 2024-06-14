@@ -48,7 +48,7 @@ const sendMail = async (req, res) => {
         pixel_url,
       });
       const $ = cheerio.load(data); ////////// load html to cheerio /////////
-      const styledText = $.html(); ////////// render html to plain text  /////////
+      const styledText = $('body').html(); ////////// render html to plain text  /////////
       let transporterResponse = await transporter(sender);
       const mailOptions = {
         to: mail.recipientEmail, // list of receivers
