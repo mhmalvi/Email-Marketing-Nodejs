@@ -48,6 +48,7 @@ const sendMail = async (req, res) => {
         id,
         template,
       });
+      console.log(data);
       const $ = cheerio.load(data); ////////// load html to cheerio /////////
       const styledText = $.text(); ////////// render html to plain text  /////////
       let transporterResponse = await transporter(sender);
