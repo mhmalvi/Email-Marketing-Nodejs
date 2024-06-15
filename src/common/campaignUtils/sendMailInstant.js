@@ -48,7 +48,7 @@ const sendMail = async (req, res) => {
       //   id,
       //   template,
       // });
-      console.log(data);
+      // console.log(data);
       const $ = cheerio.load(template); ////////// load html to cheerio /////////
       $("body").append(pixel);
       const styledText = $.text(); ////////// render html to plain text  /////////
