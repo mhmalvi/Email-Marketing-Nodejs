@@ -39,8 +39,7 @@ const sendMail = async (req, res) => {
       } ////// replace template {email},{name},{group} with recipients' email,name,group //////
 
       const id = mail.id;
-      // const $ = cheerio.load(template); ////////// load html to cheerio /////////
-      // const styledText = $.text(); ////////// render html to plain text  /////////
+
       // var pixel_url = "https://backend.quemailer.com/open/" + id;
       // var pixel = "<img src='" + pixel_url + "' />";
       // console.log(pixel);
@@ -49,13 +48,14 @@ const sendMail = async (req, res) => {
         id,
         template,
       });
-
+      const $ = cheerio.load(data); ////////// load html to cheerio /////////
+      const styledText = $.text(); ////////// render html to plain text  /////////
       let transporterResponse = await transporter(sender);
       const mailOptions = {
         to: mail.recipientEmail, // list of receivers
         subject: mail.subject, // Subject line
         // text: data, // email body
-        html: data,
+        html: styledText,
         // text: styledText,
         // Specify the return path address
       };
