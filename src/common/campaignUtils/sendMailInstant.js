@@ -2,6 +2,9 @@ const Emailqueue = require("../../../models").EmailQueue;
 const ejs = require("ejs");
 const path = require("path");
 const cheerio = require("cheerio");
+const fs = require("fs");
+const mustache = require("mustache");
+
 const {
   transporter,
 } = require("../../common/transporterUtils/customTransporter");
@@ -48,16 +51,23 @@ const sendMail = async (req, res) => {
       //   id,
       //   template,
       // });
+      // Step 2: Read the Mustache template from a file.
+      const template = fs.readFileSync("emailTemplate.mustache", "utf8");
+      const data = {
+        template,
+        id,
+      };
       // console.log(data);
-      const $ = cheerio.load(template); ////////// load html to cheerio /////////
-      $("body").append(pixel);
-      const styledText = $.text(); ////////// render html to plain text  /////////
+      // const $ = cheerio.load(template); ////////// load html to cheerio /////////
+      // $("body").append(pixel);
+      // const styledText = $.text(); ////////// render html to plain text  /////////
+      const emailContent = mustache.render(template, data);
       let transporterResponse = await transporter(sender);
       const mailOptions = {
         to: mail.recipientEmail, // list of receivers
         subject: mail.subject, // Subject line
         // text: data, // email body
-        html: styledText,
+        html: emailContent,
         // text: styledText,
         // Specify the return path address
       };
