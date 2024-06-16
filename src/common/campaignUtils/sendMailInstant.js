@@ -64,7 +64,7 @@ const sendMail = async (req, res) => {
       // const $ = cheerio.load(template); ////////// load html to cheerio /////////
       // $("body").append(pixel);
       // const styledText = $.text(); ////////// render html to plain text  /////////
-      const htmlToSend = template(data);
+      const htmlToSend = finalTemplate(data);
       console.log(htmlToSend);
       let transporterResponse = await transporter(sender);
       const mailOptions = {
