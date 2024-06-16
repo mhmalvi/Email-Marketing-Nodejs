@@ -1,4 +1,4 @@
-const Emailqueue = require("../../../models").EmailQueue;
+const EmailQueue = require("../../../models").EmailQueue;
 const ejs = require("ejs");
 const path = require("path");
 const cheerio = require("cheerio");
@@ -51,7 +51,6 @@ const sendMail = async (req, res) => {
       const data = {
         id: id,
         template: template,
-        
       };
       // console.log(data);
       const htmlToSend = finalTemplate(data);
