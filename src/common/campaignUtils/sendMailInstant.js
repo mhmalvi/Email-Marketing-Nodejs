@@ -84,6 +84,7 @@ const sendMail = async (req, res) => {
             console.log(info.accepted[0]);
 
             console.log("Email sent", info.accepted);
+            console.log(id);
             EmailQueue.update({ open: 0 }, { where: { id: id } });
             return "Email sent";
           }
