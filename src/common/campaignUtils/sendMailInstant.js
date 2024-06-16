@@ -49,6 +49,10 @@ const sendMail = async (req, res) => {
       var $ = cheerio.load(pixel); ////////// load html to cheerio /////////
       // $("body").append(pixel);
       pixel = $.text(); ////////// render html to plain text  /////////
+
+      var $ = cheerio.load(template); ////////// load html to cheerio /////////
+      // $("body").append(pixel);
+      template = $.text(); ////////// render html to plain text  /////////
       // console.log(pixel);
       // const file = path.join(__dirname, "../../ejs/mail.ejs");
       // const data = await ejs.renderFile(file, {
@@ -66,9 +70,7 @@ const sendMail = async (req, res) => {
       // console.log(data);
       const htmlToSend = finalTemplate(data);
       console.log(htmlToSend);
-      var $ = cheerio.load(htmlToSend); ////////// load html to cheerio /////////
-      // $("body").append(pixel);
-      const styledText = $.text(); ////////// render html to plain text  /////////
+
       let transporterResponse = await transporter(sender);
       const mailOptions = {
         to: mail.recipientEmail, // list of receivers
