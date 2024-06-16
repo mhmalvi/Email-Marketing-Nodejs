@@ -44,21 +44,6 @@ const sendMail = async (req, res) => {
 
       var id = mail.id;
 
-      // var pixel_url = "https://backend.quemailer.com/open/" + id;
-      // var pixel = `<img src="https://backend.quemailer.com/open/${id}" />`;
-      // var $ = cheerio.load(pixel); ////////// load html to cheerio /////////
-      // // $("body").append(pixel);
-      // pixel = $.text(); ////////// render html to plain text  /////////
-
-      // var $ = cheerio.load(template); ////////// load html to cheerio /////////
-      // // $("body").append(pixel);
-      // template = $('body').text(); ////////// render html to plain text  /////////
-      // console.log(pixel);
-      // const file = path.join(__dirname, "../../ejs/mail.ejs");
-      // const data = await ejs.renderFile(file, {
-      //   id,
-      //   template,
-      // });
       // Step 2: Read the Mustache template from a file.
       const templatePath = path.join(__dirname, "../../common/hbs/mail.hbs");
       var templateSource = fs.readFileSync(templatePath, "utf8");
