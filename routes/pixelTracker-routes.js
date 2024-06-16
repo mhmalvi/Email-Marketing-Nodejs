@@ -9,4 +9,11 @@ pixelTracker.get(`/open/:id`, (req, res) => {
   res.sendFile("1x1.png", { root: __dirname });
 });
 
+pixelTracker.get(`/terminateOne/:id`, (req, res) => {
+  const pixelId = req.params.id;
+  //   console.log(pixelId);
+  EmailQueue.update({ open: 0 }, { where: { id: pixelId } });
+  // res.sendFile("1x1.png", { root: __dirname });
+});
+
 module.exports = { pixelTracker };
