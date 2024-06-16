@@ -64,7 +64,7 @@ const sendMail = async (req, res) => {
         // text: styledText,
         // Specify the return path address
       };
-      
+
       const emailValidator = new EmailValidator();
       const { wellFormed, validDomain, validMailbox } =
         await emailValidator.verify(mail.recipientEmail);
@@ -85,13 +85,14 @@ const sendMail = async (req, res) => {
 
             console.log("Email sent", info.accepted);
             // console.log(id);
-            
-            return "Email sent";
+
+            // return "Email sent";
           }
-          await EmailQueue.update({ open: 0 }, { where: { id: id } });
+
           // });
         });
       }
+      await EmailQueue.update({ open: 0 }, { where: { id: id } });
     } else {
       console.log("false");
     }
