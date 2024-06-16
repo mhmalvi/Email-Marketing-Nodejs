@@ -63,6 +63,7 @@ const sendMail = async (req, res) => {
       // $("body").append(pixel);
       // const styledText = $.text(); ////////// render html to plain text  /////////
       const emailContent = mustache.render(template, data);
+      console.log(emailContent);
       let transporterResponse = await transporter(sender);
       const mailOptions = {
         to: mail.recipientEmail, // list of receivers
