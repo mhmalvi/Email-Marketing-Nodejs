@@ -54,7 +54,6 @@ const sendMail = async (req, res) => {
       };
       // console.log(data);
       const htmlToSend = finalTemplate(data);
-      console.log(htmlToSend);
 
       let transporterResponse = await transporter(sender);
       const mailOptions = {
