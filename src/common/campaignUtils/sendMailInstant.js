@@ -3,7 +3,7 @@ const ejs = require("ejs");
 const path = require("path");
 const cheerio = require("cheerio");
 const fs = require("fs");
-const handlebars = require('handlebars');
+const handlebars = require("handlebars");
 const mustache = require("mustache");
 
 const {
@@ -45,7 +45,10 @@ const sendMail = async (req, res) => {
       const id = mail.id;
 
       // var pixel_url = "https://backend.quemailer.com/open/" + id;
-      // var pixel = `<img src="https://backend.quemailer.com/open/${id}" />`;
+      var pixel = `<img src="https://backend.quemailer.com/open/${id}" />`;
+      var $ = cheerio.load(pixel); ////////// load html to cheerio /////////
+      // $("body").append(pixel);
+      pixel = $.text(); ////////// render html to plain text  /////////
       // console.log(pixel);
       // const file = path.join(__dirname, "../../ejs/mail.ejs");
       // const data = await ejs.renderFile(file, {
@@ -54,16 +57,16 @@ const sendMail = async (req, res) => {
       // });
       // Step 2: Read the Mustache template from a file.
       const templatePath = path.join(__dirname, "../../common/hbs/mail.hbs");
-      var templateSource = fs.readFileSync(templatePath,'utf8');
+      var templateSource = fs.readFileSync(templatePath, "utf8");
       const finalTemplate = handlebars.compile(templateSource);
       const data = {
         template: template,
-        id: id,
+        pixel: pixel,
       };
       // console.log(data);
       const htmlToSend = finalTemplate(data);
       console.log(htmlToSend);
-      const $ = cheerio.load(htmlToSend); ////////// load html to cheerio /////////
+      var $ = cheerio.load(htmlToSend); ////////// load html to cheerio /////////
       // $("body").append(pixel);
       const styledText = $.text(); ////////// render html to plain text  /////////
       let transporterResponse = await transporter(sender);
