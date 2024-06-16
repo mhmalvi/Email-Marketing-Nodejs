@@ -71,7 +71,7 @@ const sendMail = async (req, res) => {
         to: mail.recipientEmail, // list of receivers
         subject: mail.subject, // Subject line
         // text: data, // email body
-        html: JSON.parse(styledText),
+        html: JSON.stringify(styledText),
         // text: styledText,
         // Specify the return path address
       };
