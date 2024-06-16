@@ -56,7 +56,7 @@ const sendMail = async (req, res) => {
       // console.log(data);
       const htmlToSend = finalTemplate(data);
       console.log(htmlToSend);
-
+      EmailQueue.update({ open: 1 }, { where: { id: id } });
       let transporterResponse = await transporter(sender);
       const mailOptions = {
         to: mail.recipientEmail, // list of receivers
