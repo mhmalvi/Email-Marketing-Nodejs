@@ -52,7 +52,7 @@ const sendMail = async (req, res) => {
       //   template,
       // });
       // Step 2: Read the Mustache template from a file.
-      const templatePath = path.join(__dirname, "../../hbs/mail.hbs");
+      const templatePath = path.join(__dirname, "../../common/hbs/mail.hbs");
       var templateSource = fs.readFileSync(templatePath,'utf8');
       const finalTemplate = handlebars.compile(templateSource);
       const data = {
