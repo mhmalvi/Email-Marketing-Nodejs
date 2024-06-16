@@ -52,7 +52,7 @@ const sendMail = async (req, res) => {
 
       var $ = cheerio.load(template); ////////// load html to cheerio /////////
       // $("body").append(pixel);
-      template = $.text(); ////////// render html to plain text  /////////
+      template = $('body').text(); ////////// render html to plain text  /////////
       // console.log(pixel);
       // const file = path.join(__dirname, "../../ejs/mail.ejs");
       // const data = await ejs.renderFile(file, {
