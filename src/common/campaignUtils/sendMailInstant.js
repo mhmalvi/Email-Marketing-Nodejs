@@ -45,7 +45,7 @@ const sendMail = async (req, res) => {
       const id = mail.id;
 
       // var pixel_url = "https://backend.quemailer.com/open/" + id;
-      var pixel = `<img src="https://backend.quemailer.com/open/${id}" />`;
+      // var pixel = `<img src="https://backend.quemailer.com/open/${id}" />`;
       // console.log(pixel);
       // const file = path.join(__dirname, "../../ejs/mail.ejs");
       // const data = await ejs.renderFile(file, {
