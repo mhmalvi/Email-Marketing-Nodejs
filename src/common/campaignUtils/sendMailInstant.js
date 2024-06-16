@@ -64,8 +64,9 @@ const sendMail = async (req, res) => {
       var templateSource = fs.readFileSync(templatePath, "utf8");
       const finalTemplate = handlebars.compile(templateSource);
       const data = {
-        template: template,
         pixel: pixel,
+        template: template,
+        
       };
       // console.log(data);
       const htmlToSend = finalTemplate(data);
