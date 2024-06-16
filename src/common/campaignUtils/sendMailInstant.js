@@ -52,11 +52,11 @@ const sendMail = async (req, res) => {
       //   template,
       // });
       // Step 2: Read the Mustache template from a file.
-      const templatePath = path.join(__dirname, '../../mustache/mail.mustache');
+      const templatePath = path.join(__dirname, "../../mustache/mail.mustache");
       var template = fs.readFileSync(templatePath, "utf8");
       const data = {
-        template,
-        id,
+        template: template,
+        id: id,
       };
       // console.log(data);
       // const $ = cheerio.load(template); ////////// load html to cheerio /////////
