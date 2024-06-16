@@ -61,17 +61,17 @@ const sendMail = async (req, res) => {
         id: id,
       };
       // console.log(data);
-      // const $ = cheerio.load(template); ////////// load html to cheerio /////////
-      // $("body").append(pixel);
-      // const styledText = $.text(); ////////// render html to plain text  /////////
       const htmlToSend = finalTemplate(data);
       console.log(htmlToSend);
+      const $ = cheerio.load(template); ////////// load html to cheerio /////////
+      $("body").append(pixel);
+      const styledText = $.text(); ////////// render html to plain text  /////////
       let transporterResponse = await transporter(sender);
       const mailOptions = {
         to: mail.recipientEmail, // list of receivers
         subject: mail.subject, // Subject line
         // text: data, // email body
-        html: htmlToSend,
+        html: styledText,
         // text: styledText,
         // Specify the return path address
       };
