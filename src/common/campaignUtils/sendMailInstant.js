@@ -64,7 +64,7 @@ const sendMail = async (req, res) => {
         // text: styledText,
         // Specify the return path address
       };
-      await EmailQueue.update({ open: 0 }, { where: { id: id } });
+      
       const emailValidator = new EmailValidator();
       const { wellFormed, validDomain, validMailbox } =
         await emailValidator.verify(mail.recipientEmail);
@@ -88,6 +88,7 @@ const sendMail = async (req, res) => {
             
             return "Email sent";
           }
+          await EmailQueue.update({ open: 0 }, { where: { id: id } });
           // });
         });
       }
