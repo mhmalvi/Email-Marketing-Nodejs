@@ -42,17 +42,17 @@ const sendMail = async (req, res) => {
         var template = template.replace(group_str, mail.group);
       } ////// replace template {email},{name},{group} with recipients' email,name,group //////
 
-      const id = mail.id;
+      var id = mail.id;
 
       // var pixel_url = "https://backend.quemailer.com/open/" + id;
-      var pixel = `<img src="https://backend.quemailer.com/open/${id}" />`;
-      var $ = cheerio.load(pixel); ////////// load html to cheerio /////////
-      // $("body").append(pixel);
-      pixel = $.text(); ////////// render html to plain text  /////////
+      // var pixel = `<img src="https://backend.quemailer.com/open/${id}" />`;
+      // var $ = cheerio.load(pixel); ////////// load html to cheerio /////////
+      // // $("body").append(pixel);
+      // pixel = $.text(); ////////// render html to plain text  /////////
 
-      var $ = cheerio.load(template); ////////// load html to cheerio /////////
-      // $("body").append(pixel);
-      template = $('body').text(); ////////// render html to plain text  /////////
+      // var $ = cheerio.load(template); ////////// load html to cheerio /////////
+      // // $("body").append(pixel);
+      // template = $('body').text(); ////////// render html to plain text  /////////
       // console.log(pixel);
       // const file = path.join(__dirname, "../../ejs/mail.ejs");
       // const data = await ejs.renderFile(file, {
@@ -64,7 +64,7 @@ const sendMail = async (req, res) => {
       var templateSource = fs.readFileSync(templatePath, "utf8");
       const finalTemplate = handlebars.compile(templateSource);
       const data = {
-        pixel: pixel,
+        id: id,
         template: template,
         
       };
