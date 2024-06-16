@@ -3,6 +3,7 @@ const ejs = require("ejs");
 const path = require("path");
 const cheerio = require("cheerio");
 const fs = require("fs");
+const handlebars = require('handlebars');
 const mustache = require("mustache");
 
 const {
