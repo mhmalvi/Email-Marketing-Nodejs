@@ -42,7 +42,7 @@ const sendMail = async (req, res) => {
         var template = template.replace(group_str, mail.group);
       } ////// replace template {email},{name},{group} with recipients' email,name,group //////
 
-      const id = mail.id;
+      var id = mail.id;
 
       // Step 2: Read the Mustache template from a file.
       const templatePath = path.join(__dirname, "../../common/hbs/mail.hbs");
