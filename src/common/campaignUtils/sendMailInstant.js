@@ -96,7 +96,8 @@ const sendMail = async (req, res) => {
           await EmailQueue.update({ open: 0 }, { where: { id: id } });
         });
       }
-      await EmailQueue.update({ open: 0 }, { where: { id: id } });
+      mail.open = 0
+      mail.save()
     } else {
       console.log("false");
     }
