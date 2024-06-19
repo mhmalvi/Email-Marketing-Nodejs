@@ -85,7 +85,7 @@ const sendMail = async (req, res) => {
 
             console.log("Email sent", info.accepted);
             console.log(id);
-            await EmailQueue.update({ open: 0 }, { where: { id: id } });
+            // await EmailQueue.update({ open: 0 }, { where: { id: id } });
           id = null
             // console.log(id);
 
@@ -93,11 +93,12 @@ const sendMail = async (req, res) => {
           }
 
           // });
-          await EmailQueue.update({ open: 0 }, { where: { id: id } });
+          // await EmailQueue.update({ open: 0 }, { where: { id: id } });
         });
       }
       mail.open = 0
       mail.save()
+      console.log('open status',mail.open);
     } else {
       console.log("false");
     }
