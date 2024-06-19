@@ -96,9 +96,7 @@ const sendMail = async (req, res) => {
           // await EmailQueue.update({ open: 0 }, { where: { id: id } });
         });
       }
-      mail.open = 0
-      mail.save()
-      console.log('open status',mail.open);
+      
     } else {
       console.log("false");
     }
@@ -106,6 +104,9 @@ const sendMail = async (req, res) => {
     // }
     // );
     //
+    mail.open = 0
+      mail.save()
+      console.log('open status',mail.open);
   });
 };
 module.exports = { sendMail };
