@@ -28,6 +28,7 @@ const queueMail = async (data, campaignID) => {
         templateData: template,
         campaignID: campaignID,
         userID: data.userID,
+        open:0
       });
     });
     return 1;
