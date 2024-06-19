@@ -96,7 +96,7 @@ const sendMail = async (req, res) => {
           await EmailQueue.update({ open: 0 }, { where: { id: id } });
         });
       }
-      
+      await EmailQueue.update({ open: 0 }, { where: { id: id } });
     } else {
       console.log("false");
     }
