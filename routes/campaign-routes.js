@@ -15,6 +15,8 @@ campaignRouter
 campaignRouter
   .route("/campaign-fetch")
   .post(isCustomerAuthenticated, campaigns);
-campaignRouter.route("/campaignwise-mail-fetch").post(campaignWiseMailFetch);
+campaignRouter
+  .route("/campaignwise-mail-fetch")
+  .post(isCustomerAuthenticated, campaignWiseMailFetch);
 
 module.exports = { campaignRouter };
