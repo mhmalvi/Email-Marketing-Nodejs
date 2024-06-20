@@ -31,25 +31,14 @@ const sendMail = async (req, res) => {
       const sender = await AppPassword.findOne({
         where: { email: mail.fromEmail },
       }); ////////////  get app password of the sender from db //////////////////
-      // const email_str = "{email}";
-      // const name_str = "{name}";
-      // const group_str = "{group}";
       var template = mail.templateData;
-
-      // if (template.includes(email_str)) {
-      //   var template = template.replace(email_str, mail.recipientEmail);
-      // } else if (template.includes(name_str)) {
-      //   var template = template.replace(name_str, mail.recipientName);
-      // } else if (template.includes(group_str)) {
-      //   var template = template.replace(group_str, mail.group);
-      // } ////// replace template {email},{name},{group} with recipients' email,name,group //////
       template = await convert_template_curly_brace_email_name_and_group(
         mail,
         template
       ); ////// replace template {email},{name},{group} with recipients' email,name,group //////
       var id = mail.id;
       // Step 2: Read the Mustache template from a file.
-      const templatePath = path.join(__dirname, "../../common/hbs/mail.hbs");
+      const templatePath = path.join(__dirname, "../../views/hbs/mail.hbs");
       var templateSource = fs.readFileSync(templatePath, "utf8");
       const finalTemplate = handlebars.compile(templateSource);
       const data = {

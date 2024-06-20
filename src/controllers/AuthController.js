@@ -19,7 +19,7 @@ const isUserEmailExists = async (req, res) => {
     user.otp = otp;
     console.log(user);
     await user.save();
-    const file = path.join(__dirname, "../ejs/otp-mail.ejs");
+    const file = path.join(__dirname, "../views/ejs/otp-mail.ejs");
     const data = await ejs.renderFile(file, {
       otp,
       baseUrl,
@@ -39,18 +39,6 @@ const isUserEmailExists = async (req, res) => {
         return "Email sent";
       }
     });
-    // await sendmail(
-    //   {
-    //     from: keys.mail.user,
-    //     to: req.body.email,
-    //     subject: "Password verification",
-    //     html: `Your Password is ${otp}`,
-    //   },
-    //   function (err, reply) {
-    //     console.log(err && err.stack);
-    //     console.dir(reply);
-    //   }
-    // );
     res.status(200).json({
       status: true,
     });
