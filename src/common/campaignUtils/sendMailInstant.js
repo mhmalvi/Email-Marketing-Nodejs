@@ -28,10 +28,12 @@ const sendMail = async (req, res) => {
   mails.forEach(async (mail) => {
     if (mail.schedule <= new Date()) {
       console.log("true");
-      const sender = await fetchOne(mail); ////////////  get app password of the sender from db //////////////////
-      const email_str = "{email}";
-      const name_str = "{name}";
-      const group_str = "{group}";
+      const sender = await AppPassword.findOne({
+        where: { email: mail.fromEmail },
+      }); ////////////  get app password of the sender from db //////////////////
+      // const email_str = "{email}";
+      // const name_str = "{name}";
+      // const group_str = "{group}";
       var template = mail.templateData;
 
       // if (template.includes(email_str)) {
