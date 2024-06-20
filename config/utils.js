@@ -98,9 +98,31 @@ const convert_curly_brace_email_name_and_group_to_recipient_email_and_name_and_g
       { search: "{name}", replace: element.json.name },
       { search: "{group}", replace: element.json.group },
     ];
-    const newStrMatch = replaceMultipleStrings(subject, replacementsMatch);
+    const newStrMatch = await replaceMultipleStrings(
+      subject,
+      replacementsMatch
+    );
     return newStrMatch;
   };
+
+const convert_template_curly_brace_email_name_and_group = async (
+  data,
+  template
+) => {
+  const replacementsMatch = [
+    { search: "{email}", replace: data.email },
+    { search: "{name}", replace: data.name },
+    { search: "{group}", replace: data.group },
+  ];
+  const newStrMatch = await replaceMultipleStrings(template, replacementsMatch);
+  return newStrMatch;
+};
+
+const emailValidator = async (mail) => {
+  const emailValidator = new EmailValidator();
+  return ({ wellFormed, validDomain, validMailbox } =
+    await emailValidator.verify(mail.recipientEmail));
+};
 
 // randomAlphaNumeric(5); // '0afad'
 
@@ -112,5 +134,7 @@ module.exports = {
   generateOTP,
   getPagination,
   getPagingData,
+  emailValidator,
   convert_curly_brace_email_name_and_group_to_recipient_email_and_name_and_group,
+  convert_template_curly_brace_email_name_and_group,
 };

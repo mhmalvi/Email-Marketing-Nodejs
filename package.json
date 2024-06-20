@@ -36,7 +36,6 @@
     "html-to-text": "^9.0.5",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.43",
-    "mustache": "^4.2.0",
     "mysql": "^2.18.1",
     "node-cron": "^3.0.2",
     "nodemailer": "^6.9.13",
