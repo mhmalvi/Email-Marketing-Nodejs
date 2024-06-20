@@ -8,7 +8,11 @@ const {
 } = require("../src/controllers/Campaigns/CampaignFetchController");
 const { isCustomerAuthenticated } = require("../src/middleware/userMiddleware");
 
-campaignRouter.route("/campaign-create").post(campaignQueue);
-campaignRouter.route("/campaign-fetch").post(campaigns);
+campaignRouter
+  .route("/campaign-create")
+  .post(isCustomerAuthenticated, campaignQueue);
+campaignRouter
+  .route("/campaign-fetch")
+  .post(isCustomerAuthenticated, campaigns);
 
 module.exports = { campaignRouter };
