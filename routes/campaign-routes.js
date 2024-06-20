@@ -5,6 +5,7 @@ const {
 } = require("../src/controllers/Campaigns/CampaignQueueController");
 const {
   campaigns,
+  campaignWiseMailFetch,
 } = require("../src/controllers/Campaigns/CampaignFetchController");
 const { isCustomerAuthenticated } = require("../src/middleware/userMiddleware");
 
@@ -14,5 +15,6 @@ campaignRouter
 campaignRouter
   .route("/campaign-fetch")
   .post(isCustomerAuthenticated, campaigns);
+campaignRouter.route("/campaignwise-mail-fetch").post(campaignWiseMailFetch);
 
 module.exports = { campaignRouter };
