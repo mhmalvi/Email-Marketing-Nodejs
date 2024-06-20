@@ -4,7 +4,6 @@ const path = require("path");
 const cheerio = require("cheerio");
 const fs = require("fs");
 const handlebars = require("handlebars");
-const mustache = require("mustache");
 
 const {
   transporter,
@@ -18,32 +17,35 @@ const {
 } = require("./updateQueueMail");
 const EmailValidator = require("email-deep-validator");
 const { log } = require("console");
+const { fetchOne } = require("../appPassUtils/fetchOne");
+const {
+  emailValidator,
+  convert_template_curly_brace_email_name_and_group,
+} = require("../../../config/utils");
 const sendMail = async (req, res) => {
   const mails = await fetchQueuedMails(); /////////////  get queued recipients from db ///////////
   // console.log(mails);
   mails.forEach(async (mail) => {
-    console.log("db_time", mail.schedule);
-    console.log("curr time", new Date());
     if (mail.schedule <= new Date()) {
       console.log("true");
-      const sender = await AppPassword.findOne({
-        where: { email: mail.fromEmail },
-      }); ////////////  get app password of the sender from db //////////////////
+      const sender = await fetchOne(mail); ////////////  get app password of the sender from db //////////////////
       const email_str = "{email}";
       const name_str = "{name}";
       const group_str = "{group}";
       var template = mail.templateData;
 
-      if (template.includes(email_str)) {
-        var template = template.replace(email_str, mail.recipientEmail);
-      } else if (template.includes(name_str)) {
-        var template = template.replace(name_str, mail.recipientName);
-      } else if (template.includes(group_str)) {
-        var template = template.replace(group_str, mail.group);
-      } ////// replace template {email},{name},{group} with recipients' email,name,group //////
-
+      // if (template.includes(email_str)) {
+      //   var template = template.replace(email_str, mail.recipientEmail);
+      // } else if (template.includes(name_str)) {
+      //   var template = template.replace(name_str, mail.recipientName);
+      // } else if (template.includes(group_str)) {
+      //   var template = template.replace(group_str, mail.group);
+      // } ////// replace template {email},{name},{group} with recipients' email,name,group //////
+      template = await convert_template_curly_brace_email_name_and_group(
+        mail,
+        template
+      ); ////// replace template {email},{name},{group} with recipients' email,name,group //////
       var id = mail.id;
-
       // Step 2: Read the Mustache template from a file.
       const templatePath = path.join(__dirname, "../../common/hbs/mail.hbs");
       var templateSource = fs.readFileSync(templatePath, "utf8");
@@ -52,23 +54,18 @@ const sendMail = async (req, res) => {
         id: id,
         template: template,
       };
-      // console.log(data);
       const htmlToSend = finalTemplate(data);
 
       let transporterResponse = await transporter(sender);
       const mailOptions = {
         to: mail.recipientEmail, // list of receivers
         subject: mail.subject, // Subject line
-        // text: data, // email body
         html: htmlToSend,
-        // text: styledText,
-        // Specify the return path address
       };
 
-      const emailValidator = new EmailValidator();
-      const { wellFormed, validDomain, validMailbox } =
-        await emailValidator.verify(mail.recipientEmail);
-
+      const { wellFormed, validDomain, validMailbox } = await emailValidator(
+        mail
+      );
       console.log(wellFormed);
       console.log(validDomain);
       console.log(validMailbox);
@@ -85,24 +82,14 @@ const sendMail = async (req, res) => {
 
             console.log("Email sent", info.accepted);
             console.log(id);
-            // await EmailQueue.update({ open: 0 }, { where: { id: id } });
             id = null;
-            // console.log(id);
-
-            // return "Email sent";
           }
-
-          // });
-          // await EmailQueue.update({ open: 0 }, { where: { id: id } });
         });
       }
     } else {
       console.log("false");
     }
     //  ////////////////////////////////////////////////////////////////
-    // }
-    // );
-    //
     mail.open = 0;
     await mail.save();
     console.log("open status", mail.open);
