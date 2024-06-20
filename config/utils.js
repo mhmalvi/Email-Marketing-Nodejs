@@ -1,6 +1,7 @@
 const keys = require("./keys");
 const nodemailer = require("nodemailer");
 const Contacts = require("../models").Contacts;
+const EmailValidator = require("email-deep-validator");
 
 const generateConfig = (url, accessToken) => {
   return {

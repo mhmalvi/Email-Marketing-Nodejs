@@ -15,7 +15,7 @@ const {
   updateDeliveryStatus,
   updateBounceStatus,
 } = require("./updateQueueMail");
-const EmailValidator = require("email-deep-validator");
+
 const { log } = require("console");
 const { fetchOne } = require("../appPassUtils/fetchOne");
 const {
