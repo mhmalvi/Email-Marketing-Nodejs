@@ -15,7 +15,7 @@ module.exports = {
       references: {
         model: {
           tableName: "Users", // name of the source table
-          schema: "public",
+          schema: "email_marketing",
         }, // name of the source table
         key: "id", // key in the source table that the foreign key references
       },
