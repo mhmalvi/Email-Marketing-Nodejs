@@ -1,4 +1,5 @@
 "use strict";
+const User = require('../models').User
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -13,10 +14,7 @@ module.exports = {
       type: Sequelize.INTEGER,
       allowNull: false,
       references: {
-        model: {
-          tableName: "Users", // name of the source table
-          schema: "schema",
-        }, // name of the source table
+        model: User, // name of the source table
         key: "id", // key in the source table that the foreign key references
       },
       onUpdate: "CASCADE",
