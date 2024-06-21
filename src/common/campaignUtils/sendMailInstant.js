@@ -22,12 +22,12 @@ const {
   emailValidator,
   convert_template_curly_brace_email_name_and_group,
 } = require("../../../config/utils");
+
 const sendMail = async (req, res) => {
   const mails = await fetchQueuedMails(); /////////////  get queued recipients from db ///////////
   // console.log(mails);
   mails.forEach(async (mail) => {
     if (mail.schedule <= new Date()) {
-      console.log("true");
       const sender = await AppPassword.findOne({
         where: { email: mail.fromEmail },
       }); ////////////  get app password of the sender from db //////////////////
@@ -37,7 +37,7 @@ const sendMail = async (req, res) => {
         template
       ); ////// replace template {email},{name},{group} with recipients' email,name,group //////
       var id = mail.id;
-      // Step 2: Read the Mustache template from a file.
+      // Step 2: Read the template from a file.
       const templatePath = path.join(__dirname, "../../views/hbs/mail.hbs");
       var templateSource = fs.readFileSync(templatePath, "utf8");
       const finalTemplate = handlebars.compile(templateSource);
@@ -56,7 +56,7 @@ const sendMail = async (req, res) => {
 
       const { wellFormed, validDomain, validMailbox } = await emailValidator(
         mail
-      );
+      ); ////  check email bounce ////
       console.log(wellFormed);
       console.log(validDomain);
       console.log(validMailbox);
@@ -70,7 +70,6 @@ const sendMail = async (req, res) => {
             return "Error while sending email" + err;
           } else {
             console.log(info.accepted[0]);
-
             console.log("Email sent", info.accepted);
             console.log(id);
             id = null;
