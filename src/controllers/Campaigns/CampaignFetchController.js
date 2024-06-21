@@ -7,6 +7,7 @@ const {
 const { fetchCampaignWisePaginated } = require("../../common/campaignUtils/mailFetchCampaignWisePaginated");
 
 const campaigns = async (req, res) => {
+    console.log(req.baseUrl);
   console.log("ffdbfgb");
   const { userID, page, per_page } = req.body;
   if (userID) {
