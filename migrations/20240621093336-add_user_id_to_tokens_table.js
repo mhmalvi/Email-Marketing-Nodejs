@@ -10,11 +10,11 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    await queryInterface.addColumn("Tokens", "userID", {
+    await queryInterface.addColumn("tokens", "userID", {
       type: Sequelize.INTEGER,
       allowNull: false,
       references: {
-        tableName: 'users', // name of the source table
+        tableName: "users", // name of the source table
         key: "id", // key in the source table that the foreign key references
       },
       onUpdate: "CASCADE",
@@ -29,6 +29,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.dropTable("Tokens", "userID");
+    await queryInterface.dropTable("tokens", "userID");
   },
 };
