@@ -15,6 +15,7 @@ module.exports = {
       references: {
         model: {
           tableName: "Users", // name of the source table
+          schema: "schema",
         }, // name of the source table
         key: "id", // key in the source table that the foreign key references
       },
