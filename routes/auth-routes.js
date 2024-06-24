@@ -61,18 +61,6 @@ authRouter.get("/failed", (req, res) => {
 // Success route if the authentication is successful
 authRouter.get("/success", isLoggedIn, async (req, res) => {
   console.log("You are logged in");
-  let ip = "";
-  fetch("https://api.ipify.org?format=json")
-    .then((response) => response.json())
-    .then((data) => {
-      //   console.log(data.ip);
-      ip = data.ip;
-    })
-    .catch((error) => {
-      console.log("Error:", error);
-    });
-  // console.log(req.user.email);
-  // credentials = JSON.stringify(req.user);
   const token = "Bearer " + randomAlphaNumeric(60);
   const user = await User.findOne({
     where: { email: req.user.email },
@@ -110,67 +98,6 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
       `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${user.id}&photo=${req.user.picture}&token=${token.token}`
     );
   }
-  // const userData = {
-  //   email: req.user.email,
-  //   role: user.role,
-  //   token: token,
-  // };
-  // console.log(userData);
-  // res.status(200).json({
-  //   message: "Login successful",
-  //   status: 200,
-  //   user: userData,
-  // });
-  // res.send(
-  //   "Welcome" +
-  //     JSON.stringify(req.user.displayName) +
-  //     ".Your email is " +
-  //     req.user.email
-  // );
-  // res.redirect("https://www.quemailer.com/home");
-  // if (req.user) {
-  //   res.status(200).json({
-  //     message: "login success",
-  //     status: 200,
-  //     user: data,
-  //   });
-  // } else {
-  //   res.status(403).json({
-  //     message: "login failed",
-  //     status: 403,
-  //   });
-  // }
-  // const externalUrl = "https://www.quemailer.com/home";
-  // const params = new URLSearchParams({
-  //   email: req.user.email,
-  //   userName: req.user.displayName,
-  //   id: req.user.id,
-  //   token: token,
-  // });
-  // const response = await fetch(externalUrl, {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify(req.user),
-  // });
-  // if (req.user) {
-  //   res.redirect(`${externalUrl}?${params}`);
-  // }
-
-  // request(
-  //   {
-  //     url: `https://quemailer.com/home?username=${req.user.displayName}&email=${req.user.email}&googleID=${req.user.id}`,
-  //     method: "GET",
-  //   },
-  //   function (err, response) {
-  //     if (err) {
-  //       console.log("Error", err);
-  //     } else {
-  //       console.log(response);
-  //     }
-  //   }
-  // );
 });
 
 // Route that logs out the authenticated user
