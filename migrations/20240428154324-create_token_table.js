@@ -10,14 +10,16 @@ module.exports = {
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
     await queryInterface.createTable(
-      "users",
+      "tokens",
       {
-        id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
-        userName: { type: Sequelize.TEXT, allowNull: false },
-        googleId: { type: Sequelize.STRING, allowNull: true },
-        email: { type: Sequelize.STRING, allowNull: false, unique: true },
-        password: { type: Sequelize.STRING, allowNull: true },
-        role: { type: Sequelize.INTEGER, allowNull: false },
+        id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
+        email: { type: Sequelize.STRING, allowNull: false },
+        ip: { type: Sequelize.STRING, allowNull: false },
+        token: { type: Sequelize.STRING, allowNull: false },
+        userId: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+        },
         createdAt: {
           type: Sequelize.DATE,
           allowNull: false,
@@ -40,6 +42,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.dropTable("users");
+    await queryInterface.dropTable("tokens");
   },
 };
