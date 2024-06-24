@@ -10,12 +10,13 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    await queryInterface.addColumn("tokens", "userID", {
-      type: Sequelize.INTEGER,
-      allowNull: false,
+    await queryInterface.addConstraint("tokens", {
+      fields: ["userID"],
+      type: "foreign key",
+      name: "fk_tokens_userID_users",
       references: {
-        tableName: "users", // name of the source table
-        key: "id", // key in the source table that the foreign key references
+        table: "users", // name of the source table
+        field: "id", // key in the source table that the foreign key references
       },
       onUpdate: "CASCADE",
       onDelete: "CASCADE",
@@ -29,6 +30,7 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.dropTable("tokens", "userID");
+    // await queryInterface.dropTable("tokens", "userID");
+    await queryInterface.removeConstraint("tokens", "fk_tokens_userID_users");
   },
 };
