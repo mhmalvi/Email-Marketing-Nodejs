@@ -60,7 +60,7 @@ authRouter.get("/failed", (req, res) => {
 
 // Success route if the authentication is successful
 authRouter.get("/success", isLoggedIn, async (req, res) => {
-  console.log("You are logged in");
+  console.log("You are logged in");  
   const token = "Bearer " + randomAlphaNumeric(60);
   const user = await User.findOne({
     where: { email: req.user.email },
@@ -89,7 +89,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
     // return req.user.email;
     await saveToken(data);
     res.redirect(
-      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${userName.id}&photo=${req.user.picture}&token=${token}`
+      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${data.googleId}&photo=${req.user.picture}&token=${token}`
     );
   } else {
     // return req.user.email;
@@ -98,6 +98,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
       `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${user.id}&photo=${req.user.picture}&token=${token.token}`
     );
   }
+  
 });
 
 // Route that logs out the authenticated user
