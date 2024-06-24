@@ -14,7 +14,6 @@ module.exports = {
       {
         id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
         email: { type: Sequelize.STRING, allowNull: false },
-        ip: { type: Sequelize.STRING, allowNull: false },
         token: { type: Sequelize.STRING, allowNull: false },
         userId: {
           type: Sequelize.INTEGER,
