@@ -66,7 +66,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
     where: { email: req.user.email },
   });
   var newUser = "";
-  const data = {
+  var data = {
     email: req.user.email,
     token: token,
     googleId: req.user.id,
@@ -74,7 +74,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
     role: 3,
     photo: req.user.picture,
   };
-  console.log(data);
+  // console.log(data);
   if (user === null) {
     newUser = await User.create({
       userName: req.user.displayName,
@@ -84,7 +84,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
       photo: req.user.picture,
     });
 
-    // console.log(newUser.id);
+    console.log(newUser.id);
     data.userID = newUser.id;
     console.log(data);
     // return req.user.email;
