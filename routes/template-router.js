@@ -13,7 +13,9 @@ const {
 // templateRouter
 //   .route("/template-save")
 //   .post(isCustomerAuthenticated, insertTemplate);
-templateRouter.route("/template-save").post(insertTemplate);
+templateRouter
+  .route("/template-save")
+  .post(isCustomerAuthenticated, insertTemplate);
 templateRouter
   .route("/template-fetch")
   .post(isCustomerAuthenticated, fetchTemplates);

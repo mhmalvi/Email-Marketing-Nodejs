@@ -2,7 +2,7 @@ const express = require("express");
 const { saveTemplate } = require("../../common/templateUtils/insert");
 const { findOne } = require("../../common/templateUtils/findOne");
 const insertTemplate = async (req, res) => {
-  if (req.body.name && req.body.template && req.body.user_id) {
+  if (req.body.name && req.body.template && req.body.userID) {
     const response = await findOne(req.body);
     console.log(response);
     if (response === null) {

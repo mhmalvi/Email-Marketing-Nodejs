@@ -2,7 +2,7 @@ const { destroy } = require("../../common/templateUtils/delete");
 
 const templateDestroy = async (req, res) => {
   console.log(req.body);
-  if (req.body.id && req.body.client_id) {
+  if (req.body.id && req.body.userID) {
     const result = await destroy(req.body);
     console.log(result);
     if (result === 1) {
