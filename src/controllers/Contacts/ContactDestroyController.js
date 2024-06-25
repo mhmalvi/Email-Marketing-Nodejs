@@ -5,7 +5,7 @@ const { findOne } = require("../../common/contactsUtils/findOne");
 const { getPagingData, getPagination } = require("../../../config/utils");
 
 const destroyContact = async (req, res) => {
-  if (req.body.id && req.body.user_id) {
+  if (req.body.id && req.body.userID) {
     let contact = await findOne(req.body.id);
     if (contact) {
       const result = await destroy(req.body);
