@@ -7,7 +7,7 @@ const { findOne } = require("../../common/contactsUtils/findOne");
 const { getPagingData, getPagination } = require("../../../config/utils");
 
 const updateContact = async (req, res) => {
-  if (req.body.id && req.body.user_id && req.body.json) {
+  if (req.body.id && req.body.userID && req.body.json) {
     let contact = await findOne(req.body.id);
     if (contact) {
       const result = await updateOne(req.body);
