@@ -85,7 +85,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
     });
 
     console.log(newUser.id);
-    data.userId = newUser.id;
+    data.userID = newUser.id;
     console.log(data);
     // return req.user.email;
     await saveToken(data);
