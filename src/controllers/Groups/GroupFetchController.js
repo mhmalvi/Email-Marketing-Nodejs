@@ -3,7 +3,7 @@ const Contact = require("../../../models").Contact;
 const { fetchContacts } = require("../../common/groupsUtils/fetchContacts");
 
 const fetchGroups = async (req, res) => {
-  if (req.body.user_id) {
+  if (req.body.userID) {
     var contactArray = [];
     const { userID } = req.body;
     const contacts = await fetchContacts(userID);
