@@ -5,8 +5,8 @@ const { fetchContacts } = require("../../common/groupsUtils/fetchContacts");
 const fetchGroups = async (req, res) => {
   if (req.body.user_id) {
     var contactArray = [];
-    const { user_id } = req.body;
-    const contacts = await fetchContacts(user_id);
+    const { userID } = req.body;
+    const contacts = await fetchContacts(userID);
     //   console.log(contacts);
     await contacts.forEach((contact) => {
       const group = contact.json.group;
