@@ -69,7 +69,7 @@ console.log(user);
         token: token,
         userName: user.userName,
         photo: user.image,
-        userId: user.id,
+        userID: user.id,
       };
 
       user.otp = null;
