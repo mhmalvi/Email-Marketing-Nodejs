@@ -61,7 +61,7 @@ const verifyOTP = async (req, res) => {
       where: { email: req.body.email },
       where: { otp: req.body.otp },
     });
-
+console.log(user);
     if (user) {
       const token = "Bearer " + randomAlphaNumeric(60);
       const data = {
