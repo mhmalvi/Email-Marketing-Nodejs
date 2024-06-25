@@ -94,7 +94,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
     );
   } else {
     // return req.user.email;
-    data.userId = user.id;
+    data.userID = user.id;
     const token = await saveToken(data);
     res.redirect(
       `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${user.id}&photo=${req.user.picture}&token=${token.token}`
