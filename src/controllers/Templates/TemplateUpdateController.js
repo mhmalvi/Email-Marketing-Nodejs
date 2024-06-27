@@ -1,14 +1,10 @@
+const { fieldsValidation } = require("../../../config/utils");
 const { updateById } = require("../../common/templateUtils/updateById");
 
 const templateUpdate = async (req, res) => {
   const { template, name, id, userID } = req.body;
   const requiredFields = { template, name, id, userID };
-  const missingFields = Object.keys(requiredFields).filter(
-    (key) =>
-      requiredFields[key] === undefined ||
-      requiredFields[key] === null ||
-      requiredFields[key] === ""
-  );
+  const missingFields = await fieldsValidation(requiredFields);
   if (missingFields.length > 0) {
     res.status(422).json({
       message: `Missing fields are ${missingFields.join(", ")}`,

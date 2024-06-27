@@ -13,9 +13,6 @@ const {
 const {
   templateUpdate,
 } = require("../src/controllers/Templates/TemplateUpdateController");
-// templateRouter
-//   .route("/template-save")
-//   .post(isCustomerAuthenticated, insertTemplate);
 templateRouter
   .route("/template-save")
   .post(isCustomerAuthenticated, insertTemplate);

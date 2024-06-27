@@ -125,6 +125,15 @@ const emailValidator = async (mail) => {
     await emailValidator.verify(mail.recipientEmail));
 };
 
+const fieldsValidation = async (requiredFields) => {
+  return Object.keys(requiredFields).filter(
+    (key) =>
+      requiredFields[key] === undefined ||
+      requiredFields[key] === null ||
+      requiredFields[key] === ""
+  );
+};
+
 // randomAlphaNumeric(5); // '0afad'
 
 module.exports = {
@@ -136,6 +145,7 @@ module.exports = {
   getPagination,
   getPagingData,
   emailValidator,
+  fieldsValidation,
   convert_curly_brace_email_name_and_group_to_recipient_email_and_name_and_group,
   convert_template_curly_brace_email_name_and_group,
 };
