@@ -24,7 +24,7 @@ templateRouter
   .post(isCustomerAuthenticated, fetchTemplates);
 templateRouter
   .route("/template-update")
-  .post(isCustomerAuthenticated,templateUpdate);
+  .post(isCustomerAuthenticated, templateUpdate);
 templateRouter
   .route("/template-destroy")
   .post(isCustomerAuthenticated, templateDestroy);

@@ -17,7 +17,7 @@ const templateUpdate = async (req, res) => {
   } else {
     const result = await updateById(req.body); /// update template ///
     console.log(result);
-    if (result === 1) {
+    if (result[0] === 1) {
       res.status(201).json({
         message: `Template updated`,
         status: 201,
