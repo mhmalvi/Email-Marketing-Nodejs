@@ -4,7 +4,7 @@ const { updateById } = require("../../common/templateUtils/updateById");
 const templateUpdate = async (req, res) => {
   const { template, name, id, userID } = req.body;
   const requiredFields = { template, name, id, userID };
-  const missingFields = await fieldsValidation(requiredFields);
+  const missingFields = await fieldsValidation(requiredFields);  /// validation ///
   if (missingFields.length > 0) {
     res.status(422).json({
       message: `Missing fields are ${missingFields.join(", ")}`,
