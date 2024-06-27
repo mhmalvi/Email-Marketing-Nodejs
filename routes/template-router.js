@@ -10,6 +10,9 @@ const {
 const {
   templateDestroy,
 } = require("../src/controllers/Templates/TemplateDestroyController");
+const {
+  templateUpdate,
+} = require("../src/controllers/Templates/TemplateUpdateController");
 // templateRouter
 //   .route("/template-save")
 //   .post(isCustomerAuthenticated, insertTemplate);
@@ -19,6 +22,9 @@ templateRouter
 templateRouter
   .route("/template-fetch")
   .post(isCustomerAuthenticated, fetchTemplates);
+templateRouter
+  .route("/template-update")
+  .post(isCustomerAuthenticated,templateUpdate);
 templateRouter
   .route("/template-destroy")
   .post(isCustomerAuthenticated, templateDestroy);
