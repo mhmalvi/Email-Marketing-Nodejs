@@ -90,6 +90,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
   };
   console.log(data);
   if (user === null) {
+    console.log("register");
     newUser = await User.create({
       userName: req.user.displayName,
       email: req.user.email,
