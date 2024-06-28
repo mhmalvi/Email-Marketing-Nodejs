@@ -18,9 +18,7 @@ const {
   destroyContact,
 } = require("../src/controllers/Contacts/ContactDestroyController");
 
-contactRouter
-  .route("/contact-save/:userID")
-  .post(isCustomerAuthenticated, insertContact);
+contactRouter.route("/contact-save").post(insertContact);
 contactRouter
   .route("/contact-save-manually")
   .post(isCustomerAuthenticated, insertContactManually);
