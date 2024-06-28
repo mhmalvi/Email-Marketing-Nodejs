@@ -56,7 +56,7 @@ const insertContactManually = async (req, res) => {
       res.status(201).json({
         message: "Contact inserted",
         status: 201,
-        contact: JSON.stringify(req.body),
+        contact: req.body,
       });
     }
   }

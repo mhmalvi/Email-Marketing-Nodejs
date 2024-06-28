@@ -21,7 +21,7 @@ const {
 contactRouter.route("/contact-save/:userID").post(insertContact);
 contactRouter
   .route("/contact-save-manually")
-  .post( insertContactManually);
+  .post(isCustomerAuthenticated, insertContactManually);
 contactRouter.route("/contact-fetch").post(fetchContact);
 contactRouter
   .route("/contact-fetch-by-group")
