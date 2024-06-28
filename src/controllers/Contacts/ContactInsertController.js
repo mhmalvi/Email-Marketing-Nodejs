@@ -8,10 +8,8 @@ const {
 const { fieldsValidation } = require("../../../config/utils");
 
 const insertContact = async (req, res) => {
-  const json = req.body;
+  const { json, userID } = req.body;
   console.log(json);
-  const data = JSON.parse(req.params.userID);
-  console.log(data);
   if (json.length > 0) {
     // const UserCollectionExist = JSON.stringify(await fetch(data));
 
@@ -20,10 +18,10 @@ const insertContact = async (req, res) => {
       // const collection = JSON.parse(UserCollectionExist);
       console.log("element", element);
       var count = 0;
-      const userCollectionExist = await ifContactExist(data, element);
+      const userCollectionExist = await ifContactExist(userID, element);
       console.log("userCollectionExist", userCollectionExist);
       if (!userCollectionExist) {
-        saveContact(element, data);
+        saveContact(element, userID);
       }
     });
     res.status(201).json({

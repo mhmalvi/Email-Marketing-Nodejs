@@ -18,15 +18,23 @@ const {
   destroyContact,
 } = require("../src/controllers/Contacts/ContactDestroyController");
 
-contactRouter.route("/contact-save/:userID").post(insertContact);
+contactRouter
+  .route("/contact-save/:userID")
+  .post(isCustomerAuthenticated, insertContact);
 contactRouter
   .route("/contact-save-manually")
   .post(isCustomerAuthenticated, insertContactManually);
-contactRouter.route("/contact-fetch").post(fetchContact);
+contactRouter
+  .route("/contact-fetch")
+  .post(isCustomerAuthenticated, fetchContact);
 contactRouter
   .route("/contact-fetch-by-group")
   .post(isCustomerAuthenticated, contactFetchByGroup);
-contactRouter.route("/contact-update").post(updateContact);
-contactRouter.route("/contact-destroy").post(destroyContact);
+contactRouter
+  .route("/contact-update")
+  .post(isCustomerAuthenticated, updateContact);
+contactRouter
+  .route("/contact-destroy")
+  .post(isCustomerAuthenticated, destroyContact);
 
 module.exports = { contactRouter };
