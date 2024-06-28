@@ -44,7 +44,7 @@ const insertContactManually = async (req, res) => {
   const { userID, email, name, group } = req.body;
   const requiredFields = { userID, email, name, group };
   const missingFields = await fieldsValidation(requiredFields);
-  if (missingFields > 0) {
+  if (missingFields.length > 0) {
     res.status(422).json({
       message: `Missing fields are ${missingFields.join(", ")}`,
       status: 422,
