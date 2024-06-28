@@ -5,6 +5,7 @@ const { isCustomerAuthenticated } = require("../src/middleware/userMiddleware");
 const { query, validationResult } = require("express-validator");
 const {
   insertContact,
+  insertContactManually,
 } = require("../src/controllers/Contacts/ContactInsertController");
 const {
   fetchContact,
@@ -18,6 +19,9 @@ const {
 } = require("../src/controllers/Contacts/ContactDestroyController");
 
 contactRouter.route("/contact-save/:userID").post(insertContact);
+contactRouter
+  .route("/contact-save-manually")
+  .post( insertContactManually);
 contactRouter.route("/contact-fetch").post(fetchContact);
 contactRouter
   .route("/contact-fetch-by-group")
