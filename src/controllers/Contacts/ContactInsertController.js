@@ -52,7 +52,7 @@ const insertContactManually = async (req, res) => {
   } else {
     const userCollectionExist = await ifContactExist(userID, req.body);
     if (!userCollectionExist) {
-      saveContact(req.body, userID);
+      await saveContact(req.body, userID);
       res.status(201).json({
         message: "Contact inserted",
         status: 201,
