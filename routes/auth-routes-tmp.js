@@ -62,24 +62,13 @@ authRouter.get("/failed", (req, res) => {
 // Success route if the authentication is successful
 authRouter.get("/success", isLoggedIn, async (req, res) => {
   console.log("You are logged in");
-  console.log(req);
-  let ip = "";
-  fetch("https://api.ipify.org?format=json")
-    .then((response) => response.json())
-    .then((data) => {
-      //   console.log(data.ip);
-      ip = data.ip;
-    })
-    .catch((error) => {
-      console.log("Error:", error);
-    });
-  console.log(req.user);
+  console.log('req',req);
   // credentials = JSON.stringify(req.user);
   const token = "Bearer " + randomAlphaNumeric(60);
   const user = await User.findOne({
     where: { email: req.user.email },
   });
-  console.log('userr_exist',user);
+  console.log("userr_exist", user);
   var newUser = "";
   const data = {
     email: req.user.email,
