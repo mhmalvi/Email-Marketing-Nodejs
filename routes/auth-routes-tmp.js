@@ -79,6 +79,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
   const user = await User.findOne({
     where: { email: req.user.email },
   });
+  console.log('userr_exist',user);
   var newUser = "";
   const data = {
     email: req.user.email,
