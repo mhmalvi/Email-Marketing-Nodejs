@@ -8,12 +8,12 @@ const { getPagingData, getPagination } = require("../../../config/utils");
 
 const updateContact = async (req, res) => {
   if (req.body.id && req.body.user_id && req.body.json) {
-    let contact = await findOne(req.body.id);
+    let contact = await findOne(req.body.id); /// //// check if contact exist before update ////////
     if (contact) {
-      const result = await updateOne(req.body);
+      const result = await updateOne(req.body); /// //// update contact ////////
       console.log(result);
       if (result[0] === 1) {
-        let contact = await findOne(req.body.id);
+        let contact = await findOne(req.body.id); ////////  fetch updated data /////////
         res.status(201).json({
           message: "Updated",
           status: 201,
