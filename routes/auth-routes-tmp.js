@@ -89,7 +89,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
       photo: req.user.picture,
     });
 
-    console.log("userName.id", newUser.id);
+    console.log(newUser.id);
 
     // return req.user.email;
     await saveToken(data);
