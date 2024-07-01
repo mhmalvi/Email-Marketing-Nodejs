@@ -28,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       click: DataTypes.INTEGER,
       bounce: DataTypes.INTEGER,
       deliver: DataTypes.INTEGER,
+      subscription_status: DataTypes.INTEGER,
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
     },
