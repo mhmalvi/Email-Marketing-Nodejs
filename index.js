@@ -15,15 +15,21 @@ const { campaignRouter } = require("./routes/campaign-routes");
 const { appPasswordRouter } = require("./routes/appPassword-routes");
 const { cronRoutes } = require("./routes/cron-routes");
 const { randomAlphaNumeric, getIp } = require("./src/common/utils");
-const path = require('path')
-
+const path = require("path");
+const handlebars = require("express-handlebars");
 require("./config/passport");
 const cors = require("cors");
 const { pixelTracker } = require("./routes/pixelTracker-routes");
 
 const app = express();
 const port = 5000;
-
+app.set("view engine", "handlebars");
+app.engine(
+  "handlebars",
+  handlebars({
+    layoutsDir: __dirname + "/src/views/hbs",
+  })
+);
 app
   .use(
     cors({
@@ -41,11 +47,11 @@ app
   .use(passport.initialize())
   .use(passport.session())
   .use(bodyParser.json())
-  .listen(port, () => console.log("server running on port" + port))
+  .listen(port, () => console.log("server running on port" + port));
 //   app.set("views", path.join(__dirname, "./src/ejs/mail.ejs"));
 //   app.set("view engine", "ejs");
 // app.get("/", (req, res) => {
-//   res.render("mail", { name: "World" });
+//   res.render("mail", { layout: "mail" });
 // });
 app
   .use("/google", authRouter)
@@ -62,7 +68,7 @@ app
   .use(express.static("public/assets")); /////////// routes //////////
 
 // app.get("/otp", async (req, res) => {
-//   res.render(process.cwd() + "/src/ejs/otp-mail.ejs");
+//   res.render(process.cwd() + "/src/views/ejs/otp-mail.ejs");
 // });
 /////////////////////////////////////////////////////////////////////////////////////////
 
