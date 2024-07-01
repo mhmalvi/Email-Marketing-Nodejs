@@ -16,20 +16,12 @@ const { appPasswordRouter } = require("./routes/appPassword-routes");
 const { cronRoutes } = require("./routes/cron-routes");
 const { randomAlphaNumeric, getIp } = require("./src/common/utils");
 const path = require("path");
-const handlebars = require("express-handlebars");
 require("./config/passport");
 const cors = require("cors");
 const { pixelTracker } = require("./routes/pixelTracker-routes");
 
 const app = express();
 const port = 5000;
-app.set("view engine", "handlebars");
-app.engine(
-  "handlebars",
-  handlebars({
-    layoutsDir: __dirname + "/src/views/hbs",
-  })
-);
 app
   .use(
     cors({
