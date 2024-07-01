@@ -1,7 +1,7 @@
 const Contact = require("../../../models").Contact;
 
 const saveContact = async (data, userID) => {
-  return await Contact.bulkCreate({
+  return await Contact.create({
     json: data,
     email: data.email ? data.email : "",
     group: data.group ? data.group : "",
