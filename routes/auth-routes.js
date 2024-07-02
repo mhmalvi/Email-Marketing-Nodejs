@@ -5,7 +5,6 @@ const User = require("../models").User;
 const Token = require("../models").Token;
 const { randomAlphaNumeric } = require("../config/utils");
 const { google } = require("googleapis");
-const { saveCredentials } = require("../src/controllers/GmailAuthController");
 const { saveToken } = require("../src/common/utils");
 
 authRouter.get("/home", (req, res) => {
@@ -117,7 +116,7 @@ authRouter.get("/logout", isLoggedIn, (req, res) => {
   });
 });
 
-authRouter.route("/gmail-login").post(saveCredentials);
+// authRouter.route("/gmail-login").post(saveCredentials);
 
 // authRouter.route("/google-list").get(list);
 // authRouter.get("/list", async (req, res) => {
