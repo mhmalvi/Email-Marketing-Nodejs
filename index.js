@@ -7,7 +7,6 @@ const Token = require("./models").Token;
 const GoogleUser = require("./models").GoogleUser;
 const bodyParser = require("body-parser");
 const { authRouter } = require("./routes/auth-routes");
-const { gmailRouter } = require("./routes/gmail-router");
 const { contactRouter } = require("./routes/contact-routes");
 const { templateRouter } = require("./routes/template-router");
 const { groupRouter } = require("./routes/group-router");
@@ -57,7 +56,6 @@ app
   .use("/google", authRouter)
   .use(
     "/api",
-    gmailRouter,
     contactRouter,
     templateRouter,
     groupRouter,
