@@ -106,6 +106,7 @@ io.on("connection", (socket) => {
         offset,
         name
       );
+      const socketId = userID;
       const totalPages = campaigns.length / per_page;
       const count = campaigns.length;
       const paginate = {
@@ -114,7 +115,7 @@ io.on("connection", (socket) => {
         count: count,
         totalPages: Math.ceil(totalPages),
       };
-      io.emit("campaigns", paginate);
+      io.to(socketId).emit("campaigns", paginate);
     };
     searchCampaign();
   });
