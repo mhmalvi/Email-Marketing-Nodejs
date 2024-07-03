@@ -119,11 +119,12 @@ io.on("connection", (socket) => {
       //   { current_page: page }
       // );
       const paginate = {
+        paginatedData:paginated,
         current_page: page,
         count: count,
         totalPages: Math.ceil(totalPages),
       };
-      io.emit("campaigns", paginated, paginate);
+      io.emit("campaigns",paginate);
     };
     searchCampaign();
   });
