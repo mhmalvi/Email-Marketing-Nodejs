@@ -1,3 +1,6 @@
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
+
 const CampaignQueue = require("../../../models").CampaignQueue;
 
 const fetchCampaigns = async (userID) => {
