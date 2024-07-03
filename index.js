@@ -111,8 +111,8 @@ io.on("connection", (socket) => {
         offset,
         name
       );
-      const totalPages = paginated.length / per_page;
-      const count = paginated.length;
+      const totalPages = campaigns.length / per_page;
+      const count = campaigns.length;
       paginated.push(
         { totalPages: Math.ceil(totalPages) },
         { count: count },
