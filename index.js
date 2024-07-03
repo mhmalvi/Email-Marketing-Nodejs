@@ -100,11 +100,6 @@ io.on("connection", (socket) => {
       campaignSearchPagination();
       console.log(userID);
       const campaigns = await campaignSearch(data);
-      // console.log(campaigns);
-      /////// 2.count total pages //////
-      // const totalPages = campaigns.length / per_page;
-      /////// 3.count total emails //////
-      // const count = campaigns.length;
       const paginated = await campaignSearchPagination(
         userID,
         per_page,
@@ -113,18 +108,13 @@ io.on("connection", (socket) => {
       );
       const totalPages = campaigns.length / per_page;
       const count = campaigns.length;
-      // paginated.push(
-      //   { totalPages: Math.ceil(totalPages) },
-      //   { count: count },
-      //   { current_page: page }
-      // );
       const paginate = {
-        paginatedData:paginated,
+        paginatedData: paginated,
         current_page: page,
         count: count,
         totalPages: Math.ceil(totalPages),
       };
-      io.emit("campaigns",paginate);
+      io.emit("campaigns", paginate);
     };
     searchCampaign();
   });

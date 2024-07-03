@@ -13,7 +13,7 @@ const campaignSearch = async (data) => {
       campaignName: {
         [Op.like]: `%${data.name}%`,
       },
-      userID: data.userID,
+      userID: JSON.parse(data.userID),
     },
   });
 };
@@ -24,7 +24,7 @@ const campaignSearchPagination = async (userID, per_page, offset, name) => {
       campaignName: {
         [Op.like]: `%${name}%`,
       },
-      userID: userID,
+      userID: JSON.parse(userID),
     },
     order: [["id", "DESC"]],
     limit: per_page,
