@@ -2,6 +2,12 @@ const {
   campaignSearch,
   campaignSearchPagination,
 } = require("../campaignUtils/fetchCampaigns");
+const io = socketIo(server, {
+  cors: {
+    origin: " * ",
+    methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
+  },
+});
 
 const campaignSearchRealtime = async (socket) => {
   socket.on("campaigns", (data) => {
