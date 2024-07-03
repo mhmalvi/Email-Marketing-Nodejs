@@ -13,6 +13,7 @@ const campaignSearch = async (data) => {
       campaignName: {
         [Op.like]: `%${data.name}%`,
       },
+      userID: data.userID,
     },
   });
 };
