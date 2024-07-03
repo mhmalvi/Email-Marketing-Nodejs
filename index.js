@@ -98,7 +98,7 @@ io.on("connection", (socket) => {
     const offset = (page - 1) * per_page;
     const searchCampaign = async (req, res) => {
       campaignSearchPagination();
-      console.log(name);
+      console.log(userID);
       const campaigns = await campaignSearch(data);
       // console.log(campaigns);
       /////// 2.count total pages //////
