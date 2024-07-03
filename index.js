@@ -102,15 +102,17 @@ io.on("connection", (socket) => {
       const campaigns = await campaignSearch(data);
       // console.log(campaigns);
       /////// 2.count total pages //////
-      const totalPages = campaigns.length / per_page;
+      // const totalPages = campaigns.length / per_page;
       /////// 3.count total emails //////
-      const count = campaigns.length;
+      // const count = campaigns.length;
       const paginated = await campaignSearchPagination(
         userID,
         per_page,
         offset,
         name
       );
+      const totalPages = paginated.length / per_page;
+      const count = paginated.length;
       paginated.push(totalPages, count);
       io.emit("campaigns", paginated);
     };
