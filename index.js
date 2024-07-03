@@ -87,9 +87,9 @@ io.on("connection", (socket) => {
     const searchCampaign = async (req, res) => {
       console.log(request.name);
       const campaigns = await campaignSearch(request);
-      console.log(campaigns);
+      // console.log(campaigns);
       io.emit("campaigns", campaigns);
     };
-    searchCampaign();
+    // searchCampaign();
   });
 });
