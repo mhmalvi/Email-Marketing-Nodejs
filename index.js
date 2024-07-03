@@ -96,7 +96,6 @@ server.listen(port, () => console.log("server running on port" + port));
 io.on("connection", async(socket) => {
   const users = {};
   console.log("a user connected");
-  await campaignSearchRealtime(socket)
   await socket.on("campaigns", (data) => {
     const { userID, page, per_page, name } = data;
     const offset = (page - 1) * per_page;
