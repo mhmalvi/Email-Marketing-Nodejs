@@ -38,7 +38,6 @@ const socketIo = require("socket.io");
 const { createServer } = require("node:http");
 const { Server } = require("socket.io");
 const { join } = require("node:path");
-const { campaignSearchRealtime } = require("./src/common/socket/campaigns");
 const server = createServer(app);
 // const io = new Server(server);
 ///////// socket imports /////////////
