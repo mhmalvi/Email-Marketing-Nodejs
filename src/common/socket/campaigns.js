@@ -3,6 +3,8 @@ const {
   campaignSearchPagination,
 } = require("../campaignUtils/fetchCampaigns");
 const socketIo = require("socket.io");
+const { createServer } = require("node:http");
+const { Server } = require("socket.io");
 const io = socketIo(server, {
   cors: {
     origin: " * ",
