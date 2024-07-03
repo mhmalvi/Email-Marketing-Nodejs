@@ -31,6 +31,7 @@ const User = require("./models").User;
 const Token = require("./models").Token;
 const GoogleUser = require("./models").GoogleUser;
 ///////// socket imports /////////////
+const socketIo = require("socket.io");
 const { createServer } = require("node:http");
 const { Server } = require("socket.io");
 const { join } = require("node:path");
