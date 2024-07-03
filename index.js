@@ -22,6 +22,8 @@ const { pixelTracker } = require("./routes/pixelTracker-routes");
 const app = express();
 const port = 5000;
 
+const { campaignSearch } = require("./src/common/campaignUtils/fetchCampaigns");
+
 ////////// models import /////////////
 const CampaignQueue = require("./models").CampaignQueue;
 
@@ -82,19 +84,12 @@ io.on("connection", (socket) => {
   console.log("a user connected");
   socket.on("campaigns", (data) => {
     const request = data;
-    const campaignSearch = async (req,res) => {
+    const campaignSearch = async (req, res) => {
       console.log(request.name);
-
-      const campaigns = await CampaignQueue.findAll({
-        where: {
-          campaignName: {
-            [Op.like]: `%${request.name}%`,
-          },
-        },
-      });
+      const campaigns = await campaignSearch(request);
       console.log(campaigns);
       io.emit("campaigns", campaigns);
     };
-    campaignSearch()
+    campaignSearch();
   });
 });
