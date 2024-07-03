@@ -100,7 +100,6 @@ io.on("connection", (socket) => {
     // users[userId] = socket.id;
     console.log("socket id", socket.id);
     const searchCampaign = async (req, res) => {
-      campaignSearchPagination();
       console.log(userID);
       const campaigns = await campaignSearch(data);
       const paginated = await campaignSearchPagination(
