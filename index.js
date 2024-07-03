@@ -98,7 +98,7 @@ io.on("connection", async(socket) => {
   const users = {};
   console.log("a user connected");
   await campaignSearchRealtime(socket)
-  socket.on("campaigns", (data) => {
+  await socket.on("campaigns", (data) => {
     const { userID, page, per_page, name } = data;
     const offset = (page - 1) * per_page;
     // users[userId] = socket.id;
@@ -121,7 +121,7 @@ io.on("connection", async(socket) => {
         count: count,
         totalPages: Math.ceil(totalPages),
       };
-      io.to(socketId).emit("campaigns", paginate);
+      await io.to(socketId).emit("campaigns", paginate);
     };
     searchCampaign();
   });
