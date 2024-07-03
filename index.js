@@ -12,6 +12,7 @@ const { campaignRouter } = require("./routes/campaign-routes");
 const { appPasswordRouter } = require("./routes/appPassword-routes");
 const { cronRoutes } = require("./routes/cron-routes");
 const { randomAlphaNumeric, getIp } = require("./src/common/utils");
+const Op = Sequelize.Op;
 const path = require("path");
 require("./config/passport");
 const cors = require("cors");
