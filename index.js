@@ -22,6 +22,7 @@ const port = 5000;
 
 ////////// models import /////////////
 const CampaignQueue = require("./models").CampaignQueue;
+
 const User = require("./models").User;
 const Token = require("./models").Token;
 const GoogleUser = require("./models").GoogleUser;
@@ -80,10 +81,11 @@ io.on("connection", (socket) => {
   socket.on("campaigns", (data) => {
     console.log(data.name);
     const campaignSearch = async (data) => {
+      const request = data;
       const campaigns = await CampaignQueue.findAll({
         where: {
           campaignName: {
-            [Op.like]: `%${data.name}%`
+            [Op.like]: `%${request.name}%`,
           },
         },
       });
