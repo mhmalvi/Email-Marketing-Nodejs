@@ -90,6 +90,6 @@ io.on("connection", (socket) => {
       // console.log(campaigns);
       io.emit("campaigns", campaigns);
     };
-    // searchCampaign();
+    searchCampaign();
   });
 });
