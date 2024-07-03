@@ -79,12 +79,12 @@ server.listen(port, () => console.log("server running on port" + port));
 io.on("connection", (socket) => {
   console.log("a user connected");
   socket.on("campaigns", (data) => {
-    console.log(data);
+    console.log(data.name);
     const campaignSearch = async (data) => {
       const campaigns = await CampaignQueue.findAll({
         where: {
           campaignName: {
-            [Sequelize.Op.like]: `%${data}%`,
+            [Sequelize.Op.like]: `%${data.name}%`,
           },
         },
       });
