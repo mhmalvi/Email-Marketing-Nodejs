@@ -22,7 +22,7 @@ const campaignSearchPagination = async (userID, per_page, offset, name) => {
   return await CampaignQueue.findAll({
     where: {
       campaignName: {
-        [Op.like]: `%${name}%`,
+        [Op.like]: `${name}%`,
       },
       userID: JSON.parse(userID),
     },
