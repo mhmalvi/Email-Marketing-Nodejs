@@ -1,4 +1,6 @@
-const campaignSearchRealtime = async () => {
+const socketIo = require("socket.io");
+
+const campaignSearchRealtime = async (socket) => {
   socket.on("campaigns", (data) => {
     const { userID, page, per_page, name } = data;
     const offset = (page - 1) * per_page;
