@@ -113,12 +113,18 @@ io.on("connection", (socket) => {
       );
       const totalPages = campaigns.length / per_page;
       const count = campaigns.length;
-      paginated.push(
+      // paginated.push(
+      //   { totalPages: Math.ceil(totalPages) },
+      //   { count: count },
+      //   { current_page: page }
+      // );
+      io.emit(
+        "campaigns",
+        paginated,
         { totalPages: Math.ceil(totalPages) },
         { count: count },
         { current_page: page }
       );
-      io.emit("campaigns", paginated);
     };
     searchCampaign();
   });
