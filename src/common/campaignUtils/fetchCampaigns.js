@@ -16,4 +16,17 @@ const campaignSearch = async (data) => {
     },
   });
 };
-module.exports = { fetchCampaigns, campaignSearch };
+
+const campaignSearchPagination = async (data) => {
+  return await CampaignQueue.findAll({
+    where: {
+      campaignName: {
+        [Op.like]: `%${data.name}%`,
+      },
+    },
+    order: [["id", "DESC"]],
+    limit: data.per_page,
+    offset: offset,
+  });
+};
+module.exports = { fetchCampaigns, campaignSearch, campaignSearchPagination };

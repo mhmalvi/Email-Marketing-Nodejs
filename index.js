@@ -22,7 +22,10 @@ const { pixelTracker } = require("./routes/pixelTracker-routes");
 const app = express();
 const port = 5000;
 
-const { campaignSearch } = require("./src/common/campaignUtils/fetchCampaigns");
+const {
+  campaignSearch,
+  campaignSearchPagination,
+} = require("./src/common/campaignUtils/fetchCampaigns");
 
 ////////// models import /////////////
 const CampaignQueue = require("./models").CampaignQueue;
@@ -91,11 +94,19 @@ server.listen(port, () => console.log("server running on port" + port));
 io.on("connection", (socket) => {
   console.log("a user connected");
   socket.on("campaigns", (data) => {
-    const request = data;
+    const { userID, page, per_page, name } = data;
+    offset = (page - 1) * per_page;
     const searchCampaign = async (req, res) => {
+      campaignSearchPagination();
       console.log(request.name);
-      const campaigns = await campaignSearch(request);
+      const campaigns = await campaignSearch(data);
       // console.log(campaigns);
+      /////// 2.count total pages //////
+      const totalPages = allEmails.length / per_page;
+      /////// 3.count total emails //////
+      const count = allEmails.length;
+      const paginated = await campaignSearchPagination(data);
+      campaigns.push(totalPages, count);
       io.emit("campaigns", campaigns);
     };
     searchCampaign();
