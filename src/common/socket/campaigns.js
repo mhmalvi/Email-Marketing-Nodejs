@@ -1,4 +1,7 @@
-const socketIo = require("socket.io");
+const {
+  campaignSearch,
+  campaignSearchPagination,
+} = require("../campaignUtils/fetchCampaigns");
 
 const campaignSearchRealtime = async (socket) => {
   socket.on("campaigns", (data) => {
