@@ -17,15 +17,16 @@ const campaignSearch = async (data) => {
   });
 };
 
-const campaignSearchPagination = async (data) => {
+const campaignSearchPagination = async (userID, per_page, offset, name) => {
   return await CampaignQueue.findAll({
     where: {
       campaignName: {
-        [Op.like]: `%${data.name}%`,
+        [Op.like]: `%${name}%`,
       },
+      userID: userID,
     },
     order: [["id", "DESC"]],
-    limit: data.per_page,
+    limit: per_page,
     offset: offset,
   });
 };

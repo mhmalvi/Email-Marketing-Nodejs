@@ -95,19 +95,24 @@ io.on("connection", (socket) => {
   console.log("a user connected");
   socket.on("campaigns", (data) => {
     const { userID, page, per_page, name } = data;
-    offset = (page - 1) * per_page;
+    const offset = (page - 1) * per_page;
     const searchCampaign = async (req, res) => {
       campaignSearchPagination();
       console.log(request.name);
       const campaigns = await campaignSearch(data);
       // console.log(campaigns);
       /////// 2.count total pages //////
-      const totalPages = allEmails.length / per_page;
+      const totalPages = campaigns.length / per_page;
       /////// 3.count total emails //////
-      const count = allEmails.length;
-      const paginated = await campaignSearchPagination(data);
-      campaigns.push(totalPages, count);
-      io.emit("campaigns", campaigns);
+      const count = campaigns.length;
+      const paginated = await campaignSearchPagination(
+        userID,
+        per_page,
+        offset,
+        name
+      );
+      paginated.push(totalPages, count);
+      io.emit("campaigns", paginated);
     };
     searchCampaign();
   });
