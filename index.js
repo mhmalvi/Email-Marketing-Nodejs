@@ -98,7 +98,7 @@ io.on("connection", (socket) => {
     const { userID, page, per_page, name } = data;
     const offset = (page - 1) * per_page;
     // users[userId] = socket.id;
-    console.log(socket.id);
+    console.log('socket id',socket.id);
     const searchCampaign = async (req, res) => {
       campaignSearchPagination();
       console.log(userID);
