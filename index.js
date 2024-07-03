@@ -35,8 +35,15 @@ const { createServer } = require("node:http");
 const { Server } = require("socket.io");
 const { join } = require("node:path");
 const server = createServer(app);
-const io = new Server(server);
+// const io = new Server(server);
 ///////// socket imports /////////////
+
+const io = socketIo(server, {
+  cors: {
+    origin: " * ",
+    methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
+  },
+});
 app
   .use(
     cors({
