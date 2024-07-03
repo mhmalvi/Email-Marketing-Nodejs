@@ -2,9 +2,6 @@ require("dotenv").config();
 const express = require("express");
 const passport = require("passport");
 const session = require("express-session");
-const User = require("./models").User;
-const Token = require("./models").Token;
-const GoogleUser = require("./models").GoogleUser;
 const bodyParser = require("body-parser");
 const { authRouter } = require("./routes/auth-routes");
 const { gmailRouter } = require("./routes/gmail-router");
@@ -25,7 +22,9 @@ const port = 5000;
 
 ////////// models import /////////////
 const CampaignQueue = require("./models").CampaignQueue;
-
+const User = require("./models").User;
+const Token = require("./models").Token;
+const GoogleUser = require("./models").GoogleUser;
 ///////// socket imports /////////////
 const { createServer } = require("node:http");
 const { Server } = require("socket.io");
@@ -84,7 +83,7 @@ io.on("connection", (socket) => {
       const campaigns = await CampaignQueue.findAll({
         where: {
           campaignName: {
-            [Sequelize.Op.like]: `%${data.name}%`,
+            [Op.like]: `%${data.name}%`,
           },
         },
       });
