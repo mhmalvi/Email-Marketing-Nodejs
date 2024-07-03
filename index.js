@@ -23,6 +23,9 @@ const { pixelTracker } = require("./routes/pixelTracker-routes");
 const app = express();
 const port = 5000;
 
+////////// models import /////////////
+const CampaignQueue = require("./models").CampaignQueue;
+
 ///////// socket imports /////////////
 const { createServer } = require("node:http");
 const { Server } = require("socket.io");
@@ -47,7 +50,7 @@ app
   .use(passport.initialize())
   .use(passport.session())
   .use(bodyParser.json());
-  
+
 //   app.set("views", path.join(__dirname, "./src/ejs/mail.ejs"));
 //   app.set("view engine", "ejs");
 // app.get("/", (req, res) => {
@@ -77,6 +80,15 @@ io.on("connection", (socket) => {
   console.log("a user connected");
   socket.on("campaigns", (data) => {
     console.log(data);
-    io.emit('campaigns', data);
+    const campaignSearch = async (data) => {
+      const campaigns = await CampaignQueue.findAll({
+        where: {
+          campaignName: {
+            [Sequelize.Op.like]: `%${data}%`,
+          },
+        },
+      });
+      io.emit("campaigns", campaigns);
+    };
   });
 });
