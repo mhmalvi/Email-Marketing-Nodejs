@@ -83,10 +83,11 @@ io.on("connection", (socket) => {
       const campaigns = await CampaignQueue.findAll({
         where: {
           campaignName: {
-            [Op.like]: `%${data.name}%`,
+            [Op.like]: `%${data.name}%`
           },
         },
       });
+      console.log(campaigns);
       io.emit("campaigns", campaigns);
     };
   });
