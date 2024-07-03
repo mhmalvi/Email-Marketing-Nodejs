@@ -118,13 +118,12 @@ io.on("connection", (socket) => {
       //   { count: count },
       //   { current_page: page }
       // );
-      io.emit(
-        "campaigns",
-        paginated,
-        { totalPages: Math.ceil(totalPages) },
-        { count: count },
-        { current_page: page }
-      );
+      const paginate = {
+        current_page: page,
+        count: count,
+        totalPages: Math.ceil(totalPages),
+      };
+      io.emit("campaigns", paginated, paginate);
     };
     searchCampaign();
   });
