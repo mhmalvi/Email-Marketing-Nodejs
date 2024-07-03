@@ -84,12 +84,12 @@ io.on("connection", (socket) => {
   console.log("a user connected");
   socket.on("campaigns", (data) => {
     const request = data;
-    const campaignSearch = async (req, res) => {
+    const searchCampaign = async (req, res) => {
       console.log(request.name);
       const campaigns = await campaignSearch(request);
       console.log(campaigns);
       io.emit("campaigns", campaigns);
     };
-    campaignSearch();
+    searchCampaign();
   });
 });
