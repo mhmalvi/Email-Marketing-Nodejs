@@ -79,9 +79,10 @@ server.listen(port, () => console.log("server running on port" + port));
 io.on("connection", (socket) => {
   console.log("a user connected");
   socket.on("campaigns", (data) => {
-    const campaignSearch = async (data) => {
-      console.log(data.name);
-      const request = data;
+    const request = data;
+    const campaignSearch = async (req,res) => {
+      console.log(request.name);
+
       const campaigns = await CampaignQueue.findAll({
         where: {
           campaignName: {
