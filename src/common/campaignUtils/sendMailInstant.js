@@ -49,7 +49,7 @@ const sendMail = async (req, res) => {
 
       let transporterResponse = await transporter(sender);
       const mailOptions = {
-        from: `${mail.fromName}>`,
+        from: `${mail.fromName} <${mail.fromEmail}>`,
         to: mail.recipientEmail, // list of receivers
         subject: mail.subject, // Subject line
         html: htmlToSend,
