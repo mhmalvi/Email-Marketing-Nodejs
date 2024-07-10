@@ -14,7 +14,7 @@ const allRecipients = async (req, res) => {
       status: 422,
     });
   } else {
-    const recipients = await EmailQueue.fetchAll({
+    const recipients = await EmailQueue.findAll({
       where: { userID: userID, campaignID: campaignID },
     });
     if (recipients.length > 0) {
