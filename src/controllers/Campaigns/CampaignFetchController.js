@@ -53,11 +53,12 @@ const campaignWiseMailFetch = async (req, res) => {
       campaignID,
       per_page
     );
+    console.log(paginatedEmails);
     if (paginatedEmails.length > 0) {
       res.status(200).json({
         message: "success",
         status: 200,
-        campaigns: paginatedEmails,
+        recipients: paginatedEmails,
         total: count,
         totalPages: Math.ceil(totalPages),
         current_page: page,

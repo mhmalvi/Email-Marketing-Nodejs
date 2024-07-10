@@ -10,6 +10,9 @@ const { templateRouter } = require("./routes/template-router");
 const { groupRouter } = require("./routes/group-router");
 const { campaignRouter } = require("./routes/campaign-routes");
 const { appPasswordRouter } = require("./routes/appPassword-routes");
+const {
+  campaignPerformanceRouter
+} = require("./routes/campaignPerformance-routes");
 const { cronRoutes } = require("./routes/cron-routes");
 const { randomAlphaNumeric, getIp } = require("./src/common/utils");
 const Sequelize = require("sequelize");
@@ -80,7 +83,8 @@ app
     templateRouter,
     groupRouter,
     campaignRouter,
-    appPasswordRouter
+    appPasswordRouter,
+    campaignPerformanceRouter
   )
   .use("/", pixelTracker)
   .use(express.static("public/assets")); /////////// routes //////////
@@ -93,7 +97,7 @@ server.listen(port, () => console.log("server running on port" + port));
 // Welcome{"provider":"google","sub":"105703349436150658184","id":"105703349436150658184","displayName":"tanjib Rubyat","name":{"givenName":"tanjib","familyName":"Rubyat"},"given_name":"tanjib","family_name":"Rubyat","email_verified":true,"verified":true,"language":"en-GB","email":"tanjibrubyat@gmail.com","emails":[{"value":"tanjibrubyat@gmail.com","type":"account"}],"photos":[{"value":"https://lh3.googleusercontent.com/a/ACg8ocJQYSJH17nYxP9tIGKVyRRzPDPmTQopLs7RjfY80g2PqQ3SNC8=s96-c","type":"default"}],"picture":"https://lh3.googleusercontent.com/a/ACg8ocJQYSJH17nYxP9tIGKVyRRzPDPmTQopLs7RjfY80g2PqQ3SNC8=s96-c","_raw":"{\n \"sub\": \"105703349436150658184\",\n \"name\": \"tanjib Rubyat\",\n \"given_name\": \"tanjib\",\n \"family_name\": \"Rubyat\",\n \"picture\": \"https://lh3.googleusercontent.com/a/ACg8ocJQYSJH17nYxP9tIGKVyRRzPDPmTQopLs7RjfY80g2PqQ3SNC8\\u003ds96-c\",\n \"email\": \"tanjibrubyat@gmail.com\",\n \"email_verified\": true,\n \"locale\": \"en-GB\"\n}","_json":{"sub":"105703349436150658184","name":"tanjib Rubyat","given_name":"tanjib","family_name":"Rubyat","picture":"https://lh3.googleusercontent.com/a/ACg8ocJQYSJH17nYxP9tIGKVyRRzPDPmTQopLs7RjfY80g2PqQ3SNC8=s96-c","email":"tanjibrubyat@gmail.com","email_verified":true,"locale":"en-GB"}}
 
 ////// socket connection starts ////////
-io.on("connection", async(socket) => {
+io.on("connection", async (socket) => {
   const users = {};
   console.log("a user connected");
   await socket.on("campaigns", (data) => {
