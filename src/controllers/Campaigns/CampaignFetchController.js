@@ -9,8 +9,6 @@ const {
 } = require("../../common/campaignUtils/mailFetchCampaignWisePaginated");
 
 const campaigns = async (req, res) => {
-  console.log(req.baseUrl);
-  console.log("ffdbfgb");
   const { userID, page, per_page } = req.body;
   if (userID) {
     offset = (page - 1) * per_page;
