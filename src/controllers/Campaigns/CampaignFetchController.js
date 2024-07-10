@@ -4,10 +4,12 @@ const { fetchCampaigns } = require("../../common/campaignUtils/fetchCampaigns");
 const {
   fetchCampaignsPaginated,
 } = require("../../common/campaignUtils/fetchCampaignsPagination");
-const { fetchCampaignWisePaginated } = require("../../common/campaignUtils/mailFetchCampaignWisePaginated");
+const {
+  fetchCampaignWisePaginated,
+} = require("../../common/campaignUtils/mailFetchCampaignWisePaginated");
 
 const campaigns = async (req, res) => {
-    console.log(req.baseUrl);
+  console.log(req.baseUrl);
   console.log("ffdbfgb");
   const { userID, page, per_page } = req.body;
   if (userID) {
@@ -53,8 +55,13 @@ const campaignWiseMailFetch = async (req, res) => {
       campaignID,
       per_page
     );
+
     console.log(paginatedEmails);
     if (paginatedEmails.length > 0) {
+      const open = await EmailQueue.findAll({
+        where: { open: 1, userID: userID, campaignID: campaignID },
+      });
+console.log(open);
       res.status(200).json({
         message: "success",
         status: 200,
