@@ -1,5 +1,6 @@
 const CampaignQueue = require("../../../models").CampaignQueue;
 const EmailQueue = require("../../../models").EmailQueue;
+const { fieldsValidation } = require("../../../config/utils");
 const { fetchCampaigns } = require("../../common/campaignUtils/fetchCampaigns");
 
 const allRecipients = async (req, res) => {
