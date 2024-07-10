@@ -61,7 +61,31 @@ const campaignWiseMailFetch = async (req, res) => {
       const open = await EmailQueue.findAll({
         where: { open: 1, userID: userID, campaignID: campaignID },
       });
-console.log(open);
+
+      const subscribed = await EmailQueue.findAll({
+        where: {
+          subscription_status: 1,
+          userID: userID,
+          campaignID: campaignID,
+        },
+      });
+
+      const unSubscribed = await EmailQueue.findAll({
+        where: {
+          subscription_status: 0,
+          userID: userID,
+          campaignID: campaignID,
+        },
+      });
+
+      const delivered = await EmailQueue.findAll({
+        where: {
+          deliver: 1,
+          userID: userID,
+          campaignID: campaignID,
+        },
+      });
+      // console.log(open);
       res.status(200).json({
         message: "success",
         status: 200,
@@ -69,6 +93,12 @@ console.log(open);
         total: count,
         totalPages: Math.ceil(totalPages),
         current_page: page,
+        open: open.length,
+        not_opened: count - open.length,
+        subscribed: subscribed.length,
+        unSubscribed: unSubscribed.length,
+        delivered: delivered.length,
+        bounce: count - delivered.length,
       });
     } else {
       res.status(404).json({
