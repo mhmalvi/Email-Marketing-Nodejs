@@ -1,4 +1,4 @@
-const User = require("/models").User;
+// const User = require("/models").User;
 const Stripe = require("stripe");
 const stripe = require("../../../../config/keys");
 const stripe_key = Stripe(
