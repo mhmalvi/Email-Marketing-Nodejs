@@ -91,13 +91,13 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
     // return req.user.email;
     await saveToken(data);
     res.redirect(
-      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${newUser.id}&photo=${req.user.picture}&token=${token}&first_user=true&subscription='free'`
+      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${newUser.id}&photo=${req.user.picture}&token=${token}&first_user=1&subscription='free'`
     );
   } else {
     // return req.user.email;
     data.userID = user.id;
-    if (user.first_user == true) {
-      user.first_user = false;
+    if (user.first_user == 1) {
+      user.first_user = 0;
       user.save();
     }
     const token = await saveToken(data);
