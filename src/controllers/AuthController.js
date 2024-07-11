@@ -70,6 +70,9 @@ console.log(user);
         userName: user.userName,
         photo: user.image,
         userID: user.id,
+        first_user: user.first_user,
+        subscription: user.subscription,
+        stripeCustomerID: user.stripeCustomerID,
       };
 
       user.otp = null;

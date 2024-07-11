@@ -11,6 +11,7 @@ const { groupRouter } = require("./routes/group-router");
 const { campaignRouter } = require("./routes/campaign-routes");
 const { appPasswordRouter } = require("./routes/appPassword-routes");
 const { recipientsRouter } = require("./routes/recipients-routes");
+const { subscriptionRoutes } = require("./routes/subscription-routes");
 const {
   campaignPerformanceRouter,
 } = require("./routes/campaignPerformance-routes");
@@ -44,7 +45,6 @@ const socketIo = require("socket.io");
 const { createServer } = require("node:http");
 const { Server } = require("socket.io");
 const { join } = require("node:path");
-
 
 const server = createServer(app);
 // const io = new Server(server);
@@ -92,7 +92,8 @@ app
     campaignPerformanceRouter,
     recipientsRouter,
     stripeProductsRouter,
-    stripePriceRouter
+    stripePriceRouter,
+    subscriptionRoutes
   )
   .use("/", pixelTracker)
   .use(express.static("public/assets")); /////////// routes //////////
