@@ -6,7 +6,7 @@ const {
 
 const createSubscription = async (req, res) => {
   const { userID, stripeCustomerID, priceID, amount } = req.body;
-  const requiredFields = { priceID };
+  const requiredFields = { userID, stripeCustomerID, priceID, amount };
   const missingFields = await fieldsValidation(requiredFields);
   if (missingFields.length > 0) {
     res.status(422).json({
