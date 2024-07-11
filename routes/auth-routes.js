@@ -1,6 +1,9 @@
 const express = require("express");
 const passport = require("passport");
 const authRouter = express.Router();
+const {
+  create,
+} = require("../src/common/stripe/stripeCustomer/createCustomer");
 const User = require("../models").User;
 const Token = require("../models").Token;
 const { randomAlphaNumeric } = require("../config/utils");
@@ -85,13 +88,15 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
       subscription: "free",
     });
 
+    const response = await create(req.user.email, req.user.displayName);
+
     console.log(newUser.id);
     data.userID = newUser.id;
     console.log(data);
     // return req.user.email;
     await saveToken(data);
     res.redirect(
-      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${newUser.id}&photo=${req.user.picture}&token=${token}&first_user=1&subscription='free'`
+      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${newUser.id}&photo=${req.user.picture}&token=${token}&first_user=1&subscription='free'&stripeCustomerID=${response.id}`
     );
   } else {
     // return req.user.email;
@@ -102,7 +107,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
     }
     const token = await saveToken(data);
     res.redirect(
-      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${user.id}&photo=${req.user.picture}&token=${token.token}&first_user=${user.first_user}&subscription=${user.subscription}`
+      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${user.id}&photo=${req.user.picture}&token=${token.token}&first_user=${user.first_user}&subscription=${user.subscription}&stripeCustomerID=${user.stripeCustomerID}`
     );
   }
 });
