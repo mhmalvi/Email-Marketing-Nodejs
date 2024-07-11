@@ -78,6 +78,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
   };
   // console.log(data);
   if (user === null) {
+    const response = await create(req.user.email, req.user.displayName);
     newUser = await User.create({
       userName: req.user.displayName,
       email: req.user.email,
@@ -86,9 +87,8 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
       image: req.user.picture,
       first_user: 1,
       subscription: "free",
+      stripeCustomerID: response.id,
     });
-
-    const response = await create(req.user.email, req.user.displayName);
 
     console.log(newUser.id);
     data.userID = newUser.id;
