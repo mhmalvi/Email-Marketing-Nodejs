@@ -22,6 +22,8 @@ module.exports = (sequelize, DataTypes) => {
       updatedAt: DataTypes.DATE,
       image: DataTypes.STRING,
       otp: DataTypes.INTEGER,
+      first_user: DataTypes.INTEGER,
+      subscription:DataTypes.TEXT
     },
     {
       sequelize,
