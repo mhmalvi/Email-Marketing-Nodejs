@@ -47,7 +47,8 @@
     "passport-google-oidc": "^0.1.0",
     "sendmail": "^1.6.1",
     "sequelize": "^6.37.3",
-    "socket.io": "^4.6.1"
+    "socket.io": "^4.6.1",
+    "stripe": "^16.2.0"
   },
   "devDependencies": {
     "sequelize-cli": "^6.6.2"

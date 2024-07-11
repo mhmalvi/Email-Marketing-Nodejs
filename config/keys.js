@@ -11,7 +11,13 @@ module.exports = {
     pass: "ksegkoofkhobnuzj",
   },
   redirectUri: "https://backend.quemailer.com/google/callback",
-  baseUrl:"https://"
+  baseUrl: "https://",
+  stripe: {
+    stripe_public_key:
+      "pk_test_51OtiFcKvZ2nwhLRdVvJ4c2aFYK2mgpwqxlMKiYMwRQWlzwDkxOkx9AUGpulLRyLVMMIRvJQgsxmt83SnVMOdgxOt00ttawtGDl",
+    secret:
+      "sk_test_51OtiFcKvZ2nwhLRdtgSm2Kg86tYvxxk0EprDLOKyvqQaZ5ckR3yvjAmQxoff7RuWc2bBHdpv1c56wutQin2b2IYk00jbIXmUId",
+  },
 };
 // "access_token": "ya29.a0Ad52N39OKS8U34R7Vs2lmF-RPM4FM6pBFQqM81nEjZuzFEufQBEBNmCYlHc8wvZrpKH8TgqI7rER66LX8sn59EHsgUZc61Pu1j4qX91HuN6Srfzqgixh7yl53kXRuuyMa4ypca_Zk9MFISMboP6ClK-RqT8lTxlKNkGGaCgYKAdcSARMSFQHGX2Mipj1t1i3DUjiSv6eZrkQUCA0171"
 

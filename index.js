@@ -15,6 +15,7 @@ const {
   campaignPerformanceRouter,
 } = require("./routes/campaignPerformance-routes");
 const { cronRoutes } = require("./routes/cron-routes");
+const { stripeProductsRouter } = require("./routes/stripeProducts-routes");
 const { randomAlphaNumeric, getIp } = require("./src/common/utils");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
@@ -87,7 +88,8 @@ app
     campaignRouter,
     appPasswordRouter,
     campaignPerformanceRouter,
-    recipientsRouter
+    recipientsRouter,
+    stripeProductsRouter
   )
   .use("/", pixelTracker)
   .use(express.static("public/assets")); /////////// routes //////////
