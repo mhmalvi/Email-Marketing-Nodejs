@@ -81,7 +81,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
       googleId: req.user.id,
       role: 3,
       image: req.user.picture,
-      first_user: true,
+      first_user: 1,
       subscription: "free",
     });
 
