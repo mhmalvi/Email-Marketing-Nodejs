@@ -5,7 +5,7 @@ const stripe_key = Stripe(
 );
 
 const create = async (email, name) => {
-  return await stripe.customers.create({
+  return await stripe_key.customers.create({
     name: name,
     email: email,
   });
