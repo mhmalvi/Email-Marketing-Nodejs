@@ -16,6 +16,7 @@ const {
 } = require("./routes/campaignPerformance-routes");
 const { cronRoutes } = require("./routes/cron-routes");
 const { stripeProductsRouter } = require("./routes/stripeProducts-routes");
+const { stripePriceRouter } = require("./routes/stripePrice-routes");
 const { randomAlphaNumeric, getIp } = require("./src/common/utils");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
@@ -43,6 +44,7 @@ const socketIo = require("socket.io");
 const { createServer } = require("node:http");
 const { Server } = require("socket.io");
 const { join } = require("node:path");
+
 
 const server = createServer(app);
 // const io = new Server(server);
@@ -89,7 +91,8 @@ app
     appPasswordRouter,
     campaignPerformanceRouter,
     recipientsRouter,
-    stripeProductsRouter
+    stripeProductsRouter,
+    stripePriceRouter
   )
   .use("/", pixelTracker)
   .use(express.static("public/assets")); /////////// routes //////////
