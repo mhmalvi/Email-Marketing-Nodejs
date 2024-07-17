@@ -38,8 +38,8 @@ function generateOTP() {
 //   },
 // });
 const transporter = nodemailer.createTransport({
-  host: "170.64.177.8",
-  port: 25,
+  host: "170.64.177",
+  port: 587,
   secure: false, // Use `true` for port 465, `false` for all other ports
   auth: {
     // user: keys.mail.user,
