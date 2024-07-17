@@ -18,7 +18,7 @@ const createSubscription = async (req, res) => {
     const user = await User.update(
       {
         amount: amount,
-        subscription: subscription,
+        subscription: response.id,
       },
       {
         where: { userID: userID },
