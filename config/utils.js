@@ -38,7 +38,7 @@ function generateOTP() {
 //   },
 // });
 const transporter = nodemailer.createTransport({
-  host: "mail.quemailer.com",
+  host: "170.64.177.8",
   port: 25,
   secure: false, // Use `true` for port 465, `false` for all other ports
   auth: {

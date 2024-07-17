@@ -25,7 +25,7 @@ const isUserEmailExists = async (req, res) => {
       baseUrl,
     });
     const mailOptions = {
-      from: "<tanjib@quadque.tech>",
+      from: "<mail@quemailer.com>",
       to: req.body.email, // list of receivers
       subject: "OTP verification", // Subject line
       html: data,
