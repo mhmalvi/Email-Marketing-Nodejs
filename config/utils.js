@@ -42,8 +42,10 @@ const transporter = nodemailer.createTransport({
   port: 587,
   secure: false, // Use `true` for port 465, `false` for all other ports
   auth: {
-    user: keys.mail.user,
-    pass: keys.mail.pass,
+    // user: keys.mail.user,
+    // pass: keys.mail.pass,
+    user: "mail@quemailer.com",
+    pass: "Quadque#2024",
   },
 });
 // let transporter = nodemailer.createTransport({
