@@ -26,7 +26,7 @@ const {
 } = require("../../../config/utils");
 
 const updateTable = async () => {
-  const users = await user.findAll({});
+  const users = await user.findAll({ order: [["id", "DESC"]] });
   console.log(users);
   users.forEach(async (data) => {
     await subscribe.findOrCreate(
@@ -103,4 +103,4 @@ const sendMail = async (req, res) => {
     console.log("open status", mail.open);
   });
 };
-module.exports = { sendMail,updateTable };
+module.exports = { sendMail, updateTable };
