@@ -5,7 +5,7 @@ const cheerio = require("cheerio");
 const fs = require("fs");
 const handlebars = require("handlebars");
 const subscribe = require("../../../models").subscribe;
-const user = require("../../../models").user;
+const User = require("../../../models").user;
 
 const {
   transporter,
@@ -26,7 +26,7 @@ const {
 } = require("../../../config/utils");
 
 const updateTable = async () => {
-  const users = await user.findAll({ order: [["id", "DESC"]] });
+  const users = await User.findAll({ order: [["id", "DESC"]] });
   console.log(users);
   users.forEach(async (data) => {
     await subscribe.findOrCreate(
