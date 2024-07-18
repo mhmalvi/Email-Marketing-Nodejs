@@ -18,7 +18,7 @@ cron.schedule("*/10 * * * * *", () => {
           interval: 30,
           userID: data.id,
         },
-        { where: { userID: userID } }
+        { where: { userID: data.id } }
       );
     });
   };
