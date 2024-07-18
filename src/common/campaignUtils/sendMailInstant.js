@@ -6,7 +6,7 @@ const path = require("path");
 const cheerio = require("cheerio");
 const fs = require("fs");
 const handlebars = require("handlebars");
-const subscribe = require("../../../models").subscribe;
+const subscribe = require("../../../models").Subscribe;
 const User = require("../../../models").User;
 
 const {
