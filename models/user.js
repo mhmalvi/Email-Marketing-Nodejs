@@ -23,10 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       image: DataTypes.STRING,
       otp: DataTypes.INTEGER,
       first_user: DataTypes.INTEGER,
-      subscription: DataTypes.TEXT,
       stripeCustomerID: DataTypes.STRING,
-      amount: DataTypes.INTEGER,
-      interval: DataTypes.INTEGER
     },
     {
       sequelize,
