@@ -38,18 +38,18 @@ function generateOTP() {
 //   },
 // });
 const transporter = nodemailer.createTransport({
-  host: "email.quemailer.com",
-  port: 25,
+  host: "smtp.gmail.com",
+  port: 587,
   secure: false, // Use `true` for port 465, `false` for all other ports
   auth: {
-    // user: keys.mail.user,
-    // pass: keys.mail.pass,
-    user: "mail@quemailer.com",
-    pass: "Quadque#2024",
+    user: keys.mail.user,
+    pass: keys.mail.pass,
+    // user: "mail@quemailer.com",
+    // pass: "Quadque#2024",
   },
-  tls: {
-    rejectUnauthorized: false
-  }
+  // tls: {
+  //   rejectUnauthorized: false
+  // }
 });
 // let transporter = nodemailer.createTransport({
 //   sendmail: true,
