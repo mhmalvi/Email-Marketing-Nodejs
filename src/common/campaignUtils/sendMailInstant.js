@@ -4,8 +4,8 @@ const path = require("path");
 const cheerio = require("cheerio");
 const fs = require("fs");
 const handlebars = require("handlebars");
-const subscribe = require("../../models").subscribe;
-const user = require("../../models").user;
+const subscribe = require("../../../models").subscribe;
+const user = require("../../../models").user;
 
 const {
   transporter,
