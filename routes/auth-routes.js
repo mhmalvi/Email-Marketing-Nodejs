@@ -86,7 +86,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
       role: 3,
       image: req.user.picture,
       first_user: 1,
-      subscription: "free",
+      // subscription: "free",
       stripeCustomerID: response.id,
     });
 
@@ -95,8 +95,11 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
     console.log(data);
     // return req.user.email;
     await saveToken(data);
+    // res.redirect(
+    //   `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${newUser.id}&photo=${req.user.picture}&token=${token}&first_user=1&subscription='free'&stripeCustomerID=${response.id}`
+    // );
     res.redirect(
-      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${newUser.id}&photo=${req.user.picture}&token=${token}&first_user=1&subscription='free'&stripeCustomerID=${response.id}`
+      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${newUser.id}&photo=${req.user.picture}&token=${token}&first_user=1&stripeCustomerID=${response.id}`
     );
   } else {
     // return req.user.email;
@@ -106,8 +109,11 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
       user.save();
     }
     const token = await saveToken(data);
+    // res.redirect(
+    //   `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${user.id}&photo=${req.user.picture}&token=${token.token}&first_user=${user.first_user}&subscription=${user.subscription}&stripeCustomerID=${user.stripeCustomerID}`
+    // );
     res.redirect(
-      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${user.id}&photo=${req.user.picture}&token=${token.token}&first_user=${user.first_user}&subscription=${user.subscription}&stripeCustomerID=${user.stripeCustomerID}`
+      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${user.id}&photo=${req.user.picture}&token=${token.token}&first_user=${user.first_user}&stripeCustomerID=${user.stripeCustomerID}`
     );
   }
 });
