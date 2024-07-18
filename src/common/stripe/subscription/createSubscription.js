@@ -4,7 +4,7 @@ const stripe = require("../../../../config/keys");
 const stripe_key = Stripe(
   "sk_test_51OtiFcKvZ2nwhLRdtgSm2Kg86tYvxxk0EprDLOKyvqQaZ5ckR3yvjAmQxoff7RuWc2bBHdpv1c56wutQin2b2IYk00jbIXmUId"
 );
-const { subscribe } = require("../../../../models").subscribe;
+const subscribe  = require("../../../../models").Subscribe;
 
 const create = async (stripeCustomerID, priceID, amount, userID) => {
   const stripeResponse = await stripe_key.subscriptions.create({
