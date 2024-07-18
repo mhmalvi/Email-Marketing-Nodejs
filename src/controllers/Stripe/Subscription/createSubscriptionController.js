@@ -15,17 +15,6 @@ const createSubscription = async (req, res) => {
     });
   } else {
     const response = await create(stripeCustomerID, priceID);
-    const user = await User.update(
-      {
-        amount: amount,
-        subscription: response.id,
-        interval:30
-      },
-      {
-        where: { userID: userID },
-      }
-    );
-    console.log(user);
   }
 };
 
