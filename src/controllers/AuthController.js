@@ -71,7 +71,7 @@ console.log(user);
         photo: user.image,
         userID: user.id,
         first_user: user.first_user,
-        subscription: user.subscription,
+        // subscription: user.subscription,
         stripeCustomerID: user.stripeCustomerID,
       };
 
