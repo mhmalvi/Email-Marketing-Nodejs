@@ -38,7 +38,7 @@ const updateTable = async () => {
         subscription: "free",
         amount: 0,
         interval: 30,
-        userID: JSON.parse(data.id),
+        userID: data.id,
       },
     });
   });
