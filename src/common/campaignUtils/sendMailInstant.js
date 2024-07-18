@@ -29,8 +29,9 @@ const {
 
 const updateTable = async () => {
   const users = await User.findAll({ order: [["id", "DESC"]] });
-  console.log(users);
+  
   users.forEach(async (data) => {
+    console.log(data.id);
     await subscribe.create({
       where: { userID: { [Op.ne]: data.id } },
       defaults: {
