@@ -29,18 +29,18 @@ const {
 
 const updateTable = async () => {
   const users = await User.findAll({ order: [["id", "DESC"]] });
-  
+
   users.forEach(async (data) => {
     console.log(data.id);
-    await subscribe.create({
-      where: { userID: { [Op.ne]: data.id } },
-      defaults: {
+    await subscribe.create(
+      {
         subscription: "free",
         amount: 0,
         interval: 30,
         userID: data.id,
       },
-    });
+      { where: { userID: { [Op.ne]: data.id } } }
+    );
   });
 };
 const sendMail = async (req, res) => {
