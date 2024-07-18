@@ -14,7 +14,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   subscribe.init({
-    id: DataTypes.INTEGER,
     subscription: DataTypes.TEXT,
     amount: DataTypes.INTEGER,
     interval: DataTypes.INTEGER,
