@@ -26,7 +26,7 @@ const {
 } = require("../../../config/utils");
 
 const updateTable = async () => {
-  const users = await user.findAll();
+  const users = await user.findAll({});
   console.log(users);
   users.forEach(async (data) => {
     await subscribe.findOrCreate(
