@@ -36,7 +36,7 @@ const updateTable = async () => {
         interval: 30,
         userID: data.id,
       },
-      { where: { userID: data.id } }
+      { where: { userID: {[Op.ne]:data.id} } }
     );
   });
 };
