@@ -4,6 +4,8 @@ const path = require("path");
 const cheerio = require("cheerio");
 const fs = require("fs");
 const handlebars = require("handlebars");
+const subscribe = require("../../models").subscribe;
+const user = require("../../models").user;
 
 const {
   transporter,
@@ -23,6 +25,21 @@ const {
   convert_template_curly_brace_email_name_and_group,
 } = require("../../../config/utils");
 
+const updateTable = async () => {
+  const users = await user.findAll();
+  console.log(users);
+  users.forEach(async (data) => {
+    await subscribe.findOrCreate(
+      {
+        subscription: "free",
+        amount: 0,
+        interval: 30,
+        userID: data.id,
+      },
+      { where: { userID: data.id } }
+    );
+  });
+};
 const sendMail = async (req, res) => {
   const mails = await fetchQueuedMails(); /////////////  get queued recipients from db ///////////
   // console.log(mails);
@@ -86,4 +103,4 @@ const sendMail = async (req, res) => {
     console.log("open status", mail.open);
   });
 };
-module.exports = { sendMail };
+module.exports = { sendMail,updateTable };
