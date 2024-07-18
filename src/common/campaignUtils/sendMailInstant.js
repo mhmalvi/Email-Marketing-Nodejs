@@ -1,3 +1,5 @@
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 const EmailQueue = require("../../../models").EmailQueue;
 const ejs = require("ejs");
 const path = require("path");
