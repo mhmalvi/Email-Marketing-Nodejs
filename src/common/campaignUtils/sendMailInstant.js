@@ -5,7 +5,7 @@ const cheerio = require("cheerio");
 const fs = require("fs");
 const handlebars = require("handlebars");
 const subscribe = require("../../../models").subscribe;
-const User = require("../../../models").user;
+const User = require("../../../models").User;
 
 const {
   transporter,
