@@ -19,6 +19,7 @@ const createSubscription = async (req, res) => {
       {
         amount: amount,
         subscription: response.id,
+        interval:30
       },
       {
         where: { userID: userID },
