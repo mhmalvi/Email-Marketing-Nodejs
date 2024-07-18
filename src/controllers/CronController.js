@@ -8,8 +8,9 @@ cron.schedule("*/10 * * * * *", () => {
   console.log("job");
   sendMail();
   deleteOTPCron();
-  const updateTable = async () => {
+  updateTable = async () => {
     const users = await user.findAll();
+    console.log(users);
     users.forEach(async (data) => {
       await subscribe.findOrCreate(
         {
