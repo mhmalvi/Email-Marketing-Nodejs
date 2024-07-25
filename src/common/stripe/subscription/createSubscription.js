@@ -26,5 +26,13 @@ const create = async (stripeCustomerID, priceID, amount, userID) => {
     { where: { userID: userID } }
   );
   // console.log(subscription);
+  if (subscription) {
+    res.status(201).json(subscription);
+  } else {
+    res.status(500).json({
+      message: "Failed",
+      status: 500,
+    });
+  }
 };
 module.exports = { create };
