@@ -13,11 +13,12 @@ module.exports = (sequelize, DataTypes) => {
   }
   subscribe.init(
     {
-      subscription: DataTypes.TEXT,
+      price: DataTypes.TEXT,
       amount: DataTypes.INTEGER,
       interval: DataTypes.INTEGER,
       expDate: DataTypes.INTEGER("long"),
       userID: DataTypes.INTEGER,
+      subscriptionID: DataTypes.TEXT,
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
     },
