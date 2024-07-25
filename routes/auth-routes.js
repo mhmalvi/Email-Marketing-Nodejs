@@ -119,7 +119,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
     });
     const token = await saveToken(data);
     res.redirect(
-      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${user.id}&photo=${req.user.picture}&token=${token.token}&first_user=${user.first_user}&subscription=${subscription.subscription}&stripeCustomerID=${user.stripeCustomerID}`
+      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${user.id}&photo=${req.user.picture}&token=${token.token}&first_user=${user.first_user}&subscription=${subscription.price}&stripeCustomerID=${user.stripeCustomerID}`
     );
     // res.redirect(
     //   `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${user.id}&photo=${req.user.picture}&token=${token.token}&first_user=${user.first_user}&stripeCustomerID=${user.stripeCustomerID}`
