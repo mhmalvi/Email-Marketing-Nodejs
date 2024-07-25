@@ -15,7 +15,7 @@ const create = async (stripeCustomerID, priceID, amount, userID) => {
       },
     ],
   });
-  console.log("subscription", stripeResponse);
+  console.log("userID", userID);
   const subscription = await subscribe.update(
     {
       subscription: priceID,
