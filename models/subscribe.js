@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     subscription: DataTypes.TEXT,
     amount: DataTypes.INTEGER,
     interval: DataTypes.INTEGER,
-    expDate: DataTypes.DATE,
+    expDate: DataTypes.BIGINTEGER,
     userID: DataTypes.INTEGER,
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE
