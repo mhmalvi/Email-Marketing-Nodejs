@@ -17,6 +17,14 @@ const createSubscription = async (req, res) => {
   } else {
     const response = await create(stripeCustomerID, priceID, amount, userID);
     console.log(response);
+    if (response) {
+      res.status(201).json(response);
+    } else {
+      res.status(500).json({
+        message: "failed",
+        status: 500,
+      });
+    }
   }
 };
 
