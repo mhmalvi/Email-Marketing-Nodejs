@@ -7,5 +7,5 @@ cron.schedule("*/10 * * * * *", () => {
   console.log("job");
   sendMail();
   deleteOTPCron();
-  updateTable()
+  // updateTable()
 });
