@@ -15,7 +15,7 @@ const createSubscription = async (req, res) => {
       status: 422,
     });
   } else {
-    const response = await create(stripeCustomerID, priceID);
+    const response = await create(stripeCustomerID, priceID, amount, userID);
   }
 };
 
