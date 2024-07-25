@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class subscribe extends Model {
     /**
@@ -13,18 +11,21 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  subscribe.init({
-    subscription: DataTypes.TEXT,
-    amount: DataTypes.INTEGER,
-    interval: DataTypes.INTEGER,
-    expDate: DataTypes.BIGINTEGER,
-    userID: DataTypes.INTEGER,
-    createdAt: DataTypes.DATE,
-    updatedAt: DataTypes.DATE
-  }, {
-    sequelize,
-    modelName: 'Subscribe',
-    tableName: "subscription",
-  });
+  subscribe.init(
+    {
+      subscription: DataTypes.TEXT,
+      amount: DataTypes.INTEGER,
+      interval: DataTypes.INTEGER,
+      expDate: DataTypes.INTEGER("long"),
+      userID: DataTypes.INTEGER,
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
+    },
+    {
+      sequelize,
+      modelName: "Subscribe",
+      tableName: "subscription",
+    }
+  );
   return subscribe;
 };
