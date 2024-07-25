@@ -19,6 +19,7 @@ const create = async (stripeCustomerID, priceID, amount, userID) => {
   const subscription = await subscribe.update(
     {
       price: priceID,
+      subscriptionID: stripeResponse.id,
       amount: JSON.parse(amount),
       interval: 30,
       expDate: stripeResponse.current_period_end,
