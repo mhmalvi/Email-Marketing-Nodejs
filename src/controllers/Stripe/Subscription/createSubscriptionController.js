@@ -16,6 +16,7 @@ const createSubscription = async (req, res) => {
     });
   } else {
     const response = await create(stripeCustomerID, priceID, amount, userID);
+    console.log(response);
   }
 };
 
