@@ -6,6 +6,7 @@ const {
 } = require("../src/common/stripe/stripeCustomer/createCustomer");
 const User = require("../models").User;
 const Token = require("../models").Token;
+const Subscribe = require("../models").Subscribe;
 const { randomAlphaNumeric } = require("../config/utils");
 const { google } = require("googleapis");
 const { saveToken } = require("../src/common/utils");
@@ -89,18 +90,23 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
       // subscription: "free",
       stripeCustomerID: response.id,
     });
+    await Subscribe.create({
+      userID: newUser.id,
+      subscription: "free",
+      interval: 30,
+    });
 
     console.log(newUser.id);
     data.userID = newUser.id;
     console.log(data);
     // return req.user.email;
     await saveToken(data);
-    // res.redirect(
-    //   `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${newUser.id}&photo=${req.user.picture}&token=${token}&first_user=1&subscription='free'&stripeCustomerID=${response.id}`
-    // );
     res.redirect(
-      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${newUser.id}&photo=${req.user.picture}&token=${token}&first_user=1&stripeCustomerID=${response.id}`
+      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${newUser.id}&photo=${req.user.picture}&token=${token}&first_user=1&subscription='free'&stripeCustomerID=${response.id}`
     );
+    // res.redirect(
+    //   `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${newUser.id}&photo=${req.user.picture}&token=${token}&first_user=1&stripeCustomerID=${response.id}`
+    // );
   } else {
     // return req.user.email;
     data.userID = user.id;
@@ -108,13 +114,16 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
       user.first_user = 0;
       user.save();
     }
+    const subscription = await Subscribe.findOne({
+      where: { userID: user.id },
+    });
     const token = await saveToken(data);
-    // res.redirect(
-    //   `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${user.id}&photo=${req.user.picture}&token=${token.token}&first_user=${user.first_user}&subscription=${user.subscription}&stripeCustomerID=${user.stripeCustomerID}`
-    // );
     res.redirect(
-      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${user.id}&photo=${req.user.picture}&token=${token.token}&first_user=${user.first_user}&stripeCustomerID=${user.stripeCustomerID}`
+      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${user.id}&photo=${req.user.picture}&token=${token.token}&first_user=${user.first_user}&subscription=${subscription.subscription}&stripeCustomerID=${user.stripeCustomerID}`
     );
+    // res.redirect(
+    //   `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${user.id}&photo=${req.user.picture}&token=${token.token}&first_user=${user.first_user}&stripeCustomerID=${user.stripeCustomerID}`
+    // );
   }
 });
 
