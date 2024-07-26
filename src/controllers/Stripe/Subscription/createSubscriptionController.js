@@ -5,9 +5,10 @@ const {
 } = require("../../../common/stripe/subscription/createSubscription");
 
 const createSubscription = async (req, res) => {
-  const { userID, stripeCustomerID, priceID, amount } = req.body;
+  const { userID, stripeCustomerID, priceID, amount, paymentSourceID } =
+    req.body;
   // console.log("userID", userID);
-  const requiredFields = { userID, stripeCustomerID, priceID, amount };
+  const requiredFields = { userID, stripeCustomerID, priceID, amount,paymentSourceID };
   const missingFields = await fieldsValidation(requiredFields);
   if (missingFields.length > 0) {
     res.status(422).json({
@@ -15,7 +16,13 @@ const createSubscription = async (req, res) => {
       status: 422,
     });
   } else {
-    const response = await create(stripeCustomerID, priceID, amount, userID);
+    const response = await create(
+      stripeCustomerID,
+      priceID,
+      amount,
+      userID,
+      paymentSourceID
+    );
     // console.log(response);
     if (response) {
       res.status(201).json(response);

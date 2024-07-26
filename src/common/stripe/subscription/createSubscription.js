@@ -6,7 +6,13 @@ const stripe_key = Stripe(
 );
 const subscribe = require("../../../../models").Subscribe;
 
-const create = async (stripeCustomerID, priceID, amount, userID) => {
+const create = async (
+  stripeCustomerID,
+  priceID,
+  amount,
+  userID,
+  paymentSourceID
+) => {
   const stripeResponse = await stripe_key.subscriptions.create({
     customer: stripeCustomerID,
     items: [
@@ -14,6 +20,7 @@ const create = async (stripeCustomerID, priceID, amount, userID) => {
         price: priceID,
       },
     ],
+    default_source: paymentSourceID,
   });
   // console.log("userID", userID);
   const subscription = await subscribe.update(
