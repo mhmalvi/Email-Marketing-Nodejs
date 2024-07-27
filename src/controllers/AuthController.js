@@ -5,6 +5,7 @@ const path = require("path");
 const ejs = require("ejs");
 const { convert } = require("html-to-text");
 const User = require("../../models").User;
+const Subscribe = require("../../models").Subscribe;
 const sendmail = require("sendmail")();
 const { transporter, generateOTP } = require("../../config/utils");
 const { randomAlphaNumeric } = require("../../config/utils");
@@ -61,7 +62,10 @@ const verifyOTP = async (req, res) => {
       where: { email: req.body.email },
       where: { otp: req.body.otp },
     });
-console.log(user);
+    const subscription = await Subscribe.findOne({
+      where: { userID: user.id },
+    });
+    console.log(user);
     if (user) {
       const token = "Bearer " + randomAlphaNumeric(60);
       const data = {
@@ -71,7 +75,8 @@ console.log(user);
         photo: user.image,
         userID: user.id,
         first_user: user.first_user,
-        // subscription: user.subscription,
+        priceID: subscription.price,
+        subscription: subscription.subscriptionID,
         stripeCustomerID: user.stripeCustomerID,
       };
 
