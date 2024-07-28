@@ -25,8 +25,20 @@ const retrieveCurrentPackageInfo = async (req, res) => {
     //   res.json(subscription.items.data[0].plan.id);
     const price = await retrievePrice(subscription.items.data[0].plan.id);
     //   res.json(price);
-      const product = await retrieveSingleProduct(price.product);
-      res.json(product)
+    const product = await retrieveSingleProduct(price.product);
+    if (price && product) {
+      res.status(200).json({
+        message: "success",
+        status: 200,
+        price: price,
+        product: product,
+      });
+    } else {
+      res.status(404).json({
+        message: "No data found",
+        status: 404,
+      });
+    }
   }
 };
 
