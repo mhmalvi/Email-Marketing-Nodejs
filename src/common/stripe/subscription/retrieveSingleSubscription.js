@@ -5,7 +5,7 @@ const stripe_key = Stripe(
 );
 
 const retrieveSingleSubscription = async (subscriptionID) => {
-    return await stripe.subscriptions.retrieve(subscriptionID);
+    return await stripe_key.subscriptions.retrieve(subscriptionID);
 };
 
 module.exports = { retrieveSingleSubscription };
