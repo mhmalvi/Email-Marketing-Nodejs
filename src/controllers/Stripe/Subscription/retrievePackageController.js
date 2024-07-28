@@ -19,7 +19,7 @@ const retrieveCurrentPackageInfo = async (req, res) => {
   } else {
     const subscription = await retrieveSingleSubscription(subscriptionID); /////  fetch a subscription
     //   console.log(subscription.subscriptionID);
-      res.json(subscription.items.data.plan.id);
+      res.json(subscription.items.data[0].plan.id);
     // const price = await retrievePrice(subscription.id);
     // res.json(price);
   }
