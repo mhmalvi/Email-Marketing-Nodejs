@@ -15,10 +15,10 @@ const retrieveCurrentPackageInfo = async (req, res) => {
       status: 422,
     });
   } else {
+    const subscription = await retrieveSingleSubscription(subscriptionID); /////  fetch a subscription
+    //   console.log(subscription.subscriptionID);
+    res.json(subscription);
   }
-  const subscription = await retrieveSingleSubscription(subscriptionID); /////  fetch a subscription
-  //   console.log(subscription.subscriptionID);
-  res.json(subscription);
 };
 
 module.exports = { retrieveCurrentPackageInfo };
