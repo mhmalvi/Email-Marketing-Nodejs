@@ -5,7 +5,7 @@ const stripe_key = Stripe(
 );
 
 
-const retrievePrice = async (req, res) => {
+const retrievePrice = async (s) => {
     
 }
 
