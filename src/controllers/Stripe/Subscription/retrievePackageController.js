@@ -5,9 +5,9 @@ const {
 const User = require("../../../../models").User;
 
 const retrieveCurrentPackageInfo = async (req, res) => {
-  const { subscriptionID } = req.body;
+  const { subscriptionID, userID } = req.body;
   // console.log("userID", userID);
-  const requiredFields = { subscriptionID };
+  const requiredFields = { subscriptionID,userID };
   const missingFields = await fieldsValidation(requiredFields);
   if (missingFields.length > 0) {
     res.status(422).json({
