@@ -1,6 +1,7 @@
 const Stripe = require("stripe");
 const stripe = require("../../../../config/keys");
 const Subscribe = require("../../../../models").Subscribe;
+const User = require("../../../../models").User;
 const stripe_key = Stripe(
   "sk_test_51OtiFcKvZ2nwhLRdtgSm2Kg86tYvxxk0EprDLOKyvqQaZ5ckR3yvjAmQxoff7RuWc2bBHdpv1c56wutQin2b2IYk00jbIXmUId"
 );
@@ -17,6 +18,9 @@ const getID = async (req, res) => {
       status: 422,
     });
   } else {
+    const user = await User.findOne({
+      where: { userID: userID },
+    });
     const subscription = await Subscribe.findOne({
       where: { userID: userID },
     });
@@ -24,7 +28,9 @@ const getID = async (req, res) => {
       res.status(200).json({
         message: "success",
         status: 200,
-        data: subscription,
+        subscription: subscription.subscriptionID,
+        priceID: subscription.price,
+        stripeCustomerID: user.id,
       });
     } else {
       res.status(404).json({
