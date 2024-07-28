@@ -1,14 +1,15 @@
 const { fieldsValidation } = require("../../../../config/utils");
 const {
+  retrievePrice,
+} = require("../../../common/stripe/price/retrieveSinglePrice");
+const {
   retrieveSingleSubscription,
 } = require("../../../common/stripe/subscription/retrieveSingleSubscription");
 const User = require("../../../../models").User;
 
 const retrieveCurrentPackageInfo = async (req, res) => {
-    console.log("userID", req.body);
   const { subscriptionID, userID } = req.body;
-  
-  const requiredFields = { subscriptionID,userID };
+  const requiredFields = { subscriptionID, userID };
   const missingFields = await fieldsValidation(requiredFields);
   if (missingFields.length > 0) {
     res.status(422).json({
@@ -18,8 +19,9 @@ const retrieveCurrentPackageInfo = async (req, res) => {
   } else {
     const subscription = await retrieveSingleSubscription(subscriptionID); /////  fetch a subscription
     //   console.log(subscription.subscriptionID);
-      res.json(subscription.id);
-      
+    //   res.json(subscription.id);
+    const price = await retrievePrice(subscription.id);
+    res.json(price);
   }
 };
 
