@@ -26,10 +26,11 @@ const retrieveCurrentPackageInfo = async (req, res) => {
     const price = await retrievePrice(subscription.items.data[0].plan.id);
     //   res.json(price);
     const product = await retrieveSingleProduct(price.product);
-    if (price && product) {
+    if (subscription && price && product) {
       res.status(200).json({
         message: "success",
-        status: 200,
+          status: 200,
+        subscription:subscription,
         price: price,
         product: product,
       });
