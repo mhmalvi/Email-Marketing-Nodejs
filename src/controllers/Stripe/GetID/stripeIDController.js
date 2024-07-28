@@ -19,7 +19,7 @@ const getID = async (req, res) => {
     });
   } else {
     const user = await User.findOne({
-      where: { userID: userID },
+      where: { id: userID },
     });
     const subscription = await Subscribe.findOne({
       where: { userID: userID },
