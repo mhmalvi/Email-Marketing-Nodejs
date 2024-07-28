@@ -17,7 +17,7 @@ const retrieveCurrentPackageInfo = async (req, res) => {
   } else {
   }
   const subscription = await retrieveSingleSubscription(subscriptionID); /////  fetch a subscription
-  console.log(subscription);
+  console.log(subscription.subscriptionID);
 };
 
 module.exports = { retrieveCurrentPackageInfo };
