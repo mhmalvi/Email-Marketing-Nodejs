@@ -104,9 +104,6 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
     res.redirect(
       `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${newUser.id}&photo=${req.user.picture}&token=${token}&first_user=1&subscription='free'&priceID='free'&stripeCustomerID=${response.id}`
     );
-    // res.redirect(
-    //   `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${newUser.id}&photo=${req.user.picture}&token=${token}&first_user=1&stripeCustomerID=${response.id}`
-    // );
   } else {
     // return req.user.email;
     data.userID = user.id;
@@ -118,13 +115,9 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
       where: { userID: user.id },
     });
     const token = await saveToken(data);
-    console.log(subscription.price);
     res.redirect(
       `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${user.id}&photo=${req.user.picture}&token=${token.token}&first_user=${user.first_user}&subscription=${subscription.subscriptionID}&priceID=${subscription.price}&stripeCustomerID=${user.stripeCustomerID}`
     );
-    // res.redirect(
-    //   `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${user.id}&photo=${req.user.picture}&token=${token.token}&first_user=${user.first_user}&stripeCustomerID=${user.stripeCustomerID}`
-    // );
   }
 });
 
