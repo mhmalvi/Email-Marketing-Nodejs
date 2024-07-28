@@ -14,6 +14,6 @@ subscriptionRoutes
   .post(isCustomerAuthenticated, createSubscription);
 subscriptionRoutes
   .route("/retrieve-current-package-info")
-  .post( retrieveCurrentPackageInfo);
+  .post(isCustomerAuthenticated, retrieveCurrentPackageInfo);
 
 module.exports = { subscriptionRoutes };
