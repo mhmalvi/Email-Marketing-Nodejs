@@ -7,7 +7,7 @@ const stripe_key = Stripe(
 const customerInvoice = async (customerID, status) => {
   return await stripe_key.invoices.list({
     customer: customerID,
-    status: status,
+    status: status!=='clear'?status:'',
     limit: limit,
   });
 };
