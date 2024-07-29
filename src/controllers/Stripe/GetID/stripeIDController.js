@@ -35,9 +35,9 @@ const getID = async (req, res) => {
         message: "success",
         status: 200,
         subscription: subscription.subscriptionID,
-        priceID: price,
+        priceID: price.id,
         stripeCustomerID: user.stripeCustomerID,
-        product: product,
+        product: product.id,
       });
     } else {
       res.status(404).json({
