@@ -29,7 +29,7 @@ const getID = async (req, res) => {
       where: { userID: userID },
     });
       const price = await retrievePrice(subscription.price);
-      const product = await retrieveSingleProduct(subscription.price);
+      const product = await retrieveSingleProduct(price.product);
     if (subscription) {
       res.status(200).json({
         message: "success",
