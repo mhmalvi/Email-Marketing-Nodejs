@@ -46,6 +46,7 @@ const { createServer } = require("node:http");
 const { Server } = require("socket.io");
 const { join } = require("node:path");
 const { getIDRouter } = require("./routes/getID-routes");
+const { invoiceRouter } = require("./routes/invoice-routes");
 
 const server = createServer(app);
 // const io = new Server(server);
@@ -95,7 +96,8 @@ app
     stripeProductsRouter,
     stripePriceRouter,
     subscriptionRoutes,
-    getIDRouter
+    getIDRouter,
+    invoiceRouter
   )
   .use("/", pixelTracker)
   .use(express.static("public/assets")); /////////// routes //////////
