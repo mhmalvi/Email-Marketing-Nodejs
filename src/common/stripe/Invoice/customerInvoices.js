@@ -5,7 +5,7 @@ const stripe_key = Stripe(
 );
 
 const customerInvoice = async (customerID) => {
-  return await stripe.invoices.list({
+  return await stripe_key.invoices.list({
     customer: customerID,
   });
 };
