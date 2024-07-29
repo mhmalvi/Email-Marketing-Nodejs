@@ -37,7 +37,7 @@ const getID = async (req, res) => {
         subscription: subscription.subscriptionID,
         priceID: price.id,
         stripeCustomerID: user.stripeCustomerID,
-        product: product.id,
+        productID: product.id,
       });
     } else {
       res.status(404).json({
