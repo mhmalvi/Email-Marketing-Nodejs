@@ -27,22 +27,23 @@ const getID = async (req, res) => {
     const subscription = await Subscribe.findOne({
       where: { userID: userID },
     });
-    const product = await retrieveSingleProduct(subscription.items.data[0].plan.id);
-    if (subscription) {
-      res.status(200).json({
-        message: "success",
-        status: 200,
-        subscription: subscription.subscriptionID,
-        priceID: subscription.price,
-        stripeCustomerID: user.stripeCustomerID,
-        product: product,
-      });
-    } else {
-      res.status(404).json({
-        message: "not found",
-        status: 404,
-      });
-    }
+      res.json(subscription);
+    // const product = await retrieveSingleProduct(subscription.items.data[0].plan.id);
+    // if (subscription) {
+    //   res.status(200).json({
+    //     message: "success",
+    //     status: 200,
+    //     subscription: subscription.subscriptionID,
+    //     priceID: subscription.price,
+    //     stripeCustomerID: user.stripeCustomerID,
+    //     product: product,
+    //   });
+    // } else {
+    //   res.status(404).json({
+    //     message: "not found",
+    //     status: 404,
+    //   });
+    // }
   }
 };
 
