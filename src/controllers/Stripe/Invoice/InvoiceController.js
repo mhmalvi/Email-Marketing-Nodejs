@@ -3,6 +3,7 @@ const stripe = require("../../../../config/keys");
 const {
   customerInvoice,
 } = require("../../../common/stripe/Invoice/customerInvoices");
+const { fieldsValidation } = require("../../../../config/utils");
 const Subscribe = require("../../../../models").Subscribe;
 const User = require("../../../../models").User;
 const stripe_key = Stripe(
