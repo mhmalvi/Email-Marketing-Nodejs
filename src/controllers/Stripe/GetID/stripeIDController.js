@@ -9,6 +9,7 @@ const { fieldsValidation } = require("../../../../config/utils");
 const {
   retrieveSingleProduct,
 } = require("../../../common/stripe/product/retrieveSingleProduct");
+const { retrievePrice } = require("../../../common/stripe/price/retrieveSinglePrice");
 
 const getID = async (req, res) => {
   const { userID } = req.body;
@@ -27,23 +28,23 @@ const getID = async (req, res) => {
     const subscription = await Subscribe.findOne({
       where: { userID: userID },
     });
-      res.json(subscription);
-    // const product = await retrieveSingleProduct(subscription.items.data[0].plan.id);
-    // if (subscription) {
-    //   res.status(200).json({
-    //     message: "success",
-    //     status: 200,
-    //     subscription: subscription.subscriptionID,
-    //     priceID: subscription.price,
-    //     stripeCustomerID: user.stripeCustomerID,
-    //     product: product,
-    //   });
-    // } else {
-    //   res.status(404).json({
-    //     message: "not found",
-    //     status: 404,
-    //   });
-    // }
+      const price = await retrievePrice(subscription.price);
+      const product = await retrieveSingleProduct(subscription.price);
+    if (subscription) {
+      res.status(200).json({
+        message: "success",
+        status: 200,
+        subscription: subscription.subscriptionID,
+        priceID: price,
+        stripeCustomerID: user.stripeCustomerID,
+        product: product,
+      });
+    } else {
+      res.status(404).json({
+        message: "not found",
+        status: 404,
+      });
+    }
   }
 };
 
