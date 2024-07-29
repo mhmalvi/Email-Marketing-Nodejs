@@ -6,6 +6,9 @@ const stripe_key = Stripe(
   "sk_test_51OtiFcKvZ2nwhLRdtgSm2Kg86tYvxxk0EprDLOKyvqQaZ5ckR3yvjAmQxoff7RuWc2bBHdpv1c56wutQin2b2IYk00jbIXmUId"
 );
 const { fieldsValidation } = require("../../../../config/utils");
+const {
+  retrieveSingleProduct,
+} = require("../../../common/stripe/product/retrieveSingleProduct");
 
 const getID = async (req, res) => {
   const { userID } = req.body;
@@ -24,6 +27,7 @@ const getID = async (req, res) => {
     const subscription = await Subscribe.findOne({
       where: { userID: userID },
     });
+    const product = await retrieveSingleProduct(subscription.items.data[0].plan.id);
     if (subscription) {
       res.status(200).json({
         message: "success",
@@ -31,6 +35,7 @@ const getID = async (req, res) => {
         subscription: subscription.subscriptionID,
         priceID: subscription.price,
         stripeCustomerID: user.stripeCustomerID,
+        product: product,
       });
     } else {
       res.status(404).json({
