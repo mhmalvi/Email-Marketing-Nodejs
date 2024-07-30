@@ -12,7 +12,7 @@ const test = async (req, res) => {
     formattedDate.setHours(0, 0, 0, 0);
     formattedDate.setMinutes(0, 0, 0, 0);
     formattedDate.setSeconds(0, 0, 0, 0);
-  let date_in_milliseconds = formattedDate.getTime();
+  const date_in_milliseconds = formattedDate.getTime();
     const date_in_seconds = Math.floor(date_in_milliseconds / 1000);
     console.log(date_in_milliseconds);
   const subscription = await stripe_key.subscriptions.retrieve(
