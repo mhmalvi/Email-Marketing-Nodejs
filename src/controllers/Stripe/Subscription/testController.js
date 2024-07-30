@@ -1,7 +1,8 @@
 const test = async (req, res) => {
     const date = new Date();
+    const formattedDate = currentDate.toISOString().split("T")[0];
     // const seconds = Math.floor(date.getTime() / 1000);
-    console.log(date.toString());
+    console.log(formattedDate);
 };
 
 module.exports = { test };
