@@ -8,7 +8,7 @@ const stripe_key = Stripe(
 const test = async (req, res) => {
   const date = new Date();
   //   const formattedDate = date.toISOString().split("T")[0];
-    const formattedDate = "2024-08-30";
+    const formattedDate = new Date("2024-08-30");
     formattedDate.setHours(0, 0, 0, 0);
   let date_in_milliseconds = formattedDate.getTime();
   const date_in_seconds = Math.floor(date_in_milliseconds / 1000);
