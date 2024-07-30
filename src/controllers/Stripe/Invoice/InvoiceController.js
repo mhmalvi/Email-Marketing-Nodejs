@@ -11,8 +11,8 @@ const stripe_key = Stripe(
 );
 
 const customerInvoices = async (req, res) => {
-  const { userID, stripeCustomerID, status, limit } = req.body;
-  const requiredFields = { userID, stripeCustomerID, status, limit };
+  const { userID, stripeCustomerID, limit } = req.body;
+  const requiredFields = { userID, stripeCustomerID, limit };
   const missingFields = await fieldsValidation(requiredFields);
   if (missingFields.length > 0) {
     res.status(422).json({
