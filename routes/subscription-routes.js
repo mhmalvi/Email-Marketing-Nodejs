@@ -1,7 +1,6 @@
 const express = require("express");
 const {
   createSubscription,
-  test,
 } = require("../src/controllers/Stripe/Subscription/createSubscriptionController");
 const {
   retrieveCurrentPackageInfo,
