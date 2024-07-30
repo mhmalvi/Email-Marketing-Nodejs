@@ -13,7 +13,8 @@ const test = async (req, res) => {
     formattedDate.setMinutes(0, 0, 0, 0);
     formattedDate.setSeconds(0, 0, 0, 0);
   let date_in_milliseconds = formattedDate.getTime();
-  const date_in_seconds = Math.floor(date_in_milliseconds / 1000);
+    const date_in_seconds = Math.floor(date_in_milliseconds / 1000);
+    console.log(date_in_seconds);
   const subscription = await stripe_key.subscriptions.retrieve(
     "sub_1PiAhYKvZ2nwhLRd77kPChW9"
   );
@@ -26,6 +27,7 @@ const test = async (req, res) => {
     endDate.setMinutes(0, 0, 0, 0);
     endDate.setSeconds(0, 0, 0, 0);
     const end_date_in_seconds = Math.floor(milliseconds / 1000);
+    console.log(end_date_in_seconds);
     //   const formattedEndDate = endDate.toISOString().split("T")[0];
 
     if (date_in_seconds == end_date_in_seconds) {
