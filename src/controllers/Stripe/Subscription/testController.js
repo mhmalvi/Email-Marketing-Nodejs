@@ -12,8 +12,8 @@ const test = async (req, res) => {
   );
   let milliseconds = subscription.current_period_end * 1000;
   let endDate = new Date(milliseconds);
-  // const formattedEndDate = endDate.toISOString().split("T")[0];
-  res.json(endDate);
+  const formattedEndDate = endDate.toISOString().split("T")[0];
+  res.json(formattedEndDate);
 };
 
 module.exports = { test };
