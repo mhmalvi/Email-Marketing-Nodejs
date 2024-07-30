@@ -16,9 +16,9 @@ const test = async (req, res) => {
     "sub_1PiAhYKvZ2nwhLRd77kPChW9"
   );
 
-  const subscriptions = await Subscribe.findAll({});
-  subscriptions.forEach(async (data) => {
-    let milliseconds = data.current_period_end * 1000;
+//   const subscriptions = await Subscribe.findOne({});
+//   subscriptions.forEach(async (data) => {
+    let milliseconds = subscription.current_period_end * 1000;
     let endDate = new Date(milliseconds);
     endDate.setHours(0, 0, 0, 0);
     const end_date_in_seconds = Math.floor(milliseconds / 1000);
@@ -37,7 +37,7 @@ const test = async (req, res) => {
     } else {
       res.json("false");
     }
-  });
+//   });
   //   res.json(subscriptions);
 };
 
