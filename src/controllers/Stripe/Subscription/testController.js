@@ -5,46 +5,60 @@ const stripe_key = Stripe(
   "sk_test_51OtiFcKvZ2nwhLRdtgSm2Kg86tYvxxk0EprDLOKyvqQaZ5ckR3yvjAmQxoff7RuWc2bBHdpv1c56wutQin2b2IYk00jbIXmUId"
 );
 
-const test = async (req, res) => {
-//   const date = new Date();
-  //   const formattedDate = date.toISOString().split("T")[0];
+const test = async () => {
   const formattedDate = new Date();
-    formattedDate.setHours(0, 0, 0, 0);
-    formattedDate.setMinutes(0, 0, 0, 0);
-    formattedDate.setSeconds(0, 0, 0, 0);
+  formattedDate.setHours(0, 0, 0, 0);
+  formattedDate.setMinutes(0, 0, 0, 0);
+  formattedDate.setSeconds(0, 0, 0, 0);
   const date_in_milliseconds = formattedDate.getTime();
     console.log(date_in_milliseconds);
-  const subscription = await stripe_key.subscriptions.retrieve(
-    "sub_1PiAhYKvZ2nwhLRd77kPChW9"
-  );
-
-//   const subscriptions = await Subscribe.findOne({});
-//   subscriptions.forEach(async (data) => {
-    let milliseconds = subscription.current_period_end * 1000;
+    
+  const subscriptions = await Subscribe.findAll({});
+  subscriptions.forEach(async (data) => {
+    let milliseconds = data.current_period_end * 1000;
     let endDate = new Date(milliseconds);
     endDate.setHours(0, 0, 0, 0);
     endDate.setMinutes(0, 0, 0, 0);
     endDate.setSeconds(0, 0, 0, 0);
-    const end_date_in_milliseconds=endDate.getTime()
-    // const end_date_in_seconds = Math.floor(milliseconds / 1000);
+    const end_date_in_milliseconds = endDate.getTime();
     console.log(end_date_in_milliseconds);
-    //   const formattedEndDate = endDate.toISOString().split("T")[0];
 
-    if (date_in_milliseconds == end_date_in_milliseconds) {
-      //   Subscribe.update(
-      //       {
-      //         product_selection_status:
-      //     },
-      //     {
-      //       userID: data.userID,
-      //     }
-      //   );
-      res.json("true");
-    } else {
-      res.json("false");
+    let startDate_milliseconds = data.current_period_end * 1000;
+    let startDate = new Date(startDate_milliseconds);
+    startDate.setHours(0, 0, 0, 0);
+    startDate.setMinutes(0, 0, 0, 0);
+    startDate.setSeconds(0, 0, 0, 0);
+    const start_date_in_milliseconds = endDate.getTime();
+    console.log(end_date_in_milliseconds);
+    if (date_in_milliseconds > start_date_in_milliseconds) {
+      if (data.product_selection_status == 1) {
+        await Subscribe.update(
+          {
+            product_selection_status: 0,
+          },
+          {
+            where: {
+              userID: data.userID,
+            },
+          }
+        );
+      }
     }
-//   });
-  //   res.json(subscriptions);
+    if (date_in_milliseconds > end_date_in_milliseconds) {
+      if (data.product_selection_status == 0) {
+        await Subscribe.update(
+          {
+            product_selection_status: 1,
+          },
+          {
+            where: {
+              userID: data.userID,
+            },
+          }
+        );
+      }
+    }
+  });
 };
 
 module.exports = { test };
