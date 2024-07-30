@@ -10,7 +10,7 @@ const test = async (req, res) => {
   const subscription = await stripe_key.subscriptions.retrieve(
     "sub_1PiAhYKvZ2nwhLRd77kPChW9"
   );
-  let milliseconds = seconds * 1000;
+  let milliseconds = subscription.current_period_end * 1000;
   let endDate = new Date(milliseconds);
   // const formattedEndDate = endDate.toISOString().split("T")[0];
   res.json(endDate);
