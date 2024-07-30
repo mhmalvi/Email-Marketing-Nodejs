@@ -1,6 +1,6 @@
 const Stripe = require("stripe");
 const stripe = require("../../../../config/keys");
-const subscribe = require("../../../../models/subscribe");
+const Subscribe = require("../../../../models").Subscribe;
 const stripe_key = Stripe(
   "sk_test_51OtiFcKvZ2nwhLRdtgSm2Kg86tYvxxk0EprDLOKyvqQaZ5ckR3yvjAmQxoff7RuWc2bBHdpv1c56wutQin2b2IYk00jbIXmUId"
 );
@@ -15,7 +15,7 @@ const test = async (req, res) => {
   let milliseconds = subscription.current_period_end * 1000;
   let endDate = new Date(milliseconds);
   const formattedEndDate = endDate.toISOString().split("T")[0];
-  const subscriptions = await subscribe.findAll({});
+  const subscriptions = await Subscribe.findAll({});
   res.json(subscriptions);
 };
 
