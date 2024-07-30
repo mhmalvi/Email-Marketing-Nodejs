@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       expDate: DataTypes.INTEGER("long"),
       userID: DataTypes.INTEGER,
       subscriptionID: DataTypes.TEXT,
+      collection_method_status:DataTypes.BOOLEAN,
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
     },
