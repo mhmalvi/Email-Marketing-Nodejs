@@ -11,8 +11,8 @@ const test = async (req, res) => {
     "sub_1PiAhYKvZ2nwhLRd77kPChW9"
     );
     let endDate = new Date(milliseconds);
-    const formattedEndDate = endDate.toISOString().split("T")[0];
-  res.json(formattedEndDate);
+    // const formattedEndDate = endDate.toISOString().split("T")[0];
+  res.json(endDate);
 };
 
 module.exports = { test };
