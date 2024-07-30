@@ -9,9 +9,10 @@ const test = async (req, res) => {
   // const seconds = Math.floor(date.getTime() / 1000);
   const subscription = await stripe_key.subscriptions.retrieve(
     "sub_1PiAhYKvZ2nwhLRd77kPChW9"
-    );
-    let endDate = new Date(milliseconds);
-    // const formattedEndDate = endDate.toISOString().split("T")[0];
+  );
+  let milliseconds = seconds * 1000;
+  let endDate = new Date(milliseconds);
+  // const formattedEndDate = endDate.toISOString().split("T")[0];
   res.json(endDate);
 };
 
