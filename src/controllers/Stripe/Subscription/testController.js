@@ -8,8 +8,8 @@ const stripe_key = Stripe(
 const test = async (req, res) => {
   const date = new Date();
   //   const formattedDate = date.toISOString().split("T")[0];
-    const formattedDate = new Date("2024-08-30");
-    formattedDate.setHours(0, 0, 0, 0);
+  const formattedDate = new Date("2024-08-30");
+  formattedDate.setHours(0, 0, 0, 0);
   let date_in_milliseconds = formattedDate.getTime();
   const date_in_seconds = Math.floor(date_in_milliseconds / 1000);
   const subscription = await stripe_key.subscriptions.retrieve(
@@ -19,7 +19,8 @@ const test = async (req, res) => {
   const subscriptions = await Subscribe.findAll({});
   subscriptions.forEach(async (data) => {
     let milliseconds = data.current_period_end * 1000;
-    //   let endDate = new Date(milliseconds);
+    let endDate = new Date(milliseconds);
+    endDate.setHours(0, 0, 0, 0);
     const end_date_in_seconds = Math.floor(milliseconds / 1000);
     //   const formattedEndDate = endDate.toISOString().split("T")[0];
 
@@ -32,12 +33,12 @@ const test = async (req, res) => {
       //       userID: data.userID,
       //     }
       //   );
-      res.json('true');
+      res.json("true");
     } else {
       res.json("false");
     }
   });
-//   res.json(subscriptions);
+  //   res.json(subscriptions);
 };
 
 module.exports = { test };
