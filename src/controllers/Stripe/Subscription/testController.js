@@ -6,14 +6,13 @@ const stripe_key = Stripe(
 );
 
 const test = async (req, res) => {
-  const date = new Date();
+//   const date = new Date();
   //   const formattedDate = date.toISOString().split("T")[0];
-  const formattedDate = new Date("2024-08-30");
+  const formattedDate = new Date();
     formattedDate.setHours(0, 0, 0, 0);
     formattedDate.setMinutes(0, 0, 0, 0);
     formattedDate.setSeconds(0, 0, 0, 0);
   const date_in_milliseconds = formattedDate.getTime();
-    const date_in_seconds = Math.floor(date_in_milliseconds / 1000);
     console.log(date_in_milliseconds);
   const subscription = await stripe_key.subscriptions.retrieve(
     "sub_1PiAhYKvZ2nwhLRd77kPChW9"
