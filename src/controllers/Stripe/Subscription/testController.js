@@ -32,12 +32,12 @@ const test = async (req, res) => {
       //       userID: data.userID,
       //     }
       //   );
-      return true;
+      res.json('true');
     } else {
-      return false;
+      res.json("false");
     }
   });
-  res.json(subscriptions);
+//   res.json(subscriptions);
 };
 
 module.exports = { test };
