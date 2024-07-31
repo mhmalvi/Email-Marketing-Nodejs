@@ -28,6 +28,7 @@ const create = async (
       amount: JSON.parse(amount),
       interval: 30,
       expDate: stripeResponse.current_period_end,
+      product_selection_status:1
     },
     { where: { userID: userID } }
   );
