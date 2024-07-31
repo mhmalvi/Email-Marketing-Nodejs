@@ -30,6 +30,7 @@ const createSubscription = async (req, res) => {
       where: { userID: userID },
     });
     const response = "";
+    console.log("subscription.subscriptionID", subscription.subscriptionID);
     if (subscription.subscriptionID == "") {
       response = await create(
         stripeCustomerID,

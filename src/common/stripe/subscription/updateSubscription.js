@@ -7,7 +7,7 @@ const update = async (priceID, subscriptionID, userID) => {
   const subscription = await stripe_key.subscriptions.update({
     items: [
       {
-        id:subscriptionID,
+        id: subscriptionID,
         price: priceID,
       },
     ],
