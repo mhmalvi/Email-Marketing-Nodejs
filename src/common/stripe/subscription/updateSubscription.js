@@ -7,7 +7,7 @@ const update = async (priceID, subscriptionID, userID) => {
   console.log("subscriptionID", subscriptionID);
   const subscription = await stripe_key.subscriptions.update(
     subscriptionID,
-    { default_source: "card_1Pi99SKvZ2nwhLRdtPPu8DKG" },
+    { paymentSourceID: "card_1Pi99SKvZ2nwhLRdtPPu8DKG" },
     {
       items: [
         {
