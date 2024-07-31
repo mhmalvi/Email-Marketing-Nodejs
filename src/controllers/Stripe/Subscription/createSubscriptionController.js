@@ -31,7 +31,7 @@ const createSubscription = async (req, res) => {
     });
     const response = "";
     console.log("subscription.subscriptionID", subscription.subscriptionID);
-    if (subscription.subscriptionID == "") {
+    if (subscription.subscriptionID == null) {
       response = await create(
         stripeCustomerID,
         priceID,
