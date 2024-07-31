@@ -22,8 +22,7 @@ const customerInvoices = async (req, res) => {
     const invoice = await customerInvoice(
       stripeCustomerID,
       status,
-      limit,
-      stripe_key
+      limit
     );
     if (invoice) {
       res.status(200).json({
