@@ -6,9 +6,7 @@ const {
 const { fieldsValidation } = require("../../../../config/utils");
 const Subscribe = require("../../../../models").Subscribe;
 const User = require("../../../../models").User;
-const stripe_key = Stripe(
-  "sk_test_51OtiFcKvZ2nwhLRdtgSm2Kg86tYvxxk0EprDLOKyvqQaZ5ckR3yvjAmQxoff7RuWc2bBHdpv1c56wutQin2b2IYk00jbIXmUId"
-);
+const stripe_key = process.env.STRIPE_KEY;
 
 const customerInvoices = async (req, res) => {
   const { userID, stripeCustomerID, limit, status } = req.body;
