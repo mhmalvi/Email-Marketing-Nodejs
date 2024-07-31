@@ -18,6 +18,7 @@ const customerInvoices = async (req, res) => {
       status: 422,
     });
   } else {
+    console.log("stripe_key");
     const invoice = await customerInvoice(
       stripeCustomerID,
       status,
