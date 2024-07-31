@@ -49,7 +49,6 @@ const createSubscription = async (req, res) => {
       res.status(500).json({
         message: "failed",
         status: 500,
-        
       });
     }
     // console.log(response);

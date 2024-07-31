@@ -6,7 +6,7 @@ const Subscribe = require("../../../../models").Subscribe;
 const update = async (priceID, subscriptionID, userID) => {
   console.log("subscriptionID", subscriptionID);
   try {
-    onsole.log("subscription result", subscription);
+    console.log("subscription result", subscription);
     await Subscribe.update(
       {
         price: priceID,
