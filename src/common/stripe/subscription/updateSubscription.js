@@ -14,8 +14,10 @@ const update = async (priceID, subscriptionID, userID) => {
       ],
       proration_behavior: always_invoice,
     });
+    console.log("subscription res", subscription);
     return subscription;
   } catch (error) {
+    console.log("error", error);
     return error;
   }
 
