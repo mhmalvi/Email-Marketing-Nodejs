@@ -9,7 +9,9 @@ const { fieldsValidation } = require("../../../../config/utils");
 const {
   retrieveSingleProduct,
 } = require("../../../common/stripe/product/retrieveSingleProduct");
-const { retrievePrice } = require("../../../common/stripe/price/retrieveSinglePrice");
+const {
+  retrievePrice,
+} = require("../../../common/stripe/price/retrieveSinglePrice");
 
 const getID = async (req, res) => {
   const { userID } = req.body;
@@ -28,14 +30,19 @@ const getID = async (req, res) => {
     const subscription = await Subscribe.findOne({
       where: { userID: userID },
     });
+    if (subscription.price == "free") {
+      const price = "free";
+    } else {
       const price = await retrievePrice(subscription.price);
-      const product = await retrieveSingleProduct(price.product);
+    }
+
+    // const product = await retrieveSingleProduct(price.product);
     if (subscription) {
       res.status(200).json({
         message: "success",
         status: 200,
         subscriptionID: subscription.subscriptionID,
-        priceID: price.id,
+        priceID: price.id ? price.id : price,
         stripeCustomerID: user.stripeCustomerID,
         productID: product.id,
       });
