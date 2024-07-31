@@ -12,7 +12,7 @@ const update = async (priceID, subscriptionID, userID) => {
           price: priceID,
         },
       ],
-      proration_behavior: always_invoice,
+      proration_behavior: "always_invoice",
     });
     console.log("subscription res", subscription);
     return subscription;
