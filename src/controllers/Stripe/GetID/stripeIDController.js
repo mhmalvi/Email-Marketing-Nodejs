@@ -30,10 +30,11 @@ const getID = async (req, res) => {
     const subscription = await Subscribe.findOne({
       where: { userID: userID },
     });
+    const price = "";
     if (subscription.price == "free") {
-      const price = "free";
+      price = "free";
     } else {
-      const price = await retrievePrice(subscription.price);
+      price = await retrievePrice(subscription.price);
     }
 
     // const product = await retrieveSingleProduct(price.product);
