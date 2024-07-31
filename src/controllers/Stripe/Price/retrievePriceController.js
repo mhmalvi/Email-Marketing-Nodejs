@@ -28,4 +28,20 @@ const priceByProductID = async (req, res) => {
     }
 }
 
-module.exports = { priceByProductID };
+const retrievePrices = async (req, res) => {
+  //   console.log(stripe_key);
+  const prices = await stripe_key.prices.list({
+    product: process.env.PRODUCT_ID,
+  });
+  //   console.log(products);
+  if (prices) {
+    res.status(200).json(prices);
+  } else {
+    res.status(404).json({
+      message: "No package exist",
+      status: 404,
+    });
+  }
+};
+
+module.exports = { priceByProductID, retrievePrices };
