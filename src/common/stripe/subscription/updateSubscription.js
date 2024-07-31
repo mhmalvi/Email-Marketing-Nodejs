@@ -4,6 +4,7 @@ const stripe_key = Stripe(process.env.STRIPE_KEY);
 const Subscribe = require("../../../../models").Subscribe;
 
 const update = async (priceID, subscriptionID, userID) => {
+  console.log("subscriptionID", subscriptionID);
   const subscription = await stripe_key.subscriptions.update({
     items: [
       {
