@@ -1,7 +1,7 @@
 // const User = require("/models").User;
 const Stripe = require("stripe");
 const stripe = require("../../../../config/keys");
-const stripe_key = process.env.STRIPE_KEY;
+const stripe_key = Stripe(process.env.STRIPE_KEY);
 const subscribe = require("../../../../models").Subscribe;
 
 const create = async (
