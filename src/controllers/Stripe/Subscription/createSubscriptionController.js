@@ -39,17 +39,18 @@ const createSubscription = async (req, res) => {
         userID,
         paymentSourceID
       ); ////////////////// create new subscription
+      if (response) {
+        res.status(201).json(response);
+      }
     } else {
       response = await update(priceID, subscription.subscriptionID, userID); ////////////////// update subscription
-    }
-    if (response.raw.message) {
-      res.status(400).json({
-        message: "failed",
-        status: 400,
-        error: response.raw.message,
-      });
-    } else if (response) {
-      res.status(201).json(response);
+      if (response) {
+        res.status(400).json({
+          message: "failed",
+          status: 400,
+          error: response.raw.message,
+        });
+      }
     }
     // console.log(response);
   }
