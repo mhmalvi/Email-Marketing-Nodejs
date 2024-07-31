@@ -44,10 +44,16 @@ const createSubscription = async (req, res) => {
       }
     } else {
       response = await update(priceID, subscription.subscriptionID, userID); ////////////////// update subscription
-      if (response) {
+      if (response && !response.raw.message) {
+        res.status(200).json({
+          message: "success",
+          status: 200,
+          data: response,
+        });
+      } else if (response.raw.message) {
         res.status(400).json({
           message: "failed",
-          status: 400,
+          status: 200,
           error: response.raw.message,
         });
       }
