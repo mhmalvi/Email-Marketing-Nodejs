@@ -26,7 +26,7 @@ const createSubscription = async (req, res) => {
       status: 422,
     });
   } else {
-    const subscription = await Subscribe.finOne({
+    const subscription = await Subscribe.findOne({
       where: { userID: userID },
     });
     const response = "";
