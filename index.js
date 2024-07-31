@@ -25,6 +25,7 @@ const path = require("path");
 require("./config/passport");
 const cors = require("cors");
 const { pixelTracker } = require("./routes/pixelTracker-routes");
+require("dotenv").config();
 
 const app = express();
 const port = 5000;

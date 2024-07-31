@@ -1,9 +1,9 @@
 const express = require("express");
-const stripeProductsRouter = express.Router();
+const stripePricesRouter = express.Router();
 const {
-  retrieveProducts,
-} = require("../src/controllers/Stripe/Products/retrieveProductsController");
+  retrievePrices,
+} = require("../src/controllers/Stripe/Products/retrievePricesController");
 
-stripeProductsRouter.route("/stripe-products").get(retrieveProducts);
+stripePricesRouter.route("/stripe-prices").get(retrievePrices);
 
 module.exports = { stripeProductsRouter };
