@@ -14,6 +14,7 @@ const update = async (priceID, subscriptionID, userID) => {
       ],
       proration_behavior: always_invoice,
     });
+    return subscription;
   } catch (error) {
     return error;
   }
@@ -27,7 +28,6 @@ const update = async (priceID, subscriptionID, userID) => {
   //     where: { userID: userID },
   //   }
   // );
-  return subscription;
 };
 
 module.exports = { update };
