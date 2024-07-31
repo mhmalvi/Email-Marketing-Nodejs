@@ -5,33 +5,33 @@ const stripe_key = Stripe(
 );
 const { fieldsValidation } = require("../../../../config/utils");
 const priceByProductID = async (req, res) => {
-    const { priceID } = req.body
-    const requiredFields = { priceID };
-    const missingFields = await fieldsValidation(requiredFields);
-    if (missingFields.length > 0) {
-      res.status(422).json({
-        message: `Missing fields are ${missingFields.join(", ")}`,
-        status: 422,
-      });
+  const { priceID } = req.body;
+  const requiredFields = { priceID };
+  const missingFields = await fieldsValidation(requiredFields);
+  if (missingFields.length > 0) {
+    res.status(422).json({
+      message: `Missing fields are ${missingFields.join(", ")}`,
+      status: 422,
+    });
+  } else {
+    const price = await stripe_key.prices.retrieve(priceID);
+    // console.log(price);
+    if (price) {
+      res.status(200).json(price);
     } else {
-        const price = await stripe_key.prices.retrieve(priceID);
-        // console.log(price);
-        if (price) {
-            res.status(200).json(price)
-        } else {
-            res.status(200).json({
-                message: 'not found',
-                status:404,
-                
-            });
-        }
+      res.status(200).json({
+        message: "not found",
+        status: 404,
+      });
     }
-}
+  }
+};
 
 const retrievePrices = async (req, res) => {
   //   console.log(stripe_key);
   const prices = await stripe_key.prices.list({
     product: process.env.PRODUCT_ID,
+    active: true,
   });
   //   console.log(products);
   if (prices) {
