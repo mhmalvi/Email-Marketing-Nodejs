@@ -5,13 +5,17 @@ const Subscribe = require("../../../../models").Subscribe;
 
 const update = async (priceID, subscriptionID, userID) => {
   console.log("subscriptionID", subscriptionID);
-  const subscription = await stripe_key.subscriptions.update(subscriptionID, {
-    items: [
-      {
-        price: priceID,
-      },
-    ],
-  });
+  const subscription = await stripe_key.subscriptions.update(
+    subscriptionID,
+    { default_payment_method: "card_1Pi99SKvZ2nwhLRdtPPu8DKG" },
+    {
+      items: [
+        {
+          price: priceID,
+        },
+      ],
+    }
+  );
   await Subscribe.update(
     {
       price: priceID,
