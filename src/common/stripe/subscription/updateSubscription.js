@@ -14,7 +14,7 @@ const update = async (priceID, subscriptionID, userID) => {
       ],
     });
   } catch (error) {
-    return error
+    return error.raw
   }
 
   // console.log("subscription result", subscription);
