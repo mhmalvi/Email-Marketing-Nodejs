@@ -18,7 +18,12 @@ const customerInvoices = async (req, res) => {
       status: 422,
     });
   } else {
-    const invoice = await customerInvoice(stripeCustomerID, status, limit);
+    const invoice = await customerInvoice(
+      stripeCustomerID,
+      status,
+      limit,
+      stripe_key
+    );
     if (invoice) {
       res.status(200).json({
         message: "success",
