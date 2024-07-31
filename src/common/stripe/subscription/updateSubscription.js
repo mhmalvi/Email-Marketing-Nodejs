@@ -5,10 +5,9 @@ const Subscribe = require("../../../../models").Subscribe;
 
 const update = async (priceID, subscriptionID, userID) => {
   console.log("subscriptionID", subscriptionID);
-  const subscription = await stripe_key.subscriptions.update({
+  const subscription = await stripe_key.subscriptions.update(subscriptionID, {
     items: [
       {
-        id: subscriptionID,
         price: priceID,
       },
     ],
