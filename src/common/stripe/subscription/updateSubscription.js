@@ -5,23 +5,22 @@ const Subscribe = require("../../../../models").Subscribe;
 
 const update = async (priceID, subscriptionID, userID) => {
   console.log("subscriptionID", subscriptionID);
-  const subscription = await stripe_key.subscriptions.update(subscriptionID, {
-    items: [
+  try {
+    onsole.log("subscription result", subscription);
+    await Subscribe.update(
       {
         price: priceID,
       },
-    ],
-  });
-  console.log("subscription result", subscription);
-  await Subscribe.update(
-    {
-      price: priceID,
-    },
-    {
-      where: { userID: userID },
-    }
-  );
-  return subscription;
+      {
+        where: { userID: userID },
+      }
+    );
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+
+  // return subscription;
 };
 
 module.exports = { update };
