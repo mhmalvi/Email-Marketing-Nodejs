@@ -44,6 +44,7 @@ const createSubscription = async (req, res) => {
       }
     } else {
       response = await update(priceID, subscription.subscriptionID, userID); ////////////////// update subscription
+      console.log("response result", response);
       if (response) {
         res.status(200).json({
           message: "success",
