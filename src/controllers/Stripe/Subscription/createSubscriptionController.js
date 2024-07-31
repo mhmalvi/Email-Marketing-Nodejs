@@ -5,7 +5,7 @@ const {
   create,
 } = require("../../../common/stripe/subscription/createSubscription");
 const {
-  updateSubscription,
+  update,
 } = require("../../../common/stripe/subscription/updateSubscription");
 
 const createSubscription = async (req, res) => {
@@ -39,11 +39,7 @@ const createSubscription = async (req, res) => {
         paymentSourceID
       ); ////////////////// create new subscription
     } else {
-      response = await updateSubscription(
-        priceID,
-        subscription.subscriptionID,
-        userID
-      ); ////////////////// update subscription
+      response = await update(priceID, subscription.subscriptionID, userID); ////////////////// update subscription
     }
     if (response) {
       res.status(201).json(response);

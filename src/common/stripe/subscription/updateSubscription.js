@@ -23,4 +23,4 @@ const update = async (priceID, subscriptionID, userID) => {
   return subscription;
 };
 
-module.exports = { updateSubscription };
+module.exports = { update };
