@@ -45,10 +45,11 @@ const createSubscription = async (req, res) => {
     console.log("response result", response);
     if (response) {
       res.status(201).json(response);
-    } else {
-      res.status(500).json({
+    } else if (response.raw.message) {
+      res.status(400).json({
         message: "failed",
-        status: 500,
+        status: 400,
+        error: response.raw.message,
       });
     }
     // console.log(response);
