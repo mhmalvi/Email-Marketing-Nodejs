@@ -4,8 +4,13 @@ const {
   priceByProductID,
   retrievePrices,
 } = require("../src/controllers/Stripe/Price/retrievePriceController");
+const { isCustomerAuthenticated } = require("../src/middleware/userMiddleware");
 
-stripePriceRouter.route("/stripe-price-by-product-id").post(priceByProductID);
-stripePriceRouter.route("/stripe-prices").get(retrievePrices);
+stripePriceRouter
+  .route("/stripe-price-by-product-id")
+  .post( priceByProductID);
+stripePriceRouter
+  .route("/stripe-prices")
+  .get( retrievePrices);
 
 module.exports = { stripePriceRouter };
