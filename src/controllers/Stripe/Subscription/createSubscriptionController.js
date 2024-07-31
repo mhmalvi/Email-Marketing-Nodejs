@@ -29,7 +29,7 @@ const createSubscription = async (req, res) => {
     const subscription = await Subscribe.findOne({
       where: { userID: userID },
     });
-    const response = "";
+    var response = "";
     console.log("subscription.subscriptionID", subscription.subscriptionID);
     if (subscription.subscriptionID == null) {
       response = await create(
