@@ -19,6 +19,7 @@ const create = async (
       },
     ],
     default_source: paymentSourceID,
+    collection_method: "send_invoice",
   });
   // console.log("userID", userID);
   const subscription = await subscribe.update(
