@@ -3,16 +3,17 @@ const stripe = require("../../../../config/keys");
 const stripe_key = Stripe(process.env.STRIPE_KEY);
 const Subscribe = require("../../../../models").Subscribe;
 
-const update = async (priceID, subscriptionID, userID) => {
+const update = async (priceID, subscriptionID, itemID) => {
   console.log("subscriptionID", subscriptionID);
   try {
     const subscription = await stripe_key.subscriptions.update(subscriptionID, {
       items: [
         {
+          id: itemID,
           price: priceID,
         },
       ],
-      proration_behavior: "always_invoice",
+      proration_behavior: "create_prorations",
     });
     console.log("subscription res", subscription);
     return subscription;

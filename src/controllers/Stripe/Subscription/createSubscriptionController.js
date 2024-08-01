@@ -4,6 +4,7 @@ const Subscribe = require("../../../../models").Subscribe;
 const {
   create,
 } = require("../../../common/stripe/subscription/createSubscription");
+const { retrieveSingleSubscription } = require("../../../common/stripe/subscription/retrieveSingleSubscription");
 const {
   update,
 } = require("../../../common/stripe/subscription/updateSubscription");
@@ -43,7 +44,12 @@ const createSubscription = async (req, res) => {
         res.status(201).json(response);
       }
     } else {
-      response = await update(priceID, subscription.subscriptionID, userID); ////////////////// update subscription
+      const subscription_item = retrieveSingleSubscription(subscription.subscriptionID);
+      response = await update(
+        priceID,
+        subscription.subscriptionID,
+        subscription_item.items.data[0].id
+      ); ////////////////// update subscription
       console.log("response result", response);
       if (response) {
         res.status(200).json({
