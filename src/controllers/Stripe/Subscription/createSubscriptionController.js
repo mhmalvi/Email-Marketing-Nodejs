@@ -41,7 +41,11 @@ const createSubscription = async (req, res) => {
         paymentSourceID
       ); ////////////////// create new subscription
       if (response) {
-        res.status(201).json(response);
+        res.status(201).json({
+          message: "success",
+          status: 201,
+          data: response,
+        });
       }
     } else {
       const subscription_item = await retrieveSingleSubscription(subscription.subscriptionID);
@@ -53,9 +57,9 @@ const createSubscription = async (req, res) => {
       ); ////////////////// update subscription
       console.log("response result", response);
       if (response) {
-        res.status(200).json({
+        res.status(201).json({
           message: "success",
-          status: 200,
+          status: 201,
           data: response,
         });
       }
