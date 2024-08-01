@@ -18,10 +18,10 @@ const update = async (priceID, userID, subscriptionID, itemID) => {
       days_until_due: 33,
     });
     console.log("subscription res", subscription);
-    const subscriptionDB = await subscribe.update(
+    const subscriptionDB = await Subscribe.update(
       {
         price: subscription.items.data[0].plan.id,
-        amount: subscription.items.data[0].plan.amount/100,
+        amount: subscription.items.data[0].plan.amount / 100,
         interval: 30,
         expDate: subscription.current_period_end,
         product_selection_status: 1,
