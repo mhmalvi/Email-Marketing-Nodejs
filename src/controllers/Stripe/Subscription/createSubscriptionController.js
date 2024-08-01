@@ -45,6 +45,7 @@ const createSubscription = async (req, res) => {
       }
     } else {
       const subscription_item = retrieveSingleSubscription(subscription.subscriptionID);
+      console.log(subscription_item);
       response = await update(
         priceID,
         subscription.subscriptionID,
