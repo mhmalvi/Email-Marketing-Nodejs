@@ -1,7 +1,7 @@
 const Stripe = require("stripe");
 const stripe = require("../../../../config/keys");
 const { fieldsValidation } = require("../../../../config/utils");
-const stripe_key = process.env.STRIPE_KEY;
+const stripe_key = Stripe(process.env.STRIPE_KEY);
 const {
   retrieveSubscriptionFromDB,
 } = require("../../../common/subscription/retrieveSubscriptionDB");
