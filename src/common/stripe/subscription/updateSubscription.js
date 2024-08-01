@@ -23,7 +23,7 @@ const update = async (priceID, userID, subscriptionID, itemID) => {
         price: priceID,
         amount: JSON.parse(amount),
         interval: 30,
-        expDate: stripeResponse.current_period_end,
+        expDate: subscription.current_period_end,
         product_selection_status: 1,
       },
       { where: { userID: userID } }
