@@ -3,7 +3,7 @@ const stripe = require("../../../../config/keys");
 const stripe_key = Stripe(process.env.STRIPE_KEY);
 const Subscribe = require("../../../../models").Subscribe;
 
-const update = async (priceID, subscriptionID, itemID) => {
+const update = async (priceID, userID, subscriptionID, itemID) => {
   console.log("subscriptionID", subscriptionID);
   try {
     const subscription = await stripe_key.subscriptions.update(subscriptionID, {
@@ -18,6 +18,16 @@ const update = async (priceID, subscriptionID, itemID) => {
       days_until_due: 33,
     });
     console.log("subscription res", subscription);
+    const subscriptionDB = await subscribe.update(
+      {
+        price: priceID,
+        amount: JSON.parse(amount),
+        interval: 30,
+        expDate: stripeResponse.current_period_end,
+        product_selection_status: 1,
+      },
+      { where: { userID: userID } }
+    );
     return subscription;
   } catch (error) {
     console.log("error", error);

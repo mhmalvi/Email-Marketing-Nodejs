@@ -4,7 +4,9 @@ const Subscribe = require("../../../../models").Subscribe;
 const {
   create,
 } = require("../../../common/stripe/subscription/createSubscription");
-const { retrieveSingleSubscription } = require("../../../common/stripe/subscription/retrieveSingleSubscription");
+const {
+  retrieveSingleSubscription,
+} = require("../../../common/stripe/subscription/retrieveSingleSubscription");
 const {
   update,
 } = require("../../../common/stripe/subscription/updateSubscription");
@@ -48,10 +50,13 @@ const createSubscription = async (req, res) => {
         });
       }
     } else {
-      const subscription_item = await retrieveSingleSubscription(subscription.subscriptionID);
-      console.log('subscription_item',subscription_item);
+      const subscription_item = await retrieveSingleSubscription(
+        subscription.subscriptionID
+      );
+      console.log("subscription_item", subscription_item);
       response = await update(
         priceID,
+        userID,
         subscription.subscriptionID,
         subscription_item.items.data[0].id
       ); ////////////////// update subscription
