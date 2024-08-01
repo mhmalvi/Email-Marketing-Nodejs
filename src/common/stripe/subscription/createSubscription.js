@@ -19,7 +19,6 @@ const create = async (
       },
     ],
     proration_behavior:"always_invoice",
-    billing_cycle_anchor:'now',
     default_source: paymentSourceID,
     collection_method: "send_invoice",
     days_until_due:33,
