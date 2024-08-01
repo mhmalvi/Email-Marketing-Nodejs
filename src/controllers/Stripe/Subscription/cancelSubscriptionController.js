@@ -20,7 +20,8 @@ const cancelSubscription = async (req, res) => {
     });
   } else {
     const subscriptionDB = await retrieveSubscriptionFromDB(userID); /////// retrieve subscription from db
-    if (subscriptionDB) {
+      if (subscriptionDB) {
+        console.log(stripe_key);
       const result = await stripe_key.subscriptions.cancel(
         subscriptionDB.subscriptionID,
         { prorate: true }
