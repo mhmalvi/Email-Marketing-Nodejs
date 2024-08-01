@@ -13,6 +13,7 @@ const update = async (priceID, subscriptionID, itemID) => {
           price: priceID,
         },
       ],
+      
       proration_behavior: "create_prorations",
       billing_cycle_anchor: "now",
     });
