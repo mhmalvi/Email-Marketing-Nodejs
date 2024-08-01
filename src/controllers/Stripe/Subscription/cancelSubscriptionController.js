@@ -5,6 +5,9 @@ const stripe_key = Stripe(process.env.STRIPE_KEY);
 const {
   retrieveSubscriptionFromDB,
 } = require("../../../common/subscription/retrieveSubscriptionDB");
+const {
+  cancelSubscriptionFromDB,
+} = require("../../../common/subscription/cancelSubscription");
 
 const cancelSubscription = async (req, res) => {
   // console.log('qq');
@@ -20,13 +23,15 @@ const cancelSubscription = async (req, res) => {
     });
   } else {
     const subscriptionDB = await retrieveSubscriptionFromDB(userID); /////// retrieve subscription from db
-      if (subscriptionDB) {
-        console.log(stripe_key);
+    if (subscriptionDB) {
+      console.log(stripe_key);
       const result = await stripe_key.subscriptions.cancel(
         subscriptionDB.subscriptionID,
         { prorate: true }
-      ); ///////////// cancel subscription
-      if (result) {
+      ); ///////////// cancel subscription stripe
+
+      const dbResult = await cancelSubscriptionFromDB(userID);
+      if (result && dbResult) {
         res.status(200).json({
           message: "success",
           status: 200,
