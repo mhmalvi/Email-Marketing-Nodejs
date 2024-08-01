@@ -33,7 +33,6 @@ const createSubscription = async (req, res) => {
       where: { userID: userID },
     });
     var response = "";
-    console.log("subscription.subscriptionID", subscription.subscriptionID);
     if (subscription.subscriptionID == null) {
       response = await create(
         stripeCustomerID,
@@ -53,14 +52,12 @@ const createSubscription = async (req, res) => {
       const subscription_item = await retrieveSingleSubscription(
         subscription.subscriptionID
       );
-      console.log("subscription_item", subscription_item);
       response = await update(
         priceID,
         userID,
         subscription.subscriptionID,
         subscription_item.items.data[0].id
       ); ////////////////// update subscription
-      console.log("response result", response);
       if (response) {
         res.status(201).json({
           message: "success",

@@ -7,7 +7,6 @@ const cancelSubscriptionFromDB = async (userID) => {
     {
       price: "free",
       expDate: null,
-      subscriptionID: null,
     },
     {
       where: { userID: userID },
