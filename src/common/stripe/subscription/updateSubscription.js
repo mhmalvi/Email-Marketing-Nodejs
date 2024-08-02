@@ -15,6 +15,9 @@ const update = async (priceID, userID, subscriptionID, itemID) => {
       ],
       collection_method: "send_invoice",
       proration_behavior: "create_prorations",
+      billing_cycle_anchor_config: {
+        day_of_month: 31,
+      },
       days_until_due: 33,
     });
     console.log("subscription res", subscription);
@@ -28,6 +31,7 @@ const update = async (priceID, userID, subscriptionID, itemID) => {
       },
       { where: { userID: userID } }
     );
+
     return subscription;
   } catch (error) {
     console.log("error", error);

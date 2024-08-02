@@ -5,6 +5,9 @@ const {
   create,
 } = require("../../../common/stripe/subscription/createSubscription");
 const {
+  resumeSubscription,
+} = require("../../../common/stripe/subscription/resumeSubscription");
+const {
   retrieveSingleSubscription,
 } = require("../../../common/stripe/subscription/retrieveSingleSubscription");
 const {
@@ -52,6 +55,9 @@ const createSubscription = async (req, res) => {
       const subscription_item = await retrieveSingleSubscription(
         subscription.subscriptionID
       );
+      if (subscription_item.status == "canceled") {
+        await resumeSubscription(subscription_item.id);
+      }
       response = await update(
         priceID,
         userID,

@@ -21,6 +21,9 @@ const create = async (
     proration_behavior: "create_prorations",
     default_source: paymentSourceID,
     collection_method: "send_invoice",
+    billing_cycle_anchor_config: {
+      day_of_month: 31,
+    },
     days_until_due: 33,
   });
   // console.log("userID", userID);
@@ -31,7 +34,7 @@ const create = async (
       amount: JSON.parse(amount),
       interval: 30,
       expDate: stripeResponse.current_period_end,
-      product_selection_status:1
+      product_selection_status: 1,
     },
     { where: { userID: userID } }
   );
