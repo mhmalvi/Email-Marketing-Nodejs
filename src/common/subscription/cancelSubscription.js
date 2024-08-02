@@ -5,6 +5,7 @@ const Subscribe = require("../../../models").Subscribe;
 const cancelSubscriptionFromDB = async (userID) => {
   return await Subscribe.update(
     {
+      subscriptionID: null,
       price: "free",
       expDate: null,
     },
