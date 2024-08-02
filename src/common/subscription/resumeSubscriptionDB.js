@@ -13,3 +13,4 @@ export const resumeSubscriptionDB = async (priceID, expDate, userID) => {
     }
   );
 };
+module.exports = { resumeSubscriptionDB };
