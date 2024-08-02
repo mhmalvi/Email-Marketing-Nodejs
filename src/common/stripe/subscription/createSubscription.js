@@ -18,10 +18,10 @@ const create = async (
         price: priceID,
       },
     ],
-    proration_behavior:"always_invoice",
+    proration_behavior: "create_prorations",
     default_source: paymentSourceID,
     collection_method: "send_invoice",
-    days_until_due:33,
+    days_until_due: 33,
   });
   // console.log("userID", userID);
   const subscription = await subscribe.update(
