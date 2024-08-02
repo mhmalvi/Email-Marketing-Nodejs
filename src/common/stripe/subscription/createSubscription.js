@@ -18,7 +18,7 @@ const create = async (
         price: priceID,
       },
     ],
-    proration_behavior: "none",
+    proration_behavior: "create_prorations",
     default_source: paymentSourceID,
     collection_method: "send_invoice",
     days_until_due: 33,
