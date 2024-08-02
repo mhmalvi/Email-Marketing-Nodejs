@@ -58,16 +58,16 @@ const createSubscription = async (req, res) => {
       const subscription_item = await retrieveSingleSubscription(
         subscription.subscriptionID
       ); ////////// fetch subscription stripe
-      if (subscription_item.status == "canceled") {
-        const resumeResponse = await resumeSubscription(subscription_item.id); ////////// resume subscription stripe
-        if (resumeResponse.status == "active") {
-          await resumeSubscriptionDB(
-            resumeResponse.items.data[0].plan.id,
-            resumeResponse.current_period_end,
-            userID
-          ); ////////// resume subscription db
-        }
-      }
+      // if (subscription_item.status == "canceled") {
+      //   const resumeResponse = await resumeSubscription(subscription_item.id); ////////// resume subscription stripe
+      //   if (resumeResponse.status == "active") {
+      //     await resumeSubscriptionDB(
+      //       resumeResponse.items.data[0].plan.id,
+      //       resumeResponse.current_period_end,
+      //       userID
+      //     ); ////////// resume subscription db
+      //   }
+      // }
       response = await update(
         priceID,
         userID,
