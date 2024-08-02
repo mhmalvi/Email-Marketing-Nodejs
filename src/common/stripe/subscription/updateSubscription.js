@@ -15,7 +15,6 @@ const update = async (priceID, userID, subscriptionID, itemID) => {
       ],
       collection_method: "send_invoice",
       proration_behavior: "none",
-      prorate: false,
       days_until_due: 33,
     });
     console.log("subscription res", subscription);
