@@ -38,15 +38,6 @@ const update = async (priceID, userID, subscriptionID, itemID) => {
     return error;
   }
 
-  // console.log("subscription result", subscription);
-  // await Subscribe.update(
-  //   {
-  //     price: priceID,
-  //   },
-  //   {
-  //     where: { userID: userID },
-  //   }
-  // );
 };
 
 module.exports = { update };
