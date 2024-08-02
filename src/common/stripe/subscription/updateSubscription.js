@@ -14,7 +14,8 @@ const update = async (priceID, userID, subscriptionID, itemID) => {
         },
       ],
       collection_method: "send_invoice",
-      proration_behavior: "create_prorations",
+      // proration_behavior: "create_prorations",
+      prorate: false,
       days_until_due: 33,
     });
     console.log("subscription res", subscription);
