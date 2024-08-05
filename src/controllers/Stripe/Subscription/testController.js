@@ -7,6 +7,7 @@ const stripe_key = Stripe(
 
 const test = async () => {
   const formattedDate = new Date();
+  console.log('curr time',formattedDate)
   formattedDate.setHours(0, 0, 0, 0);
   formattedDate.setMinutes(0, 0, 0, 0);
   formattedDate.setSeconds(0, 0, 0, 0);
@@ -15,8 +16,10 @@ const test = async () => {
     
   const subscriptions = await Subscribe.findAll({});
   subscriptions.forEach(async (data) => {
+    
     let milliseconds = data.current_period_end * 1000;
     let endDate = new Date(milliseconds);
+    console.log('end time',endDate)
     endDate.setHours(0, 0, 0, 0);
     endDate.setMinutes(0, 0, 0, 0);
     endDate.setSeconds(0, 0, 0, 0);
