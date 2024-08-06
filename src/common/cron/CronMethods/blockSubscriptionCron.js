@@ -8,8 +8,8 @@ const blockSubscription = async () => {
   formattedDate.setHours(0, 0, 0, 0);
   formattedDate.setMinutes(0, 0, 0, 0);
   formattedDate.setSeconds(0, 0, 0, 0);
-  const date_in_milliseconds = formattedDate.getTime(); /////////current datetime to millisecond
-  console.log(date_in_milliseconds);
+//   const date_in_milliseconds = formattedDate.getTime(); /////////current datetime to millisecond
+  console.log(formattedDate);
   // current datetime
   const subscriptions = await Subscribe.findAll({}); //////// fetch all subscriptions from db
   subscriptions.forEach(async (data) => {
@@ -19,17 +19,17 @@ const blockSubscription = async () => {
     endDate.setHours(0, 0, 0, 0);
     endDate.setMinutes(0, 0, 0, 0);
     endDate.setSeconds(0, 0, 0, 0);
-    const end_date_in_milliseconds = endDate.getTime(); ////// convert end time again to millisecond
-    console.log(end_date_in_milliseconds);
+    // const end_date_in_milliseconds = endDate.getTime(); ////// convert end time again to millisecond
+    console.log(endDate);
     // end date
 
-    if (date_in_milliseconds > end_date_in_milliseconds) {
-      data.price = "free";
-      data.amount = 0;
-      data.expDate = null;
-      data.subscriptionID = null;
-      data.save();
-    }
+    // if (date_in_milliseconds > end_date_in_milliseconds) {
+    //   data.price = "free";
+    //   data.amount = 0;
+    //   data.expDate = null;
+    //   data.subscriptionID = null;
+    //   data.save();
+    // }
     console.log(data);
   });
 };
