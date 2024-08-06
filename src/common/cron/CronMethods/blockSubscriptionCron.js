@@ -1,9 +1,8 @@
 const Stripe = require("stripe");
-const stripe = require("../../../../config/keys");
 const Subscribe = require("../../../../models").Subscribe;
 const stripe_key = Stripe(process.env.STRIPE_KEY);
 
-const test = async () => {
+const blockSubscription = async () => {
   const formattedDate = new Date(); //////// js current time
   console.log("curr time", formattedDate);
   formattedDate.setHours(0, 0, 0, 0);
@@ -31,7 +30,8 @@ const test = async () => {
       data.subscriptionID = null;
       data.save();
     }
+    console.log(data);
   });
 };
 
-module.exports = { test };
+module.exports = { blockSubscription };
