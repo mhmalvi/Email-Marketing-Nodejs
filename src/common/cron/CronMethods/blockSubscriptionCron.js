@@ -14,7 +14,7 @@ const blockSubscription = async () => {
   const subscriptions = await Subscribe.findAll({}); //////// fetch all subscriptions from db
   subscriptions.forEach(async (data) => {
     // let milliseconds = data.current_period_end * 1000; /////////convert end time to milliseconds
-    let endDate = new Date(data.current_period_end); ////////// convert end time millisecond to datetime
+    let endDate = new Date(data.expDate); ////////// convert end time millisecond to datetime
     console.log("end time", endDate);
     endDate.setHours(0, 0, 0, 0);
     endDate.setMinutes(0, 0, 0, 0);
