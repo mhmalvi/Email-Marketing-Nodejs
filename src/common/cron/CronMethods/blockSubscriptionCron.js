@@ -8,8 +8,8 @@ const blockSubscription = async () => {
   formattedDate.setHours(0, 0, 0, 0);
   formattedDate.setMinutes(0, 0, 0, 0);
   formattedDate.setSeconds(0, 0, 0, 0);
-  //   const date_in_milliseconds = formattedDate.getTime(); /////////current datetime to millisecond
-  console.log(formattedDate);
+    const date_in_milliseconds = formattedDate.getTime()/1000; /////////current datetime to second
+  console.log(date_in_milliseconds);
   // current datetime
   const subscriptions = await Subscribe.findAll({}); //////// fetch all subscriptions from db
   subscriptions.forEach(async (data) => {
