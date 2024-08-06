@@ -3,12 +3,12 @@ const Subscribe = require("../../../../models").Subscribe;
 const stripe_key = Stripe(process.env.STRIPE_KEY);
 
 const blockSubscription = async () => {
-  const formattedDate = new Date(); //////// js current time
+  var formattedDate = new Date(); //////// js current time
   console.log("curr time", formattedDate);
   formattedDate.setHours(0, 0, 0, 0);
   formattedDate.setMinutes(0, 0, 0, 0);
   formattedDate.setSeconds(0, 0, 0, 0);
-//   const date_in_milliseconds = formattedDate.getTime(); /////////current datetime to millisecond
+  //   const date_in_milliseconds = formattedDate.getTime(); /////////current datetime to millisecond
   console.log(formattedDate);
   // current datetime
   const subscriptions = await Subscribe.findAll({}); //////// fetch all subscriptions from db
@@ -23,13 +23,13 @@ const blockSubscription = async () => {
     console.log(endDate);
     // end date
 
-    // if (date_in_milliseconds > end_date_in_milliseconds) {
-    //   data.price = "free";
-    //   data.amount = 0;
-    //   data.expDate = null;
-    //   data.subscriptionID = null;
-    //   data.save();
-    // }
+    if (formattedDate > endDate) {
+      data.price = "free";
+      data.amount = 0;
+      data.expDate = null;
+      data.subscriptionID = null;
+      data.save();
+    }
     console.log(data);
   });
 };
