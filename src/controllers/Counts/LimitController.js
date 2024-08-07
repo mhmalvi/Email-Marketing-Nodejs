@@ -1,3 +1,4 @@
+const { fieldsValidation } = require("../../../config/utils");
 const { campaignCounts } = require("../../common/campaignUtils/fetchCampaigns");
 
 const counts = async (req, res) => {
