@@ -1,3 +1,6 @@
+const moment = require("moment");
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 const Contact = require("../../../models").Contact;
 
 const fetch = async (data, size, offset) => {
@@ -9,4 +12,17 @@ const fetch = async (data, size, offset) => {
   });
 };
 
-module.exports = { fetch };
+const contactCounts = async (userID) => {
+  const startOfDay = moment().startOf("day").toDate();
+  const endOfDay = moment().endOf("day").toDate();
+  return await Contact.count({
+    where: {
+      userID: userID,
+      createdAt: {
+        [Op.between]: [startOfDay, endOfDay],
+      },
+    },
+  });
+};
+
+module.exports = { fetch,contactCounts };

@@ -1,8 +1,6 @@
 const moment = require("moment");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
-const TODAY_START = new Date().setHours(0, 0, 0, 0);
-const NOW = new Date();
 
 const CampaignQueue = require("../../../models").CampaignQueue;
 
