@@ -12,7 +12,7 @@ const counts = async (req, res) => {
       status: 422,
     });
   } else {
-    const campaignCount = await campaignCounts(userID).counts;
+    const campaignCount = await campaignCounts(userID);
     console.log("ccampaignCount", campaignCount);
     res.json(campaignCount);
   }
