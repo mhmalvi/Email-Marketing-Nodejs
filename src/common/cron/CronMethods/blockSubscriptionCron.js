@@ -16,9 +16,9 @@ const blockSubscription = async () => {
         data.expDate = null;
         data.subscriptionID = null;
         data.save();
-      }
+      } /////////// if canceled convert to free version in DB
     }
-    console.log(data);
+    // console.log(data);
   });
 };
 

@@ -1,10 +1,19 @@
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
+const TODAY_START = new Date().setHours(0, 0, 0, 0);
+const NOW = new Date();
 
 const CampaignQueue = require("../../../models").CampaignQueue;
 
+const campaignCounts = async (userID) => {
+  return await CampaignQueue.sum("count", {
+    where: { userID: userID, created: { [Op.gt]: TODAY_START, [Op.lt]: NOW } },
+  });
+};
 const fetchCampaigns = async (userID) => {
-  return await CampaignQueue.findAll({ where: { userID: userID } });
+  return await CampaignQueue.findAll({
+    where: { userID: userID },
+  });
 };
 
 const campaignSearch = async (data) => {
@@ -31,4 +40,9 @@ const campaignSearchPagination = async (userID, per_page, offset, name) => {
     offset: offset,
   });
 };
-module.exports = { fetchCampaigns, campaignSearch, campaignSearchPagination };
+module.exports = {
+  fetchCampaigns,
+  campaignSearch,
+  campaignSearchPagination,
+  campaignCounts,
+};
