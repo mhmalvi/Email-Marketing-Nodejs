@@ -13,7 +13,7 @@ const counts = async (req, res) => {
     });
   } else {
     const campaignCount = await campaignCounts(userID).counts;
-    // console.log("ccampaignCount", campaignCount);
+    console.log("ccampaignCount", campaignCount);
     res.json(campaignCount);
   }
 };
