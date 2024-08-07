@@ -1,10 +1,12 @@
 const { fieldsValidation } = require("../../../config/utils");
-const { campaignCounts } = require("../../common/campaignUtils/fetchCampaigns");
+const {
+  mailCounts,
+  campaignCounts,
+} = require("../../common/campaignUtils/fetchCampaigns");
 const { contactCounts } = require("../../common/contactsUtils/fetch");
 
 const counts = async (req, res) => {
   const { userID } = req.body;
-  // console.log("userID", userID);
   const requiredFields = { userID };
   const missingFields = await fieldsValidation(requiredFields);
   if (missingFields.length > 0) {
@@ -13,14 +15,18 @@ const counts = async (req, res) => {
       status: 422,
     });
   } else {
-    const campaignCount = await campaignCounts(userID); ////get campaign count for today
+    const mailCount = await mailCounts(userID); ////get mail count for today
     const contactsCount = await contactCounts(userID); ///get contacts count for today
-    // console.log("ccampaignCount", campaignCount);
+    const campaignCount = await campaignCounts(userID); //get campaign counts for today
+    console.log("ccampaignCount", campaignCount);
+    console.log("mailCount", mailCount);
+    console.log("contactsCount", contactsCount);
     res.status(200).json({
       message: "success",
       status: 200,
-      campaignCount: campaignCount === "undefined" ? 0 : campaignCount,
+      mailCount: mailCount === "undefined" ? 0 : mailCount,
       contactsCount: contactsCount === "undefined" ? 0 : contactsCount,
+      campaignCount: campaignCount === "undefined" ? 0 : campaignCount,
     });
   }
 };

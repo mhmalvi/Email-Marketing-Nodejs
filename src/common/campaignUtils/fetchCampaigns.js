@@ -7,6 +7,18 @@ const CampaignQueue = require("../../../models").CampaignQueue;
 const campaignCounts = async (userID) => {
   const startOfDay = moment().startOf("day").toDate();
   const endOfDay = moment().endOf("day").toDate();
+  return await CampaignQueue.count({
+    where: {
+      userID: userID,
+      createdAt: {
+        [Op.between]: [startOfDay, endOfDay],
+      },
+    },
+  });
+};
+const mailCounts = async (userID) => {
+  const startOfDay = moment().startOf("day").toDate();
+  const endOfDay = moment().endOf("day").toDate();
   return await CampaignQueue.sum("count", {
     where: {
       userID: userID,
@@ -50,5 +62,6 @@ module.exports = {
   fetchCampaigns,
   campaignSearch,
   campaignSearchPagination,
+  mailCounts,
   campaignCounts,
 };
