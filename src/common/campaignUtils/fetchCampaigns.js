@@ -7,7 +7,7 @@ const CampaignQueue = require("../../../models").CampaignQueue;
 
 const campaignCounts = async (userID) => {
   return await CampaignQueue.sum("count", {
-    where: { userID: userID, createdAt: { [Op.gt]: TODAY_START, [Op.lt]: NOW } },
+    where: { userID: userID, createdAt: TODAY_START },
   });
 };
 const fetchCampaigns = async (userID) => {
