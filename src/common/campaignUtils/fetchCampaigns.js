@@ -6,7 +6,7 @@ const NOW = new Date();
 const CampaignQueue = require("../../../models").CampaignQueue;
 
 const campaignCounts = async (userID) => {
-  return await CampaignQueue.sum("count", {
+  return await CampaignQueue({
     where: { userID: userID},
   });
 };
