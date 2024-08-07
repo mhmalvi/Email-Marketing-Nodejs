@@ -8,7 +8,7 @@
   },
   "production": {
     "username": "root",
-    "password": "Quadque#2024",
+    "password": "quemailer__2024",
     "database": "email_marketing",
     "host": "127.0.0.1",
     "dialect": "mysql"
