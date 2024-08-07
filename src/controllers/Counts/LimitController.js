@@ -24,9 +24,9 @@ const counts = async (req, res) => {
     res.status(200).json({
       message: "success",
       status: 200,
-      mailCount: mailCount,
+      mailCount: mailCount === "undefined" ? 0 : mailCount,
       contactsCount: contactsCount === "undefined" ? 0 : contactsCount,
-      campaignCount: campaignCount,
+      campaignCount: campaignCount === "undefined" ? 0 : campaignCount,
     });
   }
 };
