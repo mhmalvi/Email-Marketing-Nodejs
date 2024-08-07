@@ -19,6 +19,8 @@ const campaignCounts = async (userID) => {
 const mailCounts = async (userID) => {
   const startOfDay = moment().startOf("day").toDate();
   const endOfDay = moment().endOf("day").toDate();
+  console.log('startOfDay',startOfDay);
+  console.log('endOfDay',endOfDay);
   return await CampaignQueue.sum("count", {
     where: {
       userID: userID,

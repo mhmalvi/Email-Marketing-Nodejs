@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "Quadque#2024",
+    "password": "quemailer__2024",
     "database": "email_marketing",
     "host": "localhost",
     "dialect": "mysql"
