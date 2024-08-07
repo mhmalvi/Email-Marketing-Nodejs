@@ -17,7 +17,7 @@ const contactCounts = async (userID) => {
   const endOfDay = moment().endOf("day").toDate();
   return await Contact.count({
     where: {
-      userID: userID,
+      user_id: userID,
       createdAt: {
         [Op.between]: [startOfDay, endOfDay],
       },
@@ -25,4 +25,4 @@ const contactCounts = async (userID) => {
   });
 };
 
-module.exports = { fetch,contactCounts };
+module.exports = { fetch, contactCounts };
