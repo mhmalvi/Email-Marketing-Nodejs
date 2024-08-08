@@ -7,6 +7,7 @@ const retrievePrices = async (req, res) => {
   const prices = await stripe_key.prices.list({
     product: process.env.PRODUCT_ID,
   });
+  
   if (prices) {
     res.status(200).json(prices);
   } else {
