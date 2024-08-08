@@ -16,15 +16,11 @@ module.exports = {
         autoIncrement: true,
         unique: true,
       },
-      productName: { type: Sequelize.TEXT, allowNull: false, unique: true },
+      productName: { type: Sequelize.TEXT, allowNull: false, },
       emailLimit: { type: Sequelize.INTEGER, allowNull: false, unique: true },
       contactLimit: { type: Sequelize.INTEGER, allowNull: false },
       createdAt: { type: Sequelize.DATE },
       updatedAt: { type: Sequelize.DATE },
-    });
-    await queryInterface.addIndex("products", {
-      fields: ["productName(255)"], // specify key length
-      name: "idx_productName",
     });
   },
 
