@@ -5,6 +5,7 @@ const stripe_key = Stripe(process.env.STRIPE_KEY);
 const {
   transporter,
 } = require("../../../common/transporterUtils/customTransporter");
+const nodemailer = require("nodemailer");
 
 const test = async () => {
   const customTransporter = nodemailer.createTransport({
