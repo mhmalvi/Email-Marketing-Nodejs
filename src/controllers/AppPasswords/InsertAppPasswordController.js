@@ -1,6 +1,10 @@
 const express = require("express");
 const { save } = require("../../common/appPassUtils/save");
 const { fetchOne } = require("../../common/appPassUtils/fetchOne");
+const {
+  transporter,
+} = require("../../common/transporterUtils/customTransporter");
+const AppPassword = require("../../../models").AppPassword;
 
 const saveAppPassword = async (req, res) => {
   if (
@@ -18,7 +22,28 @@ const saveAppPassword = async (req, res) => {
     } else {
       const app = await save(req.body);
       if (app) {
-        
+        const sender = await AppPassword.findOne({
+          where: { email: req.body.email },
+        }); ////////////  get app password of the sender from db //////////////////
+        let transporterResponse = await transporter(sender);
+        const mailOptions = {
+          from: `<${req.body.email}>`,
+          to: `${req.body.email}`, // list of receivers
+          subject: "App password verification", // Subject line
+          html: `<h1>Hello ${req.body.email}</h1><br><p>Your app password is correct.</p> `,
+        };
+        await transporterResponse.sendMail(mailOptions, async (err, info) => {
+          if (err.statusCode === 535) {
+            res.status(535).json({
+              message: `Your app password for email ${mail.fromName} is wrong`,
+              status: 535,
+              email: `${req.body.email}`,
+            });
+          } else {
+            console.log(info.accepted[0]);
+            console.log("Email sent", info.accepted);
+          }
+        });
         res.status(201).json({
           message: "Saved",
           status: 201,
