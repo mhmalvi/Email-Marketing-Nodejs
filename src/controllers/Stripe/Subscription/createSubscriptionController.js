@@ -18,7 +18,7 @@ const {
 } = require("../../../common/subscription/resumeSubscriptionDB");
 
 const createSubscription = async (req, res) => {
-  const { userID, stripeCustomerID, priceID, amount, paymentSourceID } =
+  const { userID, stripeCustomerID, priceID, amount, quantity,paymentSourceID } =
     req.body;
   // console.log("userID", userID);
   const requiredFields = {
@@ -26,6 +26,7 @@ const createSubscription = async (req, res) => {
     stripeCustomerID,
     priceID,
     amount,
+    quantity,
     paymentSourceID,
   };
   const missingFields = await fieldsValidation(requiredFields);
@@ -45,6 +46,7 @@ const createSubscription = async (req, res) => {
         priceID,
         amount,
         userID,
+        quantity,
         paymentSourceID
       ); ////////////////// create new subscription
       if (response) {

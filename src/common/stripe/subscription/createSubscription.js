@@ -9,6 +9,7 @@ const create = async (
   priceID,
   amount,
   userID,
+  quantity,
   paymentSourceID
 ) => {
   const stripeResponse = await stripe_key.subscriptions.create({
@@ -16,6 +17,7 @@ const create = async (
     items: [
       {
         price: priceID,
+        quantity: quantity,
       },
     ],
     proration_behavior: "create_prorations",
