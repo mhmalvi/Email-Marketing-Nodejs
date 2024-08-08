@@ -2,34 +2,35 @@ const Stripe = require("stripe");
 const stripe = require("../../../../config/keys");
 const Subscribe = require("../../../../models").Subscribe;
 const stripe_key = Stripe(process.env.STRIPE_KEY);
+const {
+  transporter,
+} = require("../../../common/transporterUtils/customTransporter");
 
 const test = async () => {
-  const formattedDate = new Date(); //////// js current time
-  console.log("curr time", formattedDate);
-  formattedDate.setHours(0, 0, 0, 0);
-  formattedDate.setMinutes(0, 0, 0, 0);
-  formattedDate.setSeconds(0, 0, 0, 0);
-  const date_in_milliseconds = formattedDate.getTime(); /////////current datetime to millisecond
-  console.log(date_in_milliseconds);
-  // current datetime
-  const subscriptions = await Subscribe.findAll({}); //////// fetch all subscriptions from db
-  subscriptions.forEach(async (data) => {
-    let milliseconds = data.current_period_end * 1000; /////////convert end time to milliseconds
-    let endDate = new Date(milliseconds); ////////// convert end time millisecond to datetime
-    console.log("end time", endDate);
-    endDate.setHours(0, 0, 0, 0);
-    endDate.setMinutes(0, 0, 0, 0);
-    endDate.setSeconds(0, 0, 0, 0);
-    const end_date_in_milliseconds = endDate.getTime(); ////// convert end time again to millisecond
-    console.log(end_date_in_milliseconds);
-    // end date
-
-    if (date_in_milliseconds > end_date_in_milliseconds) {
-      data.price = "free";
-      data.amount = 0;
-      data.expDate = null;
-      data.subscriptionID = null;
-      data.save();
+  const customTransporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false, // Use `true` for port 465, `false` for all other ports
+    auth: {
+      user: "tanjib@quadque.tech",
+      pass: "data.app_password",
+    },
+  });
+  const mailOptions = {
+    from: `tanjib@quadque.tech`,
+    to: "tanjib@quadque.tech", // list of receivers
+    subject: "mail.subject", // Subject line
+    html: "htmlToSend",
+  };
+  await transporterResponse.sendMail(mailOptions, async (err, info) => {
+    if (err) {
+      console.log(err);
+      return "Error while sending email" + err;
+    } else {
+      console.log(info.accepted[0]);
+      console.log("Email sent", info.accepted);
+      console.log(id);
+      id = null;
     }
   });
 };
