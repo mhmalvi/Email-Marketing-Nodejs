@@ -18,6 +18,7 @@ const updateAppPassword = async (req, res) => {
           html: `<h1>Hello ${pass.email}</h1><br><p>Your app password is correct.</p> `,
         };
         await transporterResponse.sendMail(mailOptions, async (err, info) => {
+          console.log(err);
           if (err.statusCode === 535) {
             res.status(535).json({
               message: `Your app password for email ${pass.email} is wrong`,
@@ -25,8 +26,8 @@ const updateAppPassword = async (req, res) => {
               email: `${pass.email}`,
             });
           } else {
-            console.log(info.accepted[0]);
-            console.log("Email sent", info.accepted);
+            // console.log(info.accepted[0]);
+            // console.log("Email sent", info.accepted);
           }
         });
         res.status(201).json({
