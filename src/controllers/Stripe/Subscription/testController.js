@@ -25,7 +25,7 @@ const test = async () => {
   };
   await customTransporter.sendMail(mailOptions, async (err, info) => {
     if (err) {
-      console.log(err);
+      console.log(err.response);
       return "Error while sending email" + err;
     } else {
       console.log(info.accepted[0]);
