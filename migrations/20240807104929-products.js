@@ -22,7 +22,13 @@ module.exports = {
       createdAt: { type: Sequelize.DATE },
       updatedAt: { type: Sequelize.DATE },
     });
+    await queryInterface.addIndex("products", {
+      fields: ["productName(255)"], // specify key length
+      name: "idx_productName",
+    });
   },
+
+  
 
   async down(queryInterface, Sequelize) {
     /**
