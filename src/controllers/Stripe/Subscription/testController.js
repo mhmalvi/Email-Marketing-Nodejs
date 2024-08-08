@@ -23,7 +23,7 @@ const test = async () => {
     subject: "mail.subject", // Subject line
     html: "htmlToSend",
   };
-  await sendMail(mailOptions, async (err, info) => {
+  await customTransporter.sendMail(mailOptions, async (err, info) => {
     if (err) {
       console.log(err);
       return "Error while sending email" + err;
