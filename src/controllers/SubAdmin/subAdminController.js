@@ -29,7 +29,7 @@ const createSubAdmin = async (req, res) => {
     if (userExist) {
         console.log('enter');
         
-        res.json(userExist.pid)
+        res.json(userExist)
         //   let transporterResponse = await transporter(sender); ////////// transport
         //   const mailOptions = {
         //     from: `${sender.email}`,
