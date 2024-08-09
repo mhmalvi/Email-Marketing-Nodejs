@@ -1,6 +1,8 @@
 const User = require("../../../models").User;
 const { fieldsValidation } = require("../../../config/utils");
-
+const {
+  createSubAdmin,
+} = require("../../common/users/subadmin/createSubadmin");
 const createSubAdmin = async (req, res) => {
   const { userID, email, userName } = req.body;
   const requiredFields = {
@@ -8,7 +10,7 @@ const createSubAdmin = async (req, res) => {
     email,
     userName,
   };
-  const missingFields = await fieldsValidation(requiredFields);
+  const missingFields = await fieldsValidation(requiredFields); ///// validation
   if (missingFields.length > 0) {
     res.status(422).json({
       message: `Missing fields are ${missingFields.join(", ")}`,
@@ -16,22 +18,13 @@ const createSubAdmin = async (req, res) => {
     });
   } else {
     try {
-      const result = await User.create({
-        userName: userName,
-        email: email,
-        pid: userID,
-        status: 2,
-        role: 4,
-        first_user: 1,
-      }); //////////////// create subadmin
-
+      const result = await createSubAdmin(req.body); //////////////// create subadmin
       if (result) {
         res.status(201).json({
           message: "created",
           status: 201,
           subadmin: result,
         });
-      } else {
       }
     } catch (error) {
       res.json({

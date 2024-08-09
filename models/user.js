@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       first_user: DataTypes.INTEGER,
       stripeCustomerID: DataTypes.STRING,
       status: DataTypes.BOOLEAN,
-      pid: DataTypes.INTEGER,
+      pid: DataTypes.TEXT,
     },
     {
       sequelize,

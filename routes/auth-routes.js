@@ -87,6 +87,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
       role: 3,
       image: req.user.picture,
       first_user: 1,
+      status:1,
       // subscription: "free",
       stripeCustomerID: response.id,
     });
