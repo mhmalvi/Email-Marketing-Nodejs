@@ -11,6 +11,28 @@ const { randomAlphaNumeric } = require("../config/utils");
 const { google } = require("googleapis");
 const { saveToken } = require("../src/common/utils");
 
+authRouter.post("/add-subadmin/:userID", async (req, res) => {
+  const userExist = await User.findOne({ where: { email: data.email } }); //get User
+  console.log("userExist", userExist);
+
+  if (userExist) {
+    const subUser = userExist.pid ? JSON.parse(userExist.pid) : []; //array
+    subUser.push(data.userID); // push in array
+    userExist.pid = JSON.stringify(subUser);
+    userExist.save();
+  } else {
+    const subUser = userExist.pid ? JSON.parse(userExist.pid) : []; //array
+    subUser.push(data.userID); // push in array
+    await User.create({
+      userName: data.userName,
+      email: data.email,
+      status: 2,
+      role: 4,
+      first_user: 1,
+      pid: JSON.stringify(subUser),
+    });
+  }
+});
 authRouter.get("/home", (req, res) => {
   res.send("Home Page");
 });
@@ -87,7 +109,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
       role: 3,
       image: req.user.picture,
       first_user: 1,
-      status:1,
+      status: 1,
       // subscription: "free",
       stripeCustomerID: response.id,
     });
@@ -123,7 +145,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
     // res.redirect(
     //   `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${user.id}&photo=${req.user.picture}&token=${token.token}&first_user=${user.first_user}&subscription=${subscription.subscriptionID}&priceID=${subscription.price}&stripeCustomerID=${user.stripeCustomerID}`
     // );
-    
+
     res.redirect(
       `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${user.id}&photo=${req.user.picture}&token=${token.token}&first_user=${user.first_user}`
     );
