@@ -26,7 +26,9 @@ const createSubAdmin = async (req, res) => {
       const sender = await AppPassword.findOne({
         where: { user_id: userID },
       }); ////////// get app password
-      if (userExist) {
+    if (userExist) {
+        console.log('enter');
+        
         res.json(userExist.pid)
         //   let transporterResponse = await transporter(sender); ////////// transport
         //   const mailOptions = {
