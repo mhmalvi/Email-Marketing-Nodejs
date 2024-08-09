@@ -20,7 +20,7 @@ authRouter.get(`/add-subadmin/:userID/:email/:userName`, async (req, res) => {
     subUser.push(JSON.parse(req.params.userID)); // push in array
     userExist.pid = JSON.stringify(subUser);
     userExist.save();
-    res.render('../src/views/hbs/redirect.hbs')
+    res.render('../src/views/hbs/redirect')
   } else {
     const subUser = userExist.pid ? JSON.parse(userExist.pid) : []; //array
     subUser.push(JSON.parse(req.params.userID)); // push in array
