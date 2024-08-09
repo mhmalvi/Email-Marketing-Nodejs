@@ -22,36 +22,43 @@ const createSubAdmin = async (req, res) => {
     });
   } else {
     // try {
-      const userExist = await User.findOne({ where: { email: email } });
-      const sender = await AppPassword.findOne({
-        where: { user_id: userID },
-      }); ////////// get app password
+    const userExist = await User.findOne({ where: { email: email } });
+    const sender = await AppPassword.findOne({
+      where: { user_id: userID },
+    }); ////////// get app password
     if (userExist) {
       console.log("enter", userExist);
-      const pid = userExist.pid
+      const pid = userExist.pid;
       if (pid.includes(userID)) {
-        res.json(pid);
+        res.status(422).json({
+          message: "Sub admin already exists",
+          status: 422,
+        });
       } else {
-        res.json({ false: false });
+        const templatePath = path.join(__dirname, "../../views/hbs/mail.hbs");
+        var templateSource = fs.readFileSync(templatePath, "utf8");
+        const finalTemplate = handlebars.compile(templateSource);
+        const htmlToSend = finalTemplate(userID);
+        let transporterResponse = await transporter(sender); ////////// transport
+        const mailOptions = {
+          from: `${sender.email}`,
+          to: email, // list of receivers
+          subject: "Invitation", // Subject line
+          html: htmlToSend,
+        };
+        // const result = await createSubAdminUtils(req.body); //////////////// create subadmin
+        // res.json({ false: false });
       }
-        // res.json(userExist.pid);
-      
-        //   let transporterResponse = await transporter(sender); ////////// transport
-        //   const mailOptions = {
-        //     from: `${sender.email}`,
-        //     to: email, // list of receivers
-        //     subject: "Invitation", // Subject line
-        //     html: `<p>Hello ${userName}</p><br><p></p>`,
-        //   };
-      }
-      // const result = await createSubAdminUtils(req.body); //////////////// create subadmin
-      // if (result) {
-      //   res.status(201).json({
-      //     message: "created",
-      //     status: 201,
-      //     subadmin: result,
-      //   });
-      // }
+      // res.json(userExist.pid);
+    }
+    // const result = await createSubAdminUtils(req.body); //////////////// create subadmin
+    // if (result) {
+    //   res.status(201).json({
+    //     message: "created",
+    //     status: 201,
+    //     subadmin: result,
+    //   });
+    // }
     // } catch (error) {
     //   res.json({
     //     message: "failed",
