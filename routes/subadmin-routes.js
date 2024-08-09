@@ -6,4 +6,5 @@ const subadminRouter = express.Router();
 
 subadminRouter.route("/create-subadmin").post(createSubAdmin);
 
+
 module.exports = subadminRouter;
