@@ -49,6 +49,7 @@ const createSubAdmin = async (req, res) => {
           userName: userName,
           admin_name: inviter.userName,
           userID: userID,
+          email:email
         };
         const htmlToSend = finalTemplate(data);
         let transporterResponse = await transporter(sender); ////////// transport

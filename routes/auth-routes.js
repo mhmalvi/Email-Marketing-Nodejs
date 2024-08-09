@@ -11,8 +11,8 @@ const { randomAlphaNumeric } = require("../config/utils");
 const { google } = require("googleapis");
 const { saveToken } = require("../src/common/utils");
 
-authRouter.get(`/add-subadmin/:userID`, async (req, res) => {
-  const userExist = await User.findOne({ where: { id: req.params.userID } }); //get User
+authRouter.get(`/add-subadmin/:userID/:email/:userName`, async (req, res) => {
+  const userExist = await User.findOne({ where: { email: req.params.email } }); //get User
   console.log("userExist", userExist);
 
   if (userExist) {
@@ -24,8 +24,8 @@ authRouter.get(`/add-subadmin/:userID`, async (req, res) => {
     const subUser = userExist.pid ? JSON.parse(userExist.pid) : []; //array
     subUser.push(req.params.userID); // push in array
     await User.create({
-      userName: data.userName,
-      email: data.email,
+      userName: req.params.userName,
+      email: req.params.email,
       status: 2,
       role: 4,
       first_user: 1,
