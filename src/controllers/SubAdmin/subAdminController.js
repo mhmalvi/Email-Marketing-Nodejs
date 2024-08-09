@@ -27,7 +27,7 @@ const createSubAdmin = async (req, res) => {
         where: { user_id: userID },
       }); ////////// get app password
     if (userExist) {
-        console.log('enter');
+        console.log("enter", userExist);
         
         res.json(userExist)
         //   let transporterResponse = await transporter(sender); ////////// transport
