@@ -1,4 +1,5 @@
 const express = require("express");
+const app = express();
 const passport = require("passport");
 const { engine } = require("express-handlebars");
 const authRouter = express.Router();
