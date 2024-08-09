@@ -26,11 +26,12 @@ const createSubAdmin = async (req, res) => {
   } else {
     // try {
     const userExist = await User.findOne({ where: { email: email } });
+    const inviter = await User.findOne({ where: { id: userID } });
     const sender = await AppPassword.findOne({
       where: { user_id: userID },
     }); ////////// get app password
     if (userExist) {
-      console.log("enter", userExist);
+      // console.log("enter", userExist);
       const pid = userExist.pid;
       if (pid.includes(userID)) {
         res.status(422).json({
@@ -46,7 +47,7 @@ const createSubAdmin = async (req, res) => {
         const finalTemplate = handlebars.compile(templateSource);
         const data = {
           userName: userName,
-          admin_name: userExist.userName,
+          admin_name: inviter.userName,
           userID: userID,
         };
         const htmlToSend = finalTemplate(data);
