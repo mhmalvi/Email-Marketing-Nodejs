@@ -30,9 +30,9 @@ const createSubAdmin = async (req, res) => {
       console.log("enter", userExist);
       const pid = userExist.pid
       if (pid.includes(15)) {
-        return true;
+        res.json(pid);
       } else {
-        return false;
+        res.json({false:false})
       }
         // res.json(userExist.pid);
       
