@@ -35,7 +35,7 @@ const createSubAdmin = async (req, res) => {
           status: 422,
         });
       } else {
-        const templatePath = path.join(__dirname, "../../views/hbs/mail.hbs");
+        const templatePath = path.join(__dirname, "../../views/hbs/invitation.hbs")
         var templateSource = fs.readFileSync(templatePath, "utf8");
         const finalTemplate = handlebars.compile(templateSource);
         const htmlToSend = finalTemplate(userID);
