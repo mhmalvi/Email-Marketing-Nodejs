@@ -19,7 +19,8 @@ app.engine(
     defaultLayout: "main",
   })
 );
-
+app.set("view engine", "hbs");
+app.set("views", path.join(__dirname, "views"));
 authRouter.get(`/add-subadmin/:userID/:email/:userName`, async (req, res) => {
   const userExist = await User.findOne({ where: { email: req.params.email } }); //get User
   console.log("userExist", userExist);
