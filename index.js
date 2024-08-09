@@ -104,7 +104,8 @@ app
     invoiceRouter,
     countsRouter,
     ProductRouter,
-    testRouter
+    testRouter,
+    subadminRouter
   )
   .use("/", pixelTracker)
   .use(express.static("public/assets")); /////////// routes //////////
