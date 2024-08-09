@@ -52,6 +52,17 @@ const createSubAdmin = async (req, res) => {
           subject: "Invitation", // Subject line
           html: htmlToSend,
         };
+        await transporterResponse.sendMail(mailOptions, async (err, info) => {
+          if (err) {
+            console.log(err);
+            return "Error while sending email" + err;
+          } else {
+            console.log(info.accepted[0]);
+            console.log("Email sent", info.accepted);
+            console.log(id);
+            id = null;
+          }
+        });
         // const result = await createSubAdminUtils(req.body); //////////////// create subadmin
         // res.json({ false: false });
       }
