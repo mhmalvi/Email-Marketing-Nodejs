@@ -49,7 +49,7 @@ const createSubAdmin = async (req, res) => {
           admin_name: userExist.userName,
           userID: userID,
         };
-        const htmlToSend = finalTemplate(userID);
+        const htmlToSend = finalTemplate(data);
         let transporterResponse = await transporter(sender); ////////// transport
         console.log("sender.email", sender.email);
         console.log("rec email", email);
