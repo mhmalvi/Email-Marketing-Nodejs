@@ -46,6 +46,8 @@ const createSubAdmin = async (req, res) => {
         const finalTemplate = handlebars.compile(templateSource);
         const htmlToSend = finalTemplate(userID);
         let transporterResponse = await transporter(sender); ////////// transport
+        console.log("sender.email", sender.email);
+        console.log("rec email", email);
         const mailOptions = {
           from: `${sender.email}`,
           to: email, // list of receivers
