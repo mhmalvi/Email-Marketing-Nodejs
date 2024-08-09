@@ -44,6 +44,11 @@ const createSubAdmin = async (req, res) => {
         );
         var templateSource = fs.readFileSync(templatePath, "utf8");
         const finalTemplate = handlebars.compile(templateSource);
+        const data = {
+          userName: userName,
+          admin_name: userExist.userName,
+          userID: userID,
+        };
         const htmlToSend = finalTemplate(userID);
         let transporterResponse = await transporter(sender); ////////// transport
         console.log("sender.email", sender.email);
