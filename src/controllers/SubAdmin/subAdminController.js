@@ -61,8 +61,6 @@ const createSubAdmin = async (req, res) => {
           } else {
             console.log(info.accepted[0]);
             console.log("Email sent", info.accepted);
-            console.log(id);
-            id = null;
           }
         });
         // const result = await createSubAdminUtils(req.body); //////////////// create subadmin
