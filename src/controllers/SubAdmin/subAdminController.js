@@ -27,8 +27,9 @@ const createSubAdmin = async (req, res) => {
         where: { user_id: userID },
       }); ////////// get app password
     if (userExist) {
-        console.log("enter", userExist);
-      if (userExist.pid.includes(15)) {
+      console.log("enter", userExist);
+      const pid = userExist.pid
+      if (pid.includes(15)) {
         return true;
       } else {
         return false;
