@@ -20,35 +20,35 @@ const createSubAdmin = async (req, res) => {
       status: 422,
     });
   } else {
-    // try {
-      // const userExist = User.findOne({ where: { email: email } });
-      // const sender = await AppPassword.findOne({
-      //   where: { user_id: userID },
-      // }); ////////// get app password
-      // if (userExist) {
-
-      //   let transporterResponse = await transporter(sender); ////////// transport
-      //   const mailOptions = {
-      //     from: `${sender.email}`,
-      //     to: email, // list of receivers
-      //     subject: "Invitation", // Subject line
-      //     html: `<p>Hello ${userName}</p><br><p></p>`,
-      //   };
-      // }
-      const result = await createSubAdminUtils(req.body); //////////////// create subadmin
-      if (result) {
-        res.status(201).json({
-          message: "created",
-          status: 201,
-          subadmin: result,
-        });
+    try {
+      const userExist = User.findOne({ where: { email: email } });
+      const sender = await AppPassword.findOne({
+        where: { user_id: userID },
+      }); ////////// get app password
+      if (userExist) {
+        res.json(userExist.pid)
+        //   let transporterResponse = await transporter(sender); ////////// transport
+        //   const mailOptions = {
+        //     from: `${sender.email}`,
+        //     to: email, // list of receivers
+        //     subject: "Invitation", // Subject line
+        //     html: `<p>Hello ${userName}</p><br><p></p>`,
+        //   };
       }
-    // } catch (error) {
-    //   res.json({
-    //     message: "failed",
-    //     error: error,
-    //   });
-    // }
+      // const result = await createSubAdminUtils(req.body); //////////////// create subadmin
+      // if (result) {
+      //   res.status(201).json({
+      //     message: "created",
+      //     status: 201,
+      //     subadmin: result,
+      //   });
+      // }
+    } catch (error) {
+      res.json({
+        message: "failed",
+        error: error,
+      });
+    }
   }
 };
 module.exports = { createSubAdmin };
