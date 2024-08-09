@@ -1,5 +1,6 @@
 const User = require("../../../models").User;
 const { fieldsValidation } = require("../../../config/utils");
+const AppPassword = require("../../../models").AppPassword;
 const {
   transporter,
 } = require("../../common/transporterUtils/customTransporter");
