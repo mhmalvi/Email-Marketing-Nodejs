@@ -7,7 +7,7 @@ const createSubAdminUtils = async (data) => {
     const subUser = userExist.pid ? JSON.parse(userExist.pid) : []; //array
     subUser.push(data.userID); // push in array
     userExist.pid = JSON.stringify(subUser);
-    userExist.save();
+    return userExist.save();
   } else {
     const subUser = userExist.pid ? JSON.parse(userExist.pid) : []; //array
     subUser.push(data.userID); // push in array
