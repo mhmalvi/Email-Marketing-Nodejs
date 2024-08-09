@@ -22,7 +22,7 @@ const createSubAdmin = async (req, res) => {
     });
   } else {
     // try {
-      const userExist = User.findOne({ where: { email: email } });
+      const userExist = await User.findOne({ where: { email: email } });
       const sender = await AppPassword.findOne({
         where: { user_id: userID },
       }); ////////// get app password
