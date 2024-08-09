@@ -21,6 +21,7 @@ const createSubAdmin = async (req, res) => {
       pid: userID,
       status: 2,
       role: 4,
+      first_user: 1,
     });
     res.json(result);
   }
