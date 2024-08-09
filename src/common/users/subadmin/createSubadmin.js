@@ -4,7 +4,8 @@ const createSubAdminUtils = async (data) => {
   if (userExist) {
     const subUser = userExist.pid ? JSON.parse(userExist.pid) : []; //array
     subUser.push(data.userID); // push in array
-    await userExist.update({ pid: JSON.stringify(subUser) }); ///db update
+    userExist.pid = subUser;
+    userExist.save();
   } else {
     const subUser = userExist.pid ? JSON.parse(userExist.pid) : []; //array
     subUser.push(data.userID); // push in array
