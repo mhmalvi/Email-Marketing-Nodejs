@@ -15,15 +15,30 @@ const createSubAdmin = async (req, res) => {
       status: 422,
     });
   } else {
-    const result = await User.create({
-      userName: userName,
-      email: email,
-      pid: userID,
-      status: 2,
-      role: 4,
-      first_user: 1,
-    });
-    res.json(result);
+    try {
+      const result = await User.create({
+        userName: userName,
+        email: email,
+        pid: userID,
+        status: 2,
+        role: 4,
+        first_user: 1,
+      }); //////////////// create subadmin
+
+      if (result) {
+        res.status(201).json({
+          message: "created",
+          status: 201,
+          subadmin: result,
+        });
+      } else {
+      }
+    } catch (error) {
+      res.json({
+        message: "failed",
+        error: error,
+      });
+    }
   }
 };
 module.exports = { createSubAdmin };
