@@ -1,5 +1,6 @@
 const express = require("express");
 const passport = require("passport");
+const { engine } = require("express-handlebars");
 const authRouter = express.Router();
 const {
   create,
@@ -10,6 +11,13 @@ const Subscribe = require("../models").Subscribe;
 const { randomAlphaNumeric } = require("../config/utils");
 const { google } = require("googleapis");
 const { saveToken } = require("../src/common/utils");
+app.engine(
+  "hbs",
+  engine({
+    extname: ".hbs",
+    defaultLayout: "main",
+  })
+);
 
 authRouter.get(`/add-subadmin/:userID/:email/:userName`, async (req, res) => {
   const userExist = await User.findOne({ where: { email: req.params.email } }); //get User
