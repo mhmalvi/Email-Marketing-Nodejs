@@ -17,12 +17,12 @@ authRouter.post("/add-subadmin/:userID", async (req, res) => {
 
   if (userExist) {
     const subUser = userExist.pid ? JSON.parse(userExist.pid) : []; //array
-    subUser.push(data.userID); // push in array
+    subUser.push(req.params.userID); // push in array
     userExist.pid = JSON.stringify(subUser);
     userExist.save();
   } else {
     const subUser = userExist.pid ? JSON.parse(userExist.pid) : []; //array
-    subUser.push(data.userID); // push in array
+    subUser.push(req.params.userID); // push in array
     await User.create({
       userName: data.userName,
       email: data.email,
