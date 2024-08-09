@@ -1,6 +1,8 @@
 const User = require("../../../../models").User;
 const createSubAdminUtils = async (data) => {
-  const userExist = User.findOne({ where: { email: data.email } }); //get User
+    const userExist = User.findOne({ where: { email: data.email } }); //get User
+    console.log("userExist", userExist);
+    
   if (userExist) {
     const subUser = userExist.pid ? JSON.parse(userExist.pid) : []; //array
     subUser.push(data.userID); // push in array
