@@ -28,8 +28,13 @@ const createSubAdmin = async (req, res) => {
       }); ////////// get app password
     if (userExist) {
         console.log("enter", userExist);
-        
-        res.json(userExist.pid)
+      if (array.includes(userExist.pid) === 15) {
+        return true
+      } else {
+        return false
+      }
+        // res.json(userExist.pid);
+      
         //   let transporterResponse = await transporter(sender); ////////// transport
         //   const mailOptions = {
         //     from: `${sender.email}`,
