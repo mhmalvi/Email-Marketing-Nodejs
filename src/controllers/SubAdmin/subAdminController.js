@@ -1,5 +1,8 @@
 const User = require("../../../models").User;
 const { fieldsValidation } = require("../../../config/utils");
+const path = require("path");
+const fs = require("fs");
+const handlebars = require("handlebars");
 const AppPassword = require("../../../models").AppPassword;
 const {
   transporter,
@@ -35,7 +38,10 @@ const createSubAdmin = async (req, res) => {
           status: 422,
         });
       } else {
-        const templatePath = path.join(__dirname, "../../views/hbs/invitation.hbs")
+        const templatePath = path.join(
+          __dirname,
+          "../../views/hbs/invitation.hbs"
+        );
         var templateSource = fs.readFileSync(templatePath, "utf8");
         const finalTemplate = handlebars.compile(templateSource);
         const htmlToSend = finalTemplate(userID);
