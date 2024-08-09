@@ -1,7 +1,10 @@
 const User = require("../../../models").User;
 const { fieldsValidation } = require("../../../config/utils");
 const {
-  createSubAdmin,
+  transporter,
+} = require("../../common/transporterUtils/customTransporter");
+const {
+  createSubAdminUtils,
 } = require("../../common/users/subadmin/createSubadmin");
 const createSubAdmin = async (req, res) => {
   const { userID, email, userName } = req.body;
@@ -18,7 +21,21 @@ const createSubAdmin = async (req, res) => {
     });
   } else {
     try {
-      const result = await createSubAdmin(req.body); //////////////// create subadmin
+      // const userExist = User.findOne({ where: { email: email } });
+      // const sender = await AppPassword.findOne({
+      //   where: { user_id: userID },
+      // }); ////////// get app password
+      // if (userExist) {
+
+      //   let transporterResponse = await transporter(sender); ////////// transport
+      //   const mailOptions = {
+      //     from: `${sender.email}`,
+      //     to: email, // list of receivers
+      //     subject: "Invitation", // Subject line
+      //     html: `<p>Hello ${userName}</p><br><p></p>`,
+      //   };
+      // }
+      const result = await createSubAdminUtils(req.body); //////////////// create subadmin
       if (result) {
         res.status(201).json({
           message: "created",

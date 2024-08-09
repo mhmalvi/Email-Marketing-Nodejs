@@ -1,17 +1,21 @@
 const User = require("../../../../models").User;
-const createSubAdmin = async (data) => {
-  const userExist = User.findOne({ where: { email: data.email } });
-    if (userExist) {
-      
+const createSubAdminUtils = async (data) => {
+  const userExist = User.findOne({ where: { email: email } }); //get User
+  if (userExist) {
+    const subUser = userExist.pid ? JSON.parse(userExist.pid) : []; //array
+    subUser.push(data.userID); // push in array
+    await userExist.update({ pid: JSON.stringify(subUser) }); ///db update
   } else {
+    const subUser = userExist.pid ? JSON.parse(userExist.pid) : []; //array
+    subUser.push(data.userID); // push in array
     return await User.create({
       userName: data.userName,
       email: data.email,
-      pid: data.userID,
       status: 2,
       role: 4,
       first_user: 1,
+      pid: JSON.stringify(subUser),
     });
   }
 };
-module.exports = { createSubAdmin };
+module.exports = { createSubAdminUtils };
