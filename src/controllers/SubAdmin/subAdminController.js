@@ -20,7 +20,7 @@ const createSubAdmin = async (req, res) => {
       status: 422,
     });
   } else {
-    try {
+    // try {
       const userExist = User.findOne({ where: { email: email } });
       const sender = await AppPassword.findOne({
         where: { user_id: userID },
@@ -43,12 +43,12 @@ const createSubAdmin = async (req, res) => {
       //     subadmin: result,
       //   });
       // }
-    } catch (error) {
-      res.json({
-        message: "failed",
-        error: error,
-      });
-    }
+    // } catch (error) {
+    //   res.json({
+    //     message: "failed",
+    //     error: error,
+    //   });
+    // }
   }
 };
 module.exports = { createSubAdmin };
