@@ -24,6 +24,8 @@ module.exports = (sequelize, DataTypes) => {
       otp: DataTypes.INTEGER,
       first_user: DataTypes.INTEGER,
       stripeCustomerID: DataTypes.STRING,
+      status: DataTypes.BOOLEAN,
+      pid: DataTypes.INTEGER,
     },
     {
       sequelize,
