@@ -12,7 +12,7 @@ const { google } = require("googleapis");
 const { saveToken } = require("../src/common/utils");
 
 authRouter.get(`/add-subadmin/:userID`, async (req, res) => {
-  const userExist = await User.findOne({ where: { email: data.email } }); //get User
+  const userExist = await User.findOne({ where: { id: req.params.userID } }); //get User
   console.log("userExist", userExist);
 
   if (userExist) {
