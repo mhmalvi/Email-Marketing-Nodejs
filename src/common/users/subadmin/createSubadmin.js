@@ -9,7 +9,7 @@ const createSubAdminUtils = async (data) => {
     userExist.pid = subUser;
     userExist.save();
   } else {
-    const subUser = []; //array
+    const subUser = userExist.pid ? JSON.parse(userExist.pid) : []; //array
     subUser.push(data.userID); // push in array
     return await User.create({
       userName: data.userName,
