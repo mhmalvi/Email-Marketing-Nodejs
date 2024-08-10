@@ -13,38 +13,29 @@ const { randomAlphaNumeric } = require("../config/utils");
 const { google } = require("googleapis");
 const { saveToken } = require("../src/common/utils");
 const path = require("path");
-app.engine(
-  "hbs",
-  engine({
-    extname: ".hbs",
-    defaultLayout: "main",
-  })
-);
-app.set("view engine", "hbs");
-app.set("views", path.join(__dirname, "views"));
-authRouter.get(`/add-subadmin/:userID/:email/:userName`, async (req, res) => {
-  const userExist = await User.findOne({ where: { email: req.params.email } }); //get User
-  console.log("userExist", userExist);
+// authRouter.get(`/add-subadmin/:userID/:email/:userName`, async (req, res) => {
+//   const userExist = await User.findOne({ where: { email: req.params.email } }); //get User
+//   console.log("userExist", userExist);
 
-  if (userExist) {
-    const subUser = userExist.pid ? JSON.parse(userExist.pid) : []; //array
-    subUser.push(JSON.parse(req.params.userID)); // push in array
-    userExist.pid = JSON.stringify(subUser);
-    userExist.save();
-    res.render('../src/views/hbs/redirect')
-  } else {
-    const subUser = userExist.pid ? JSON.parse(userExist.pid) : []; //array
-    subUser.push(JSON.parse(req.params.userID)); // push in array
-    await User.create({
-      userName: req.params.userName,
-      email: req.params.email,
-      status: 2,
-      role: 4,
-      first_user: 1,
-      pid: JSON.stringify(subUser),
-    });
-  }
-});
+//   if (userExist) {
+//     const subUser = userExist.pid ? JSON.parse(userExist.pid) : []; //array
+//     subUser.push(JSON.parse(req.params.userID)); // push in array
+//     userExist.pid = JSON.stringify(subUser);
+//     userExist.save();
+//     res.render('../src/views/hbs/redirect')
+//   } else {
+//     const subUser = userExist.pid ? JSON.parse(userExist.pid) : []; //array
+//     subUser.push(JSON.parse(req.params.userID)); // push in array
+//     await User.create({
+//       userName: req.params.userName,
+//       email: req.params.email,
+//       status: 2,
+//       role: 4,
+//       first_user: 1,
+//       pid: JSON.stringify(subUser),
+//     });
+//   }
+// });
 authRouter.get("/home", (req, res) => {
   res.send("Home Page");
 });
