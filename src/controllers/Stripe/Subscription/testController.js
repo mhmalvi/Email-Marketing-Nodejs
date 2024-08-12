@@ -7,7 +7,7 @@ const {
 } = require("../../../common/transporterUtils/customTransporter");
 const nodemailer = require("nodemailer");
 
-const test = async () => {
+const test = async (req,res) => {
   const customTransporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 587,

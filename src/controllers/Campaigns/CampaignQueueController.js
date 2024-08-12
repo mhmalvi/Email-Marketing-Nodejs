@@ -7,6 +7,7 @@ const {
 const {
   retrieveSingleSubscription,
 } = require("../../common/stripe/subscription/retrieveSingleSubscription");
+const { mailCounts } = require("../../common/campaignUtils/fetchCampaigns");
 const Product = require("../../../models").Product;
 
 const campaignQueue = async (req, res) => {
@@ -18,8 +19,11 @@ const campaignQueue = async (req, res) => {
   const productDB = await getProductDetailsFromDB(data.userID); /// product details of authenticated user from DB
 
   //////////////////////////////////////////////
-
-  if (email_count < productDB.emailLimit) {
+  var mailCount = await mailCounts(userID); ////get mail count for today
+  if (mailCount === 0 || mailCount === null) {
+    mailCount = 0;
+  }
+  if (email_count + mailCount < productDB.emailLimit) {
     const campaign = await saveCampaign(req.body); ////// create individual campaigns
 
     //////////////////////////////////////////////

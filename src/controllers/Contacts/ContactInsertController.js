@@ -1,7 +1,7 @@
 const express = require("express");
 const Contact = require("../../../models").Contact;
 const { saveContact } = require("../../common/contactsUtils/saveContact");
-const { fetch } = require("../../common/contactsUtils/fetch");
+const { fetch, contactCounts } = require("../../common/contactsUtils/fetch");
 const {
   ifContactExist,
 } = require("../../common/contactsUtils/checkIfContactExist");
@@ -18,13 +18,15 @@ const insertContact = async (req, res) => {
   if (data.length > 0) {
     const productDB = await getProductDetailsFromDB(data.userID); /// product details of authenticated user from DB
     //////////////////////////////////////////////////////////////////////
-    if (data.length < productDB.contactLimit) {
+    var contactCount = await contactCounts(userID); ////get mail count for today
+    //////////////////////////////////////////////////////////////////////
+    if (data.length + contactCount < productDB.contactLimit) {
       await data.forEach(async (element) => {
         var count = 0;
         const userCollectionExist = await ifContactExist(userID, element); //// check if contacts already exist
         //////////////////////////////////////////////////////////////////////
         if (!userCollectionExist) {
-          saveContact(element, userID); ///////// save contact
+          await saveContact(element, userID); ///////// save contact
         }
       });
       res.status(201).json({
@@ -56,14 +58,24 @@ const insertContactManually = async (req, res) => {
       status: 422,
     });
   } else {
-    const userCollectionExist = await ifContactExist(userID, req.body);
+    const userCollectionExist = await ifContactExist(userID, req.body); /// check if contact already exists
     if (!userCollectionExist) {
-      await saveContact(req.body, userID);
-      res.status(201).json({
-        message: "Contact inserted",
-        status: 201,
-        contact: req.body,
-      });
+      const productDB = await getProductDetailsFromDB(userID); /// product details of authenticated user from DB
+      //////////////////////////////////////////////////////////////////////
+      var contactCount = await contactCounts(userID); ////get mail count for today
+      if (contactCount < productDB.contactLimit) {
+        await saveContact(req.body, userID); //// insert contact
+        res.status(201).json({
+          message: "Contact inserted",
+          status: 201,
+          contact: req.body,
+        });
+      } else {
+        res.status(422).json({
+          message: "Contact limit reached",
+          status: 422,
+        });
+      }
     }
   }
 };
@@ -86,7 +98,8 @@ const getProductDetailsFromDB = async (userID) => {
   return await Product.findOne({
     where: { productName: subscriptionName },
   }); /// get the product details by product name of user from db
-  /////////////////////// helper method///////////////////////
 };
+
+/////////////////////// helper method///////////////////////
 
 module.exports = { insertContact, insertContactManually };
