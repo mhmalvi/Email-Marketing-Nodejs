@@ -38,11 +38,13 @@ const counts = async (req, res) => {
     const mailCount = await mailCounts(userID); ////get mail count for today
     const contactsCount = await contactCounts(userID); ///get contacts count for today
     const campaignCount = await campaignCounts(userID); //get campaign counts for today
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
     const countForToday = {
       mailCount: mailCount === "undefined" ? 0 : mailCount,
       contactsCount: contactsCount === "undefined" ? 0 : contactsCount,
       campaignCount: campaignCount === "undefined" ? 0 : campaignCount,
     };
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
     const remainingLimit = {
       remainingMail:
         mailCount === "undefined" ? 0 : productDB.emailLimit - mailCount,
@@ -51,6 +53,8 @@ const counts = async (req, res) => {
           ? 0
           : productDB.contactLimit - contactsCount,
     };
+    console.log("countForToday", countForToday);
+    console.log("remainingLimit", remainingLimit);
     res.status(200).json(
       {
         message: "success",
