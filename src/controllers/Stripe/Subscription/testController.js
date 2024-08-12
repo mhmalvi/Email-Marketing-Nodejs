@@ -34,7 +34,7 @@ const test = async () => {
       console.log("Email sent", info.accepted);
     }
   });
-  if (errorCode === 535) {
+  if (errorCode) {
     resizeBy.json(errorCode);
   }
 };
