@@ -7,9 +7,9 @@ const {
 const {
   retrieveSingleSubscription,
 } = require("../../common/stripe/subscription/retrieveSingleSubscription");
+const Product = require('../../../models').Product
 
 const campaignQueue = async (req, res) => {
-  console.log(req.body);
   const data = req.body;
   const email_count = data.recipient.length; ///// get email count
 
@@ -26,7 +26,6 @@ const campaignQueue = async (req, res) => {
 
     if (campaign) {
       const result = await queueMail(data, campaign.id); ////// queue emails ////////
-      console.log(result);
       if (result === 1) {
         res.status(200).json({
           message: "Queued",
