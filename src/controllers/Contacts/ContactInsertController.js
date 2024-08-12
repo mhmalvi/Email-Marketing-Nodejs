@@ -15,20 +15,16 @@ const {
 
 const insertContact = async (req, res) => {
   const { data, userID } = req.body;
-  console.log(data);
   if (data.length > 0) {
     const productDB = await getProductDetailsFromDB(data.userID); /// product details of authenticated user from DB
-
+    //////////////////////////////////////////////////////////////////////
     if (data.length < productDB.contactLimit) {
       await data.forEach(async (element) => {
-        // console.log("string", UserCollectionExist);
-        // const collection = JSON.parse(UserCollectionExist);
-        console.log("element", element);
         var count = 0;
-        const userCollectionExist = await ifContactExist(userID, element);
-        console.log("userCollectionExist", userCollectionExist);
+        const userCollectionExist = await ifContactExist(userID, element); //// check if contacts already exist
+        //////////////////////////////////////////////////////////////////////
         if (!userCollectionExist) {
-          saveContact(element, userID);
+          saveContact(element, userID); ///////// save contact
         }
       });
       res.status(201).json({
@@ -51,7 +47,6 @@ const insertContact = async (req, res) => {
 };
 
 const insertContactManually = async (req, res) => {
-  console.log(req.body);
   const { userID, email, name, group } = req.body;
   const requiredFields = { userID, email, name, group };
   const missingFields = await fieldsValidation(requiredFields);
@@ -73,30 +68,24 @@ const insertContactManually = async (req, res) => {
   }
 };
 
+/////////////////////// helper method///////////////////////
 const getProductDetailsFromDB = async (userID) => {
   const subscriptionDB = await retrieveSubscriptionFromDB(userID); //// fetch user subscription from DB
-
   //////////////////////////////////////////////
-
   var subscriptionName = "";
   if (subscriptionDB.subscriptionID !== null) {
     const stripeSubscription = await retrieveSingleSubscription(
       subscriptionDB.subscriptionID
     ); ///fetch user subscription from stripe
-
     //////////////////////////////////////////////
-
     subscriptionName = stripeSubscription.items.data[0].price.lookup_key; /// get subscription name of user from stripe
   } else {
     subscriptionName = "free"; ////// else subscription name is 'free'
   }
-
   //////////////////////////////////////////////
-
   return await Product.findOne({
     where: { productName: subscriptionName },
   }); /// get the product details by product name of user from db
-
   /////////////////////// helper method///////////////////////
 };
 

@@ -34,9 +34,10 @@ const test = async () => {
       console.log("Email sent", info.accepted);
     }
   });
-  console.log('result',result);
   
-  if (errorCode) {
+  
+  if (errorCode!==0) {
+    console.log("result", result);
     res.json(errorCode);
   }
 };
