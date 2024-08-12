@@ -23,7 +23,7 @@ const test = async () => {
     subject: "mail.subject", // Subject line
     html: "htmlToSend",
   };
-  const errorCode = 0;
+  var errorCode = 0;
   await customTransporter.sendMail(mailOptions, async (err, info) => {
     if (err) {
       console.log(err.responseCode);
