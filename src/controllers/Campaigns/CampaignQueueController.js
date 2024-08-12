@@ -7,7 +7,7 @@ const {
 const {
   retrieveSingleSubscription,
 } = require("../../common/stripe/subscription/retrieveSingleSubscription");
-const Product = require('../../../models').Product
+const Product = require("../../../models").Product;
 
 const campaignQueue = async (req, res) => {
   const data = req.body;

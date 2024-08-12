@@ -14,7 +14,7 @@ const test = async () => {
     secure: false, // Use `true` for port 465, `false` for all other ports
     auth: {
       user: "tanjib@quadque.tech",
-      pass: "data.app_password",
+      pass: "fgfghgfhfgh",
     },
   });
   const mailOptions = {
@@ -23,15 +23,20 @@ const test = async () => {
     subject: "mail.subject", // Subject line
     html: "htmlToSend",
   };
+  const errorCode = 0;
   await customTransporter.sendMail(mailOptions, async (err, info) => {
     if (err) {
       console.log(err.responseCode);
-      return "Error while sending email" + err;
+      // return "Error while sending email" + err;
+      errorCode = err.responseCode;
     } else {
       console.log(info.accepted[0]);
       console.log("Email sent", info.accepted);
     }
   });
+  if (errorCode === 535) {
+    resizeBy.json('Wrong email or app password')
+  }
 };
 
 module.exports = { test };
