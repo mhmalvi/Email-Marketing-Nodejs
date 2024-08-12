@@ -18,8 +18,14 @@ const {
 } = require("../../../common/subscription/resumeSubscriptionDB");
 
 const createSubscription = async (req, res) => {
-  const { userID, stripeCustomerID, priceID, amount, quantity,paymentSourceID } =
-    req.body;
+  const {
+    userID,
+    stripeCustomerID,
+    priceID,
+    amount,
+    quantity,
+    paymentSourceID,
+  } = req.body;
   // console.log("userID", userID);
   const requiredFields = {
     userID,

@@ -20,7 +20,7 @@ const create = async (
         quantity: quantity,
       },
     ],
-    proration_behavior: "create_prorations",
+    proration_behavior: "none",
     default_source: paymentSourceID,
     // collection_method: "send_invoice",
     // billing_cycle_anchor_config: {
