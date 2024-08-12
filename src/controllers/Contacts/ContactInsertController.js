@@ -20,7 +20,8 @@ const insertContact = async (req, res) => {
     //////////////////////////////////////////////////////////////////////
     var contactCount = await contactCounts(userID); ////get mail count for today
     //////////////////////////////////////////////////////////////////////
-    if (data.length + contactCount < productDB.contactLimit) {
+    const total_contacts = data.length + contactCount;
+    if (total_contacts < productDB.contactLimit) {
       await data.forEach(async (element) => {
         var count = 0;
         const userCollectionExist = await ifContactExist(userID, element); //// check if contacts already exist

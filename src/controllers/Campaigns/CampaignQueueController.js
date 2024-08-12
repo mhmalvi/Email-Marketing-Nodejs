@@ -23,7 +23,8 @@ const campaignQueue = async (req, res) => {
   if (mailCount === 0 || mailCount === null) {
     mailCount = 0;
   }
-  if (email_count + mailCount < productDB.emailLimit) {
+  const total_mail = email_count + mailCount;
+  if (total_mail < productDB.emailLimit) {
     const campaign = await saveCampaign(req.body); ////// create individual campaigns
 
     //////////////////////////////////////////////
