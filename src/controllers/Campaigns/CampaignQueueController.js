@@ -19,7 +19,7 @@ const campaignQueue = async (req, res) => {
   const productDB = await getProductDetailsFromDB(data.userID); /// product details of authenticated user from DB
 
   //////////////////////////////////////////////
-  var mailCount = await mailCounts(userID); ////get mail count for today
+  var mailCount = await mailCounts(data.userID); ////get mail count for today
   if (mailCount === 0 || mailCount === null) {
     mailCount = 0;
   }
