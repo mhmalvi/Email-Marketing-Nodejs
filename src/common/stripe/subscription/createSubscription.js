@@ -17,7 +17,6 @@ const create = async (
     items: [
       {
         price: priceID,
-        quantity: quantity,
       },
     ],
     proration_behavior: "none",
