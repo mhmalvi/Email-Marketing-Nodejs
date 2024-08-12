@@ -28,10 +28,9 @@ const counts = async (req, res) => {
       const stripeSubscription = await retrieveSingleSubscription(
         subscriptionDB.subscriptionID
       ); ///fetch user subscription from stripe
-      subscriptionName = stripeSubscription.items.data[0].price.lookup_key;
-      console.log("subscriptionName", subscriptionName);
+      subscriptionName = stripeSubscription.items.data[0].price.lookup_key; /// get subscription name of user from stripe
     } else {
-      subscriptionName = "free";
+      subscriptionName = "free"; //// else subscription name is 'free'
     }
     const productDB = await Product.findOne({
       where: { productName: subscriptionName },
@@ -39,19 +38,27 @@ const counts = async (req, res) => {
     const mailCount = await mailCounts(userID); ////get mail count for today
     const contactsCount = await contactCounts(userID); ///get contacts count for today
     const campaignCount = await campaignCounts(userID); //get campaign counts for today
-    res.status(200).json({
-      message: "success",
-      status: 200,
+    const countForToday = {
       mailCount: mailCount === "undefined" ? 0 : mailCount,
       contactsCount: contactsCount === "undefined" ? 0 : contactsCount,
       campaignCount: campaignCount === "undefined" ? 0 : campaignCount,
+    };
+    const remainingLimit = {
       remainingMail:
         mailCount === "undefined" ? 0 : productDB.emailLimit - mailCount,
       remainingContact:
         contactsCount === "undefined"
           ? 0
           : productDB.contactLimit - contactsCount,
-    });
+    };
+    res.status(200).json(
+      {
+        message: "success",
+        status: 200,
+      },
+      countForToday,
+      remainingLimit
+    );
   }
 };
 
