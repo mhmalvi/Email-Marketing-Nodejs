@@ -15,19 +15,7 @@ const campaignQueue = async (req, res) => {
 
   //////////////////////////////////////////////
 
-  const subscriptionDB = await retrieveSubscriptionFromDB(data.userID); //// fetch user subscription from DB
-  var subscriptionName = "";
-  if (subscriptionDB.subscriptionID !== null) {
-    const stripeSubscription = await retrieveSingleSubscription(
-      subscriptionDB.subscriptionID
-    ); ///fetch user subscription from stripe
-    subscriptionName = stripeSubscription.items.data[0].price.lookup_key; /// get subscription name of user from stripe
-  } else {
-    subscriptionName = "free"; ////// else subscription name is 'free'
-  }
-  const productDB = await Product.findOne({
-    where: { productName: subscriptionName },
-  }); /// get the product name of user from db
+  const productDB = getProductDetailsFromDB(data.userID); /// product details of authenticated user from DB
 
   //////////////////////////////////////////////
 
@@ -57,6 +45,34 @@ const campaignQueue = async (req, res) => {
       status: 422,
     });
   }
+};
+
+/////////////////////// helper method ///////////////////////
+const getProductDetailsFromDB = async (userID) => {
+  const subscriptionDB = await retrieveSubscriptionFromDB(userID); //// fetch user subscription from DB
+
+  //////////////////////////////////////////////
+
+  var subscriptionName = "";
+  if (subscriptionDB.subscriptionID !== null) {
+    const stripeSubscription = await retrieveSingleSubscription(
+      subscriptionDB.subscriptionID
+    ); ///fetch user subscription from stripe
+
+    //////////////////////////////////////////////
+
+    subscriptionName = stripeSubscription.items.data[0].price.lookup_key; /// get subscription name of user from stripe
+  } else {
+    subscriptionName = "free"; ////// else subscription name is 'free'
+  }
+
+  //////////////////////////////////////////////
+
+  return await Product.findOne({
+    where: { productName: subscriptionName },
+  }); /// get the product details by product name of user from db
+
+  /////////////////////// helper method///////////////////////
 };
 
 module.exports = { campaignQueue };
