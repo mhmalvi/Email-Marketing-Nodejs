@@ -9,6 +9,7 @@ const retrievePrices = async (req, res) => {
   });
   
   if (prices) {
+    
     res.status(200).json(prices);
   } else {
     res.status(404).json({
