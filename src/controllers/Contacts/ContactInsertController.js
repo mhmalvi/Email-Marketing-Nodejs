@@ -6,29 +6,42 @@ const {
   ifContactExist,
 } = require("../../common/contactsUtils/checkIfContactExist");
 const { fieldsValidation } = require("../../../config/utils");
+const {
+  retrieveSubscriptionFromDB,
+} = require("../../common/subscription/retrieveSubscriptionDB");
+const {
+  retrieveSingleSubscription,
+} = require("../../common/stripe/subscription/retrieveSingleSubscription");
 
 const insertContact = async (req, res) => {
   const { data, userID } = req.body;
   console.log(data);
   if (data.length > 0) {
-    // const UserCollectionExist = JSON.stringify(await fetch(data));
+    const productDB = await getProductDetailsFromDB(data.userID); /// product details of authenticated user from DB
 
-    await data.forEach(async (element) => {
-      // console.log("string", UserCollectionExist);
-      // const collection = JSON.parse(UserCollectionExist);
-      console.log("element", element);
-      var count = 0;
-      const userCollectionExist = await ifContactExist(userID, element);
-      console.log("userCollectionExist", userCollectionExist);
-      if (!userCollectionExist) {
-        saveContact(element, userID);
-      }
-    });
-    res.status(201).json({
-      message: "Contact inserted",
-      status: 201,
-      contact: JSON.stringify(data),
-    });
+    if (data.length < productDB.contactLimit) {
+      await data.forEach(async (element) => {
+        // console.log("string", UserCollectionExist);
+        // const collection = JSON.parse(UserCollectionExist);
+        console.log("element", element);
+        var count = 0;
+        const userCollectionExist = await ifContactExist(userID, element);
+        console.log("userCollectionExist", userCollectionExist);
+        if (!userCollectionExist) {
+          saveContact(element, userID);
+        }
+      });
+      res.status(201).json({
+        message: "Contact inserted",
+        status: 201,
+        contact: JSON.stringify(data),
+      });
+    } else {
+      res.status(422).json({
+        message: "Contact limit reached",
+        status: 422,
+      });
+    }
   } else {
     res.status(403).json({
       message: "No data given",
@@ -58,6 +71,33 @@ const insertContactManually = async (req, res) => {
       });
     }
   }
+};
+
+const getProductDetailsFromDB = async (userID) => {
+  const subscriptionDB = await retrieveSubscriptionFromDB(userID); //// fetch user subscription from DB
+
+  //////////////////////////////////////////////
+
+  var subscriptionName = "";
+  if (subscriptionDB.subscriptionID !== null) {
+    const stripeSubscription = await retrieveSingleSubscription(
+      subscriptionDB.subscriptionID
+    ); ///fetch user subscription from stripe
+
+    //////////////////////////////////////////////
+
+    subscriptionName = stripeSubscription.items.data[0].price.lookup_key; /// get subscription name of user from stripe
+  } else {
+    subscriptionName = "free"; ////// else subscription name is 'free'
+  }
+
+  //////////////////////////////////////////////
+
+  return await Product.findOne({
+    where: { productName: subscriptionName },
+  }); /// get the product details by product name of user from db
+
+  /////////////////////// helper method///////////////////////
 };
 
 module.exports = { insertContact, insertContactManually };
