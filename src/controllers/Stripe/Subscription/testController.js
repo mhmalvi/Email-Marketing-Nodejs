@@ -24,12 +24,17 @@ const test = async () => {
     html: "htmlToSend",
   };
   var errorCode = 0;
-  const result = await customTransporter.sendMail(mailOptions);
-  // console.log("result", result);
-  if (errorCode== 0) {
-    // console.log("result", result);
-    res.json(errorCode);
+  try {
+    await customTransporter.sendMail(mailOptions);
+  } catch (error) {
+    console.log(error);
   }
+
+  // console.log("result", result);
+  // if (errorCode == 0) {
+  //   // console.log("result", result);
+  //   res.json(errorCode);
+  // }
 };
 
 module.exports = { test };
