@@ -35,7 +35,7 @@ const test = async () => {
     }
   });
   if (errorCode) {
-    resizeBy.json(errorCode);
+    res.json(errorCode);
   }
 };
 
