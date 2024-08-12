@@ -52,8 +52,9 @@ const campaignQueue = async (req, res) => {
       }
     }
   } else {
-    res.json({
+    res.status(422).json({
       message: "Email limit reached",
+      status: 422,
     });
   }
 };
