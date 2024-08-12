@@ -24,7 +24,7 @@ const test = async () => {
     html: "htmlToSend",
   };
   var errorCode = 0;
-  await customTransporter.sendMail(mailOptions, async (err, info) => {
+  const result = await customTransporter.sendMail(mailOptions, async (err, info) => {
     if (err) {
       console.log(err.responseCode);
       // return "Error while sending email" + err;
@@ -34,7 +34,7 @@ const test = async () => {
       console.log("Email sent", info.accepted);
     }
   });
-  console.log('passed');
+  console.log('result',result);
   
   if (errorCode) {
     res.json(errorCode);
