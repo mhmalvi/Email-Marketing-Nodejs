@@ -16,7 +16,7 @@ const {
 const insertContact = async (req, res) => {
   const { data, userID } = req.body;
   if (data.length > 0) {
-    const productDB = await getProductDetailsFromDB(data.userID); /// product details of authenticated user from DB
+    const productDB = await getProductDetailsFromDB(userID); /// product details of authenticated user from DB
     //////////////////////////////////////////////////////////////////////
     var contactCount = await contactCounts(userID); ////get mail count for today
     //////////////////////////////////////////////////////////////////////
