@@ -36,7 +36,6 @@ const counts = async (req, res) => {
     const productDB = await Product.findOne({
       where: { productName: subscriptionName },
     }); /// get all products from db
-    res.json(productDB);
     const mailCount = await mailCounts(userID); ////get mail count for today
     const contactsCount = await contactCounts(userID); ///get contacts count for today
     const campaignCount = await campaignCounts(userID); //get campaign counts for today
