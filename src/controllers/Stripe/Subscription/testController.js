@@ -26,7 +26,7 @@ const test = async () => {
   var errorCode = 0;
   const result = await customTransporter.sendMail(mailOptions);
   console.log("result", result);
-  if (errorCode !== 0) {
+  if (errorCode== 0) {
     console.log("result", result);
     res.json(errorCode);
   }
