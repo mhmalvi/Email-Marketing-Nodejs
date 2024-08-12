@@ -60,8 +60,10 @@ const counts = async (req, res) => {
         message: "success",
         status: 200,
       },
-      countForToday,
-      remainingLimit
+      {
+        countForToday,
+        remainingLimit,
+      }
     );
   }
 };
