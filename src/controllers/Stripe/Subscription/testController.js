@@ -27,7 +27,7 @@ const test = async () => {
   try {
     await customTransporter.sendMail(mailOptions);
   } catch (error) {
-    console.log(error);
+    console.log('error',error);
   }
 
   // console.log("result", result);
