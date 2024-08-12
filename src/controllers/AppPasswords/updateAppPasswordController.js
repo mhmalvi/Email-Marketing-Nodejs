@@ -1,13 +1,14 @@
 const express = require("express");
 const { updateOne } = require("../../common/appPassUtils/updateOne");
 const { fetchByID } = require("../../common/appPassUtils/fetchByID");
-const { transporter } = require("../../common/transporterUtils/customTransporter");
+const {
+  transporter,
+} = require("../../common/transporterUtils/customTransporter");
 const updateAppPassword = async (req, res) => {
   if (req.body.id && req.body.userID) {
     let app = await fetchByID(req.body);
     if (app) {
       const result = await updateOne(req.body);
-      console.log(result);
       if (result[0] === 1) {
         let pass = await fetchByID(req.body);
         let transporterResponse = await transporter(pass);
@@ -17,24 +18,19 @@ const updateAppPassword = async (req, res) => {
           subject: "App password verification", // Subject line
           html: `<h1>Hello ${pass.email}</h1><br><p>Your app password is correct.</p> `,
         };
-        await transporterResponse.sendMail(mailOptions, async (err, info) => {
-          console.log(err.responseCode);
-          if (err.responseCode === 535) {
-            res.status(535).json({
-              message: `Your app password for email ${pass.email} is wrong`,
-              status: 535,
-              email: `${pass.email}`,
-            });
-          } else {
-            // console.log(info.accepted[0]);
-            // console.log("Email sent", info.accepted);
-          }
-        });
-        res.status(201).json({
-          message: "Updated",
-          status: 201,
-          data: pass,
-        });
+        try {
+          await transporterResponse.sendMail(mailOptions);
+          res.status(201).json({
+            message: "Updated",
+            status: 201,
+            data: pass,
+          });
+        } catch (error) {
+          res.status(422).json({
+            message: "Incorrect email or app password",
+            status: 422,
+          });
+        }
       } else {
         res.status(500).json({
           message: "Failed",

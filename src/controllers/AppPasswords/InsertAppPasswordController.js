@@ -32,23 +32,19 @@ const saveAppPassword = async (req, res) => {
           subject: "App password verification", // Subject line
           html: `<h1>Hello ${req.body.email}</h1><br><p>Your app password is correct.</p> `,
         };
-        await transporterResponse.sendMail(mailOptions, async (err, info) => {
-          if (err.statusCode === 535) {
-            res.status(535).json({
-              message: `Your app password for email ${mail.fromName} is wrong`,
-              status: 535,
-              email: `${req.body.email}`,
-            });
-          } else {
-            console.log(info.accepted[0]);
-            console.log("Email sent", info.accepted);
-          }
-        });
-        res.status(201).json({
-          message: "Saved",
-          status: 201,
-          data: app,
-        });
+        try {
+          await transporterResponse.sendMail(mailOptions);
+          res.status(201).json({
+            message: "Saved",
+            status: 201,
+            data: app,
+          });
+        } catch (error) {
+          res.status(422).json({
+            message: "Incorrect email or app password",
+            status: 422,
+          });
+        }
       } else {
         res.status(500).json({
           message: "Failed",
