@@ -34,6 +34,8 @@ const test = async () => {
       console.log("Email sent", info.accepted);
     }
   });
+  console.log('passed');
+  
   if (errorCode) {
     res.json(errorCode);
   }
