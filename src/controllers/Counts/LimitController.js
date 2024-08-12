@@ -55,16 +55,12 @@ const counts = async (req, res) => {
     };
     console.log("countForToday", countForToday);
     console.log("remainingLimit", remainingLimit);
-    res.status(200).json(
-      {
-        message: "success",
-        status: 200,
-      },
-      {
-        countForToday,
-        remainingLimit,
-      }
-    );
+    res.status(200).json({
+      message: "success",
+      status: 200,
+      countForToday: countForToday,
+      remainingLimit: remainingLimit,
+    });
   }
 };
 
