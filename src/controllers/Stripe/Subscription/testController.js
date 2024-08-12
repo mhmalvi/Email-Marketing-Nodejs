@@ -35,7 +35,7 @@ const test = async () => {
     }
   });
   if (errorCode === 535) {
-    resizeBy.json('Wrong email or app password')
+    resizeBy.json(errorCode);
   }
 };
 
