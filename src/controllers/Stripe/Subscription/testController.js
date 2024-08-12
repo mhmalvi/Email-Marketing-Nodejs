@@ -24,19 +24,9 @@ const test = async () => {
     html: "htmlToSend",
   };
   var errorCode = 0;
-  const result = await customTransporter.sendMail(mailOptions, async (err, info) => {
-    if (err) {
-      console.log(err.responseCode);
-      // return "Error while sending email" + err;
-      errorCode = err.responseCode;
-    } else {
-      console.log(info.accepted[0]);
-      console.log("Email sent", info.accepted);
-    }
-  });
-  
-  
-  if (errorCode!==0) {
+  const result = await customTransporter.sendMail(mailOptions);
+  console.log("result", result);
+  if (errorCode !== 0) {
     console.log("result", result);
     res.json(errorCode);
   }
