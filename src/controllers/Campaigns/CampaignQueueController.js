@@ -15,7 +15,7 @@ const campaignQueue = async (req, res) => {
 
   //////////////////////////////////////////////
 
-  const productDB = getProductDetailsFromDB(data.userID); /// product details of authenticated user from DB
+  const productDB = await getProductDetailsFromDB(data.userID); /// product details of authenticated user from DB
 
   //////////////////////////////////////////////
 
