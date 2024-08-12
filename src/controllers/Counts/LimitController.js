@@ -29,6 +29,7 @@ const counts = async (req, res) => {
         subscriptionDB.subscriptionID
       ); ///fetch user subscription from stripe
       subscriptionName = stripeSubscription.items.data[0].price.lookup_key;
+      console.log("subscriptionName", subscriptionName);
     } else {
       subscriptionName = "free";
     }
