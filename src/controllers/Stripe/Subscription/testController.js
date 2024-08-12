@@ -7,14 +7,14 @@ const {
 } = require("../../../common/transporterUtils/customTransporter");
 const nodemailer = require("nodemailer");
 
-const test = async (req,res) => {
+const test = async (req, res) => {
   const customTransporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 587,
     secure: false, // Use `true` for port 465, `false` for all other ports
     auth: {
-      user: "tanjib@quadque.tech",
-      pass: "fgfghgfhfgh",
+      user: "tanjb@quadque.tech",
+      pass: "kseg koof khob nuzj",
     },
   });
   const mailOptions = {
@@ -27,15 +27,9 @@ const test = async (req,res) => {
   try {
     await customTransporter.sendMail(mailOptions);
   } catch (error) {
-    console.log('error', error);
+    console.log("error", error);
     res.json(error.responseCode);
   }
-
-  // console.log("result", result);
-  // if (errorCode == 0) {
-  //   // console.log("result", result);
-  //   res.json(errorCode);
-  // }
 };
 
 module.exports = { test };
