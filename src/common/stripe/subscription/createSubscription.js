@@ -9,7 +9,6 @@ const create = async (
   priceID,
   amount,
   userID,
-  quantity,
   paymentSourceID
 ) => {
   const stripeResponse = await stripe_key.subscriptions.create({

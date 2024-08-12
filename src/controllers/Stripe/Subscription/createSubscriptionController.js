@@ -23,7 +23,6 @@ const createSubscription = async (req, res) => {
     stripeCustomerID,
     priceID,
     amount,
-    quantity,
     paymentSourceID,
   } = req.body;
   // console.log("userID", userID);
@@ -32,7 +31,6 @@ const createSubscription = async (req, res) => {
     stripeCustomerID,
     priceID,
     amount,
-    quantity,
     paymentSourceID,
   };
   const missingFields = await fieldsValidation(requiredFields);
@@ -52,7 +50,6 @@ const createSubscription = async (req, res) => {
         priceID,
         amount,
         userID,
-        quantity,
         paymentSourceID
       ); ////////////////// create new subscription
       if (response) {
