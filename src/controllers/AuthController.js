@@ -75,6 +75,8 @@ const passLogin = async (req, res) => {
     if (subadmin) {
       var company = [];
       subadmin.userID.forEach(async (data) => {
+        console.log("data", data);
+        
         const username = await User.findOne({
           where: {
             userID: data.userId,
