@@ -54,12 +54,14 @@ const createSubAdmin = async (req, res) => {
         password: password,
       };
       const htmlToSend = finalTemplate(data);
-      await sendMail(email, sender, htmlToSend);
-      createSubAdminUtils();
-      res.status(201).json({
-        message: "success",
-        status: 201,
-      });
+      await sendMail(email, sender, htmlToSend); //// send mail
+      const status = await createSubAdminUtils();
+      if (status) {
+        res.status(201).json({
+          message: "success",
+          status: 201,
+        });
+      }
     }
   }
 };
