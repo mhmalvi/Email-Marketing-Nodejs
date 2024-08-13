@@ -1,4 +1,5 @@
 const User = require("../../../models").User;
+const Subadmin = require("../../../models").Subadmin;
 const { fieldsValidation } = require("../../../config/utils");
 const path = require("path");
 const fs = require("fs");
@@ -10,6 +11,11 @@ const {
 const {
   createSubAdminUtils,
 } = require("../../common/users/subadmin/createSubadmin");
+const {
+  findSubadminByEmail,
+} = require("../../common/users/subadmin/findSubadminByEmail");
+const { findUser } = require("../../common/users/findUser");
+const { fetchOne } = require("../../common/appPassUtils/fetchOne");
 const createSubAdmin = async (req, res) => {
   const { userID, email, userName } = req.body;
   const requiredFields = {
@@ -24,67 +30,59 @@ const createSubAdmin = async (req, res) => {
       status: 422,
     });
   } else {
-    // try {
-    // const userExist = 
+    const userExist = await findSubadminByEmail(email, userID); ///check if subadmin already exists
+    const sender = await AppPassword.findOne({ where: { userID: userID } }); //// fetch sender
+    const inviter = await findUser(userID); //// fetch inviter
+    //////////////////////////////////////////////////////////////////////////////
     if (userExist) {
-      // console.log("enter", userExist);
-      const pid = userExist.pid;
-      if (pid.includes(userID)) {
-        res.status(422).json({
-          message: "Sub admin already exists",
-          status: 422,
-        });
-      } else {
-        const templatePath = path.join(
-          __dirname,
-          "../../views/hbs/invitation.hbs"
-        );
-        var templateSource = fs.readFileSync(templatePath, "utf8");
-        const finalTemplate = handlebars.compile(templateSource);
-        const data = {
-          userName: userName,
-          admin_name: inviter.userName,
-          userID: userID,
-          email:email
-        };
-        const htmlToSend = finalTemplate(data);
-        let transporterResponse = await transporter(sender); ////////// transport
-        console.log("sender.email", sender.email);
-        console.log("rec email", email);
-        const mailOptions = {
-          from: `${sender.email}`,
-          to: email, // list of receivers
-          subject: "Invitation", // Subject line
-          html: htmlToSend,
-        };
-        await transporterResponse.sendMail(mailOptions, async (err, info) => {
-          if (err) {
-            console.log(err);
-            return "Error while sending email" + err;
-          } else {
-            console.log(info.accepted[0]);
-            console.log("Email sent", info.accepted);
-          }
-        });
-        // const result = await createSubAdminUtils(req.body); //////////////// create subadmin
-        // res.json({ false: false });
-      }
-      // res.json(userExist.pid);
+      res.status(422).json({
+        message: "Sub admin already exists",
+        status: 422,
+      });
+    } else {
+      const password = await passGenerator(); //// generate random password
+      const templatePath = path.join(
+        __dirname,
+        "../../views/hbs/invitation.hbs"
+      );
+      var templateSource = fs.readFileSync(templatePath, "utf8");
+      const finalTemplate = handlebars.compile(templateSource);
+      const data = {
+        userName: userName,
+        userID: userID,
+        email: email,
+        password: password,
+      };
+      const htmlToSend = finalTemplate(data);
+      await sendMail(email, sender, htmlToSend);
+      createSubAdminUtils();
+      res.status(201).json({
+        message: "success",
+        status: 201,
+      });
     }
-    // const result = await createSubAdminUtils(req.body); //////////////// create subadmin
-    // if (result) {
-    //   res.status(201).json({
-    //     message: "created",
-    //     status: 201,
-    //     subadmin: result,
-    //   });
-    // }
-    // } catch (error) {
-    //   res.json({
-    //     message: "failed",
-    //     error: error,
-    //   });
-    // }
   }
+};
+
+/////////////////////////// helper /////////////////////////
+
+const sendMail = async (email, sender, htmlToSend) => {
+  let transporterResponse = await transporter(sender); ////////// transport
+  const mailOptions = {
+    from: `${sender.email}`,
+    to: email, // list of receivers
+    subject: "Invitation", // Subject line
+    html: htmlToSend,
+  };
+
+  return await transporterResponse.sendMail(mailOptions);
+};
+const passGenerator = (length = 8) => {
+  let s = "";
+  Array.from({ length }).some(() => {
+    s += Math.random().toString(36).slice(2);
+    return s.length >= length;
+  });
+  return s.slice(0, length);
 };
 module.exports = { createSubAdmin };

@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   Subadmin.init(
     {
       email: DataTypes.TEXT,
+      userName: DataTypes.TEXT,
       password: DataTypes.STRING,
       status: DataTypes.BOOLEAN,
       userID: DataTypes.INTEGER,
