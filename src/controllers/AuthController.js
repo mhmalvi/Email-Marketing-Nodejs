@@ -56,6 +56,47 @@ const isUserEmailExists = async (req, res) => {
   }
 };
 
+const passLogin = async (req, res) => {
+  const { email, password } = req.body;
+  const requiredFields = {
+    email,
+    password,
+  };
+  const missingFields = await fieldsValidation(requiredFields); ///// validation
+  if (missingFields.length > 0) {
+    res.status(422).json({
+      message: `Missing fields are ${missingFields.join(", ")}`,
+      status: 422,
+    });
+  } else {
+    const subadmin = await Subadmin.findOne({
+      where: { email: email, password: password },
+    });
+    if (subadmin) {
+      var company = [];
+      subadmin.userID.forEach(async (data) => {
+        const username = await User.findOne({
+          where: {
+            userID: data.userId,
+          },
+          attributes: ["username"],
+        });
+        company.push(username);
+      });
+      res.status(200).json({
+        message: "success",
+        status: 200,
+        company: company,
+      });
+    } else {
+      res.status(401).json({
+        message: "wrong email or password",
+        status: 401,
+      });
+    }
+  }
+};
+
 const verifyOTP = async (req, res) => {
   console.log(req.body);
   if (
@@ -172,4 +213,4 @@ const logout = async (req, res) => {
   }
 };
 
-module.exports = { logout, isUserEmailExists, verifyOTP, getUser };
+module.exports = { logout, isUserEmailExists, verifyOTP, getUser, passLogin };
