@@ -46,7 +46,7 @@ const createSubAdmin = async (req, res) => {
     } else if (userEmailExist) {
       var data = userEmailExist.userID;
       console.log(data);
-      data.push();
+      data.push(userID);
       const result = await Subadmin.update(
         {
           userID: data,
