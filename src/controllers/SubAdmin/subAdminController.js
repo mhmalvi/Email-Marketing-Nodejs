@@ -61,7 +61,7 @@ const createSubAdmin = async (req, res) => {
           status: 535,
         });
       } else {
-        await createSubAdminUtils();
+        await createSubAdminUtils(data);
         res.status(201).json({
           message: "success",
           status: 201,
