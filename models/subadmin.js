@@ -17,14 +17,14 @@ module.exports = (sequelize, DataTypes) => {
       userName: DataTypes.TEXT,
       password: DataTypes.STRING,
       status: DataTypes.BOOLEAN,
-      userID: DataTypes.INTEGER,
+      userID: DataTypes.JSON,
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
     },
     {
       sequelize,
       modelName: "Subadmin",
-      tableName:"subadmins"
+      tableName: "subadmins",
     }
   );
   return Subadmin;

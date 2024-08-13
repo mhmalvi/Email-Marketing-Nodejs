@@ -41,20 +41,16 @@ const createSubAdmin = async (req, res) => {
         status: 422,
       });
     } else if (userEmailExist) {
-      const data = {
-        userName: userName,
-        userID: userID,
-        email: email,
-        password: userEmailExist.password,
-        admin_name: inviter.userName,
-      };
-      const result = await createSubAdminUtils(data); //// save subadmin
-      if (result) {
-        res.status(201).json({
-          message: "success",
-          status: 201,
-        });
-      }
+      var data = userEmailExist.userID;
+      console.log(data);
+
+      // data.push()
+      // if (result) {
+      //   res.status(201).json({
+      //     message: "success",
+      //     status: 201,
+      //   });
+      // }
     } else {
       const password = await passGenerator(); //// generate random password
       const templatePath = path.join(
