@@ -23,7 +23,7 @@ const isUserEmailExists = async (req, res) => {
   const subadmin = await Subadmin.findOne({ where: { email: req.body.email } });
   console.log("user", user);
   console.log("subadmin", subadmin);
-  if (user && subadmin === null) {
+  if (user && subadmin == null) {
     console.log("user");
     const otp = generateOTP();
     user.otp = otp;
@@ -51,7 +51,7 @@ const isUserEmailExists = async (req, res) => {
     res.status(200).json({
       status: true,
     });
-  } else if (subadmin && user === null) {
+  } else if (subadmin && user == null) {
     console.log('subadmin');
     
     res.status(200).json({
