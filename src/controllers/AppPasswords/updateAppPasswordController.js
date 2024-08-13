@@ -28,9 +28,9 @@ const updateAppPassword = async (req, res) => {
           });
         }
       } catch (error) {
-        res.status(422).json({
+        res.status(535).json({
           message: "Incorrect email or app password",
-          status: 422,
+          status: 535,
         });
       }
     } else {
