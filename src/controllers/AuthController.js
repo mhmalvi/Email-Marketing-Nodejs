@@ -81,7 +81,7 @@ const passLogin = async (req, res) => {
           where: {
             id: data,
           },
-          attributes: ["username"],
+          attributes: ["userName"],
         });
         console.log("username", username);
         
