@@ -79,7 +79,7 @@ const passLogin = async (req, res) => {
         
         const username = await User.findOne({
           where: {
-            userID: data,
+            id: data,
           },
           attributes: ["username"],
         });
