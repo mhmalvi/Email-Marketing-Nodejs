@@ -12,8 +12,8 @@ const {
   createSubAdminUtils,
 } = require("../../common/users/subadmin/createSubadmin");
 const {
-  findSubadminByEmail,
-} = require("../../common/users/subadmin/findSubadminByEmail");
+  findSubadminByEmailAndUserID,
+} = require("../../common/users/subadmin/findSubadminByEmailAndUserID");
 const { findUser } = require("../../common/users/findUser");
 const { fetchOne } = require("../../common/appPassUtils/fetchOne");
 const createSubAdmin = async (req, res) => {
@@ -30,7 +30,7 @@ const createSubAdmin = async (req, res) => {
       status: 422,
     });
   } else {
-    const userExist = await findSubadminByEmail(email, userID); ///check if subadmin already exists
+    const userExist = await findSubadminByEmailAndUserID(email, userID); ///check if subadmin already exists
     const sender = await AppPassword.findOne({ where: { user_id: userID } }); //// fetch sender
     const inviter = await findUser(userID); //// fetch inviter
     //////////////////////////////////////////////////////////////////////////////
@@ -52,6 +52,7 @@ const createSubAdmin = async (req, res) => {
         userID: userID,
         email: email,
         password: password,
+        admin_name: inviter.userName,
       };
       const htmlToSend = finalTemplate(data);
       let transporterResponse = await transporter(sender); ////////// transport
