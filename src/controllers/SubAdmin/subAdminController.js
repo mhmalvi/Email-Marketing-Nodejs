@@ -31,6 +31,7 @@ const createSubAdmin = async (req, res) => {
     });
   } else {
     const userExist = await findSubadminByEmailAndUserID(email, userID); ///check if subadmin already exists
+    const userEmailExist = await findSubadminByEmail(email); ///check if subadmin already exists
     const sender = await AppPassword.findOne({ where: { user_id: userID } }); //// fetch sender
     const inviter = await findUser(userID); //// fetch inviter
     //////////////////////////////////////////////////////////////////////////////
@@ -39,6 +40,21 @@ const createSubAdmin = async (req, res) => {
         message: "Sub admin already exists",
         status: 422,
       });
+    } else if (userEmailExist) {
+      const data = {
+        userName: userName,
+        userID: userID,
+        email: email,
+        password: userEmailExist.password,
+        admin_name: inviter.userName,
+      };
+      const result = await createSubAdminUtils(data); //// save subadmin
+      if (result) {
+        res.status(201).json({
+          message: "success",
+          status: 201,
+        });
+      }
     } else {
       const password = await passGenerator(); //// generate random password
       const templatePath = path.join(

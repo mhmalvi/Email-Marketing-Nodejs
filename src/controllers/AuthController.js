@@ -1,6 +1,7 @@
 const express = require("express");
 require("dotenv").config();
 const Token = require("../../models").Token;
+const Subadmin = require("../../models").Subadmin;
 const path = require("path");
 const ejs = require("ejs");
 const { convert } = require("html-to-text");
@@ -15,6 +16,7 @@ const EmailValidator = require("email-deep-validator");
 const isUserEmailExists = async (req, res) => {
   const baseUrl = process.env.BASE_URL;
   const user = await User.findOne({ where: { email: req.body.email } });
+  // const Subadmin = await Subadmin.findOne({ where: { email: req.body.email } });
   if (user) {
     const otp = generateOTP();
     user.otp = otp;
