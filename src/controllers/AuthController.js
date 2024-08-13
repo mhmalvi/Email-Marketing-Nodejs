@@ -90,7 +90,7 @@ const passLogin = async (req, res) => {
 
           console.log("Fetched user:", user);
 
-          return user.userName; // Return the username
+          return user; // Return the username
         });
         // Wait for all promises to resolve
         const company = await Promise.all(userPromises);
