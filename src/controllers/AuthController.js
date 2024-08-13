@@ -16,7 +16,7 @@ const EmailValidator = require("email-deep-validator");
 const isUserEmailExists = async (req, res) => {
   const baseUrl = process.env.BASE_URL;
   const user = await User.findOne({ where: { email: req.body.email } });
-  // const Subadmin = await Subadmin.findOne({ where: { email: req.body.email } });
+  const subadmin = await Subadmin.findOne({ where: { email: req.body.email } });
   if (user) {
     const otp = generateOTP();
     user.otp = otp;
@@ -43,6 +43,11 @@ const isUserEmailExists = async (req, res) => {
     });
     res.status(200).json({
       status: true,
+    });
+  } else if (subadmin) {
+    res.status(200).json({
+      message: "success",
+      status: 1,
     });
   } else {
     res.status(404).json({
