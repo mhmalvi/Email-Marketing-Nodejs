@@ -14,17 +14,31 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
-        primaryKey: true,unique:true
+        primaryKey: true,
+        unique: true,
       },
       email: {
-        type:Sequelize.TEXT,allowNull:false,
+        type: Sequelize.TEXT,
+        allowNull: false,
       },
       password: {
-        type:Sequelize.STRING,allowNull:false
+        type: Sequelize.STRING,
+        allowNull: false,
       },
-      // status: {
-      //   type:Sequelize.
-      // }
+      status: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: 1,
+      },
+      userID: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+      },
     });
   },
 
