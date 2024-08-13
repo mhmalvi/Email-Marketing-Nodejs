@@ -20,8 +20,8 @@ const saveAppPassword = async (req, res) => {
         status: 409,
       });
     } else {
-      const app = await save(req.body);
-      if (app) {
+      
+      // if (app) {
         const sender = await AppPassword.findOne({
           where: { email: req.body.email },
         }); ////////////  get app password of the sender from db //////////////////
@@ -34,6 +34,7 @@ const saveAppPassword = async (req, res) => {
         };
         try {
           await transporterResponse.sendMail(mailOptions);
+          const app = await save(req.body);
           res.status(201).json({
             message: "Saved",
             status: 201,
@@ -45,12 +46,12 @@ const saveAppPassword = async (req, res) => {
             status: 422,
           });
         }
-      } else {
-        res.status(500).json({
-          message: "Failed",
-          status: 500,
-        });
-      }
+      // } else {
+      //   res.status(500).json({
+      //     message: "Failed",
+      //     status: 500,
+      //   });
+      // }
     }
   } else {
     res.status(422).json({
