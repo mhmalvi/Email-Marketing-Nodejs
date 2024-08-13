@@ -54,39 +54,35 @@ const createSubAdmin = async (req, res) => {
         password: password,
       };
       const htmlToSend = finalTemplate(data);
-      const status = await sendMail(email, sender, htmlToSend); //// send mail
-      if (status.error) {
-        res.status(535).json({
-          message: "Sender email or app password wrong",
-          status: 535,
-        });
-      } else {
+      let transporterResponse = await transporter(sender); ////////// transport
+      const mailOptions = {
+        from: `${sender.email}`,
+        to: email, // list of receivers
+        subject: "Invitation", // Subject line
+        html: htmlToSend,
+      };
+      try {
+        await transporterResponse.sendMail(mailOptions);
         await createSubAdminUtils(data);
         res.status(201).json({
           message: "success",
           status: 201,
         });
-      }
+      } catch (error) {
+        res.status(535).json({
+          message: "Sender email or app password wrong",
+          status: 535,
+        });
+      } //// send mail
     }
   }
 };
 
 /////////////////////////// helper /////////////////////////
 
-const sendMail = async (email, sender, htmlToSend) => {
-  let transporterResponse = await transporter(sender); ////////// transport
-  const mailOptions = {
-    from: `${sender.email}`,
-    to: email, // list of receivers
-    subject: "Invitation", // Subject line
-    html: htmlToSend,
-  };
-  try {
-    return await transporterResponse.sendMail(mailOptions);
-  } catch (error) {
-    return error;
-  }
-};
+// const sendMail = async (email, sender, htmlToSend) => {
+
+// };
 const passGenerator = (length = 8) => {
   let s = "";
   Array.from({ length }).some(() => {
