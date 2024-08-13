@@ -1,13 +1,14 @@
 const nodemailer = require("nodemailer");
 
 const transporter = async (data) => {
+  const app_password = data.appPassword ? data.appPassword : data.app_password;
   const customTransporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 587,
     secure: false, // Use `true` for port 465, `false` for all other ports
     auth: {
       user: data.email,
-      pass: data.app_password,
+      pass: app_password,
     },
   });
   return customTransporter;
