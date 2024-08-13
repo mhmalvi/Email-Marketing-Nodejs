@@ -88,13 +88,13 @@ const passLogin = async (req, res) => {
         });
         console.log("username", username);
         res.json(username);
-        company.push(username);
+        // company.push(username);
       });
-      res.status(200).json({
-        message: "success",
-        status: 200,
-        company: company,
-      });
+      // res.status(200).json({
+      //   message: "success",
+      //   status: 200,
+      //   company: company,
+      // });
     } else {
       res.status(401).json({
         message: "wrong email or password",
