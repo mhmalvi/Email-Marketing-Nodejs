@@ -16,6 +16,7 @@ const {
 } = require("../../common/users/subadmin/findSubadminByEmailAndUserID");
 const { findUser } = require("../../common/users/findUser");
 const { fetchOne } = require("../../common/appPassUtils/fetchOne");
+const { findSubadminByEmail } = require("../../common/users/subadmin/findSubadminByEmail");
 const createSubAdmin = async (req, res) => {
   const { userID, email, userName } = req.body;
   const requiredFields = {
