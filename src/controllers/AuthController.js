@@ -24,6 +24,7 @@ const isUserEmailExists = async (req, res) => {
   console.log("user", user);
   console.log("subadmin", subadmin);
   if (user && subadmin === null) {
+    console.log("user");
     const otp = generateOTP();
     user.otp = otp;
     await user.save();
@@ -51,6 +52,8 @@ const isUserEmailExists = async (req, res) => {
       status: true,
     });
   } else if (subadmin && user === null) {
+    console.log('subadmin');
+    
     res.status(200).json({
       message: "success",
       status: 1,
