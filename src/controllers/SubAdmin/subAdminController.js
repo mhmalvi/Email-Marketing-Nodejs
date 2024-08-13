@@ -16,7 +16,9 @@ const {
 } = require("../../common/users/subadmin/findSubadminByEmailAndUserID");
 const { findUser } = require("../../common/users/findUser");
 const { fetchOne } = require("../../common/appPassUtils/fetchOne");
-const { findSubadminByEmail } = require("../../common/users/subadmin/findSubadminByEmail");
+const {
+  findSubadminByEmail,
+} = require("../../common/users/subadmin/findSubadminByEmail");
 const createSubAdmin = async (req, res) => {
   const { userID, email, userName } = req.body;
   const requiredFields = {
@@ -44,14 +46,19 @@ const createSubAdmin = async (req, res) => {
     } else if (userEmailExist) {
       var data = userEmailExist.userID;
       console.log(data);
-
-      // data.push()
-      // if (result) {
-      //   res.status(201).json({
-      //     message: "success",
-      //     status: 201,
-      //   });
-      // }
+      data.push();
+      const result = await Subadmin.update(
+        {
+          userID: data,
+        },
+        { where: { id: userEmailExist.id } }
+      );
+      if (result) {
+        res.status(201).json({
+          message: "success",
+          status: 201,
+        });
+      }
     } else {
       const password = await passGenerator(); //// generate random password
       const templatePath = path.join(
