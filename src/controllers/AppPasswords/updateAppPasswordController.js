@@ -33,12 +33,6 @@ const updateAppPassword = async (req, res) => {
           status: 422,
         });
       }
-      // } else {
-      //   res.status(500).json({
-      //     message: "Failed",
-      //     status: 500,
-      //   });
-      // }
     } else {
       res.status(404).json({
         message: "Not found",

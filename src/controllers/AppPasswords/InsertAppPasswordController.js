@@ -20,38 +20,31 @@ const saveAppPassword = async (req, res) => {
         status: 409,
       });
     } else {
-      
       // if (app) {
-        const sender = await AppPassword.findOne({
-          where: { email: req.body.email },
-        }); ////////////  get app password of the sender from db //////////////////
-        let transporterResponse = await transporter(sender);
-        const mailOptions = {
-          from: `<${req.body.email}>`,
-          to: `${req.body.email}`, // list of receivers
-          subject: "App password verification", // Subject line
-          html: `<h1>Hello ${req.body.email}</h1><br><p>Your app password is correct.</p> `,
-        };
-        try {
-          await transporterResponse.sendMail(mailOptions);
-          const app = await save(req.body);
-          res.status(201).json({
-            message: "Saved",
-            status: 201,
-            data: app,
-          });
-        } catch (error) {
-          res.status(422).json({
-            message: "Incorrect email or app password",
-            status: 422,
-          });
-        }
-      // } else {
-      //   res.status(500).json({
-      //     message: "Failed",
-      //     status: 500,
-      //   });
-      // }
+      const sender = await AppPassword.findOne({
+        where: { email: req.body.email },
+      }); ////////////  get app password of the sender from db //////////////////
+      let transporterResponse = await transporter(sender);
+      const mailOptions = {
+        from: `<${req.body.email}>`,
+        to: `${req.body.email}`, // list of receivers
+        subject: "App password verification", // Subject line
+        html: `<h1>Hello</h1><br><p>Your app password is correct.</p> `,
+      };
+      try {
+        await transporterResponse.sendMail(mailOptions);
+        const app = await save(req.body);
+        res.status(201).json({
+          message: "Saved",
+          status: 201,
+          data: app,
+        });
+      } catch (error) {
+        res.status(422).json({
+          message: "Incorrect email or app password",
+          status: 422,
+        });
+      }
     }
   } else {
     res.status(422).json({

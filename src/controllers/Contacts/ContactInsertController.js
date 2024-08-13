@@ -1,5 +1,6 @@
 const express = require("express");
 const Contact = require("../../../models").Contact;
+const Contact = require("../../../models").Product;
 const { saveContact } = require("../../common/contactsUtils/saveContact");
 const { fetch, contactCounts } = require("../../common/contactsUtils/fetch");
 const {

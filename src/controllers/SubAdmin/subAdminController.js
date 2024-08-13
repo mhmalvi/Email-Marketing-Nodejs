@@ -25,11 +25,7 @@ const createSubAdmin = async (req, res) => {
     });
   } else {
     // try {
-    const userExist = await User.findOne({ where: { email: email } });
-    const inviter = await User.findOne({ where: { id: userID } });
-    const sender = await AppPassword.findOne({
-      where: { user_id: userID },
-    }); ////////// get app password
+    // const userExist = 
     if (userExist) {
       // console.log("enter", userExist);
       const pid = userExist.pid;
