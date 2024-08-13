@@ -88,8 +88,8 @@ const passLogin = async (req, res) => {
         });
         console.log("username", username);
 
-        company.push(username.userName);
-        res.json(company);
+        await company.push(username.userName);
+        // res.json(company);
       });
       res.status(200).json({
         message: "success",
