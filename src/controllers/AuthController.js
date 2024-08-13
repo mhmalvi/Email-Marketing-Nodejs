@@ -79,23 +79,30 @@ const passLogin = async (req, res) => {
     if (subadmin) {
       let company = [];
       try {
-        subadmin.userID.forEach(async (data) => {
-          console.log("data", data);
+        const userPromises = subadmin.userID.map(async (data) => {
+          console.log("Fetching data for userID:", data);
 
-          const username = await User.findOne({
+          const user = await User.findOne({
             where: {
               id: data,
             },
           });
-          console.log("username", username);
 
-          await company.push(username.userName);
-          // res.json(company);
+          console.log("Fetched user:", user);
+
+          return user.userName; // Return the username
         });
+        // Wait for all promises to resolve
+        const company = await Promise.all(userPromises);
+
+        // Filter out null values if any users were not found
+        const filteredCompany = company.filter((name) => name !== null);
+
+        console.log("Company usernames:", filteredCompany);
         res.status(200).json({
           message: "success",
           status: 200,
-          company: company,
+          company: filteredCompany,
         });
       } catch (error) {
         res.json(error);
