@@ -8,7 +8,11 @@ const { convert } = require("html-to-text");
 const User = require("../../models").User;
 const Subscribe = require("../../models").Subscribe;
 const sendmail = require("sendmail")();
-const { transporter, generateOTP, fieldsValidation } = require("../../config/utils");
+const {
+  transporter,
+  generateOTP,
+  fieldsValidation,
+} = require("../../config/utils");
 const { randomAlphaNumeric } = require("../../config/utils");
 const { saveToken } = require("../common/utils");
 const keys = require("../../config/keys");
@@ -76,16 +80,15 @@ const passLogin = async (req, res) => {
       var company = [];
       subadmin.userID.forEach(async (data) => {
         console.log("data", data);
-        
+
         const username = await User.findOne({
           where: {
             id: data,
           },
-          attributes: ["userName"],
         });
         console.log("username", username);
-        
-        company.push(username);
+
+        company.push(username.userName);
       });
       res.status(200).json({
         message: "success",
