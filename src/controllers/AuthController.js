@@ -21,7 +21,7 @@ const isUserEmailExists = async (req, res) => {
   const baseUrl = process.env.BASE_URL;
   const user = await User.findOne({ where: { email: req.body.email } });
   const subadmin = await Subadmin.findOne({ where: { email: req.body.email } });
-  if (user) {
+  if (user && !subadmin) {
     const otp = generateOTP();
     user.otp = otp;
     await user.save();
@@ -48,7 +48,7 @@ const isUserEmailExists = async (req, res) => {
     res.status(200).json({
       status: true,
     });
-  } else if (subadmin) {
+  } else if (subadmin && !user) {
     res.status(200).json({
       message: "success",
       status: 1,
@@ -97,8 +97,6 @@ const passLogin = async (req, res) => {
 
         // Filter out null values if any users were not found
         const filteredCompany = company.filter((name) => name !== null);
-
-        console.log("Company usernames:", filteredCompany);
         res.status(200).json({
           message: "success",
           status: 200,
