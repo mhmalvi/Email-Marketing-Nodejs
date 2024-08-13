@@ -9,22 +9,22 @@ const updateAppPassword = async (req, res) => {
     let app = await fetchByID(req.body);
     if (app) {
       //
-      let pass = await fetchByID(req.body);
-      let transporterResponse = await transporter(pass);
-      const mailOptions = {
-        from: `<${pass.email}>`,
-        to: `${pass.email}`, // list of receivers
-        subject: "App password verification", // Subject line
-        html: `<h1>Hello ${pass.email}</h1><br><p>Your app password is correct.</p> `,
-      };
       try {
+        // let pass = await fetchByID(req.body);
+        let transporterResponse = await transporter(req.body);
+        const mailOptions = {
+          from: `<${req.body.email}>`,
+          to: `${req.body.email}`, // list of receivers
+          subject: "App password verification", // Subject line
+          html: `<h1>Hello ${req.body.email}</h1><br><p>Your app password is correct.</p> `,
+        };
         await transporterResponse.sendMail(mailOptions);
         const result = await updateOne(req.body);
         if (result[0] === 1) {
           res.status(201).json({
             message: "Updated",
             status: 201,
-            data: pass,
+            data: req.body,
           });
         }
       } catch (error) {

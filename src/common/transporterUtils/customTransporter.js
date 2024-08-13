@@ -3,7 +3,7 @@ const nodemailer = require("nodemailer");
 const transporter = async (data) => {
   const app_password = data.appPassword ? data.appPassword : data.app_password;
   console.log("app_password", app_password);
-  
+
   const customTransporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 587,
