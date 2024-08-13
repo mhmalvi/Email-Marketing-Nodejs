@@ -31,7 +31,7 @@ const createSubAdmin = async (req, res) => {
     });
   } else {
     const userExist = await findSubadminByEmail(email, userID); ///check if subadmin already exists
-    const sender = await AppPassword.findOne({ where: { userID: userID } }); //// fetch sender
+    const sender = await AppPassword.findOne({ where: { user_id: userID } }); //// fetch sender
     const inviter = await findUser(userID); //// fetch inviter
     //////////////////////////////////////////////////////////////////////////////
     if (userExist) {
