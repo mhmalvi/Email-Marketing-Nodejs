@@ -77,25 +77,29 @@ const passLogin = async (req, res) => {
       where: { email: email, password: password },
     });
     if (subadmin) {
-      var company = [];
-      subadmin.userID.forEach(async (data) => {
-        console.log("data", data);
+      let company = [];
+      try {
+        subadmin.userID.forEach(async (data) => {
+          console.log("data", data);
 
-        const username = await User.findOne({
-          where: {
-            id: data,
-          },
+          const username = await User.findOne({
+            where: {
+              id: data,
+            },
+          });
+          console.log("username", username);
+
+          await company.push(username.userName);
+          // res.json(company);
         });
-        console.log("username", username);
-
-        await company.push(username.userName);
-        // res.json(company);
-      });
-      res.status(200).json({
-        message: "success",
-        status: 200,
-        company: company,
-      });
+        res.status(200).json({
+          message: "success",
+          status: 200,
+          company: company,
+        });
+      } catch (error) {
+        res.json(error);
+      }
     } else {
       res.status(401).json({
         message: "wrong email or password",
