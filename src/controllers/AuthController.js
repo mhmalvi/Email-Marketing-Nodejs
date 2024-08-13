@@ -87,7 +87,7 @@ const passLogin = async (req, res) => {
           },
         });
         console.log("username", username);
-
+        res.json(username);
         company.push(username);
       });
       res.status(200).json({
