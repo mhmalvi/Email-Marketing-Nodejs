@@ -14,7 +14,7 @@ const {
   fieldsValidation,
 } = require("../../config/utils");
 const { randomAlphaNumeric } = require("../../config/utils");
-const { saveToken } = require("../common/utils");
+const { saveToken, saveSubAdminToken } = require("../common/utils");
 const keys = require("../../config/keys");
 const EmailValidator = require("email-deep-validator");
 const isUserEmailExists = async (req, res) => {
@@ -92,20 +92,17 @@ const passLogin = async (req, res) => {
               id: data,
             },
           });
-
-          console.log("Fetched user:", user);
-
           return user; // Return the username
         }); //// fetch company details by user id from subadmin table
         // Wait for all promises to resolve
         const company = await Promise.all(userPromises);
-        const token = "Bearer " + randomAlphaNumeric(100);
+        const token = "Bearer " + randomAlphaNumeric(100); /// generate subadmin token
         const data = {
           email: email,
           token: token,
-          userID: subadmin.id,
+          userID: subadmin.id
         };
-        await saveToken(data); //// save sub admin token to database
+        await saveSubAdminToken(data); //// save sub admin token to database
         // Filter out null values if any users were not found
         const filteredCompany = company.filter((name) => name !== null);
         res.status(200).json({

@@ -7,4 +7,12 @@ async function saveToken(data) {
     userId: data.userID,
   });
 }
-module.exports = { saveToken };
+async function saveSubAdminToken(data) {
+  return await Token.create({
+    semail: data.email,
+    satok: data.token,
+    said: data.userID,
+  });
+}
+
+module.exports = { saveToken, saveSubAdminToken };
