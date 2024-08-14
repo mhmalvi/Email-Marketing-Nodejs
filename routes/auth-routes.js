@@ -13,29 +13,10 @@ const { randomAlphaNumeric } = require("../config/utils");
 const { google } = require("googleapis");
 const { saveToken } = require("../src/common/utils");
 const path = require("path");
-// authRouter.get(`/add-subadmin/:userID/:email/:userName`, async (req, res) => {
-//   const userExist = await User.findOne({ where: { email: req.params.email } }); //get User
-//   console.log("userExist", userExist);
+const {
+  findSubadminByEmail,
+} = require("../src/common/users/subadmin/findSubadminByEmail");
 
-//   if (userExist) {
-//     const subUser = userExist.pid ? JSON.parse(userExist.pid) : []; //array
-//     subUser.push(JSON.parse(req.params.userID)); // push in array
-//     userExist.pid = JSON.stringify(subUser);
-//     userExist.save();
-//     res.render('../src/views/hbs/redirect')
-//   } else {
-//     const subUser = userExist.pid ? JSON.parse(userExist.pid) : []; //array
-//     subUser.push(JSON.parse(req.params.userID)); // push in array
-//     await User.create({
-//       userName: req.params.userName,
-//       email: req.params.email,
-//       status: 2,
-//       role: 4,
-//       first_user: 1,
-//       pid: JSON.stringify(subUser),
-//     });
-//   }
-// });
 authRouter.get("/home", (req, res) => {
   res.send("Home Page");
 });
@@ -103,7 +84,13 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
     photo: req.user.picture,
   };
   // console.log(data);
+  const subadmin = await findSubadminByEmail(req.user.email); ////check if any subadmin exists with this email
   if (user === null) {
+    if (subadmin) {
+      res.json({
+        message: "This email cannot be used",
+      });
+    }
     const response = await create(req.user.email, req.user.displayName);
     newUser = await User.create({
       userName: req.user.displayName,

@@ -17,6 +17,7 @@ const { randomAlphaNumeric } = require("../../config/utils");
 const { saveToken, saveSubAdminToken } = require("../common/utils");
 const keys = require("../../config/keys");
 const EmailValidator = require("email-deep-validator");
+
 const isUserEmailExists = async (req, res) => {
   const baseUrl = process.env.BASE_URL;
   const user = await User.findOne({ where: { email: req.body.email } });
@@ -100,7 +101,7 @@ const passLogin = async (req, res) => {
         const data = {
           email: email,
           token: token,
-          userID: subadmin.id
+          userID: subadmin.id,
         };
         await saveSubAdminToken(data); //// save sub admin token to database
         // Filter out null values if any users were not found
@@ -219,7 +220,6 @@ const logout = async (req, res) => {
   if (token) {
     // req.session.destroy;
     const result = await token.destroy();
-    console.log(result);
     if (result) {
       res.status(201).json({
         message: "Deleted",
