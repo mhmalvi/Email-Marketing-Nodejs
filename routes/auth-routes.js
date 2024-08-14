@@ -86,41 +86,34 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
   // console.log(data);
   const subadmin = await findSubadminByEmail(req.user.email); ////check if any subadmin exists with this email
   if (user === null) {
-    if (subadmin) {
-      res.json('This email cannot be used');
+    if (subadmin !== null) {
+      res.json("This email cannot be used");
+    } else {
+      const response = await create(req.user.email, req.user.displayName); //// create stripe customer
+      newUser = await User.create({
+        userName: req.user.displayName,
+        email: req.user.email,
+        googleId: req.user.id,
+        role: 3,
+        image: req.user.picture,
+        first_user: 1,
+        status: 1,
+        stripeCustomerID: response.id,
+      }); //// create user in DB
+      await Subscribe.create({
+        userID: newUser.id,
+        subscription: "free",
+        interval: 30,
+      }); /// create free subscription
+      data.userID = newUser.id;
+      console.log(data);
+      await saveToken(data);
+
+      res.redirect(
+        `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${newUser.id}&photo=${req.user.picture}&token=${token}&first_user=1`
+      );
     }
-    const response = await create(req.user.email, req.user.displayName);
-    newUser = await User.create({
-      userName: req.user.displayName,
-      email: req.user.email,
-      googleId: req.user.id,
-      role: 3,
-      image: req.user.picture,
-      first_user: 1,
-      status: 1,
-      // subscription: "free",
-      stripeCustomerID: response.id,
-    });
-    await Subscribe.create({
-      userID: newUser.id,
-      subscription: "free",
-      interval: 30,
-    });
-
-    console.log(newUser.id);
-    data.userID = newUser.id;
-    console.log(data);
-    // return req.user.email;
-    await saveToken(data);
-    // res.redirect(
-    //   `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${newUser.id}&photo=${req.user.picture}&token=${token}&first_user=1&subscription='free'&priceID='free'&stripeCustomerID=${response.id}`
-    // );
-
-    res.redirect(
-      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${newUser.id}&photo=${req.user.picture}&token=${token}&first_user=1`
-    );
   } else {
-    // return req.user.email;
     data.userID = user.id;
     if (user.first_user == 1) {
       user.first_user = 0;
