@@ -87,9 +87,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
   const subadmin = await findSubadminByEmail(req.user.email); ////check if any subadmin exists with this email
   if (user === null) {
     if (subadmin) {
-      res.json({
-        message: "This email cannot be used",
-      });
+      res.json('This email cannot be used');
     }
     const response = await create(req.user.email, req.user.displayName);
     newUser = await User.create({
