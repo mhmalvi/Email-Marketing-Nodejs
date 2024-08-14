@@ -1,0 +1,53 @@
+const { randomAlphaNumeric } = require("../../../config/utils");
+const {
+  retrieveSubscriptionFromDB,
+} = require("../../common/subscription/retrieveSubscriptionDB");
+const { findUser } = require("../../common/users/findUser");
+const { saveToken } = require("../../common/utils");
+const User = require("../../../models").User;
+const Token = require("../../../models").Token;
+const subAdminLoginToCompany = async (req, res) => {
+  const { userID, said } = req.body;
+  const requiredFields = {
+    userID,
+    email,
+    satok,
+    said,
+  };
+  const missingFields = await fieldsValidation(requiredFields); ///// validation
+  if (missingFields.length > 0) {
+    res.status(422).json({
+      message: `Missing fields are ${missingFields.join(", ")}`,
+      status: 422,
+    });
+  } else {
+    const user = await findUser(userID); ////////// get user details
+    const subscription = retrieveSubscriptionFromDB(userID); ////////// get user subscription details
+    const bearerHeader = req.headers["authorization"];
+    const tokenDetails = await Token.findOne({
+      where: { said: said, satok: bearerHeader },
+    }); ///////////////// get subadmin token details
+    const userToken = "Bearer " + randomAlphaNumeric(60);
+    const data = {
+      email: user.email,
+      token: token,
+      userName: user.userName,
+      photo: user.image,
+      userID: user.id,
+      first_user: user.first_user,
+      priceID: subscription.price,
+      subscription: subscription.subscriptionID,
+      stripeCustomerID: user.stripeCustomerID,
+    };
+    await setUserToken(user.email, userID, tokenDetails.id, userToken);
+  }
+};
+
+////////////////////////// helper method //////////////////////////
+const setUserToken = async (email, userID, token_id, token) => {
+  return await Token.update(
+    { email: email, token: token, userID: userID },
+    { where: { id: token_id } }
+  );
+};
+module.exports = { subAdminLoginToCompany };

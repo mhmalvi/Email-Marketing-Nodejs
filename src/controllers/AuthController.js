@@ -20,15 +20,12 @@ const EmailValidator = require("email-deep-validator");
 
 const isUserEmailExists = async (req, res) => {
   const baseUrl = process.env.BASE_URL;
-  const user = await User.findOne({ where: { email: req.body.email } });
-  const subadmin = await Subadmin.findOne({ where: { email: req.body.email } });
-  console.log("user", user);
-  console.log("subadmin", subadmin);
+  const user = await User.findOne({ where: { email: req.body.email } }); ///////// check if the email exist as an user
+  const subadmin = await Subadmin.findOne({ where: { email: req.body.email } }); ///////// check if the email exist as a subadmin
   if (user && subadmin == null) {
-    console.log("user");
-    const otp = generateOTP();
+    const otp = generateOTP(); //////////////// generate otp
     user.otp = otp;
-    await user.save();
+    await user.save(); ///////////// save otp in users table
     const file = path.join(__dirname, "../views/ejs/otp-mail.ejs");
     const data = await ejs.renderFile(file, {
       otp,
@@ -81,7 +78,7 @@ const passLogin = async (req, res) => {
   } else {
     const subadmin = await Subadmin.findOne({
       where: { email: email, password: password },
-    });
+    }); ///////////// find subadmin
     if (subadmin) {
       let company = [];
       try {
@@ -95,8 +92,8 @@ const passLogin = async (req, res) => {
           });
           return user; // Return the username
         }); //// fetch company details by user id from subadmin table
-        // Wait for all promises to resolve
-        const company = await Promise.all(userPromises);
+
+        const company = await Promise.all(userPromises); // Wait for all promises to resolve
         const token = "Bearer " + randomAlphaNumeric(100); /// generate subadmin token
         const data = {
           email: email,
@@ -115,7 +112,8 @@ const passLogin = async (req, res) => {
       } catch (error) {
         res.json(error);
       }
-    } else {
+    } /////////////if subadmin exists
+    else {
       res.status(401).json({
         message: "wrong email or password",
         status: 401,
@@ -125,7 +123,6 @@ const passLogin = async (req, res) => {
 };
 
 const verifyOTP = async (req, res) => {
-  console.log(req.body);
   if (
     req.body.otp &&
     req.body.email &&
