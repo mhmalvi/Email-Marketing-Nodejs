@@ -52,8 +52,8 @@ const isUserEmailExists = async (req, res) => {
       status: true,
     });
   } else if (subadmin && user == null) {
-    console.log('subadmin');
-    
+    console.log("subadmin");
+
     res.status(200).json({
       message: "success",
       status: 1,
@@ -96,16 +96,23 @@ const passLogin = async (req, res) => {
           console.log("Fetched user:", user);
 
           return user; // Return the username
-        });
+        }); //// fetch company details by user id from subadmin table
         // Wait for all promises to resolve
         const company = await Promise.all(userPromises);
-
+        const token = "Bearer " + randomAlphaNumeric(100);
+        const data = {
+          email: email,
+          token: token,
+          userID: subadmin.id,
+        };
+        await saveToken(data); //// save sub admin token to database
         // Filter out null values if any users were not found
         const filteredCompany = company.filter((name) => name !== null);
         res.status(200).json({
           message: "success",
           status: 200,
           company: filteredCompany,
+          data: data,
         });
       } catch (error) {
         res.json(error);
