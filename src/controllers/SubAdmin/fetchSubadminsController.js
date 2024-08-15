@@ -31,6 +31,7 @@ const fetchSubadminsByCompany = async (req, res) => {
 
 const fetchSubAdminByCompany = async (userID) => {
   console.log("userID", userID);
+  const userID = JSON.parse(userID)
   return await Subadmin.findAll({
     where: {
       userID: {
