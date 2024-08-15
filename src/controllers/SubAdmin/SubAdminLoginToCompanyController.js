@@ -11,7 +11,6 @@ const User = require("../../../models").User;
 const Token = require("../../../models").Token;
 const subAdminLoginToCompany = async (req, res) => {
   const { userID, said } = req.body;
-  console.log(userID);
   const requiredFields = {
     userID,
     said,
@@ -52,7 +51,7 @@ const subAdminLoginToCompany = async (req, res) => {
     // res.json(tokenSetResponse)
     if (tokenSetResponse[0] == 1) {
       res.status(200).json({
-        message: 'success',
+        message: "success",
         status: 200,
         data: data,
       });
@@ -67,6 +66,7 @@ const subAdminLoginToCompany = async (req, res) => {
 
 ////////////////////////// helper method //////////////////////////
 const setUserToken = async (email, userID, token_id, token) => {
+  console.log('userID',userID);
   return await Token.update(
     { email: email, token: token, userID: userID },
     { where: { id: token_id } }
