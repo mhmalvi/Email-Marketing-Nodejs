@@ -1,4 +1,5 @@
 const User = require("../../../models").User;
+const { Op } = require("sequelize");
 const Subadmin = require("../../../models").Subadmin;
 const { fieldsValidation } = require("../../../config/utils");
 const path = require("path");
