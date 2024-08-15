@@ -45,10 +45,10 @@ const createSubAdmin = async (req, res) => {
         status: 422,
       });
     } else if (userEmailExist) {
-      var data = []
+      var data = [];
       var data = JSON.parse(userEmailExist.userID);
       console.log(data);
-      data.push(userID);
+      await data.push(userID);
       const result = await Subadmin.update(
         {
           userID: JSON.stringify(data),
@@ -67,8 +67,8 @@ const createSubAdmin = async (req, res) => {
         __dirname,
         "../../views/hbs/invitation.hbs"
       );
-      var user_id = []
-        user_id.push(userID)
+      var user_id = [];
+      await user_id.push(userID);
       var templateSource = fs.readFileSync(templatePath, "utf8");
       const finalTemplate = handlebars.compile(templateSource);
       const data = {
