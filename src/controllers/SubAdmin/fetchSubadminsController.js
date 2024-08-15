@@ -31,11 +31,11 @@ const fetchSubadminsByCompany = async (req, res) => {
 
 const fetchSubAdminByCompany = async (userID) => {
   console.log("userID", userID);
-  const userID = JSON.parse(userID)
+  const user_id = JSON.parse(userID)
   return await Subadmin.findAll({
     where: {
       userID: {
-        [Op.like]: `%${userID}%`,
+        [Op.like]: `%${user_id}%`,
       },
     },
   });
