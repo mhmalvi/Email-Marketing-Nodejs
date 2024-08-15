@@ -23,7 +23,7 @@ const fetchSubadminsByCompany = async (req, res) => {
   } else {
     const subadmins = await fetchSubAdminByCompany(userID);
     // if(subadmins)
-    res.json(subadmins)
+    res.json(subadmins);
   }
 };
 
@@ -32,8 +32,8 @@ const fetchSubadminsByCompany = async (req, res) => {
 const fetchSubAdminByCompany = async (userID) => {
   return await Subadmin.findAll({
     where: {
-      tags: {
-        [Op.userID]: userID,
+      userID: {
+        [Op.userID]: [userID],
       },
     },
   });
