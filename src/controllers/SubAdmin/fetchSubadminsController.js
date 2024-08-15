@@ -33,7 +33,7 @@ const fetchSubAdminByCompany = async (userID) => {
   return await Subadmin.findAll({
     where: {
       tags: {
-        [Op.userID]: [userID],
+        [Op.userID]: userID,
       },
     },
   });
