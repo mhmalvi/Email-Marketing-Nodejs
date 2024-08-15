@@ -24,7 +24,7 @@ const fetchSubadminsByCompany = async (req, res) => {
     const subadmins = await fetchSubAdminByCompany(userID);
     // if(subadmins)
     if (subadmins) {
-      res.status(404).json({
+      res.status(200).json({
         message: "success",
         status: 200,
         subadmins: subadmins,
