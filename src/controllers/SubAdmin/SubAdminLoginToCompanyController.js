@@ -11,6 +11,7 @@ const User = require("../../../models").User;
 const Token = require("../../../models").Token;
 const subAdminLoginToCompany = async (req, res) => {
   const { userID, said } = req.body;
+  console.log(userID);
   const requiredFields = {
     userID,
     said,
