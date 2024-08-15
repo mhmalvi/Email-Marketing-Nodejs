@@ -97,6 +97,7 @@ const createSubAdmin = async (req, res) => {
         res.status(535).json({
           message: "Sender email or app password wrong",
           status: 535,
+          error:error
         });
       } //// send mail
     }
