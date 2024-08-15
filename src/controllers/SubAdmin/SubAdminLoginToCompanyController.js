@@ -68,7 +68,7 @@ const subAdminLoginToCompany = async (req, res) => {
 const setUserToken = async (email, userID, token_id, token) => {
   console.log('userID',userID);
   return await Token.update(
-    { email: email, token: token, userID: userID },
+    { email: email, token: token, userId: userID },
     { where: { id: token_id } }
   );
 };
