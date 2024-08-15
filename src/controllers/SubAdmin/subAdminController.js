@@ -45,7 +45,7 @@ const createSubAdmin = async (req, res) => {
         status: 422,
       });
     } else if (userEmailExist) {
-      var data = userEmailExist.userID;
+      var data = Json.parse(userEmailExist.userID);
       console.log(data);
       data.push(userID);
       const result = await Subadmin.update(
