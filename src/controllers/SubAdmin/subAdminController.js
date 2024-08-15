@@ -49,7 +49,7 @@ const createSubAdmin = async (req, res) => {
       data.push(userID);
       const result = await Subadmin.update(
         {
-          userID: data,
+          userID: JSON.stringify(data),
         },
         { where: { id: userEmailExist.id } }
       );
