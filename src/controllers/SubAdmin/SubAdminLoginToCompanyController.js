@@ -1,4 +1,7 @@
-const { randomAlphaNumeric, fieldsValidation } = require("../../../config/utils");
+const {
+  randomAlphaNumeric,
+  fieldsValidation,
+} = require("../../../config/utils");
 const {
   retrieveSubscriptionFromDB,
 } = require("../../common/subscription/retrieveSubscriptionDB");
@@ -39,9 +42,25 @@ const subAdminLoginToCompany = async (req, res) => {
       satok: bearerHeader,
       said: said,
     };
-    const tokenSetResponse = await setUserToken(user.email, userID, tokenDetails.id, userToken);
-    res.json(tokenSetResponse)
-
+    const tokenSetResponse = await setUserToken(
+      user.email,
+      userID,
+      tokenDetails.id,
+      userToken
+    );
+    // res.json(tokenSetResponse)
+    if (tokenSetResponse[0] == 1) {
+      res.status(200).json({
+        message: success,
+        status: 200,
+        data: data,
+      });
+    } else {
+      res.status(200).json({
+        message: failed,
+        status: 500,
+      });
+    }
   }
 };
 
