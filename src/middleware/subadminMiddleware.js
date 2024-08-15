@@ -14,7 +14,7 @@ module.exports.isSubadminAuthenticated = async (req, res, next) => {
   const bearerHeader = req.headers["authorization"];
   if (bearerHeader) {
     const isTokenExist = await Token.findOne({
-      where: { satok: bearerHeader, said: said },
+      where: { satok: bearerHeader, said: req.body.said },
     });
     if (isTokenExist) {
       next();
