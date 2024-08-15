@@ -32,11 +32,7 @@ const fetchSubadminsByCompany = async (req, res) => {
 const fetchSubAdminByCompany = async (userID) => {
   console.log("userID", userID);
   return await Subadmin.findAll({
-    where: {
-      userID: {
-        [Op.like]: userID,
-      },
-    },
+    where: Sequelize.json("userID", "LIKE", `%${userID}%`),
   });
 };
 
