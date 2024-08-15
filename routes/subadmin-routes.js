@@ -19,6 +19,8 @@ subadminRouter.route("/create-subadmin").post(createSubAdmin);
 subadminRouter
   .route("/subadminToCompany")
   .post(isSubadminAuthenticated, subAdminLoginToCompany);
-subadminRouter.route("/company-subadmins").post(fetchSubadminsByCompany);
+subadminRouter
+  .route("/company-subadmins")
+  .post(isCustomerAuthenticated, fetchSubadminsByCompany);
 
 module.exports = subadminRouter;

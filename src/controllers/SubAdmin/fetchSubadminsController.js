@@ -23,7 +23,18 @@ const fetchSubadminsByCompany = async (req, res) => {
   } else {
     const subadmins = await fetchSubAdminByCompany(userID);
     // if(subadmins)
-    res.json(subadmins);
+    if (subadmins) {
+      res.status(404).json({
+        message: "success",
+        status: 200,
+        subadmins: subadmins,
+      });
+    } else {
+      res.status(404).json({
+        message: "not found",
+        status: 404,
+      });
+    }
   }
 };
 
@@ -31,7 +42,7 @@ const fetchSubadminsByCompany = async (req, res) => {
 
 const fetchSubAdminByCompany = async (userID) => {
   console.log("userID", userID);
-  const user_id = JSON.parse(userID)
+  const user_id = JSON.parse(userID);
   return await Subadmin.findAll({
     where: {
       userID: {
