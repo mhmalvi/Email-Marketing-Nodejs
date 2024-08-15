@@ -1,4 +1,4 @@
-const { randomAlphaNumeric } = require("../../../config/utils");
+const { randomAlphaNumeric, fieldsValidation } = require("../../../config/utils");
 const {
   retrieveSubscriptionFromDB,
 } = require("../../common/subscription/retrieveSubscriptionDB");
@@ -7,10 +7,9 @@ const { saveToken } = require("../../common/utils");
 const User = require("../../../models").User;
 const Token = require("../../../models").Token;
 const subAdminLoginToCompany = async (req, res) => {
-  const { userID, satok, said } = req.body;
+  const { userID, said } = req.body;
   const requiredFields = {
     userID,
-    satok,
     said,
   };
   const missingFields = await fieldsValidation(requiredFields); ///// validation
