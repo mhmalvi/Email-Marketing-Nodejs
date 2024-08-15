@@ -28,7 +28,7 @@ const subAdminLoginToCompany = async (req, res) => {
     const userToken = "Bearer " + randomAlphaNumeric(60);
     const data = {
       email: user.email,
-      token: token,
+      token: userToken,
       userName: user.userName,
       photo: user.image,
       userID: user.id,
