@@ -49,6 +49,7 @@ const fetchSubAdminByCompany = async (userID) => {
         [Op.like]: `%${user_id}%`,
       },
     },
+    attributes: { exclude: ["userID"] },
   });
 };
 
