@@ -1,13 +1,13 @@
 const express = require("express");
 const Token = require("../../models").Token;
 
-module.exports.isUserAuthenticated = async (req, res, next) => {
-  if (req.user) {
-    next();
-  } else {
-    res.status(401).send("You must login");
-  }
-};
+// module.exports.isUserAuthenticated = async (req, res, next) => {
+//   if (req.user) {
+//     next();
+//   } else {
+//     res.status(401).send("You must login");
+//   }
+// };
 
 module.exports.isCustomerAuthenticated = async (req, res, next) => {
   console.log(req);
