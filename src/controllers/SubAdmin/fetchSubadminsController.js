@@ -30,10 +30,11 @@ const fetchSubadminsByCompany = async (req, res) => {
 // ---------------------------- helper-----------------------------------
 
 const fetchSubAdminByCompany = async (userID) => {
+  console.log('userID',userID);
   return await Subadmin.findAll({
     where: {
       userID: {
-        [Op.contains]: [15],
+        [Op.contains]: [userID],
       },
     },
   });
