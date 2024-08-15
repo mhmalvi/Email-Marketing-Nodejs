@@ -68,12 +68,12 @@ const createSubAdmin = async (req, res) => {
         "../../views/hbs/invitation.hbs"
       );
       var user_id = [];
-      await user_id.push(userID);
+      
       var templateSource = fs.readFileSync(templatePath, "utf8");
       const finalTemplate = handlebars.compile(templateSource);
       const data = {
         userName: userName,
-        userID: JSON.stringify(user_id),
+        userID: userID,
         email: email,
         password: password,
         admin_name: inviter.userName,

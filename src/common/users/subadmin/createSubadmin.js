@@ -1,4 +1,5 @@
 const Subadmin = require("../../../../models").Subadmin;
+
 const createSubAdminUtils = async (data) => {
   var userID = [];
   userID.push(data.userID);
@@ -6,7 +7,7 @@ const createSubAdminUtils = async (data) => {
     userName: data.userName,
     email: data.email,
     password: data.password,
-    userID: userID,
+    userID: JSON.stringify(userID),
   });
 };
 module.exports = { createSubAdminUtils };
