@@ -5,7 +5,7 @@ const findSubadminByEmailAndUserID = async (email, userID) => {
     where: {
       email: email,
       userID: {
-        [Op.like]: `%${user_id}%`,
+        [Op.like]: `%${userID}%`,
       },
     },
   });
