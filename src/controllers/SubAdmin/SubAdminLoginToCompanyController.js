@@ -51,7 +51,7 @@ const subAdminLoginToCompany = async (req, res) => {
     // res.json(tokenSetResponse)
     if (tokenSetResponse[0] == 1) {
       res.status(200).json({
-        message: success,
+        message: 'success',
         status: 200,
         data: data,
       });
