@@ -1,4 +1,3 @@
-const Sequelize = require('sequelize')
 const {
   randomAlphaNumeric,
   fieldsValidation,
@@ -33,7 +32,11 @@ const fetchSubadminsByCompany = async (req, res) => {
 const fetchSubAdminByCompany = async (userID) => {
   console.log("userID", userID);
   return await Subadmin.findAll({
-    where: Sequelize.json("userID", "LIKE", `%${userID}%`),
+    where: {
+      userID: {
+        [Op.like]: `%${userID}%`,
+      },
+    },
   });
 };
 
