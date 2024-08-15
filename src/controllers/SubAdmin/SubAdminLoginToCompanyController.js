@@ -7,10 +7,9 @@ const { saveToken } = require("../../common/utils");
 const User = require("../../../models").User;
 const Token = require("../../../models").Token;
 const subAdminLoginToCompany = async (req, res) => {
-  const { userID, said } = req.body;
+  const { userID, satok, said } = req.body;
   const requiredFields = {
     userID,
-    email,
     satok,
     said,
   };
@@ -38,8 +37,12 @@ const subAdminLoginToCompany = async (req, res) => {
       priceID: subscription.price,
       subscription: subscription.subscriptionID,
       stripeCustomerID: user.stripeCustomerID,
+      satok: bearerHeader,
+      said: said,
     };
-    await setUserToken(user.email, userID, tokenDetails.id, userToken);
+    const tokenSetResponse = await setUserToken(user.email, userID, tokenDetails.id, userToken);
+    res.json(tokenSetResponse)
+
   }
 };
 
