@@ -78,9 +78,11 @@ const passLogin = async (req, res) => {
       status: 422,
     });
   } else {
+    console.log('entered');
     const subadmin = await Subadmin.findOne({
       where: { email: email, password: password },
     }); ///////////// find subadmin
+    console.log('subadmin',subadmin);
     if (subadmin) {
       let company = [];
       try {
