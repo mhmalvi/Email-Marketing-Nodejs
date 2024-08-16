@@ -31,7 +31,7 @@ const removeSubadmin=async(userID,subadminID,req,res)=>{
     const subadmin = await Subadmin.findOne({where:{id:subadminID}})
     if(subadmin){
         const array = subadmin.userID
-        res.json(array)
+        res.json(JSON.parse(array))
     }
 }
 
