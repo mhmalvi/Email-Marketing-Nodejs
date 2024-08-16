@@ -30,7 +30,7 @@ const removeSubadmin = async (userID, subadminID) => {
   console.log('subadmin',subadmin);
   if (subadmin) {
     const array = JSON.parse(subadmin.userID);
-    const index = array.indexOf(userID);
+    const index = array.indexOf(SON.parse(userID));
     if (index > -1) {
       array.splice(index, 1);
       if (array.length == 0) {
