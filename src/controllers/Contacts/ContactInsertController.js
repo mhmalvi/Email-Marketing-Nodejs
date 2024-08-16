@@ -15,20 +15,20 @@ const {
 } = require("../../common/stripe/subscription/retrieveSingleSubscription");
 
 const insertContact = async (req, res) => {
-  const { data, userID } = req.body;
+  const { data, user_id } = req.body;
   if (data.length > 0) {
-    const productDB = await getProductDetailsFromDB(userID); /// product details of authenticated user from DB
+    const productDB = await getProductDetailsFromDB(user_id); /// product details of authenticated user from DB
     //////////////////////////////////////////////////////////////////////
-    var contactCount = await contactCounts(userID); ////get mail count for today
+    var contactCount = await contactCounts(user_id); ////get mail count for today
     //////////////////////////////////////////////////////////////////////
     const total_contacts = data.length + contactCount;
     if (total_contacts < productDB.contactLimit) {
       await data.forEach(async (element) => {
         var count = 0;
-        const userCollectionExist = await ifContactExist(userID, element); //// check if contacts already exist
+        const userCollectionExist = await ifContactExist(user_id, element); //// check if contacts already exist
         //////////////////////////////////////////////////////////////////////
         if (!userCollectionExist) {
-          await saveContact(element, userID); ///////// save contact
+          await saveContact(element, user_id); ///////// save contact
         }
       });
       res.status(201).json({
@@ -51,8 +51,8 @@ const insertContact = async (req, res) => {
 };
 
 const insertContactManually = async (req, res) => {
-  const { userID, email, name, group } = req.body;
-  const requiredFields = { userID, email, name, group };
+  const { user_id, email, name, group } = req.body;
+  const requiredFields = { user_id, email, name, group };
   const missingFields = await fieldsValidation(requiredFields);
   if (missingFields.length > 0) {
     res.status(422).json({
@@ -60,13 +60,13 @@ const insertContactManually = async (req, res) => {
       status: 422,
     });
   } else {
-    const userCollectionExist = await ifContactExist(userID, req.body); /// check if contact already exists
+    const userCollectionExist = await ifContactExist(user_id, req.body); /// check if contact already exists
     if (!userCollectionExist) {
-      const productDB = await getProductDetailsFromDB(userID); /// product details of authenticated user from DB
+      const productDB = await getProductDetailsFromDB(user_id); /// product details of authenticated user from DB
       //////////////////////////////////////////////////////////////////////
-      var contactCount = await contactCounts(userID); ////get mail count for today
+      var contactCount = await contactCounts(user_id); ////get mail count for today
       if (contactCount < productDB.contactLimit) {
-        await saveContact(req.body, userID); //// insert contact
+        await saveContact(req.body, user_id); //// insert contact
         res.status(201).json({
           message: "Contact inserted",
           status: 201,
