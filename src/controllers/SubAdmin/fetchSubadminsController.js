@@ -21,7 +21,7 @@ const fetchSubadminsByCompany = async (req, res) => {
       status: 422,
     });
   } else {
-    const subadmins = await fetchSubAdminByCompany(userID);
+    const subadmins = await fetchSubAdminByCompany(userID); ////////// fetch
     // if(subadmins)
     if (subadmins) {
       res.status(200).json({
@@ -49,7 +49,7 @@ const fetchSubAdminByCompany = async (userID) => {
         [Op.like]: `%${user_id}%`,
       },
     },
-    attributes: { exclude: ["userID","password"] },
+    attributes: { exclude: ["userID", "password"] },
   });
 };
 
