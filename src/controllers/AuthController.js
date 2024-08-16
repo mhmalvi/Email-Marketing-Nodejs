@@ -87,7 +87,7 @@ const passLogin = async (req, res) => {
 
           const user = await User.findOne({
             where: {
-              id: data,
+              id: JSON.parse(data),
             },
           });
           return user; // Return the username
@@ -98,7 +98,7 @@ const passLogin = async (req, res) => {
         const data = {
           email: email,
           token: token,
-          userID: subadmin.id,
+          userID: JSON.parse(subadmin.id),
         };
         await saveSubAdminToken(data); //// save sub admin token to database
         // Filter out null values if any users were not found
