@@ -23,20 +23,22 @@ const subAdminRemove = async (req, res) => {
     });
   } else {
     const result = await removeSubadmin(userID, subadminID);
-    if (result[0] > 0) {
-      res.status(201).json({
-        message: "Deleted",
-        status: 201,
-      });
-    } else {
-      res.status(500).json({
-        message: "Failed",
-        status: 500,
-      });
-    }
+    res.json(result)
+    // if (result[0] > 0) {
+    //   res.status(201).json({
+    //     message: "Deleted",
+    //     status: 201,
+    //   });
+    // } else {
+    //   res.status(500).json({
+    //     message: "Failed",
+    //     status: 500,
+    //   });
+    // }
   }
 };
 
+// ---------------------------------helper-----------------------------------
 const removeSubadmin = async (userID, subadminID) => {
   const subadmin = await Subadmin.findOne({ where: { id: subadminID } });
   if (subadmin) {
@@ -44,10 +46,14 @@ const removeSubadmin = async (userID, subadminID) => {
     const index = array.indexOf(userID);
     if (index > -1) {
       array.splice(index, 1);
-      return await Subadmin.update(
-        { userID: JSON.stringify(array) },
-        { where: { id: subadminID } }
-      );
+      if (array.length > 0) {
+        return await Subadmin.destroy({ where: { id: subadminID } });
+      } else {
+        return await Subadmin.update(
+          { userID: JSON.stringify(array) },
+          { where: { id: subadminID } }
+        );
+      }
     }
   }
 };
