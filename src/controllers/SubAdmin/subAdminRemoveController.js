@@ -27,6 +27,7 @@ const subAdminRemove = async (req, res) => {
 // ---------------------------------helper-----------------------------------
 const removeSubadmin = async (userID, subadminID) => {
   const subadmin = await Subadmin.findOne({ where: { id: subadminID } });
+  console.log('subadmin',subadmin);
   if (subadmin) {
     const array = JSON.parse(subadmin.userID);
     const index = array.indexOf(userID);
