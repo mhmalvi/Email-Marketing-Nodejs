@@ -104,6 +104,7 @@ const passLogin = async (req, res) => {
         };
         await saveSubAdminToken(data); //// save sub admin token to database
         // Filter out null values if any users were not found
+        console.log('company',company);
         const filteredCompany = company.filter((name) => name !== null);
         res.status(200).json({
           message: "success",
