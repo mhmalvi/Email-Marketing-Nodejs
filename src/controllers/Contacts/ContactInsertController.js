@@ -24,7 +24,7 @@ const insertContact = async (req, res) => {
     //////////////////////////////////////////////////////////////////////
     const total_contacts = data.length + contactCount;
     if (total_contacts <= productDB.contactLimit) {
-      await json.forEach(async (element) => {
+      await data.forEach(async (element) => {
         var count = 0;
         const userCollectionExist = await ifContactExist(user_id, element); //// check if contacts already exist
         //////////////////////////////////////////////////////////////////////
