@@ -65,8 +65,8 @@ const isUserEmailExists = async (req, res) => {
 
 const passLogin = async (req, res) => {
   const { email, password } = req.body;
-  console.log('email',email);
-  console.log('password',password);
+  console.log("email", email);
+  console.log("password", password);
   const requiredFields = {
     email,
     password,
@@ -78,15 +78,15 @@ const passLogin = async (req, res) => {
       status: 422,
     });
   } else {
-    console.log('entered');
+    console.log("entered");
     const subadmin = await Subadmin.findOne({
       where: { email: email, password: password },
     }); ///////////// find subadmin
-    console.log('subadmin',subadmin);
+    console.log("subadmin", subadmin);
     if (subadmin) {
       let company = [];
       try {
-        const userPromises = subadmin.userID.map(async (data) => {
+        const userPromises = JSON.parse(subadmin.userID).map(async (data) => {
           console.log("Fetching data for userID:", data);
 
           const user = await User.findOne({
@@ -106,7 +106,7 @@ const passLogin = async (req, res) => {
         };
         await saveSubAdminToken(data); //// save sub admin token to database
         // Filter out null values if any users were not found
-        console.log('company',company);
+        console.log("company", company);
         const filteredCompany = company.filter((name) => name !== null);
         res.status(200).json({
           message: "success",
