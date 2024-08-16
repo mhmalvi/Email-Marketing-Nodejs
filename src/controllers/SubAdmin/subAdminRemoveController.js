@@ -22,17 +22,24 @@ const subAdminRemove = async (req, res) => {
       status: 422,
     });
   } else {
-    const result=await removeSubadmin(userID,subadminID,req,res)
-    // res.json(result)
+    const result = await removeSubadmin(userID, subadminID, req, res);
+    res.json(result)
   }
 };
 
-const removeSubadmin=async(userID,subadminID,req,res)=>{
-    const subadmin = await Subadmin.findOne({where:{id:subadminID}})
-    if(subadmin){
-        const array = subadmin.userID
-        res.json(JSON.parse(array))
+const removeSubadmin = async (userID, subadminID) => {
+  const subadmin = await Subadmin.findOne({ where: { id: subadminID } });
+  if (subadmin) {
+    const array = JSON.parse(subadmin.userID);
+    const index = array.indexOf(userID);
+    if (index > -1) {
+      array.splice(index, 1);
+      return await Subadmin.update(
+        { userID: JSON.stringify(array) },
+        { where: { id: subadminID } }
+      );
     }
-}
+  }
+};
 
 module.exports = { subAdminRemove };
