@@ -15,13 +15,14 @@ const {
 } = require("../../common/stripe/subscription/retrieveSingleSubscription");
 
 const insertContact = async (req, res) => {
-  const { json, user_id } = req.body;
-  if (json.length > 0) {
+  const { data, user_id } = req.body;
+  console.log(data)
+  if (data.length > 0) {
     const productDB = await getProductDetailsFromDB(user_id); /// product details of authenticated user from DB
     //////////////////////////////////////////////////////////////////////
     var contactCount = await contactCounts(user_id); ////get mail count for today
     //////////////////////////////////////////////////////////////////////
-    const total_contacts = json.length + contactCount;
+    const total_contacts = data.length + contactCount;
     if (total_contacts <= productDB.contactLimit) {
       await json.forEach(async (element) => {
         var count = 0;
