@@ -8,6 +8,7 @@ const {
 const {
   subAdminLoginToCompany,
 } = require("../src/controllers/SubAdmin/SubAdminLoginToCompanyController");
+const { subAdminRemove } = require("../src/controllers/SubAdmin/subAdminRemoveController");
 const {
   isSubadminAuthenticated,
 } = require("../src/middleware/subadminMiddleware");
@@ -22,5 +23,9 @@ subadminRouter
 subadminRouter
   .route("/company-subadmins")
   .post(isCustomerAuthenticated, fetchSubadminsByCompany);
+
+  subadminRouter
+  .route("/subadmin-remove")
+  .post(isCustomerAuthenticated, subAdminRemove);
 
 module.exports = subadminRouter;
