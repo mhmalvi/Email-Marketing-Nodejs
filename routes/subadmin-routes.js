@@ -26,6 +26,6 @@ subadminRouter
 
   subadminRouter
   .route("/subadmin-remove")
-  .post(isCustomerAuthenticated, subAdminRemove);
+  .post( subAdminRemove);
 
 module.exports = subadminRouter;
