@@ -5,8 +5,14 @@ const userAccess = async (req, res) => {
   console.log(bearerHeader);
   const token = await Token.findOne({where:{token:bearerHeader}})
   res.json(token.satok)
-  if(token){
-
+  if(token.satok===null){
+    res.status(200).json({
+        message:'customer'
+    })
+  }else{
+    res.status(200).json({
+        message:'subadmin'
+    })
   }
 };
 module.exports = { userAccess };
