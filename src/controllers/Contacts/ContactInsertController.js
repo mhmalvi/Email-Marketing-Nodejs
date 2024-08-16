@@ -35,7 +35,7 @@ const insertContact = async (req, res) => {
       res.status(201).json({
         message: "Contact inserted",
         status: 201,
-        contact: JSON.stringify(json),
+        contact: JSON.stringify(data),
       });
     } else {
       res.status(422).json({
