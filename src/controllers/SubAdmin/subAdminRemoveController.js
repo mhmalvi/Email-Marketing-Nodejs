@@ -1,12 +1,4 @@
-const {
-  randomAlphaNumeric,
-  fieldsValidation,
-} = require("../../../config/utils");
-const { Op } = require("sequelize");
-const { findUser } = require("../../common/users/findUser");
-const { saveToken } = require("../../common/utils");
-const User = require("../../../models").User;
-const Token = require("../../../models").Token;
+const { fieldsValidation } = require("../../../config/utils");
 const Subadmin = require("../../../models").Subadmin;
 
 const subAdminRemove = async (req, res) => {
