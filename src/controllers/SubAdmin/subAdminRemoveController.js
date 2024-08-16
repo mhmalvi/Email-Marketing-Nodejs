@@ -23,7 +23,7 @@ const subAdminRemove = async (req, res) => {
     });
   } else {
     const result = await removeSubadmin(userID, subadminID);
-    res.json(result)
+    res.json(result);
     // if (result[0] > 0) {
     //   res.status(201).json({
     //     message: "Deleted",
@@ -46,7 +46,7 @@ const removeSubadmin = async (userID, subadminID) => {
     const index = array.indexOf(userID);
     if (index > -1) {
       array.splice(index, 1);
-      if (array.length > 0) {
+      if (array.length == 0) {
         return await Subadmin.destroy({ where: { id: subadminID } });
       } else {
         return await Subadmin.update(
