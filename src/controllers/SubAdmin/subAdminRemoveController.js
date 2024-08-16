@@ -14,6 +14,8 @@ const subAdminRemove = async (req, res) => {
       status: 422,
     });
   } else {
+    console.log('userID',userID);
+    console.log('subadminID',subadminID);
     const result = await removeSubadmin(userID, subadminID);
     res.status(201).json({
       message: "Deleted",

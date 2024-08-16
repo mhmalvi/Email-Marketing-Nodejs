@@ -68,7 +68,7 @@ const createSubAdmin = async (req, res) => {
         "../../views/hbs/invitation.hbs"
       );
       var user_id = [];
-      
+
       var templateSource = fs.readFileSync(templatePath, "utf8");
       const finalTemplate = handlebars.compile(templateSource);
       const data = {
@@ -97,7 +97,7 @@ const createSubAdmin = async (req, res) => {
         res.status(535).json({
           message: "Sender email or app password wrong",
           status: 535,
-          error:error
+          error: error,
         });
       } //// send mail
     }
