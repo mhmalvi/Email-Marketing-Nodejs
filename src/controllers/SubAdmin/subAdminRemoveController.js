@@ -23,18 +23,17 @@ const subAdminRemove = async (req, res) => {
     });
   } else {
     const result = await removeSubadmin(userID, subadminID);
-    res.json(result);
-    // if (result[0] > 0) {
-    //   res.status(201).json({
-    //     message: "Deleted",
-    //     status: 201,
-    //   });
-    // } else {
-    //   res.status(500).json({
-    //     message: "Failed",
-    //     status: 500,
-    //   });
-    // }
+    if (result[0] > 0 || result === 1) {
+      res.status(201).json({
+        message: "Deleted",
+        status: 201,
+      });
+    } else {
+      res.status(500).json({
+        message: "Failed",
+        status: 500,
+      });
+    }
   }
 };
 
