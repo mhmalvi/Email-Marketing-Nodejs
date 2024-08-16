@@ -15,15 +15,15 @@ const {
 } = require("../../common/stripe/subscription/retrieveSingleSubscription");
 
 const insertContact = async (req, res) => {
-  const { data, user_id } = req.body;
-  if (data.length > 0) {
+  const { json, user_id } = req.body;
+  if (json.length > 0) {
     const productDB = await getProductDetailsFromDB(user_id); /// product details of authenticated user from DB
     //////////////////////////////////////////////////////////////////////
     var contactCount = await contactCounts(user_id); ////get mail count for today
     //////////////////////////////////////////////////////////////////////
-    const total_contacts = data.length + contactCount;
-    if (total_contacts < productDB.contactLimit) {
-      await data.forEach(async (element) => {
+    const total_contacts = json.length + contactCount;
+    if (total_contacts <= productDB.contactLimit) {
+      await json.forEach(async (element) => {
         var count = 0;
         const userCollectionExist = await ifContactExist(user_id, element); //// check if contacts already exist
         //////////////////////////////////////////////////////////////////////
@@ -34,7 +34,7 @@ const insertContact = async (req, res) => {
       res.status(201).json({
         message: "Contact inserted",
         status: 201,
-        contact: JSON.stringify(data),
+        contact: JSON.stringify(json),
       });
     } else {
       res.status(422).json({
@@ -65,7 +65,7 @@ const insertContactManually = async (req, res) => {
       const productDB = await getProductDetailsFromDB(user_id); /// product details of authenticated user from DB
       //////////////////////////////////////////////////////////////////////
       var contactCount = await contactCounts(user_id); ////get mail count for today
-      if (contactCount < productDB.contactLimit) {
+      if (contactCount <= productDB.contactLimit) {
         await saveContact(req.body, user_id); //// insert contact
         res.status(201).json({
           message: "Contact inserted",
