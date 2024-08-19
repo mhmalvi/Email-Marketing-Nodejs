@@ -1,7 +1,7 @@
 const { TrackingOptionsDoesNotExistException } = require("@aws-sdk/client-ses");
 const { fieldsValidation } = require("../../../config/utils");
 
-const Subadmin = require("../../../models").Subadmin;
+const Token = require("../../../models").Token;
 
 const subadminLogout = async (req, res) => {
   const { said } = req.body;
