@@ -2,6 +2,7 @@ const express = require("express");
 const {
   fetchSubadminsByCompany,
 } = require("../src/controllers/SubAdmin/fetchSubadminsController");
+const { subadminLogout } = require("../src/controllers/SubAdmin/logoutSubadminController");
 const {
   createSubAdmin,
 } = require("../src/controllers/SubAdmin/subAdminController");
