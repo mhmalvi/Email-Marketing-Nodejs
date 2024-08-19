@@ -16,8 +16,20 @@ const subadminLogout = async (req, res) => {
     });
   } else {
     const bearerHeader = req.headers["authorization"];
-    const result = await Token.destroy({ where: { satok: bearerHeader, said: JSON.parse(said) } });
-    res.json(result)
+    const result = await Token.destroy({
+      where: { satok: bearerHeader, said: JSON.parse(said) },
+    });
+    if (result === 1) {
+      res.status(201).json({
+        message: "Deleted",
+        status: 201,
+      });
+    } else {
+      res.status(500).json({
+        message: "Failed",
+        status: 500,
+      });
+    }
   }
 };
 
