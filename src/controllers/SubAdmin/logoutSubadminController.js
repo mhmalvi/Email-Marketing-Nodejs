@@ -15,7 +15,7 @@ const subadminLogout = async (req, res) => {
     });
   } else {
     const bearerHeader = req.headers["authorization"];
-    const result = await Token.destroy({ where: { satok: bearerHeader, said: said } });
+    const result = await Token.destroy({ where: { satok: bearerHeader, said: JSON.parse(said) } });
     res.json(result)
   }
 };
