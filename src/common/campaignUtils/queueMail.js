@@ -7,7 +7,7 @@ const Contact = require("../../../models").Contact;
 const Emailqueue = require("../../../models").EmailQueue;
 const queueMail = async (data, campaignID) => {
   try {
-    console.log(data.campaignInfo.subject);
+    console.log("data.schedule", data.schedule);
     await data.recipient.forEach(async (element) => {
       const template = data.template.data;
       const subject =
@@ -28,7 +28,7 @@ const queueMail = async (data, campaignID) => {
         templateData: template,
         campaignID: campaignID,
         userID: data.userID,
-        open:0
+        open: 0,
       });
     });
     return 1;
