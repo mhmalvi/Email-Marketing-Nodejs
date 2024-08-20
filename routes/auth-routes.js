@@ -102,7 +102,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
       }); //// create user in DB
       await Subscribe.create({
         userID: newUser.id,
-        subscription: "free",
+        price: "free",
         interval: 30,
       }); /// create free subscription
       data.userID = newUser.id;
