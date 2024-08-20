@@ -6,7 +6,7 @@ const stripe_key = Stripe(
 
 
 const retrievePrice = async (priceID) => {
-    return await stripe_key.prices.retrieve(priceID);
+    return await stripe_key.prices.retrieve(JSON.parse(priceID));
 }
 
 module.exports = { retrievePrice };
