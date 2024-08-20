@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       count: DataTypes.INTEGER,
       userID: DataTypes.INTEGER,
       campaignName: DataTypes.TEXT,
+      schedule: DataTypes.DATE,
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
     },
