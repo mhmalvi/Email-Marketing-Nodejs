@@ -8,6 +8,7 @@ const saveCampaign = (data) => {
     campaignName: data.campaignInfo.campaignName,
     count: email_count,
     userID: data.userID,
+    schedule: data.schedule,
   });
 };
 
