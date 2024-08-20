@@ -13,10 +13,10 @@ const update = async (priceID, userID, subscriptionID, itemID) => {
           price: priceID,
         },
       ],
-      collection_method: "send_invoice",
+      // collection_method: "send_invoice",
       proration_behavior: "none",
       // billing_cycle_anchor: "now",
-      days_until_due: 1,
+      // days_until_due: 1,
     });
     console.log("subscription res", subscription);
     const subscriptionDB = await Subscribe.update(

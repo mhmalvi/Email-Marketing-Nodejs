@@ -24,7 +24,7 @@ const create = async (
     // billing_cycle_anchor_config: {
     //   day_of_month: 31,
     // },
-    days_until_due: 1,
+    // days_until_due: 1,
   });
   // console.log("userID", userID);
   const subscription = await subscribe.update(
