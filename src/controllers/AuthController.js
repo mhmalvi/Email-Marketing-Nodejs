@@ -122,7 +122,7 @@ const passLogin = async (req, res) => {
         }
       }
     } /////////////if subadmin exists
-    else if (mainUser) {
+    else if (mainUser.password !== null) {
       /////////////if main user exists
       const result = await bcrypt.compare(password, mainUser.password);
       if (result) {
