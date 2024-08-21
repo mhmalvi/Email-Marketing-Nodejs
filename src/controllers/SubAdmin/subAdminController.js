@@ -6,7 +6,7 @@ const path = require("path");
 const fs = require("fs");
 const handlebars = require("handlebars");
 const AppPassword = require("../../../models").AppPassword;
-const bcrypt = require("bcrypt");
+
 const {
   transporter,
 } = require("../../common/transporterUtils/customTransporter");
@@ -103,7 +103,7 @@ const createSubAdmin = async (req, res) => {
 
         try {
           await transporterResponse.sendMail(mailOptions);
-          await createSubAdminUtils(data);
+          const result = await createSubAdminUtils(data);
           res.status(201).json({
             message: "success",
             status: 201,

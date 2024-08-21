@@ -82,42 +82,71 @@ const passLogin = async (req, res) => {
     const subadmin = await Subadmin.findOne({
       where: { email: email },
     }); ///////////// find subadmin
-    const result = await bcrypt.compare(password, subadmin.password);
-    if (subadmin && result) {
-      let company = [];
-      try {
-        const userPromises = JSON.parse(subadmin.userID).map(async (data) => {
-          console.log("Fetching data for userID:", data);
+    const mainUser = await User.findOne({
+      where: { email: email },
+    }); ///////////// find user
+    if (subadmin) {
+      const result = await bcrypt.compare(password, subadmin.password);
+      if (result) {
+        let company = [];
+        try {
+          const userPromises = JSON.parse(subadmin.userID).map(async (data) => {
+            console.log("Fetching data for userID:", data);
 
-          const user = await User.findOne({
-            where: {
-              id: JSON.parse(data),
-            },
+            const user = await User.findOne({
+              where: {
+                id: JSON.parse(data),
+              },
+            });
+            return user; // Return the username
+          }); //// fetch company details by user id from subadmin table
+
+          const company = await Promise.all(userPromises); // Wait for all promises to resolve
+          const token = "Bearer " + randomAlphaNumeric(100); /// generate subadmin token
+          const data = {
+            email: email,
+            token: token,
+            userID: JSON.parse(subadmin.id),
+          };
+          await saveSubAdminToken(data); //// save sub admin token to database
+          // Filter out null values if any users were not found
+          const filteredCompany = company.filter((name) => name !== null);
+          res.status(200).json({
+            message: "success",
+            status: 200,
+            company: filteredCompany,
+            data: data,
           });
-          return user; // Return the username
-        }); //// fetch company details by user id from subadmin table
-
-        const company = await Promise.all(userPromises); // Wait for all promises to resolve
-        const token = "Bearer " + randomAlphaNumeric(100); /// generate subadmin token
+        } catch (error) {
+          res.json(error);
+        }
+      }
+    } /////////////if subadmin exists
+    else if (mainUser) {
+      const result = await bcrypt.compare(password, mainUser.password);
+      if (result) {
+        const token = "Bearer " + randomAlphaNumeric(60); /// generate subadmin token
         const data = {
           email: email,
           token: token,
-          userID: JSON.parse(subadmin.id),
+          userName: mainUser.userName,
+          photo: mainUser.image,
+          userID: mainUser.id,
+          first_user: mainUser.first_user,
         };
-        await saveSubAdminToken(data); //// save sub admin token to database
-        // Filter out null values if any users were not found
-        const filteredCompany = company.filter((name) => name !== null);
+        await saveToken(data);
         res.status(200).json({
           message: "success",
           status: 200,
-          company: filteredCompany,
-          data: data,
+          user: data,
         });
-      } catch (error) {
-        res.json(error);
+      } else {
+        res.status(401).json({
+          message: "wrong email or password",
+          status: 401,
+        });
       }
-    } /////////////if subadmin exists
-    else {
+    } else {
       res.status(401).json({
         message: "wrong email or password",
         status: 401,

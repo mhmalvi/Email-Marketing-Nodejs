@@ -20,7 +20,7 @@ const {
 const { isCustomerAuthenticated } = require("../src/middleware/userMiddleware");
 const {
   changePassword,
-} = require("../src/controllers/SubAdmin/SubAdminPasswordController");
+} = require("../src/controllers/Password/PasswordController");
 const subadminRouter = express.Router();
 
 subadminRouter.route("/create-subadmin").post(createSubAdmin);
