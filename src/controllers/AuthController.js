@@ -24,32 +24,42 @@ const isUserEmailExists = async (req, res) => {
   const user = await User.findOne({ where: { email: req.body.email } }); ///////// check if the email exist as an user
   const subadmin = await Subadmin.findOne({ where: { email: req.body.email } }); ///////// check if the email exist as a subadmin
   if (user && subadmin == null) {
-    const otp = generateOTP(); //////////////// generate otp
-    user.otp = otp;
-    await user.save(); ///////////// save otp in users table
-    const file = path.join(__dirname, "../views/ejs/otp-mail.ejs");
-    const data = await ejs.renderFile(file, {
-      otp,
-      baseUrl,
-    });
-    const mailOptions = {
-      from: "<mail@quemailer.com>",
-      to: req.body.email, // list of receivers
-      subject: "OTP verification", // Subject line
-      html: data,
-    };
-    const info = await transporter.sendMail(mailOptions, function (err, info) {
-      if (err) {
-        console.log(err);
-        return "Error while sending email" + err;
-      } else {
-        console.log("Email sent", info);
-        return "Email sent";
-      }
-    });
-    res.status(200).json({
-      status: true,
-    });
+    if (user.password === null) {
+      const otp = generateOTP(); //////////////// generate otp
+      user.otp = otp;
+      await user.save(); ///////////// save otp in users table
+      const file = path.join(__dirname, "../views/ejs/otp-mail.ejs");
+      const data = await ejs.renderFile(file, {
+        otp,
+        baseUrl,
+      });
+      const mailOptions = {
+        from: "<mail@quemailer.com>",
+        to: req.body.email, // list of receivers
+        subject: "OTP verification", // Subject line
+        html: data,
+      };
+      const info = await transporter.sendMail(
+        mailOptions,
+        function (err, info) {
+          if (err) {
+            console.log(err);
+            return "Error while sending email" + err;
+          } else {
+            console.log("Email sent", info);
+            return "Email sent";
+          }
+        }
+      );
+      res.status(200).json({
+        status: true,
+      });
+    } else {
+      res.status(200).json({
+        message: "success",
+        status: 1,
+      });
+    }
   } else if (subadmin && user == null) {
     console.log("subadmin");
 
