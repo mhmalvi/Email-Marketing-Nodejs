@@ -137,9 +137,6 @@ const verifyOTP = async (req, res) => {
       where: { email: req.body.email },
       where: { otp: req.body.otp },
     });
-    // const subscription = await Subscribe.findOne({
-    //   where: { userID: user.id },
-    // });
     console.log(user);
     if (user) {
       const token = "Bearer " + randomAlphaNumeric(60);
@@ -150,9 +147,6 @@ const verifyOTP = async (req, res) => {
         photo: user.image,
         userID: user.id,
         first_user: user.first_user,
-        // priceID: subscription.price,
-        // subscription: subscription.subscriptionID,
-        // stripeCustomerID: user.stripeCustomerID,
       };
 
       user.otp = null;
