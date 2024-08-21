@@ -85,27 +85,35 @@ const createSubAdmin = async (req, res) => {
         admin_name: inviter.userName,
       };
       const htmlToSend = finalTemplate(data);
-      let transporterResponse = await transporter(sender); ////////// transport
-      const mailOptions = {
-        from: `${sender.email}`,
-        to: email, // list of receivers
-        subject: "Invitation", // Subject line
-        html: htmlToSend,
-      };
-      try {
-        await transporterResponse.sendMail(mailOptions);
-        await createSubAdminUtils(data);
-        res.status(201).json({
-          message: "success",
-          status: 201,
+      if (sender) {
+        let transporterResponse = await transporter(sender); ////////// transport
+        const mailOptions = {
+          from: `${sender.email}`,
+          to: email, // list of receivers
+          subject: "Invitation", // Subject line
+          html: htmlToSend,
+        };
+
+        try {
+          await transporterResponse.sendMail(mailOptions);
+          await createSubAdminUtils(data);
+          res.status(201).json({
+            message: "success",
+            status: 201,
+          });
+        } catch (error) {
+          res.status(535).json({
+            message: "Sender email or app password wrong",
+            status: 535,
+            error: error,
+          });
+        } //// send mail
+      } else {
+        res.status(404).json({
+          message: "App password not set",
+          status: 404,
         });
-      } catch (error) {
-        res.status(535).json({
-          message: "Sender email or app password wrong",
-          status: 535,
-          error: error,
-        });
-      } //// send mail
+      }
     }
   }
 };

@@ -25,7 +25,7 @@ const saveAppPassword = async (req, res) => {
       //   where: { email: req.body.email },
       // }); ////////////  get app password of the sender from db //////////////////
       // console.log(sender);
-      
+
       let transporterResponse = await transporter(req.body);
       const mailOptions = {
         from: `<${req.body.email}>`,
