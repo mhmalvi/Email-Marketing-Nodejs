@@ -3,9 +3,9 @@ const { fieldsValidation } = require("../../../config/utils");
 const bcrypt = require("bcrypt");
 
 const changePassword = async (req, res) => {
-  const { SubadminID, userPassword } = req.body;
+  const { said, userPassword } = req.body;
   const requiredFields = {
-    SubadminID,
+    said,
     userPassword,
   };
   const missingFields = await fieldsValidation(requiredFields); ///// validation
@@ -22,7 +22,7 @@ const changePassword = async (req, res) => {
         const password = await bcrypt.hash(userPassword, salt);
         const result = await Subadmin.update(
           { password: password },
-          { where: { id: SubadminID } }
+          { where: { id: said } }
         );
         if (result) {
           res.status(201).json({
