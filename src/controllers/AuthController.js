@@ -8,6 +8,7 @@ const { convert } = require("html-to-text");
 const User = require("../../models").User;
 const Subscribe = require("../../models").Subscribe;
 const sendmail = require("sendmail")();
+const bcrypt = require("bcrypt");
 const {
   transporter,
   generateOTP,
@@ -78,11 +79,11 @@ const passLogin = async (req, res) => {
       status: 422,
     });
   } else {
-    console.log("entered");
     const subadmin = await Subadmin.findOne({
-      where: { email: email, password: password },
+      where: { email: email },
     }); ///////////// find subadmin
-    if (subadmin) {
+    const result = await bcrypt.compare(password, subadmin.password);
+    if (subadmin && result) {
       let company = [];
       try {
         const userPromises = JSON.parse(subadmin.userID).map(async (data) => {
@@ -105,7 +106,6 @@ const passLogin = async (req, res) => {
         };
         await saveSubAdminToken(data); //// save sub admin token to database
         // Filter out null values if any users were not found
-        console.log("company", company);
         const filteredCompany = company.filter((name) => name !== null);
         res.status(200).json({
           message: "success",

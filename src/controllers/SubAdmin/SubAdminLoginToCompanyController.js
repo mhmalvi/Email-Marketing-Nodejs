@@ -23,7 +23,6 @@ const subAdminLoginToCompany = async (req, res) => {
     });
   } else {
     const user = await findUser(userID); ////////// get user details
-    const subscription = retrieveSubscriptionFromDB(userID); ////////// get user subscription details
     const bearerHeader = req.headers["authorization"];
     const tokenDetails = await Token.findOne({
       where: { said: said, satok: bearerHeader },
@@ -36,9 +35,6 @@ const subAdminLoginToCompany = async (req, res) => {
       photo: user.image,
       userID: user.id,
       first_user: user.first_user,
-      priceID: subscription.price,
-      subscription: subscription.subscriptionID,
-      stripeCustomerID: user.stripeCustomerID,
       satok: bearerHeader,
       said: said,
     };
@@ -66,7 +62,7 @@ const subAdminLoginToCompany = async (req, res) => {
 
 ////////////////////////// helper method //////////////////////////
 const setUserToken = async (email, userID, token_id, token) => {
-  console.log('userID',userID);
+  console.log("userID", userID);
   return await Token.update(
     { email: email, token: token, userId: userID },
     { where: { id: token_id } }

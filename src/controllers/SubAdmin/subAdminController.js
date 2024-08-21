@@ -6,6 +6,7 @@ const path = require("path");
 const fs = require("fs");
 const handlebars = require("handlebars");
 const AppPassword = require("../../../models").AppPassword;
+const bcrypt = require("bcrypt");
 const {
   transporter,
 } = require("../../common/transporterUtils/customTransporter");
