@@ -7,6 +7,7 @@ const changePassword = async (req, res) => {
   const saltRounds = 10;
   var result = "";
   const { userPassword } = req.body;
+  const bearerHeader = req.headers["authorization"];
   try {
     const salt = await bcrypt.genSalt(saltRounds); /// generate salt
     if (salt) {
@@ -15,7 +16,7 @@ const changePassword = async (req, res) => {
       //////// check if it is main user's id
       const { userID } = req.body;
       const user = await Token.findOne({
-        where: { userId: userID },
+        where: { userId: userID, token: bearerHeader },
       }); //// find users in token table
       if (user.said === null) {
         result = await User.update(
