@@ -117,6 +117,7 @@ const passLogin = async (req, res) => {
             email: email,
             token: token,
             userID: JSON.parse(subadmin.id),
+            userName: subadmin.userName,
           };
           await saveSubAdminToken(data); //// save sub admin token to database
           // Filter out null values if any users were not found
