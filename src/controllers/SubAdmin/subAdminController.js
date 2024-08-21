@@ -40,52 +40,54 @@ const createSubAdmin = async (req, res) => {
     const inviter = await findUser(userID); //// fetch inviter
     const inviter_email = await User.findOne({ where: { email: email } }); ///fetch user by email
     //////////////////////////////////////////////////////////////////////////////
-    if (userExist) {
-      res.status(422).json({
-        message: "Sub admin already exists",
-        status: 422,
-      });
-    } else if (inviter_email) {
-      res.status(422).json({
-        message: "You cannot use this email",
-        status: 422,
-      });
-    } else if (userEmailExist) {
-      var data = [];
-      var data = JSON.parse(userEmailExist.userID);
-      console.log(data);
-      await data.push(userID);
-      const result = await Subadmin.update(
-        {
-          userID: JSON.stringify(data),
-        },
-        { where: { id: userEmailExist.id } }
-      );
-      if (result) {
-        res.status(201).json({
-          message: "success",
-          status: 201,
+    if (sender) {
+      ////////// if app password exists
+      if (userExist) {
+        res.status(422).json({
+          message: "Sub admin already exists",
+          status: 422,
         });
-      }
-    } else {
-      const password = await passGenerator(); //// generate random password
-      const templatePath = path.join(
-        __dirname,
-        "../../views/hbs/invitation.hbs"
-      );
-      var user_id = [];
+      } else if (inviter_email) {
+        res.status(422).json({
+          message: "You cannot use this email",
+          status: 422,
+        });
+      } else if (userEmailExist) {
+        var data = [];
+        var data = JSON.parse(userEmailExist.userID);
+        console.log(data);
+        await data.push(userID);
+        const result = await Subadmin.update(
+          {
+            userID: JSON.stringify(data),
+          },
+          { where: { id: userEmailExist.id } }
+        );
+        if (result) {
+          res.status(201).json({
+            message: "success",
+            status: 201,
+          });
+        }
+      } else {
+        const password = await passGenerator(); //// generate random password
+        const templatePath = path.join(
+          __dirname,
+          "../../views/hbs/invitation.hbs"
+        );
+        var user_id = [];
 
-      var templateSource = fs.readFileSync(templatePath, "utf8");
-      const finalTemplate = handlebars.compile(templateSource);
-      const data = {
-        userName: userName,
-        userID: userID,
-        email: email,
-        password: password,
-        admin_name: inviter.userName,
-      };
-      const htmlToSend = finalTemplate(data);
-      if (sender) { ////////// if app password exists
+        var templateSource = fs.readFileSync(templatePath, "utf8");
+        const finalTemplate = handlebars.compile(templateSource);
+        const data = {
+          userName: userName,
+          userID: userID,
+          email: email,
+          password: password,
+          admin_name: inviter.userName,
+        };
+        const htmlToSend = finalTemplate(data);
+
         let transporterResponse = await transporter(sender); ////////// transport
         const mailOptions = {
           from: `${sender.email}`,
@@ -108,13 +110,13 @@ const createSubAdmin = async (req, res) => {
             error: error,
           });
         } //// send mail
-      } else {
-        ////////// if app password not exists
-        res.status(404).json({
-          message: "App password not set",
-          status: 404,
-        });
       }
+    } else {
+      ////////// if app password not exists
+      res.status(404).json({
+        message: "App password not set",
+        status: 404,
+      });
     }
   }
 };
