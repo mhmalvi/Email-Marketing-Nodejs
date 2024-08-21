@@ -85,7 +85,7 @@ const createSubAdmin = async (req, res) => {
         admin_name: inviter.userName,
       };
       const htmlToSend = finalTemplate(data);
-      if (sender) {
+      if (sender) { ////////// if app password exists
         let transporterResponse = await transporter(sender); ////////// transport
         const mailOptions = {
           from: `${sender.email}`,
@@ -109,6 +109,7 @@ const createSubAdmin = async (req, res) => {
           });
         } //// send mail
       } else {
+        ////////// if app password not exists
         res.status(404).json({
           message: "App password not set",
           status: 404,
