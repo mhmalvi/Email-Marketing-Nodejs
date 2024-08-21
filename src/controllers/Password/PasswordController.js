@@ -18,20 +18,21 @@ const changePassword = async (req, res) => {
       const user = await Token.findOne({
         where: { userId: userID, token: bearerHeader },
       }); //// find users in token table
+      console.log("user.said", user.said);
+      
       if (user.said === null) {
+        ////////// if subadmin id is null
         result = await User.update(
           { password: password },
           { where: { id: userID } }
         );
       } else if (user.said !== null) {
+        ////////// if admin id is null
         result = await Subadmin.update(
           { password: password },
           { where: { id: user.said } }
         );
       }
-      // } else if (req.body.said) {
-      //////// check if it is subadmin's id
-      // }
       if (result) {
         res.status(201).json({
           message: "success",
