@@ -76,8 +76,6 @@ const isUserEmailExists = async (req, res) => {
 
 const passLogin = async (req, res) => {
   const { email, password } = req.body;
-  console.log("email", email);
-  console.log("password", password);
   const requiredFields = {
     email,
     password,
