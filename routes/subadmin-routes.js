@@ -16,6 +16,7 @@ const {
   isSubadminAuthenticated,
 } = require("../src/middleware/subadminMiddleware");
 const { isCustomerAuthenticated } = require("../src/middleware/userMiddleware");
+const { changePassword } = require("../src/controllers/SubAdmin/SubAdminPasswordController");
 const subadminRouter = express.Router();
 
 subadminRouter.route("/create-subadmin").post(createSubAdmin);
@@ -30,6 +31,10 @@ subadminRouter
 subadminRouter
   .route("/subadmin-remove")
   .post(isCustomerAuthenticated, subAdminRemove);
+
+  subadminRouter
+    .route("/subadmin-pass-change")
+    .post(isSubadminAuthenticated, changePassword);
 
 subadminRouter
   .route("/subadmin-logout")
