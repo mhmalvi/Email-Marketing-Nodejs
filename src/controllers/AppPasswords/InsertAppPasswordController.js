@@ -21,10 +21,12 @@ const saveAppPassword = async (req, res) => {
       });
     } else {
       // if (app) {
-      const sender = await AppPassword.findOne({
-        where: { email: req.body.email },
-      }); ////////////  get app password of the sender from db //////////////////
-      let transporterResponse = await transporter(sender);
+      // const sender = await AppPassword.findOne({
+      //   where: { email: req.body.email },
+      // }); ////////////  get app password of the sender from db //////////////////
+      // console.log(sender);
+      
+      let transporterResponse = await transporter(req.body);
       const mailOptions = {
         from: `<${req.body.email}>`,
         to: `${req.body.email}`, // list of receivers
