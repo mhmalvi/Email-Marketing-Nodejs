@@ -123,6 +123,7 @@ const passLogin = async (req, res) => {
       }
     } /////////////if subadmin exists
     else if (mainUser) {
+      /////////////if main user exists
       const result = await bcrypt.compare(password, mainUser.password);
       if (result) {
         const token = "Bearer " + randomAlphaNumeric(60); /// generate subadmin token
