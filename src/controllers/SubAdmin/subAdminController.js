@@ -43,16 +43,19 @@ const createSubAdmin = async (req, res) => {
     if (sender) {
       ////////// if app password exists
       if (userExist) {
+        //////// if subadmin already exists in company
         res.status(422).json({
           message: "Sub admin already exists",
           status: 422,
         });
       } else if (inviter_email) {
+        ////////// check if the provided email is inviter email or not
         res.status(422).json({
           message: "You cannot use this email",
           status: 422,
         });
       } else if (userEmailExist) {
+        //////// if subadmin email already exists
         var data = [];
         var data = JSON.parse(userEmailExist.userID);
         console.log(data);
@@ -70,6 +73,7 @@ const createSubAdmin = async (req, res) => {
           });
         }
       } else {
+        //////// if subadmin does not exists
         const password = await passGenerator(); //// generate random password
         const templatePath = path.join(
           __dirname,
