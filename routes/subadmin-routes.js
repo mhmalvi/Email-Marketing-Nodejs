@@ -38,7 +38,7 @@ subadminRouter
 
 subadminRouter
   .route("/subadmin-pass-change")
-  .post(isSubadminAuthenticated, changePassword);
+  .post(isCustomerAuthenticated, changePassword);
 
 subadminRouter
   .route("/subadmin-logout")
