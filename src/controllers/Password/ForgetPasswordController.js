@@ -16,7 +16,7 @@ const forgetPassword = async (req, res) => {
     const user = await getUser(email); ////////////// get main user by email
     const subadmin = await getSubadmin(email); ////////////// get subadmin by email
     if (user && subadmin === null) {
-      const token = crypto.randomBytes(20).toString("hex");
+      const token = await crypto.randomBytes(20).toString("hex");
       user.pass_reset_token = token;
       const result = await user.save();
       if (result) {
@@ -31,7 +31,7 @@ const forgetPassword = async (req, res) => {
         });
       }
     } else if (subadmin && user === null) {
-      const token = crypto.randomBytes(20).toString("hex");
+      const token = await crypto.randomBytes(20).toString("hex");
       subadmin.pass_reset_token = token;
       const result = await subadmin.save();
       if (result) {
