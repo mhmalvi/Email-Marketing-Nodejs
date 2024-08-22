@@ -17,8 +17,23 @@ const forgetPassword = async (req, res) => {
     const subadmin = await getSubadmin(email); ////////////// get subadmin by email
     console.log("user", user);
     console.log("subadmin", subadmin);
-    if (user && !subadmin) {
-    } else if (subadmin && !user) {
+    if (user && subadmin === null) {
+      const token = crypto.randomBytes(20).toString("hex");
+      user.pass_reset_token = token;
+      const result = user.save();
+      if (result) {
+        res.status(201).json({
+          message: "Please go to your gmail account and click the link",
+          status: 201,
+        });
+      } else {
+        res.status(500).json({
+          message: "Failed",
+          status: 500,
+        });
+      }
+    } else if (subadmin && user === null) {
+        
     } else {
       res.status(422).json({
         message: "Email not found",
