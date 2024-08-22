@@ -4,7 +4,6 @@ const Token = require("../../../models").Token;
 const bcrypt = require("bcrypt");
 
 const changePassword = async (req, res) => {
-  console.log("heoloooooo");
   const saltRounds = 10;
   var result = "";
   const { userPassword } = req.body;
