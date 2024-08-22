@@ -34,6 +34,8 @@ passReset.get("/reset-password/:token", async (req, res) => {
 });
 
 passReset.post("/new-password", async (req, res) => {
+    console.log("hello world");
+    
   const { email, password } = req.body;
   if (email && password) {
     const user = await User.findOne({ where: { email: email } });
