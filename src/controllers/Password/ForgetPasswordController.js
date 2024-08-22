@@ -1,6 +1,6 @@
 const Subadmin = require("../../../models").Subadmin;
 const User = require("../../../models").User;
-const bcrypt = require("bcrypt");
+const crypto = require("crypto");
 const { fieldsValidation } = require("../../../config/utils");
 
 const forgetPassword = async (req, res) => {
@@ -15,8 +15,6 @@ const forgetPassword = async (req, res) => {
   } else {
     const user = await getUser(email); ////////////// get main user by email
     const subadmin = await getSubadmin(email); ////////////// get subadmin by email
-    console.log("user", user);
-    console.log("subadmin", subadmin);
     if (user && subadmin === null) {
       const token = crypto.randomBytes(20).toString("hex");
       user.pass_reset_token = token;
@@ -33,7 +31,21 @@ const forgetPassword = async (req, res) => {
         });
       }
     } else if (subadmin && user === null) {
-        
+      const token = crypto.randomBytes(20).toString("hex");
+      subadmin.pass_reset_token = token;
+      const result = subadmin.save();
+      if (result) {
+        res.status(201).json({
+          message:
+            "Please go to your gmail account and click the link to reset your password",
+          status: 201,
+        });
+      } else {
+        res.status(500).json({
+          message: "Failed",
+          status: 500,
+        });
+      }
     } else {
       res.status(422).json({
         message: "Email not found",
