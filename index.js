@@ -88,6 +88,7 @@ app
 // app.get("/", (req, res) => {
 //   res.render("mail", { layout: "mail" });
 // });
+app.use(express.urlencoded({ extended: true }));
 app
   .use("/google", authRouter)
   .use(
