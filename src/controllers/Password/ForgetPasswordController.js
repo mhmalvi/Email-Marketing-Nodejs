@@ -99,7 +99,7 @@ const mail = async (to, token) => {
       pass: "oabl crbw mcpz pttp",
     },
   });
-  const templatePath = path.join(__dirname, "../../views/hbs/mail.hbs");
+  const templatePath = path.join(__dirname, "../../views/hbs/forgetPass.hbs");
   var templateSource = fs.readFileSync(templatePath, "utf8");
   const finalTemplate = handlebars.compile(templateSource);
   const data = {
