@@ -44,7 +44,15 @@ const forgetPassword = async (req, res) => {
     } else if (subadmin && user === null) {
       const token = await crypto.randomBytes(20).toString("hex");
       subadmin.pass_reset_token = token;
-      const result = await subadmin.save();
+        const result = await subadmin.save();
+        try {
+          await mail(email, token);
+        } catch (error) {
+          res.status(535).json({
+            message: "Incorrect sender mail or password",
+            status: 535,
+          });
+        }
       if (result) {
         res.status(201).json({
           message:
