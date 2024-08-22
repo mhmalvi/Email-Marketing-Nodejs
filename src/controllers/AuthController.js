@@ -94,10 +94,7 @@ const passLogin = async (req, res) => {
       where: { email: email },
     }); ///////////// find user
     if (subadmin) {
-      console.log("subadmin dfdfgdfgd", subadmin);
-      
       const result = await bcrypt.compare(password, subadmin.password);
-      console.log("result dfdfgdfgd", result);
       if (result) {
         let company = [];
         try {

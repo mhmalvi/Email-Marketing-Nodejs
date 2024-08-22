@@ -1,8 +1,11 @@
 module.exports = {
   google: {
+    // clientID:
+    //   "491721270445-154edfaqh36aac6lt07h7ea2a6ic8r9o.apps.googleusercontent.com", // Your Credentials here.
     clientID:
-      "491721270445-154edfaqh36aac6lt07h7ea2a6ic8r9o.apps.googleusercontent.com", // Your Credentials here.
-    clientSecret: "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", // Your Credentials here.
+      "297687980210-vihd4a5mbphri5qhmh8coo4f72v2iquv.apps.googleusercontent.com", // Your Credentials here.
+    // clientSecret: "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", // Your Credentials here.
+    clientSecret: "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", // Your Credentials here.
     refresh_token:
       "1//042xetNeQbxRjCgYIARAAGAQSNwF-L9IrE3guTrAL95QH2EqdYWoS-eBSN16GB-2InXiLBKmvrEYTvaYAk2NilHVlQPf2p1Z8h7I",
   },
