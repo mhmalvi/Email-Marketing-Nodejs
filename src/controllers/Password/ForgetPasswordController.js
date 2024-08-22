@@ -1,5 +1,6 @@
 const Subadmin = require("../../../models").Subadmin;
 const User = require("../../../models").User;
+const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 const { fieldsValidation } = require("../../../config/utils");
 
@@ -17,12 +18,21 @@ const forgetPassword = async (req, res) => {
     const subadmin = await getSubadmin(email); ////////////// get subadmin by email
     if (user && subadmin === null) {
       const token = await crypto.randomBytes(20).toString("hex");
-      
       user.pass_reset_token = token;
       const result = await user.save();
+      try {
+        await mail(email, token);
+      } catch (error) {
+        res.status(535).json({
+          message: "Incorrect sender mail or password",
+          status: 535,
+        });
+      }
+
       if (result) {
         res.status(201).json({
-          message: "Please go to your gmail account and click the link",
+          message:
+            "Please go to your gmail account and click the link to reset your password",
           status: 201,
         });
       } else {
@@ -63,6 +73,33 @@ const getUser = async (email) => {
 
 const getSubadmin = async (email) => {
   return await Subadmin.findOne({ where: { email: email } });
+};
+
+const mail = async (to, token) => {
+  const transporter = nodemailer.createTransport({
+    service: "smtp.gmail.com",
+    auth: {
+      user: process.env.EMAIL,
+      pass: process.env.EMAIL_PASSWORD,
+    },
+  });
+  const mailOptions = {
+    from: process.env.EMAIL,
+    to: to,
+    subject: "Password Reset",
+    text: `Click the following link to reset your password: ${process.env.BASE_URL}/reset-password/${token}`,
+  };
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log(error);
+      res.status(500).send("Error sending email");
+    } else {
+      console.log(`Email sent: ${info.response}`);
+      res
+        .status(200)
+        .send("Check your email for instructions on resetting your password");
+    }
+  });
 };
 
 module.exports = { forgetPassword };
