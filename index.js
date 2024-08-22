@@ -53,6 +53,7 @@ const ProductRouter = require("./routes/product-routes");
 const { testRouter } = require("./routes/test-routes");
 const subadminRouter = require("./routes/subadmin-routes");
 const passwordRoutes = require("./routes/password-routes");
+const passReset = require("./routes/passReset-routes");
 
 const server = createServer(app);
 // const io = new Server(server);
@@ -110,7 +111,7 @@ app
     subadminRouter,
     passwordRoutes
   )
-  .use("/", pixelTracker)
+  .use("/", pixelTracker, passReset)
   .use(express.static("public/assets")); /////////// routes //////////
 
 // app.get("/otp", async (req, res) => {
