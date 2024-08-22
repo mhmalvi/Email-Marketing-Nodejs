@@ -132,6 +132,11 @@ const passLogin = async (req, res) => {
         } catch (error) {
           res.json(error);
         }
+      } else {
+        res.status(401).json({
+          message: "Wrong email or password",
+          status: 401,
+        });
       }
     } /////////////if subadmin exists
     else if (mainUser.password !== null) {
