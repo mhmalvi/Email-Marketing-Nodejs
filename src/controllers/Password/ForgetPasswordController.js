@@ -96,19 +96,24 @@ const mail = async (to, token) => {
       pass: "oabl crbw mcpz pttp",
     },
   });
+  const templatePath = path.join(__dirname, "../../views/hbs/mail.hbs");
+  var templateSource = fs.readFileSync(templatePath, "utf8");
+  const finalTemplate = handlebars.compile(templateSource);
+  const data = {
+    token: token,
+  };
+  const htmlToSend = finalTemplate(data);
   const mailOptions = {
     from: from,
     to: to,
     subject: "Password Reset",
-    html: `Click the following link to reset your password: ${process.env.BASE_URL}/reset-password/${token}`,
-    };
-    try {
-        await transporter.sendMail(mailOptions);
-    } catch (error) {
-        console.log(error);
-        
-    }
-  
+    html: htmlToSend,
+  };
+  try {
+    await transporter.sendMail(mailOptions);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 module.exports = { forgetPassword };
