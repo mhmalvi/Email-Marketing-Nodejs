@@ -100,7 +100,7 @@ const mail = async (to, token) => {
     from: from,
     to: to,
     subject: "Password Reset",
-    text: `Click the following link to reset your password: ${process.env.BASE_URL}/reset-password/${token}`,
+    html: `Click the following link to reset your password: ${process.env.BASE_URL}/reset-password/${token}`,
     };
     try {
         await transporter.sendMail(mailOptions);
