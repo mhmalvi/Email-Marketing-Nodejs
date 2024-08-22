@@ -47,11 +47,11 @@ const forgetPassword = async (req, res) => {
       try {
         await mail(email, token);
         // if (result) {
-          res.status(201).json({
-            message:
-              "Please go to your gmail account and click the link to reset your password",
-            status: 201,
-          });
+        res.status(201).json({
+          message:
+            "Please go to your gmail account and click the link to reset your password",
+          status: 201,
+        });
         // } else {
         //   res.status(500).json({
         //     message: "Failed",
@@ -85,15 +85,19 @@ const getSubadmin = async (email) => {
 const mail = async (to, token) => {
   console.log("EMAIL", process.env.EMAIL);
   console.log("EMAIL_PASSWORD", process.env.EMAIL_PASSWORD);
+  const from = process.env.EMAIL;
+  const pass = process.env.EMAIL_PASSWORD;
   const transporter = await nodemailer.createTransport({
-    service: "smtp.gmail.com",
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false, // Use `true` for port 465, `false` for all other ports
     auth: {
-      user: process.env.EMAIL,
-      pass: process.env.EMAIL_PASSWORD,
+      user: from,
+      pass: pass,
     },
   });
   const mailOptions = {
-    from: process.env.EMAIL,
+    from: from,
     to: to,
     subject: "Password Reset",
     text: `Click the following link to reset your password: ${process.env.BASE_URL}/reset-password/${token}`,
