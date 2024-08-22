@@ -18,7 +18,7 @@ const forgetPassword = async (req, res) => {
     if (user && subadmin === null) {
       const token = crypto.randomBytes(20).toString("hex");
       user.pass_reset_token = token;
-      const result = user.save();
+      const result = await user.save();
       if (result) {
         res.status(201).json({
           message: "Please go to your gmail account and click the link",
@@ -33,7 +33,7 @@ const forgetPassword = async (req, res) => {
     } else if (subadmin && user === null) {
       const token = crypto.randomBytes(20).toString("hex");
       subadmin.pass_reset_token = token;
-      const result = subadmin.save();
+      const result = await subadmin.save();
       if (result) {
         res.status(201).json({
           message:
