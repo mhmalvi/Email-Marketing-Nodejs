@@ -85,8 +85,8 @@ const getSubadmin = async (email) => {
 const mail = async (to, token) => {
   console.log("EMAIL", process.env.EMAIL);
   console.log("EMAIL_PASSWORD", process.env.EMAIL_PASSWORD);
-  const from = process.env.EMAIL;
-  const pass = process.env.EMAIL_PASSWORD;
+  const from = await process.env.EMAIL;
+  const pass = await process.env.EMAIL_PASSWORD;
   const transporter = await nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 587,
