@@ -34,7 +34,7 @@ const getUser = async (email) => {
 };
 
 const getSubadmin = async (email) => {
-  return await User.findOne({ where: { email: email } });
+  return await Subadmin.findOne({ where: { email: email } });
 };
 
 module.exports = { forgetPassword };
