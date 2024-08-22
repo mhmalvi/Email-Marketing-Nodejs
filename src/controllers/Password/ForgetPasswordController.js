@@ -92,8 +92,8 @@ const mail = async (to, token) => {
     port: 587,
     secure: false, // Use `true` for port 465, `false` for all other ports
     auth: {
-      user: from,
-      pass: pass,
+      user: "dev.quadque@gmail.com",
+      pass: "oabl crbw mcpz pttp",
     },
   });
   const mailOptions = {
