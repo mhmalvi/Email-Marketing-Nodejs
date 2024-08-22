@@ -1,8 +1,7 @@
 const Subadmin = require("../../../models").Subadmin;
 const User = require("../../../models").User;
-const Token = require("../../../models").Token;
 const bcrypt = require("bcrypt");
-const { fieldsValidation } = require("../../../../config/utils");
+const { fieldsValidation } = require("../../../config/utils");
 
 const forgetPassword = async (req, res) => {
   const { email } = req.body;
