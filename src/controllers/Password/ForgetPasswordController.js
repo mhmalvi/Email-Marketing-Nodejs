@@ -76,6 +76,8 @@ const getSubadmin = async (email) => {
 };
 
 const mail = async (to, token) => {
+    console.log("EMAIL", EMAIL);
+    console.log("EMAIL_PASSWORD", EMAIL_PASSWORD);
   const transporter = await nodemailer.createTransport({
     service: "smtp.gmail.com",
     auth: {
