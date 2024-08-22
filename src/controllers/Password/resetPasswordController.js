@@ -12,8 +12,8 @@ const resetPass = async (req, res) => {
       const saltRounds = 10;
       const salt = await bcrypt.genSalt(saltRounds); /// generate salt
       if (salt) {
-        const password = await bcrypt.hash(userPassword, salt); //// bcrypt password
-        user.password = password;
+        const userPassword = await bcrypt.hash(password, salt); //// bcrypt password
+        user.password = userPassword;
         user.pass_reset_token = null;
         await user.save();
         res.send("Password reset successful");
@@ -22,8 +22,8 @@ const resetPass = async (req, res) => {
       const saltRounds = 10;
       const salt = await bcrypt.genSalt(saltRounds); /// generate salt
       if (salt) {
-        const password = await bcrypt.hash(userPassword, salt); //// bcrypt password
-        subadmin.password = password;
+        const userPassword = await bcrypt.hash(password, salt); //// bcrypt password
+        subadmin.password = userPassword;
         subadmin.pass_reset_token = null;
         await subadmin.save();
         res.send("Password reset successful");
