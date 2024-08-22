@@ -52,6 +52,7 @@ const { countsRouter } = require("./routes/counts-routes");
 const ProductRouter = require("./routes/product-routes");
 const { testRouter } = require("./routes/test-routes");
 const subadminRouter = require("./routes/subadmin-routes");
+const passwordRoutes = require("./routes/password-routes");
 
 const server = createServer(app);
 // const io = new Server(server);
@@ -106,7 +107,8 @@ app
     countsRouter,
     ProductRouter,
     testRouter,
-    subadminRouter
+    subadminRouter,
+    passwordRoutes
   )
   .use("/", pixelTracker)
   .use(express.static("public/assets")); /////////// routes //////////
