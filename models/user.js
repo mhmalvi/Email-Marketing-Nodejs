@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       first_user: DataTypes.INTEGER,
       stripeCustomerID: DataTypes.STRING,
       status: DataTypes.BOOLEAN,
+      pass_reset_token:DataTypes.STRING,
       pid: DataTypes.TEXT,
     },
     {
