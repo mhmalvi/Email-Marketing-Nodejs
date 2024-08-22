@@ -98,17 +98,7 @@ const mail = async (to, token) => {
     subject: "Password Reset",
     text: `Click the following link to reset your password: ${process.env.BASE_URL}/reset-password/${token}`,
   };
-  await transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.log(error);
-      res.status(500).send("Error sending email");
-    } else {
-      console.log(`Email sent: ${info.response}`);
-      res
-        .status(200)
-        .send("Check your email for instructions on resetting your password");
-    }
-  });
+  await transporter.sendMail(mailOptions);
 };
 
 module.exports = { forgetPassword };
