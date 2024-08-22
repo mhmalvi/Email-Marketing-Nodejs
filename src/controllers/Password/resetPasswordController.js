@@ -2,6 +2,8 @@ const User = require("../../../models").User;
 const Subadmin = require("../../../models").Subadmin;
 const bcrypt = require("bcrypt");
 const resetPass = async (req, res) => {
+    console.log(req.body);
+    
   const { email, password } = req.body;
   if (email && password) {
     const user = await User.findOne({ where: { email: email } });
