@@ -76,7 +76,7 @@ const getSubadmin = async (email) => {
 };
 
 const mail = async (to, token) => {
-  const transporter = nodemailer.createTransport({
+  const transporter = await nodemailer.createTransport({
     service: "smtp.gmail.com",
     auth: {
       user: process.env.EMAIL,
@@ -89,7 +89,7 @@ const mail = async (to, token) => {
     subject: "Password Reset",
     text: `Click the following link to reset your password: ${process.env.BASE_URL}/reset-password/${token}`,
   };
-  transporter.sendMail(mailOptions, (error, info) => {
+  await transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.log(error);
       res.status(500).send("Error sending email");
