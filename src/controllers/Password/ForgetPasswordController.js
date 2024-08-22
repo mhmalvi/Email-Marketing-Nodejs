@@ -22,47 +22,46 @@ const forgetPassword = async (req, res) => {
       const result = await user.save();
       try {
         await mail(email, token);
+        if (result) {
+          res.status(201).json({
+            message:
+              "Please go to your gmail account and click the link to reset your password",
+            status: 201,
+          });
+        } else {
+          res.status(500).json({
+            message: "Failed",
+            status: 500,
+          });
+        }
       } catch (error) {
         res.status(535).json({
           message: "Incorrect sender mail or password",
           status: 535,
         });
       }
-
-      if (result) {
-        res.status(201).json({
-          message:
-            "Please go to your gmail account and click the link to reset your password",
-          status: 201,
-        });
-      } else {
-        res.status(500).json({
-          message: "Failed",
-          status: 500,
-        });
-      }
     } else if (subadmin && user === null) {
       const token = await crypto.randomBytes(20).toString("hex");
       subadmin.pass_reset_token = token;
-        const result = await subadmin.save();
-        try {
-          await mail(email, token);
-        } catch (error) {
-          res.status(535).json({
-            message: "Incorrect sender mail or password",
-            status: 535,
+      const result = await subadmin.save();
+      try {
+        await mail(email, token);
+        if (result) {
+          res.status(201).json({
+            message:
+              "Please go to your gmail account and click the link to reset your password",
+            status: 201,
+          });
+        } else {
+          res.status(500).json({
+            message: "Failed",
+            status: 500,
           });
         }
-      if (result) {
-        res.status(201).json({
-          message:
-            "Please go to your gmail account and click the link to reset your password",
-          status: 201,
-        });
-      } else {
-        res.status(500).json({
-          message: "Failed",
-          status: 500,
+      } catch (error) {
+        res.status(535).json({
+          message: "Incorrect sender mail or password",
+          status: 535,
         });
       }
     } else {
@@ -84,8 +83,8 @@ const getSubadmin = async (email) => {
 };
 
 const mail = async (to, token) => {
-    console.log("EMAIL", EMAIL);
-    console.log("EMAIL_PASSWORD", EMAIL_PASSWORD);
+  console.log("EMAIL", EMAIL);
+  console.log("EMAIL_PASSWORD", EMAIL_PASSWORD);
   const transporter = await nodemailer.createTransport({
     service: "smtp.gmail.com",
     auth: {
