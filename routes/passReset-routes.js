@@ -10,9 +10,20 @@ passReset.get("/reset-password/:token", async (req, res) => {
     where: { pass_reset_token: token },
   });
   if (user || subadmin) {
-    res.send(
-      '<form method="post" action="/reset-password"><input type="password" name="password" required><input type="submit" value="Reset Password"></form>'
+    const templatePath = path.join(
+      __dirname,
+      "../src/views/hbs/resetPassword.hbs"
     );
+    const templateSource = fs.readFileSync(templatePath, "utf8");
+
+    // Compile the template
+    const template = handlebars.compile(templateSource);
+
+    // Render the template with data
+    const html = template({ token });
+
+    // Send the rendered HTML
+    res.send(html);
   }
 });
 
