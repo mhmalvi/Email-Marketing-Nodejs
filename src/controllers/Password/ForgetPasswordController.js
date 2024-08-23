@@ -110,7 +110,7 @@ const mail = async (to, token) => {
   };
   const htmlToSend = finalTemplate(data);
   const mailOptions = {
-    from: from,
+    from: "dev.quadque@gmail.com",
     to: to,
     subject: "Password Reset",
     html: htmlToSend,
