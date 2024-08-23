@@ -50,7 +50,7 @@ passReset.post("/new-password", async (req, res) => {
         user.password = userPassword;
         user.pass_reset_token = null;
         await user.save();
-        res.send("Password reset successful");
+        res.send("<h1>Password reset successful</h1>");
       }
     } else if (subadmin && subadmin.pass_reset_token) {
       const saltRounds = 10;
@@ -60,7 +60,7 @@ passReset.post("/new-password", async (req, res) => {
         subadmin.password = userPassword;
         subadmin.pass_reset_token = null;
         await subadmin.save();
-        res.send("Password reset successful");
+        res.send("<h1>Password reset successful</h1>");
       }
     } else {
       res.send("Password reset successful");
