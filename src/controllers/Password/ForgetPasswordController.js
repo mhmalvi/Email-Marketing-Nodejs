@@ -94,8 +94,8 @@ const mail = async (to, token) => {
     port: 587,
     secure: false, // Use `true` for port 465, `false` for all other ports
     auth: {
-      user: process.env.EMAIL,
-      pass: process.env.EMAIL_PASSWORD,
+      user: "dev.quadque@gmail.com",
+      pass: "oablcrbwmcpzpttp",
     },
   });
   const templatePath = path.join(__dirname, "../../views/hbs/forgetPass.hbs");
@@ -106,7 +106,7 @@ const mail = async (to, token) => {
   };
   const htmlToSend = finalTemplate(data);
   const mailOptions = {
-    from: process.env.EMAIL,
+    from: "dev.quadque@gmail.com",
     to: to,
     subject: "Password Reset",
     html: htmlToSend,
