@@ -42,7 +42,7 @@ passReset.post("/new-password", async (req, res) => {
     const subadmin = await Subadmin.findOne({
       where: { email: email },
     });
-    if (user.pass_reset_token) {
+    if (user && user.pass_reset_token) {
       const saltRounds = 10;
       const salt = await bcrypt.genSalt(saltRounds); /// generate salt
       if (salt) {
@@ -52,7 +52,7 @@ passReset.post("/new-password", async (req, res) => {
         await user.save();
         res.send("Password reset successful");
       }
-    } else if (subadmin.pass_reset_token) {
+    } else if (subadmin && subadmin.pass_reset_token) {
       const saltRounds = 10;
       const salt = await bcrypt.genSalt(saltRounds); /// generate salt
       if (salt) {
