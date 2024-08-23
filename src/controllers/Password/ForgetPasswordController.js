@@ -49,18 +49,18 @@ const forgetPassword = async (req, res) => {
       const result = await subadmin.save();
       try {
         await mail(email, token);
-        // if (result) {
+        if (result) {
         res.status(201).json({
           message:
             "Please go to your gmail account and click the link to reset your password",
           status: 201,
         });
-        // } else {
-        //   res.status(500).json({
-        //     message: "Failed",
-        //     status: 500,
-        //   });
-        // }
+        } else {
+          res.status(500).json({
+            message: "Failed",
+            status: 500,
+          });
+        }
       } catch (error) {
         res.status(535).json({
           message: "Incorrect sender mail or password",
