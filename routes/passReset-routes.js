@@ -38,13 +38,15 @@ passReset.get("/reset-password/:token", async (req, res) => {
 passReset.post("/new-password", async (req, res) => {
   console.log(req.body);
 
-  const { email, password } = req.body;
+  const { email, password, token } = req.body;
   if (email && password) {
-    const user = await User.findOne({ where: { email: email } });
-    const subadmin = await Subadmin.findOne({
-      where: { email: email },
+    const user = await User.findOne({
+      where: { email: email, pass_reset_token: token },
     });
-    if (user && user.pass_reset_token) {
+    const subadmin = await Subadmin.findOne({
+      where: { email: email, pass_reset_token: token },
+    });
+    if (user) {
       const saltRounds = 10;
       const salt = await bcrypt.genSalt(saltRounds); /// generate salt
       if (salt) {
@@ -56,7 +58,7 @@ passReset.post("/new-password", async (req, res) => {
           "<h1 style='position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)'>Password reset successful.Now login</h1>"
         );
       }
-    } else if (subadmin && subadmin.pass_reset_token) {
+    } else if (subadmin) {
       const saltRounds = 10;
       const salt = await bcrypt.genSalt(saltRounds); /// generate salt
       if (salt) {
