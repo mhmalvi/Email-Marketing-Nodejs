@@ -8,6 +8,6 @@ const {
 const passwordRoutes = express.Router();
 
 passwordRoutes.route("/forget-pass").post(forgetPassword);
-passwordRoutes.route("/new-password").post(resetPass);
+// passwordRoutes.route("/new-password").post(resetPass);
 
 module.exports = passwordRoutes;
