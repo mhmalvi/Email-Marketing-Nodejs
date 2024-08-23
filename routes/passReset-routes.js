@@ -29,7 +29,9 @@ passReset.get("/reset-password/:token", async (req, res) => {
     // Send the rendered HTML
     res.send(html);
   } else {
-    res.send("Link not valid");
+    res.send(
+      "<h1 style='position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)'>Link not valid</h1>"
+    );
   }
 });
 
@@ -50,7 +52,9 @@ passReset.post("/new-password", async (req, res) => {
         user.password = userPassword;
         user.pass_reset_token = null;
         await user.save();
-        res.send("<h1 style='position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)'>Password reset successful.Now login</h1>");
+        res.send(
+          "<h1 style='position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)'>Password reset successful.Now login</h1>"
+        );
       }
     } else if (subadmin && subadmin.pass_reset_token) {
       const saltRounds = 10;
@@ -65,7 +69,9 @@ passReset.post("/new-password", async (req, res) => {
         );
       }
     } else {
-      res.send("<h1>Email or password wrong</h1>");
+      res.send(
+        "<h1 style='position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)'>Email or password wrong</h1>"
+      );
     }
   }
 });
