@@ -38,8 +38,8 @@ const forgetPassword = async (req, res) => {
           });
         }
       } catch (error) {
-          console.log(error);
-          
+        console.log(error);
+
         res.status(535).json({
           message: "Incorrect sender mail or password",
           status: 535,
@@ -52,11 +52,11 @@ const forgetPassword = async (req, res) => {
       try {
         await mail(email, token);
         if (result) {
-        res.status(201).json({
-          message:
-            "Please go to your gmail account and click the link to reset your password",
-          status: 201,
-        });
+          res.status(201).json({
+            message:
+              "Please go to your gmail account and click the link to reset your password",
+            status: 201,
+          });
         } else {
           res.status(500).json({
             message: "Failed",
@@ -64,7 +64,7 @@ const forgetPassword = async (req, res) => {
           });
         }
       } catch (error) {
-          console.log(error);
+        console.log(error);
         res.status(535).json({
           message: "Incorrect sender mail or password",
           status: 535,
@@ -89,17 +89,13 @@ const getSubadmin = async (email) => {
 };
 
 const mail = async (to, token) => {
-//   console.log("EMAIL", process.env.EMAIL);
-//   console.log("EMAIL_PASSWORD", process.env.EMAIL_PASSWORD);
-//   const from = process.env.EMAIL;
-//   const pass = process.env.EMAIL_PASSWORD;
   const transporter = await nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 587,
     secure: false, // Use `true` for port 465, `false` for all other ports
     auth: {
-      user: "dev.quadque@gmail.com",
-      pass: "oablcrbwmcpzpttp",
+      user: process.env.EMAIL,
+      pass: process.env.EMAIL_PASSWORD,
     },
   });
   const templatePath = path.join(__dirname, "../../views/hbs/forgetPass.hbs");
@@ -110,7 +106,7 @@ const mail = async (to, token) => {
   };
   const htmlToSend = finalTemplate(data);
   const mailOptions = {
-    from: "dev.quadque@gmail.com",
+    from: process.env.EMAIL,
     to: to,
     subject: "Password Reset",
     html: htmlToSend,
