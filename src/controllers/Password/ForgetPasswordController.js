@@ -38,6 +38,8 @@ const forgetPassword = async (req, res) => {
           });
         }
       } catch (error) {
+          console.log(error);
+          
         res.status(535).json({
           message: "Incorrect sender mail or password",
           status: 535,
@@ -62,6 +64,7 @@ const forgetPassword = async (req, res) => {
           });
         }
       } catch (error) {
+          console.log(error);
         res.status(535).json({
           message: "Incorrect sender mail or password",
           status: 535,
