@@ -9,10 +9,10 @@ const userAccess = async (req, res) => {
       res.status(200).json({
         message: "superadmin",
       });
-    }
-    res.status(200).json({
-      message: "customer",
-    });
+    } else if (token.role === 3)
+      res.status(200).json({
+        message: "customer",
+      });
   } else {
     res.status(200).json({
       message: "subadmin",
