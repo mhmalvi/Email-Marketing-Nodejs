@@ -3,7 +3,9 @@ const { fieldsValidation } = require("../../../config/utils");
 const User = require("../../../models").User;
 
 const userFetch = async (req, res) => {
-  const { userID, page, size } = req.body;
+  const userID = JSON.parse(req.body.userID);
+  const page = JSON.parse(req.body.page);
+  const size = JSON.parse(req.body.per_page);
   const requiredFields = {
     userID,
     page,
