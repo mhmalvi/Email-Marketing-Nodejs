@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       password: DataTypes.STRING,
       status: DataTypes.BOOLEAN,
       userID: DataTypes.TEXT,
+      role: DataTypes.INTEGER,
       pass_reset_token: DataTypes.STRING,
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
