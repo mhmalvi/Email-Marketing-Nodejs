@@ -122,9 +122,9 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
       user.first_user = 0;
       user.save();
     }
-    const subscription = await Subscribe.findOne({
-      where: { userID: user.id },
-    });
+    // const subscription = await Subscribe.findOne({
+    //   where: { userID: user.id },
+    // });
     const token = await saveToken(data);
     console.log(token);
     
