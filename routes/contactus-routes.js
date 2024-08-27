@@ -3,4 +3,4 @@ const contactusRoutes = express.Router();
 
 contactusRoutes.route("/save-contactus").post(insertContactUs);
 
-module.export = contactusRoutes;
+module.exports = { contactusRoutes };
