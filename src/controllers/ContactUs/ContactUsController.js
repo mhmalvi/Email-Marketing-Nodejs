@@ -2,10 +2,11 @@ const { fieldsValidation } = require("../../../config/utils");
 
 const Contactus = require("../../../models").Contactus;
 const insertContactUs = async (req, res) => {
-  const { email, subject, description } = req.body;
+  const { email, name, subject, description } = req.body;
   // console.log("userID", userID);
   const requiredFields = {
     email,
+    name,
     subject,
     description,
   };
@@ -19,6 +20,7 @@ const insertContactUs = async (req, res) => {
     try {
       const result = await Contactus.create({
         email: email,
+        name: name,
         subject: subject,
         description: description,
         status: 0,

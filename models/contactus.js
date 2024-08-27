@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   Contactus.init(
     {
       email: DataTypes.STRING,
+      name: DataTypes.TEXT,
       subject: DataTypes.TEXT,
       description: DataTypes.TEXT("long"),
       status: DataTypes.INTEGER,
