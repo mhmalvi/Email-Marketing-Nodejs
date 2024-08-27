@@ -123,10 +123,6 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
       where: { userID: user.id },
     });
     const token = await saveToken(data);
-    // res.redirect(
-    //   `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${user.id}&photo=${req.user.picture}&token=${token.token}&first_user=${user.first_user}&subscription=${subscription.subscriptionID}&priceID=${subscription.price}&stripeCustomerID=${user.stripeCustomerID}`
-    // );
-
     res.redirect(
       `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${user.id}&photo=${req.user.picture}&token=${token.token}&first_user=${user.first_user}`
     );
