@@ -2,6 +2,7 @@ const { fieldsValidation } = require("../../../config/utils");
 
 const Contactus = require("../../../models").Contactus;
 const deleteContactus = async (req, res) => {
+  const { userID, id } = req.body;
   const requiredFields = {
     userID,
     id,
