@@ -14,8 +14,18 @@ const deleteContactus = async (req, res) => {
       status: 422,
     });
   } else {
-    const result = await Contactus.destroy({ where: { id: id } });
-    res.json(result);
+    const result = await Contactus.destroy({ where: { id: JSON.parse(id) } });
+    if (result === 1) {
+      res.status(201).json({
+        message: "Deleted",
+        status: 201,
+      });
+    } else {
+      res.status(500).json({
+        message: "Failed",
+        status: 500,
+      });
+    }
   }
 };
 
