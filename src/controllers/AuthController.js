@@ -113,6 +113,7 @@ const passLogin = async (req, res) => {
           const token = "Bearer " + randomAlphaNumeric(100); /// generate subadmin token
           const data = {
             email: email,
+            role: subadmin.role,
             token: token,
             userID: JSON.parse(subadmin.id),
             userName: subadmin.userName,
@@ -147,6 +148,7 @@ const passLogin = async (req, res) => {
           userName: mainUser.userName,
           photo: mainUser.image,
           userID: mainUser.id,
+          role: mainUser.role,
           first_user: mainUser.first_user,
         };
         await saveToken(data);
@@ -186,6 +188,7 @@ const verifyOTP = async (req, res) => {
       const data = {
         email: req.body.email,
         token: token,
+        role: user.role,
         userName: user.userName,
         photo: user.image,
         userID: user.id,

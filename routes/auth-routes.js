@@ -80,7 +80,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
     token: token,
     googleId: req.user.id,
     userName: req.user.displayName,
-    role: 3,
+    role: req.user.role,
     photo: req.user.picture,
   };
   // console.log(data);
@@ -94,7 +94,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
         userName: req.user.displayName,
         email: req.user.email,
         googleId: req.user.id,
-        role: 3,
+        role: req.user.role,
         image: req.user.picture,
         first_user: 1,
         status: 1,
