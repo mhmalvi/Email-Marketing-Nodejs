@@ -2,10 +2,13 @@ const { fieldsValidation } = require("../../../config/utils");
 
 const Contactus = require("../../../models").Contactus;
 const fetchContactUs = async (req, res) => {
-  const { userID } = req.body;
-  // console.log("userID", userID);
+  const { userID } = JSON.parse(req.body.userID);
+  const page = JSON.parse(req.body.page);
+  const size = JSON.parse(req.body.per_page);
   const requiredFields = {
     userID,
+    page,
+    size,
   };
   const missingFields = await fieldsValidation(requiredFields);
   if (missingFields.length > 0) {
@@ -14,8 +17,13 @@ const fetchContactUs = async (req, res) => {
       status: 422,
     });
   } else {
+    offset = (page - 1) * size;
     try {
-      const result = await Contactus.findAll({});
+      const total = await Contactus.findAll({
+        order: [["id", "DESC"]],
+      });
+        const totalPages = total.length / size;
+        const result = await fetch(data, size, offset);
       if (result) {
         res.status(201).json({
           message: "success",
@@ -36,4 +44,13 @@ const fetchContactUs = async (req, res) => {
     }
   }
 };
+
+
+// -----------------------x---------------------
+
+const fetch = async () => {
+    await Contactus.findAll({
+      order: [["id", "DESC"]],
+    });
+}
 module.exports = { fetchContactUs };
