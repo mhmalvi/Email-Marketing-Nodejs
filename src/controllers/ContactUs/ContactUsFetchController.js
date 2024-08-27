@@ -22,13 +22,16 @@ const fetchContactUs = async (req, res) => {
       const total = await Contactus.findAll({
         order: [["id", "DESC"]],
       });
-        const totalPages = total.length / size;
-        const result = await fetch(data, size, offset);
+      const totalPages = total.length / size;
+      const result = await fetch(size, offset);
       if (result) {
-        res.status(201).json({
+        res.status(200).json({
           message: "success",
           status: 200,
-          data: result,
+          contactus: result,
+          total: total.length,
+          totalPages: Math.ceil(totalPages),
+          current_page: page,
         });
       } else {
         res.status(404).json({
@@ -45,12 +48,13 @@ const fetchContactUs = async (req, res) => {
   }
 };
 
-
 // -----------------------x---------------------
 
-const fetch = async () => {
-    await Contactus.findAll({
-      order: [["id", "DESC"]],
-    });
-}
+const fetch = async (size, offset) => {
+  return await Contactus.findAll({
+    order: [["id", "DESC"]],
+    limit: size,
+    offset: offset,
+  });
+};
 module.exports = { fetchContactUs };
