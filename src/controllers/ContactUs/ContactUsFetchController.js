@@ -22,6 +22,11 @@ const fetchContactUs = async (req, res) => {
           status: 200,
           data: result,
         });
+      } else {
+        res.status(404).json({
+          message: "No data found",
+          status: 404,
+        });
       }
     } catch (error) {
       res.json({
