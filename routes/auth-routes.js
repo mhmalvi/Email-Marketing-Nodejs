@@ -16,6 +16,7 @@ const path = require("path");
 const {
   findSubadminByEmail,
 } = require("../src/common/users/subadmin/findSubadminByEmail");
+const { log } = require("console");
 
 authRouter.get("/home", (req, res) => {
   res.send("Home Page");
@@ -115,6 +116,8 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
     }
   } else {
     data.userID = user.id;
+    console.log("data", data);
+    
     if (user.first_user == 1) {
       user.first_user = 0;
       user.save();
