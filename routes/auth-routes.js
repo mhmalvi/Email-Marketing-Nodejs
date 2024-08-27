@@ -115,22 +115,15 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
       );
     }
   } else {
-    const token = await saveToken(data);
-    data = {
-      email: user.email,
-      token: token,
-      googleId: user.id,
-      userName: user.displayName,
-      role: user.role,
-      photo: user.picture,
-      userID: user.id,
-    };
-
+    data.userID = user.id;
+    data.role = user.role
+    
     if (user.first_user == 1) {
       user.first_user = 0;
       user.save();
     }
-
+    const token = await saveToken(data);
+    
     res.redirect(
       `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${user.id}&photo=${req.user.picture}&token=${token.token}&first_user=${user.first_user}`
     );
