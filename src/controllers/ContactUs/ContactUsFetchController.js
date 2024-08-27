@@ -2,7 +2,7 @@ const { fieldsValidation } = require("../../../config/utils");
 
 const Contactus = require("../../../models").Contactus;
 const fetchContactUs = async (req, res) => {
-  const { userID } = JSON.parse(req.body.userID);
+  const userID  = JSON.parse(req.body.userID);
   const page = JSON.parse(req.body.page);
   const size = JSON.parse(req.body.per_page);
   const requiredFields = {
