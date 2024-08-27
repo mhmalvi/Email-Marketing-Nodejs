@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       satok: DataTypes.STRING,
       said: DataTypes.INTEGER,
       userId: DataTypes.INTEGER,
+      role: DataTypes.INTEGER,
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
     },
