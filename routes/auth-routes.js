@@ -116,7 +116,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
     }
   } else {
     data.userID = user.id;
-    console.log("data", data);
+    console.log("data", data.role);
     
     if (user.first_user == 1) {
       user.first_user = 0;
