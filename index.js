@@ -90,8 +90,8 @@ app
 // app.get("/", (req, res) => {
 //   res.render("mail", { layout: "mail" });
 // });
-app.use(express.json({ limit: "100mb" })); // Adjust the limit as needed
-app.use(express.urlencoded({ limit: "50mb", extended: true }));
+app.use(bodyParser.json({ limit: "100mb" })); // Adjust the limit as needed
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app
   .use("/google", authRouter)
   .use(
