@@ -17,57 +17,32 @@ const {
 const insertContact = async (req, res) => {
   const { data, user_id } = req.body;
   console.log(data);
-
   if (data.length > 0) {
-    const productDB = await getProductDetailsFromDB(user_id); // Get product details of authenticated user from DB
-    let contactCount = await contactCounts(user_id); // Get mail count for today
-
-    if (contactCount >= productDB.contactLimit) {
-      return res.status(422).json({
+    const productDB = await getProductDetailsFromDB(user_id); /// product details of authenticated user from DB
+    //////////////////////////////////////////////////////////////////////
+    var contactCount = await contactCounts(user_id); ////get mail count for today
+    //////////////////////////////////////////////////////////////////////
+    const total_contacts = data.length + contactCount;
+    if (total_contacts <= productDB.contactLimit) {
+      await data.forEach(async (element) => {
+        var count = 0;
+        const userCollectionExist = await ifContactExist(user_id, element); //// check if contacts already exist
+        //////////////////////////////////////////////////////////////////////
+        if (!userCollectionExist) {
+          await saveContact(element, user_id); ///////// save contact
+        }
+      });
+      res.status(201).json({
+        message: "Contact inserted",
+        status: 201,
+        contact: JSON.stringify(data),
+      });
+    } else {
+      res.status(422).json({
         message: "Contact limit reached",
         status: 422,
       });
     }
-
-    const chunkSize = 100; // Define chunk size based on your needs
-    let chunkedContacts = chunkArray(data, chunkSize);
-
-    for (const chunk of chunkedContacts) {
-      const validContacts = [];
-      for (const element of chunk) {
-        const userCollectionExist = await ifContactExist(user_id, element); // Check if contact already exists
-        if (!userCollectionExist) {
-          validContacts.push({
-            json: element,
-            email: element.email || "",
-            group: element.group || "",
-            user_id: user_id,
-          });
-        }
-      }
-
-      // Update the contact count
-      const total_contacts = validContacts.length + contactCount;
-
-      if (total_contacts > productDB.contactLimit) {
-        return res.status(422).json({
-          message: "Contact limit reached during insertion",
-          status: 422,
-        });
-      }
-
-      // Perform the bulk insert for the current chunk
-      if (validContacts.length > 0) {
-        await Contact.bulkCreate(validContacts);
-        contactCount += validContacts.length;
-      }
-    }
-
-    res.status(201).json({
-      message: "Contacts inserted",
-      status: 201,
-      contact: JSON.stringify(data),
-    });
   } else {
     res.status(403).json({
       message: "No data given",
@@ -76,16 +51,6 @@ const insertContact = async (req, res) => {
   }
 };
 
-// Helper function to chunk the array
-function chunkArray(array, size) {
-  const chunked = [];
-  let index = 0;
-  while (index < array.length) {
-    chunked.push(array.slice(index, index + size));
-    index += size;
-  }
-  return chunked;
-}
 
 const insertContactManually = async (req, res) => {
   const { user_id, email, name, group } = req.body;
