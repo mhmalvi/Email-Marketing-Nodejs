@@ -29,7 +29,7 @@ const insertContact = async (req, res) => {
       });
     }
 
-    const chunkSize = 1000; // Define chunk size based on your needs
+    const chunkSize = 500; // Define chunk size based on your needs
     let chunkedContacts = chunkArray(data, chunkSize);
 
     for (const chunk of chunkedContacts) {
