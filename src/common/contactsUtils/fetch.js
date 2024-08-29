@@ -32,16 +32,16 @@ const searchContacts = async (data) => {
 const searchContactsPagination = async (userID, offset, per_page, keyword) => {
   return await Contact.findAll({
     where: {
-      [Op.or]: [
-        {
+      // [Op.or]: [
+      //   {
           email: {
             [Op.like]: `${keyword}%`,
           },
-          group: {
-            [Op.like]: `${keyword}%`,
-          },
-        },
-      ],
+          // group: {
+          //   [Op.like]: `${keyword}%`,
+          // },
+      //   },
+      // ],
       user_id: JSON.parse(userID),
     },
     order: [["id", "DESC"]],
