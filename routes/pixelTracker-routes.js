@@ -16,4 +16,9 @@ pixelTracker.get(`/terminateOne/:id`, (req, res) => {
   // res.sendFile("1x1.png", { root: __dirname });
 });
 
+pixelTracker.get(`/click/:url`, (req, res) => {
+  const url = req.params.url;
+  res.send(url);
+});
+
 module.exports = { pixelTracker };
