@@ -54,8 +54,12 @@ const { testRouter } = require("./routes/test-routes");
 const subadminRouter = require("./routes/subadmin-routes");
 const passwordRoutes = require("./routes/password-routes");
 const passReset = require("./routes/passReset-routes");
-const {contactusRoutes} = require("./routes/contactus-routes");
+const { contactusRoutes } = require("./routes/contactus-routes");
 const { userRouter } = require("./routes/user-routes");
+const {
+  searchContacts,
+  searchContactsPagination,
+} = require("./src/common/contactsUtils/fetch");
 
 const server = createServer(app);
 // const io = new Server(server);
@@ -157,5 +161,32 @@ io.on("connection", async (socket) => {
       await io.to(socketId).emit("campaigns", paginate);
     };
     searchCampaign();
+  }); ///// socket for campaign search in campaign compare page
+
+  // ------------------------------------------------------------------------------------------------
+
+  await socket.on("contacts", (data) => {
+    const { userID, page, per_page, keyword } = data;
+    const searchContact = async () => {
+      const offset = (page - 1) * per_page;
+      const contacts = await searchContacts(data);
+      const paginated = await searchContactsPagination(
+        userID,
+        offset,
+        per_page,
+        keyword
+      );
+      const socketId = socket.id;
+      const totalPages = contacts.length / per_page;
+      const count = contacts.length;
+      const paginate = {
+        paginatedData: paginated,
+        current_page: page,
+        count: count,
+        totalPages: Math.ceil(totalPages),
+      };
+      await io.to(socketId).emit("contacts", paginate);
+    };
+    searchContact();
   });
 });
