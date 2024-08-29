@@ -18,10 +18,10 @@ const searchContacts = async (data) => {
       [Op.or]: [
         {
           email: {
-            [Op.like]: `%${data.keyword}%`,
+            [Op.like]: `${data.keyword}%`,
           },
           group: {
-            [Op.like]: `%${data.keyword}%`,
+            [Op.like]: `${data.keyword}%`,
           },
         },
       ],
@@ -35,10 +35,10 @@ const searchContactsPagination = async (userID, offset, per_page, keyword) => {
       [Op.or]: [
         {
           email: {
-            [Op.like]: `%${keyword}%`,
+            [Op.like]: `${keyword}%`,
           },
           group: {
-            [Op.like]: `%${keyword}%`,
+            [Op.like]: `${keyword}%`,
           },
         },
       ],
