@@ -25,7 +25,7 @@ const searchContacts = async (data) => {
           },
         },
       ],
-      userID: JSON.parse(data.userID),
+      user_id: JSON.parse(data.userID),
     },
   });
 };
@@ -42,7 +42,7 @@ const searchContactsPagination = async (userID, offset, per_page, keyword) => {
           },
         },
       ],
-      userID: JSON.parse(userID),
+      user_id: JSON.parse(userID),
     },
     order: [["id", "DESC"]],
     limit: per_page,
