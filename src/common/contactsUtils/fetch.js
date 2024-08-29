@@ -18,10 +18,10 @@ const searchContacts = async (data) => {
       [Op.or]: [
         {
           email: {
-            [Op.like]: `${data.keyword}%`,
+            [Op.like]: `%${data.keyword}%`,
           },
           group: {
-            [Op.like]: `${data.keyword}%`,
+            [Op.like]: `%${data.keyword}%`,
           },
         },
       ],
