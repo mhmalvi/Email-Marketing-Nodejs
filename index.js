@@ -165,7 +165,7 @@ io.on("connection", async (socket) => {
 
   // ------------------------------------------------------------------------------------------------
 
-  await socket.on("contacts", (data) => {
+  await socket.on("contacts", async(data) => {
     const { userID, page, per_page, keyword } = data;
     const searchContact = async () => {
       const offset = (page - 1) * per_page;
@@ -187,6 +187,6 @@ io.on("connection", async (socket) => {
       };
       await io.to(socketId).emit("contacts", paginate);
     };
-    searchContact();
+    await searchContact();
   });
 });
