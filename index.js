@@ -135,11 +135,10 @@ server.listen(port, () => console.log("server running on port" + port));
 io.on("connection", async (socket) => {
   const users = {};
   console.log("a user connected");
-  await socket.on("campaigns", async(data) => {
+  await socket.on("campaigns", async (data) => {
     const { userID, page, per_page, name } = data;
     const offset = (page - 1) * per_page;
     // users[userId] = socket.id;
-    console.log("socket id", socket.id);
     const searchCampaign = async (req, res) => {
       console.log(userID);
       const campaigns = await campaignSearch(data);
@@ -165,7 +164,7 @@ io.on("connection", async (socket) => {
 
   // ------------------------------------------------------------------------------------------------
 
-  await socket.on("contacts", async(data) => {
+  await socket.on("contacts", async (data) => {
     const { userID, page, per_page, keyword } = data;
     const searchContact = async () => {
       const offset = (page - 1) * per_page;
@@ -189,4 +188,4 @@ io.on("connection", async (socket) => {
     };
     await searchContact();
   });
-});
+}); ///// socket for contacts search

@@ -40,7 +40,7 @@ const campaignSearch = async (data) => {
   return await CampaignQueue.findAll({
     where: {
       campaignName: {
-        [Op.like]: `%${data.name}%`,
+        [Op.like]: `${data.name}%`,
       },
       userID: JSON.parse(data.userID),
     },

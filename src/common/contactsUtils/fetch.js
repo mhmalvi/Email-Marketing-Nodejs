@@ -20,6 +20,8 @@ const searchContacts = async (data) => {
           email: {
             [Op.like]: `%${data.keyword}%`,
           },
+        },
+        {
           group: {
             [Op.like]: `%${data.keyword}%`,
           },
