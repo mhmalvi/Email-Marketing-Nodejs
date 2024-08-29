@@ -135,7 +135,7 @@ server.listen(port, () => console.log("server running on port" + port));
 io.on("connection", async (socket) => {
   const users = {};
   console.log("a user connected");
-  await socket.on("campaigns", (data) => {
+  await socket.on("campaigns", async(data) => {
     const { userID, page, per_page, name } = data;
     const offset = (page - 1) * per_page;
     // users[userId] = socket.id;
@@ -160,7 +160,7 @@ io.on("connection", async (socket) => {
       };
       await io.to(socketId).emit("campaigns", paginate);
     };
-    searchCampaign();
+    await searchCampaign();
   }); ///// socket for campaign search in campaign compare page
 
   // ------------------------------------------------------------------------------------------------
