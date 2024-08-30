@@ -29,8 +29,8 @@ const getID = async (req, res) => {
       where: { userID: userID },
     });
     var price = "";
-    if (subscription.price == "free") {
-      price = "free";
+    if (subscription.price == "free" || subscription.price == "Custom") {
+      price = subscription.price;
     } else {
       price = await retrievePrice(subscription.price);
     }
