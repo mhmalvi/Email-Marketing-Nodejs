@@ -20,7 +20,7 @@ const forgetPassword = async (req, res) => {
     const user = await getUser(email); ////////////// get main user by email
     const subadmin = await getSubadmin(email); ////////////// get subadmin by email
     if (user) {
-      const token = await crypto.randomBytes(150).toString("hex");
+      const token = await crypto.randomBytes(60).toString("hex");
       user.pass_reset_token = token;
       const result = await user.save();
       try {
