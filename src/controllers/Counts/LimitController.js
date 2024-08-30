@@ -13,8 +13,8 @@ const {
 const Product = require("../../../models").Product;
 
 const counts = async (req, res) => {
-  const { userID } = req.body;
-  const requiredFields = { userID };
+  const { userID, role } = req.body;
+  const requiredFields = { userID, role };
   const missingFields = await fieldsValidation(requiredFields);
   if (missingFields.length > 0) {
     res.status(422).json({
@@ -30,7 +30,11 @@ const counts = async (req, res) => {
       ); ///fetch user subscription from stripe
       subscriptionName = stripeSubscription.items.data[0].price.nickname; /// get subscription name of user from stripe
     } else {
-      subscriptionName = "free"; //// else subscription name is 'free'
+      if (role === 0) {
+        subscriptionName = "Custom"; //// else subscription name is 'custom'
+      } else if (role === 3) {
+        subscriptionName = "free"; //// else subscription name is 'free'
+      }
     }
     const productDB = await Product.findOne({
       where: { productName: subscriptionName },
