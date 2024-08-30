@@ -65,7 +65,7 @@ const getProductDetailsFromDB = async (userID) => {
 
     //////////////////////////////////////////////
 
-    subscriptionName = stripeSubscription.items.data[0].price.lookup_key; /// get subscription name of user from stripe
+    subscriptionName = stripeSubscription.items.data[0].price.nickname; /// get subscription name of user from stripe
   } else {
     subscriptionName = "free"; ////// else subscription name is 'free'
   }

@@ -51,7 +51,6 @@ const insertContact = async (req, res) => {
   }
 };
 
-
 const insertContactManually = async (req, res) => {
   const { user_id, email, name, group } = req.body;
   const requiredFields = { user_id, email, name, group };
@@ -94,7 +93,7 @@ const getProductDetailsFromDB = async (userID) => {
       subscriptionDB.subscriptionID
     ); ///fetch user subscription from stripe
     //////////////////////////////////////////////
-    subscriptionName = stripeSubscription.items.data[0].price.lookup_key; /// get subscription name of user from stripe
+    subscriptionName = stripeSubscription.items.data[0].price.nickname; /// get subscription name of user from stripe
   } else {
     subscriptionName = "free"; ////// else subscription name is 'free'
   }
