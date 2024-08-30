@@ -11,6 +11,7 @@ const {
   retrieveSubscriptionFromDB,
 } = require("../../common/subscription/retrieveSubscriptionDB");
 const Product = require("../../../models").Product;
+const User = require("../../../models").User;
 
 const counts = async (req, res) => {
   const { userID } = req.body;
