@@ -20,7 +20,7 @@ const create = async (
     ],
     proration_behavior: "none",
     default_source: paymentSourceID,
-    collection_method: "charge_automatically",
+    collection_method: "send_invoice",
     // billing_cycle_anchor_config: {
     //   day_of_month: 31,
     // },
