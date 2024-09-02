@@ -26,6 +26,11 @@ const searchContacts = async (data) => {
             [Op.like]: `%${data.keyword}%`,
           },
         },
+        {
+          name: {
+            [Op.like]: `%${data.keyword}%`,
+          },
+        },
       ],
       user_id: JSON.parse(data.userID),
     },
@@ -43,6 +48,11 @@ const searchContactsPagination = async (userID, offset, per_page, keyword) => {
         {
           group: {
             [Op.like]: `${keyword}%`,
+          },
+        },
+        {
+          name: {
+            [Op.like]: `%${data.keyword}%`,
           },
         },
       ],
