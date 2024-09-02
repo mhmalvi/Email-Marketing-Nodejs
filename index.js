@@ -167,8 +167,6 @@ io.on("connection", async (socket) => {
   await socket.on("contacts", async (data) => {
     const { userID, page, per_page, keyword } = data;
     const searchContact = async () => {
-      console.log("fdd shalalala", data);
-
       const offset = (page - 1) * per_page;
       const contacts = await searchContacts(data);
       const paginated = await searchContactsPagination(
