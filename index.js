@@ -24,7 +24,7 @@ const Op = Sequelize.Op;
 const path = require("path");
 require("./config/passport");
 const cors = require("cors");
-const { pixelTracker } = require("./routes/pixelTracker-routes");
+
 require("dotenv").config();
 
 const app = express();
@@ -41,6 +41,13 @@ const socketIo = require("socket.io");
 const { createServer } = require("node:http");
 const { Server } = require("socket.io");
 const { join } = require("node:path");
+
+const { searchContactSocket } = require("./src/socket/searchContactSocket");
+const {
+  campaignCompareSearchSocket,
+} = require("./src/socket/campaignCompareSearchSocket");
+///////// socket imports end/////////////
+/////////// routes import /////////////
 const { getIDRouter } = require("./routes/getID-routes");
 const { invoiceRouter } = require("./routes/invoice-routes");
 const { countsRouter } = require("./routes/counts-routes");
@@ -51,10 +58,8 @@ const passwordRoutes = require("./routes/password-routes");
 const passReset = require("./routes/passReset-routes");
 const { contactusRoutes } = require("./routes/contactus-routes");
 const { userRouter } = require("./routes/user-routes");
-const { searchContactSocket } = require("./src/socket/searchContactSocket");
-const {
-  campaignCompareSearchSocket,
-} = require("./src/socket/campaignCompareSearchSocket");
+const { pixelTracker } = require("./routes/pixelTracker-routes");
+/////////// routes import end /////////////
 
 const server = createServer(app);
 // const io = new Server(server);
@@ -127,10 +132,8 @@ server.listen(port, () => console.log("server running on port" + port));
 
 ////// socket connection starts ////////
 io.on("connection", async (socket) => {
-  const users = {};
-  console.log("a user connected");
   await socket.on("campaigns", async (data) => {
-    const searchCampaign = async (req, res) => {
+    const searchCampaign = async () => {
       const socketId = socket.id;
       const paginate = await campaignCompareSearchSocket(data); /// search campaigns
       await io.to(socketId).emit("campaigns", paginate);
