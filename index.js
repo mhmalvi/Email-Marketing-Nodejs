@@ -19,9 +19,6 @@ const { cronRoutes } = require("./routes/cron-routes");
 const { stripeProductsRouter } = require("./routes/stripeProducts-routes");
 const { stripePriceRouter } = require("./routes/stripePrice-routes");
 const { randomAlphaNumeric, getIp } = require("./src/common/utils");
-const Sequelize = require("sequelize");
-const Op = Sequelize.Op;
-const path = require("path");
 require("./config/passport");
 const cors = require("cors");
 
