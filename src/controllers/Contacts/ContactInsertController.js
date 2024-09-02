@@ -39,6 +39,7 @@ const insertContact = async (req, res) => {
         if (!userCollectionExist) {
           validContacts.push({
             json: element,
+            name:element.name,
             email: element.email || "",
             group: element.group || "",
             user_id: user_id,

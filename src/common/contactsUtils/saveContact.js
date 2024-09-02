@@ -3,6 +3,7 @@ const Contact = require("../../../models").Contact;
 const saveContact = async (data, userID) => {
   return await Contact.create({
     json: data,
+    name: data.name ? data.name : "",
     email: data.email ? data.email : "",
     group: data.group ? data.group : "",
     user_id: userID,
