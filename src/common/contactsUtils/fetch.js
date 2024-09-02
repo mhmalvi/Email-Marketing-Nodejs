@@ -17,17 +17,17 @@ const searchContacts = async (data) => {
     where: {
       [Op.or]: [
         {
+          name: {
+            [Op.like]: `%${data.keyword}%`,
+          },
+        },
+        {
           email: {
             [Op.like]: `%${data.keyword}%`,
           },
         },
         {
           group: {
-            [Op.like]: `%${data.keyword}%`,
-          },
-        },
-        {
-          name: {
             [Op.like]: `%${data.keyword}%`,
           },
         },
@@ -41,6 +41,11 @@ const searchContactsPagination = async (userID, offset, per_page, keyword) => {
     where: {
       [Op.or]: [
         {
+          name: {
+            [Op.like]: `%${keyword}%`,
+          },
+        },
+        {
           email: {
             [Op.like]: `${keyword}%`,
           },
@@ -48,11 +53,6 @@ const searchContactsPagination = async (userID, offset, per_page, keyword) => {
         {
           group: {
             [Op.like]: `${keyword}%`,
-          },
-        },
-        {
-          name: {
-            [Op.like]: `%${keyword}%`,
           },
         },
       ],
