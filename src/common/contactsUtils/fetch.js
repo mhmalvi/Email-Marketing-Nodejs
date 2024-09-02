@@ -52,7 +52,7 @@ const searchContactsPagination = async (userID, offset, per_page, keyword) => {
         },
         {
           name: {
-            [Op.like]: `%${data.keyword}%`,
+            [Op.like]: `%${keyword}%`,
           },
         },
       ],
