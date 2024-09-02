@@ -30,11 +30,6 @@ require("dotenv").config();
 const app = express();
 const port = 5000;
 
-const {
-  campaignSearch,
-  campaignSearchPagination,
-} = require("./src/common/campaignUtils/fetchCampaigns");
-
 ////////// models import /////////////
 const CampaignQueue = require("./models").CampaignQueue;
 
@@ -57,6 +52,9 @@ const passReset = require("./routes/passReset-routes");
 const { contactusRoutes } = require("./routes/contactus-routes");
 const { userRouter } = require("./routes/user-routes");
 const { searchContactSocket } = require("./src/socket/searchContactSocket");
+const {
+  campaignCompareSearchSocket,
+} = require("./src/socket/campaignCompareSearchSocket");
 
 const server = createServer(app);
 // const io = new Server(server);
@@ -126,34 +124,15 @@ app
 // });
 /////////////////////////////////////////////////////////////////////////////////////////
 server.listen(port, () => console.log("server running on port" + port));
-// Welcome{"provider":"google","sub":"105703349436150658184","id":"105703349436150658184","displayName":"tanjib Rubyat","name":{"givenName":"tanjib","familyName":"Rubyat"},"given_name":"tanjib","family_name":"Rubyat","email_verified":true,"verified":true,"language":"en-GB","email":"tanjibrubyat@gmail.com","emails":[{"value":"tanjibrubyat@gmail.com","type":"account"}],"photos":[{"value":"https://lh3.googleusercontent.com/a/ACg8ocJQYSJH17nYxP9tIGKVyRRzPDPmTQopLs7RjfY80g2PqQ3SNC8=s96-c","type":"default"}],"picture":"https://lh3.googleusercontent.com/a/ACg8ocJQYSJH17nYxP9tIGKVyRRzPDPmTQopLs7RjfY80g2PqQ3SNC8=s96-c","_raw":"{\n \"sub\": \"105703349436150658184\",\n \"name\": \"tanjib Rubyat\",\n \"given_name\": \"tanjib\",\n \"family_name\": \"Rubyat\",\n \"picture\": \"https://lh3.googleusercontent.com/a/ACg8ocJQYSJH17nYxP9tIGKVyRRzPDPmTQopLs7RjfY80g2PqQ3SNC8\\u003ds96-c\",\n \"email\": \"tanjibrubyat@gmail.com\",\n \"email_verified\": true,\n \"locale\": \"en-GB\"\n}","_json":{"sub":"105703349436150658184","name":"tanjib Rubyat","given_name":"tanjib","family_name":"Rubyat","picture":"https://lh3.googleusercontent.com/a/ACg8ocJQYSJH17nYxP9tIGKVyRRzPDPmTQopLs7RjfY80g2PqQ3SNC8=s96-c","email":"tanjibrubyat@gmail.com","email_verified":true,"locale":"en-GB"}}
 
 ////// socket connection starts ////////
 io.on("connection", async (socket) => {
   const users = {};
   console.log("a user connected");
   await socket.on("campaigns", async (data) => {
-    const { userID, page, per_page, name } = data;
-    const offset = (page - 1) * per_page;
-    // users[userId] = socket.id;
     const searchCampaign = async (req, res) => {
-      console.log(userID);
-      const campaigns = await campaignSearch(data);
-      const paginated = await campaignSearchPagination(
-        userID,
-        per_page,
-        offset,
-        name
-      );
       const socketId = socket.id;
-      const totalPages = campaigns.length / per_page;
-      const count = campaigns.length;
-      const paginate = {
-        paginatedData: paginated,
-        current_page: page,
-        count: count,
-        totalPages: Math.ceil(totalPages),
-      };
+      const paginate = await campaignCompareSearchSocket(data); /// search campaigns
       await io.to(socketId).emit("campaigns", paginate);
     };
     await searchCampaign();
@@ -164,11 +143,9 @@ io.on("connection", async (socket) => {
   await socket.on("contacts", async (data) => {
     const searchContact = async () => {
       const socketId = socket.id;
-      const paginate = await searchContactSocket(data);
-      console.log(paginate);
-
+      const paginate = await searchContactSocket(data); ////search contact
       await io.to(socketId).emit("contacts", paginate);
     };
     await searchContact();
-  });
-}); ///// socket for contacts search
+  }); ///// socket for contacts search
+});
