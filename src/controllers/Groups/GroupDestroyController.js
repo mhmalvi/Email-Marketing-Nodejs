@@ -23,6 +23,11 @@ const groupDestroy = async (req, res) => {
       } catch (error) {
         res.json(error);
       }
+    } else {
+      res.status(404).json({
+        message: "No data found",
+        status: 404,
+      });
     }
   }
 };
