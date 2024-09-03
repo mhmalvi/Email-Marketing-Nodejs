@@ -8,7 +8,13 @@ module.exports.fetchContacts = async (user_id) => {
 module.exports.fetchGroupsByID = async (user_id) => {
   return await Contact.findAll({
     where: { user_id: JSON.parse(user_id) },
-    attributes: [[Sequelize.fn("DISTINCT", Sequelize.col("group",)), "group"]],
+    attributes: [
+      [
+        Sequelize.fn("DISTINCT", Sequelize.col("group", "updatedAt")),
+        "group",
+        "updatedAt",
+      ],
+    ],
   });
 };
 module.exports.fetchGroupsByPagination = async (user_id, per_page, offset) => {
@@ -16,6 +22,12 @@ module.exports.fetchGroupsByPagination = async (user_id, per_page, offset) => {
     where: { user_id: JSON.parse(user_id) },
     limit: per_page,
     offset: offset,
-    attributes: [[Sequelize.fn("DISTINCT", Sequelize.col("group")), "group"]],
+    attributes: [
+      [
+        Sequelize.fn("DISTINCT", Sequelize.col("group", "updatedAt")),
+        "group",
+        "updatedAt",
+      ],
+    ],
   });
 };
