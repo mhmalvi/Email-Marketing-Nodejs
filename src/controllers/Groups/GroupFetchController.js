@@ -1,5 +1,3 @@
-const express = require("express");
-const Contact = require("../../../models").Contact;
 const { fetchContacts } = require("../../common/groupsUtils/fetchContacts");
 
 const fetchGroups = async (req, res) => {
