@@ -1,5 +1,9 @@
 const { fieldsValidation } = require("../../../config/utils");
-const { fetchContacts, fetchGroupsByID } = require("../../common/groupsUtils/fetchContacts");
+const {
+  fetchContacts,
+  fetchGroupsByID,
+  fetchGroupsPagination,
+} = require("../../common/groupsUtils/fetchContacts");
 
 const fetchGroups = async (req, res) => {
   if (req.body.userID) {
@@ -46,18 +50,10 @@ const fetchGroupsPagination = async (req, res) => {
       status: 422,
     });
   } else {
-    const contacts = await fetchGroupsByID(userID);
-    //   console.log(contacts);
-    // await contacts.forEach((contact) => {
-    //   const group = contact.json.group;
-    //   if (group) {
-    //     //   console.log(contact.json.group);
-    //     if (!contactArray.includes(group)) {
-    //       contactArray.push(group);
-    //     }
-    //   }
-    // });
-    if (contacts.length > 0) {
+    const total = await fetchGroupsByID(userID);
+    const totalPages = total.length > 0 ? total.length / size : "";
+    const result = await fetchGroupsPagination(data, size, offset);
+    if (result.length > 0) {
       res.status(200).json({
         message: "success",
         status: 200,
