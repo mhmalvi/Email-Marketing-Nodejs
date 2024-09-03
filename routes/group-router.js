@@ -3,10 +3,14 @@ const groupRouter = express.Router();
 const { isCustomerAuthenticated } = require("../src/middleware/userMiddleware");
 const {
   fetchGroups,
+  fetchGroupsPagination,
 } = require("../src/controllers/Groups/GroupFetchController");
 const { groupDestroy } = require("../src/controllers/Groups/GroupDestroyController");
 
 groupRouter.route("/group-fetch").post(isCustomerAuthenticated, fetchGroups);
+groupRouter
+  .route("/group-fetch-page")
+  .post(isCustomerAuthenticated, fetchGroupsPagination);
 groupRouter.route("/group-destroy").post(isCustomerAuthenticated, groupDestroy);
 
 module.exports = { groupRouter };
