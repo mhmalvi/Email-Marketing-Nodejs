@@ -1,4 +1,4 @@
-const { fetchContacts } = require("../../common/groupsUtils/fetchContacts");
+const { fieldsValidation } = require("../../../config/utils");
 const { groupDestroyer } = require("../../common/groupsUtils/groupDestroyer");
 
 const groupDestroy = async (req, res) => {
