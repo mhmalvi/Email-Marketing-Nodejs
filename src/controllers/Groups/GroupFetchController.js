@@ -52,7 +52,7 @@ const fetchGroupsPagination = async (req, res) => {
   } else {
     const total = await fetchGroupsByID(userID);
     const totalPages = total.length > 0 ? total.length / size : "";
-    const result = await fetchGroupsByPagination(data, size, offset);
+    const result = await fetchGroupsByPagination(userID, size, offset);
     if (result.length > 0) {
       res.status(200).json({
         message: "success",

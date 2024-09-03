@@ -12,7 +12,7 @@ module.exports.fetchGroupsByID = async (user_id) => {
     attributes: [[Sequelize.fn("DISTINCT", Sequelize.col("group")), "group"]],
   });
 };
-module.exports.fetchGroupsByPagination = async (size, offset, user_id) => {
+module.exports.fetchGroupsByPagination = async (user_id, size, offset) => {
   return await Contact.findAll({
     where: { user_id: JSON.parse(user_id) },
     limit: size,
