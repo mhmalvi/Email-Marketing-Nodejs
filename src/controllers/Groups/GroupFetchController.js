@@ -59,6 +59,9 @@ const fetchGroupsPagination = async (req, res) => {
         message: "success",
         status: 200,
         groups: result,
+        total: total.length,
+        totalPages: Math.ceil(totalPages),
+        current_page: page,
       });
     } else {
       res.status(404).json({
