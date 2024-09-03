@@ -2,7 +2,7 @@ const { fieldsValidation } = require("../../../config/utils");
 const {
   fetchContacts,
   fetchGroupsByID,
-  fetchGroupsPagination,
+  fetchGroupsByPagination,
 } = require("../../common/groupsUtils/fetchContacts");
 
 const fetchGroups = async (req, res) => {
@@ -52,7 +52,7 @@ const fetchGroupsPagination = async (req, res) => {
   } else {
     const total = await fetchGroupsByID(userID);
     const totalPages = total.length > 0 ? total.length / size : "";
-    const result = await fetchGroupsPagination(data, size, offset);
+    const result = await fetchGroupsByPagination(data, size, offset);
     if (result.length > 0) {
       res.status(200).json({
         message: "success",
