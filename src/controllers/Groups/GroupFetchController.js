@@ -1,3 +1,4 @@
+const { fieldsValidation } = require("../../../config/utils");
 const { fetchContacts, fetchGroupsByID } = require("../../common/groupsUtils/fetchContacts");
 
 const fetchGroups = async (req, res) => {
