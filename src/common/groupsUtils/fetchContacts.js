@@ -1,3 +1,4 @@
+const Sequelize = require('sequelize')
 const Contact = require("../../../models").Contact;
 
 module.exports.fetchContacts = async (user_id) => {
