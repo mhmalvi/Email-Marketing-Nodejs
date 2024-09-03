@@ -2,8 +2,7 @@ const { fieldsValidation } = require("../../../config/utils");
 const { groupDestroyer } = require("../../common/groupsUtils/groupDestroyer");
 
 const groupDestroy = async (req, res) => {
-  console.log(req);
-  
+  console.log(req.body);  
   const { userID, groups } = req.body;
   const requiredFields = { userID, groups };
   const missingFields = await fieldsValidation(requiredFields);
