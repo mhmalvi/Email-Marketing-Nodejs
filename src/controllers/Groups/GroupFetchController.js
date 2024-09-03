@@ -50,6 +50,7 @@ const fetchGroupsPagination = async (req, res) => {
       status: 422,
     });
   } else {
+    offset = (page - 1) * per_page;
     const total = await fetchGroupsByID(userID);
     const totalPages = total.length > 0 ? total.length / per_page : "";
     const result = await fetchGroupsByPagination(userID, per_page, offset);
