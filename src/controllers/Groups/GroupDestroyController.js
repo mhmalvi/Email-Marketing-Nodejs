@@ -1,8 +1,9 @@
 const { fetchContacts } = require("../../common/groupsUtils/fetchContacts");
+const { groupDestroyer } = require("../../common/groupsUtils/groupDestroyer");
 
 const groupDestroy = async (req, res) => {
-  const { userID, page, per_page } = req.body;
-  const requiredFields = { userID, page, per_page };
+  const { userID, groups } = req.body;
+  const requiredFields = { userID, groups };
   const missingFields = await fieldsValidation(requiredFields);
   if (missingFields.length > 0) {
     res.status(422).json({
@@ -10,8 +11,19 @@ const groupDestroy = async (req, res) => {
       status: 422,
     });
   } else {
-    const contacts = await fetchContacts(userID);
-    res.json(contacts);
+    if (groups.length > 0) {
+      try {
+        groups.map(async (group) => {
+          await groupDestroyer(userID, group);
+        });
+        res.status(201).json({
+          message: "Deleted",
+          status: 201,
+        });
+      } catch (error) {
+        res.json(error);
+      }
+    }
   }
 };
 
