@@ -58,7 +58,7 @@ const fetchGroupsPagination = async (req, res) => {
       res.status(200).json({
         message: "success",
         status: 200,
-        groups: contacts,
+        groups: result,
       });
     } else {
       res.status(404).json({
