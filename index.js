@@ -56,6 +56,7 @@ const passReset = require("./routes/passReset-routes");
 const { contactusRoutes } = require("./routes/contactus-routes");
 const { userRouter } = require("./routes/user-routes");
 const { pixelTracker } = require("./routes/pixelTracker-routes");
+const { searchGroupSocket } = require("./src/socket/searchGroupSocket");
 /////////// routes import end /////////////
 
 const server = createServer(app);
