@@ -131,6 +131,8 @@ server.listen(port, () => console.log("server running on port" + port));
 ////// socket connection starts ////////
 io.on("connection", async (socket) => {
   await socket.on("campaigns", async (data) => {
+    console.log(data);
+    
     const searchCampaign = async () => {
       const socketId = socket.id;
       const paginate = await campaignCompareSearchSocket(data); /// search campaigns
