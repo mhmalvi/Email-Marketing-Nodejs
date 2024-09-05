@@ -15,7 +15,17 @@ const campaignDestroy = async (req, res) => {
     });
   } else {
     const result = await campaignDestroyer(req.body);
-    res.json(result);
+    if (result > 0) {
+      res.status(201).json({
+        message: "Deleted",
+        status: 201,
+      });
+    } else {
+      res.status(500).json({
+        message: "Failed",
+        status: 500,
+      });
+    }
   }
 };
 module.exports = { campaignDestroy };
