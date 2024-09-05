@@ -10,7 +10,7 @@ module.exports.fetchGroupsByID = async (user_id) => {
     where: { user_id: JSON.parse(user_id) },
     attributes: [
       [Sequelize.fn("DISTINCT", Sequelize.col("group")), "group"],
-      "updatedAt",
+      // "updatedAt",
     ],
   });
 };
@@ -21,7 +21,7 @@ module.exports.fetchGroupsByPagination = async (user_id, per_page, offset) => {
     offset: offset,
     attributes: [
       [Sequelize.fn("DISTINCT", Sequelize.col("group")), "group"],
-      "updatedAt",
+      // "updatedAt",
     ],
   });
 };
