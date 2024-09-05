@@ -4,13 +4,17 @@ const Contact = require("../../../models").Contact;
 
 module.exports.searchGroups = async (data) => {
   return await Contact.findAll({
-    attributes: [[Sequelize.fn("DISTINCT", Sequelize.col("group")), "group"]],
+    attributes: [
+      "group",
+      [Sequelize.fn("MAX", Sequelize.col("updatedAt")), "updatedAt"],
+    ],
     where: {
       group: {
         [Op.like]: `%${data.keyword}%`,
       },
       user_id: JSON.parse(data.userID),
     },
+    group: ["group"],
   });
 };
 
@@ -21,13 +25,17 @@ module.exports.searchGroupsPagination = async (
   keyword
 ) => {
   return await Contact.findAll({
-    attributes: [[Sequelize.fn("DISTINCT", Sequelize.col("group")), "group"]],
+    attributes: [
+      "group",
+      [Sequelize.fn("MAX", Sequelize.col("updatedAt")), "updatedAt"],
+    ],
     where: {
       group: {
         [Op.like]: `%${keyword}%`,
       },
       user_id: JSON.parse(userID),
     },
+    group: ["group"],
     limit: per_page,
     offset: offset,
   });

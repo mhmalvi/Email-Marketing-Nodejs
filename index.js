@@ -158,5 +158,5 @@ io.on("connection", async (socket) => {
       await io.to(socketId).emit("groups", paginate);
     };
     await searchGroup();
-  }); ///// socket for contacts search
+  }); ///// socket for groups search
 });
