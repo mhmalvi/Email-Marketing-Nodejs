@@ -148,4 +148,14 @@ io.on("connection", async (socket) => {
     };
     await searchContact();
   }); ///// socket for contacts search
+
+  // --------------------------------------------------------------------------------------
+  await socket.on("groups", async (data) => {
+    const searchGroup = async () => {
+      const socketId = socket.id;
+      const paginate = await searchGroupSocket(data); ////search contact
+      await io.to(socketId).emit("groups", paginate);
+    };
+    await searchGroup();
+  }); ///// socket for contacts search
 });
