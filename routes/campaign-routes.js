@@ -8,6 +8,9 @@ const {
   campaignWiseMailFetch,
 } = require("../src/controllers/Campaigns/CampaignFetchController");
 const { isCustomerAuthenticated } = require("../src/middleware/userMiddleware");
+const {
+  campaignDestroy,
+} = require("../src/controllers/Campaigns/CampaignDestroyController");
 
 campaignRouter
   .route("/campaign-create")
@@ -18,5 +21,8 @@ campaignRouter
 campaignRouter
   .route("/campaignwise-mail-fetch")
   .post(isCustomerAuthenticated, campaignWiseMailFetch);
+campaignRouter
+  .route("/campaignwise-destroy")
+  .post(isCustomerAuthenticated, campaignDestroy);
 
 module.exports = { campaignRouter };
