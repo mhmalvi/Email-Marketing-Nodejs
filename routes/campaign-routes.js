@@ -22,7 +22,7 @@ campaignRouter
   .route("/campaignwise-mail-fetch")
   .post(isCustomerAuthenticated, campaignWiseMailFetch);
 campaignRouter
-  .route("/campaignwise-destroy")
+  .route("/campaign-destroy")
   .post(isCustomerAuthenticated, campaignDestroy);
 
 module.exports = { campaignRouter };
