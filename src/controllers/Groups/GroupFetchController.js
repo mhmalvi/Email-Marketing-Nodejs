@@ -12,7 +12,8 @@ const fetchGroups = async (req, res) => {
     const contacts = await fetchContacts(userID);
     //   console.log(contacts);
     await contacts.forEach((contact) => {
-      const group = contact.json.group;
+      const json = JSON.parse(contact.json);
+      const group = json.group;
       if (group) {
         //   console.log(contact.json.group);
         if (!contactArray.includes(group)) {
