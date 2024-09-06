@@ -4,9 +4,6 @@ const Contact = require("../../../models").Contact;
 const { destroy } = require("../../common/contactsUtils/delete");
 const { findOne } = require("../../common/contactsUtils/findOne");
 const { getPagingData, getPagination } = require("../../../config/utils");
-const {
-  resetAutoIncrement,
-} = require("../../common/resetTableUtils/resetTable");
 const { helpers } = require("handlebars/runtime");
 
 const destroyContact = async (req, res) => {
