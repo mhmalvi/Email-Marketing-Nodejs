@@ -31,7 +31,7 @@ const insertContact = async (req, res) => {
 
     const chunkSize = 500; // Define chunk size based on your needs
     let chunkedContacts = chunkArray(data, chunkSize);
-
+    const batchID = "BAT" + Date.now() + Math.floor(Math.random() * 1000000);
     for (const chunk of chunkedContacts) {
       const validContacts = [];
       for (const element of chunk) {
@@ -39,6 +39,8 @@ const insertContact = async (req, res) => {
         if (!userCollectionExist) {
           validContacts.push({
             json: element,
+            batchID: batchID,
+            company: element.company ? element.company : null,
             name: element.name,
             email: element.email || "",
             group: element.group || "",
@@ -98,17 +100,34 @@ const insertContactManually = async (req, res) => {
       status: 422,
     });
   } else {
+    const groupExist = await ifGroupExist(user_id, req.body); ////check if group exists
     const userCollectionExist = await ifContactExist(user_id, req.body); /// check if contact already exists
     if (!userCollectionExist) {
       const productDB = await getProductDetailsFromDB(user_id); /// product details of authenticated user from DB
       //////////////////////////////////////////////////////////////////////
       var contactCount = await contactCounts(user_id); ////get mail count for today
+      const result = "";
       if (contactCount <= productDB.contactLimit) {
-        await saveContact(req.body, user_id); //// insert contact
-        res.status(201).json({
-          message: "Contact inserted",
-          status: 201,
-          contact: req.body,
+        if (groupExist) {
+          result = await saveContact(
+            req.body,
+            user_id,
+            userCollectionExist.batchID
+          ); //// insert contact if group already exists
+        } else {
+          const batchID = Date.now() + Math.floor(Math.random() * 1000000);
+          result = await saveContact(req.body, user_id, batchID); //// insert contact if group do not exists
+        }
+        if (result) {
+          res.status(201).json({
+            message: "Contact inserted",
+            status: 201,
+            contact: req.body,
+          });
+        }
+        res.status(500).json({
+          message: "Failed",
+          status: 500,
         });
       } else {
         res.status(422).json({
