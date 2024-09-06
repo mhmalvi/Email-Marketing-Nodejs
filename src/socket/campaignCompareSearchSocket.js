@@ -20,7 +20,7 @@ const campaignCompareSearchSocket = async (data) => {
   const paginate = {
     paginatedData: paginated,
     current_page: page,
-    count: count,
+    total: count,
     totalPages: Math.ceil(totalPages),
   };
   return paginate;
