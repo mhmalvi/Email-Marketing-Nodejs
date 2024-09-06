@@ -1,3 +1,4 @@
+const sequelize = require("sequelize");
 const resetAutoIncrement = async (model) => {
   try {
     // Start a transaction for safety
