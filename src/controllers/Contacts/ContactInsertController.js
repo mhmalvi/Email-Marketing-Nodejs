@@ -107,7 +107,7 @@ const insertContactManually = async (req, res) => {
       const productDB = await getProductDetailsFromDB(user_id); /// product details of authenticated user from DB
       //////////////////////////////////////////////////////////////////////
       var contactCount = await contactCounts(user_id); ////get mail count for today
-      const result = "";
+      var result = "";
       if (contactCount <= productDB.contactLimit) {
         if (groupExist) {
           result = await saveContact(
