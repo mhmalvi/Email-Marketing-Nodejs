@@ -13,7 +13,7 @@ const destroyContact = async (req, res) => {
       const result = await destroy(req.body);
       console.log(result);
       if (result === 1) {
-        await resetAutoIncrement();
+        // await resetAutoIncrement();
         res.status(201).json({
           message: "Deleted",
           status: 201,
