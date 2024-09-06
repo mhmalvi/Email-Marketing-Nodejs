@@ -36,6 +36,8 @@ const insertContact = async (req, res) => {
       const validContacts = [];
       for (const element of chunk) {
         const userCollectionExist = await ifContactExist(user_id, element); // Check if contact already exists
+        console.log(userCollectionExist);
+        
         const groupExist = await ifGroupExist(user_id, element); ////check if group exists
         if (!userCollectionExist) {
           if (groupExist) {
