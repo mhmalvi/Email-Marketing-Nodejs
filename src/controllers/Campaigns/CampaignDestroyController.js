@@ -13,7 +13,7 @@ const campaignDestroy = async (req, res) => {
     });
   } else {
     try {
-      JSON.parse(campaignIDs).map(async (campaignID) => {
+      campaignIDs.map(async (campaignID) => {
         await campaignDestroyer(userID, campaignID); ////// destroy campaign
       });
       res.status(201).json({
