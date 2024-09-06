@@ -20,7 +20,7 @@ const campaigns = async (req, res) => {
       res.status(200).json({
         message: "success",
         status: 200,
-        campaigns: paginatedCampaigns,
+        paginatedData: paginatedCampaigns,
         total: count,
         totalPages: Math.ceil(totalPages),
         current_page: page,
