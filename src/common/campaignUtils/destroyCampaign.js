@@ -3,15 +3,15 @@ const EmailQueue = require("../../../models").EmailQueue;
 module.exports.campaignDestroyer = async (userID, campaignID) => {
   const result = await CampaignQueue.destroy({
     where: {
-      id: campaignID,
-      userID: userID,
+      id: JSON.parse(campaignID),
+      userID: JSON.parse(userID),
     },
   });
   if (result > 0) {
     return await EmailQueue.destroy({
       where: {
-        campaignID: campaignID,
-        userID: userID,
+        campaignID: JSON.parse(campaignID),
+        userID: JSON.parse(userID),
       },
     });
   }

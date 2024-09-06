@@ -2,8 +2,6 @@ const { fieldsValidation } = require("../../../config/utils");
 const {
   campaignDestroyer,
 } = require("../../common/campaignUtils/destroyCampaign");
-
-const CampaignQueue = require("../../../models").CampaignQueue;
 const campaignDestroy = async (req, res) => {
   const { userID, campaignIDs } = req.body;
   const requiredFields = { userID, campaignID };
