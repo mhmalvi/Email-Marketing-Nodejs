@@ -3,6 +3,9 @@ const Contact = require("../../../models").Contact;
 const { destroy } = require("../../common/contactsUtils/delete");
 const { findOne } = require("../../common/contactsUtils/findOne");
 const { getPagingData, getPagination } = require("../../../config/utils");
+const {
+  resetAutoIncrement,
+} = require("../../common/resetTableUtils/resetTable");
 
 const destroyContact = async (req, res) => {
   if (req.body.id && req.body.userID) {
@@ -11,6 +14,7 @@ const destroyContact = async (req, res) => {
       const result = await destroy(req.body);
       console.log(result);
       if (result === 1) {
+        await resetAutoIncrement(Contact);
         res.status(201).json({
           message: "Deleted",
           status: 201,

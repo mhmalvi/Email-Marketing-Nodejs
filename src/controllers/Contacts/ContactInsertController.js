@@ -39,9 +39,10 @@ const insertContact = async (req, res) => {
         const groupExist = await ifGroupExist(user_id, element); ////check if group exists
         if (!userCollectionExist) {
           if (groupExist) {
-            batch = userCollectionExist.batchID!==null
-              ? userCollectionExist.batchID
-              : null; ///////// if group exists insert existing batch ID
+            batch =
+              userCollectionExist.batchID !== null
+                ? userCollectionExist.batchID
+                : null; ///////// if group exists insert existing batch ID
           } else {
             batch = batchID; ////// if group does not exists generate a batch ID
           }
