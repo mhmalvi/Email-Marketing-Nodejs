@@ -15,7 +15,7 @@ const campaignDestroy = async (req, res) => {
     });
   } else {
     try {
-      campaignIDs.map(async (campaignID) => {
+      JSON.parse(campaignIDs).map(async (campaignID) => {
         await campaignDestroyer(userID, campaignID);
       });
       res.status(201).json({
