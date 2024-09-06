@@ -17,8 +17,6 @@ const { ifGroupExist } = require("../../common/groupsUtils/checkifGroupExist");
 
 const insertContact = async (req, res) => {
   const { data, user_id } = req.body;
-  console.log(data);
-
   if (data.length > 0) {
     const productDB = await getProductDetailsFromDB(user_id); // Get product details of authenticated user from DB
     let contactCount = await contactCounts(user_id); // Get mail count for today
@@ -32,15 +30,24 @@ const insertContact = async (req, res) => {
 
     const chunkSize = 500; // Define chunk size based on your needs
     let chunkedContacts = chunkArray(data, chunkSize);
-    const batchID = "BAT" + Date.now() + Math.floor(Math.random() * 1000000);
+
+    var batch = "";
     for (const chunk of chunkedContacts) {
       const validContacts = [];
       for (const element of chunk) {
         const userCollectionExist = await ifContactExist(user_id, element); // Check if contact already exists
+        const groupExist = await ifGroupExist(user_id, element); ////check if group exists
         if (!userCollectionExist) {
+          if (groupExist) {
+            batch = userCollectionExist.batchID; ///////// if group exists insert existing batch ID
+          } else {
+            const batchID =
+              "BAT" + Date.now() + Math.floor(Math.random() * 1000000);
+            batch = batchID; ////// if group does not exists generate a batch ID
+          }
           validContacts.push({
             json: element,
-            batchID: batchID,
+            batchID: batch,
             company: element.company ? element.company : null,
             name: element.name,
             email: element.email || "",
@@ -116,7 +123,8 @@ const insertContactManually = async (req, res) => {
             userCollectionExist.batchID
           ); //// insert contact if group already exists
         } else {
-          const batchID = Date.now() + Math.floor(Math.random() * 1000000);
+          const batchID =
+            "BAT" + Date.now() + Math.floor(Math.random() * 1000000);
           result = await saveContact(req.body, user_id, batchID); //// insert contact if group do not exists
         }
         if (result) {
