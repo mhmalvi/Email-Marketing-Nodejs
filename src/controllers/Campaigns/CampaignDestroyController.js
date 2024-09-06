@@ -14,18 +14,17 @@ const campaignDestroy = async (req, res) => {
       status: 422,
     });
   } else {
-    campaignIDs.map(async (campaignID) => {
-      await campaignDestroyer(userID, campaignID);
-    });
-
-    if (result > 0) {
+    try {
+      campaignIDs.map(async (campaignID) => {
+        await campaignDestroyer(userID, campaignID);
+      });
       res.status(201).json({
         message: "Deleted",
         status: 201,
       });
-    } else {
+    } catch (error) {
       res.status(500).json({
-        message: "Failed",
+        message: error,
         status: 500,
       });
     }
