@@ -11,11 +11,11 @@ const {
 const campaigns = async (req, res) => {
   const { userID, page, per_page } = req.body;
   if (userID) {
-    offset = (page - 1) * per_page;
+    offset = (page - 1) * 8;
     const allCampaigns = await fetchCampaigns(userID); /////// fetch campaigns //////
-    const totalPages = allCampaigns.length / per_page;
+    const totalPages = allCampaigns.length / 8;
     const count = allCampaigns.length;
-    const paginatedCampaigns = await fetchCampaignsPaginated(userID, per_page);
+    const paginatedCampaigns = await fetchCampaignsPaginated(userID, 8);
     if (paginatedCampaigns.length > 0) {
       res.status(200).json({
         message: "success",
