@@ -4,8 +4,6 @@ const {
 } = require("../../common/campaignUtils/destroyCampaign");
 const campaignDestroy = async (req, res) => {
   const { userID, campaignIDs } = req.body;
-  console.log(campaignIDs);
-  
   const requiredFields = { userID, campaignIDs };
   const missingFields = await fieldsValidation(requiredFields);
   if (missingFields.length > 0) {
@@ -16,7 +14,7 @@ const campaignDestroy = async (req, res) => {
   } else {
     try {
       JSON.parse(campaignIDs).map(async (campaignID) => {
-        await campaignDestroyer(userID, campaignID);
+        await campaignDestroyer(userID, campaignID); ////// destroy campaign
       });
       res.status(201).json({
         message: "Deleted",
@@ -24,7 +22,7 @@ const campaignDestroy = async (req, res) => {
       });
     } catch (error) {
       res.status(500).json({
-        message: error,
+        message: "Failed",
         status: 500,
       });
     }
