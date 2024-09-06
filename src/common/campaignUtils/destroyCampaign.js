@@ -8,11 +8,11 @@ module.exports.campaignDestroyer = async (userID, campaignID) => {
     },
   }); //////// destroy campaign
   // if (result > 0) {
-    return await EmailQueue.destroy({
-      where: {
-        campaignID: JSON.parse(campaignID),
-        userID: JSON.parse(userID),
-      },
-    }); //////// destroy emails under that campaign
+  return await EmailQueue.destroy({
+    where: {
+      campaignID: JSON.parse(campaignID),
+      userID: JSON.parse(userID),
+    },
+  }); //////// destroy emails under that campaign
   // }
 };
