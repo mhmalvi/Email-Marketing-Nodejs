@@ -4,6 +4,8 @@ const {
 } = require("../common/campaignUtils/fetchCampaigns");
 
 const campaignCompareSearchSocket = async (data) => {
+  console.log();
+  
   const { userID, page, per_page, name } = data;
   const offset = (page - 1) * per_page;
   const campaigns = await campaignSearch(data);

@@ -163,14 +163,14 @@ io.on("connection", async (socket) => {
   }); ///// socket for groups search
 
   // -----------------------------------------------------------------------
-  await socket.on("campaign", async (data) => {
-    console.log(data);
+  // await socket.on("campaign", async (data) => {
+  //   console.log(data);
 
-    const searchCampaign = async () => {
-      const socketId = socket.id;
-      const paginate = await campaignCompareSearchSocket(data); /// search campaigns
-      await io.to(socketId).emit("campaign", paginate);
-    };
-    await searchCampaign();
-  }); ///// socket for campaign search in campaign compare page
+  //   const searchCampaign = async () => {
+  //     const socketId = socket.id;
+  //     const paginate = await campaignCompareSearchSocket(data); /// search campaigns
+  //     await io.to(socketId).emit("campaign", paginate);
+  //   };
+  //   await searchCampaign();
+  // }); ///// socket for campaign search in campaign compare page
 });

@@ -5,8 +5,8 @@ const {
 
 const CampaignQueue = require("../../../models").CampaignQueue;
 const campaignDestroy = async (req, res) => {
-  const { userID, campaignName } = req.body;
-  const requiredFields = { userID, campaignName };
+  const { userID, campaignIDs } = req.body;
+  const requiredFields = { userID, campaignID };
   const missingFields = await fieldsValidation(requiredFields);
   if (missingFields.length > 0) {
     res.status(422).json({
@@ -14,7 +14,10 @@ const campaignDestroy = async (req, res) => {
       status: 422,
     });
   } else {
-    const result = await campaignDestroyer(req.body);
+    campaignIDs.map(async (campaignID) => {
+      await campaignDestroyer(userID, campaignID);
+    });
+
     if (result > 0) {
       res.status(201).json({
         message: "Deleted",
