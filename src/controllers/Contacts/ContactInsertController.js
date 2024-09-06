@@ -13,6 +13,7 @@ const {
 const {
   retrieveSingleSubscription,
 } = require("../../common/stripe/subscription/retrieveSingleSubscription");
+const { ifGroupExist } = require("../../common/groupsUtils/checkifGroupExist");
 
 const insertContact = async (req, res) => {
   const { data, user_id } = req.body;
