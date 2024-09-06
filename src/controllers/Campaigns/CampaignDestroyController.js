@@ -4,6 +4,8 @@ const {
 } = require("../../common/campaignUtils/destroyCampaign");
 const campaignDestroy = async (req, res) => {
   const { userID, campaignIDs } = req.body;
+  console.log(campaignIDs);
+  
   const requiredFields = { userID, campaignIDs };
   const missingFields = await fieldsValidation(requiredFields);
   if (missingFields.length > 0) {
