@@ -133,11 +133,12 @@ const insertContactManually = async (req, res) => {
             status: 201,
             contact: req.body,
           });
+        } else {
+          res.status(500).json({
+            message: "Failed",
+            status: 500,
+          });
         }
-        res.status(500).json({
-          message: "Failed",
-          status: 500,
-        });
       } else {
         res.status(422).json({
           message: "Contact limit reached",
