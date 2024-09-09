@@ -7,6 +7,7 @@ module.exports.searchGroups = async (data) => {
     attributes: [
       "group",
       [Sequelize.fn("MAX", Sequelize.col("updatedAt")), "updatedAt"],
+      [Sequelize.fn("MAX", Sequelize.col("batchID")), "batchID"],
     ],
     where: {
       group: {
@@ -28,6 +29,7 @@ module.exports.searchGroupsPagination = async (
     attributes: [
       "group",
       [Sequelize.fn("MAX", Sequelize.col("updatedAt")), "updatedAt"],
+      [Sequelize.fn("MAX", Sequelize.col("batchID")), "batchID"],
     ],
     where: {
       group: {
