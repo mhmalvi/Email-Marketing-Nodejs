@@ -116,6 +116,8 @@ const convert_template_curly_brace_email_name_and_group = async (
   contact,
   template
 ) => {
+  console.log(contact);
+  
   const json = JSON.parse(contact.json);
   const replacementsMatch = [
     { search: "{email}", replace: json.email },
