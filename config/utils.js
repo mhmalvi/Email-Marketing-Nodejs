@@ -103,6 +103,7 @@ const convert_curly_brace_email_name_and_group_to_recipient_email_and_name_and_g
       { search: "{email}", replace: element.json.email },
       { search: "{name}", replace: element.json.name },
       { search: "{group}", replace: element.json.group },
+      { search: "{company}", replace: element.json.company },
     ];
     const newStrMatch = await replaceMultipleStrings(
       subject,
