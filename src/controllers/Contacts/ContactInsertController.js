@@ -117,11 +117,7 @@ const insertContactManually = async (req, res) => {
       var result = "";
       if (contactCount <= productDB.contactLimit) {
         if (groupExist) {
-          result = await saveContact(
-            req.body,
-            user_id,
-            userCollectionExist.batchID
-          ); //// insert contact if group already exists
+          result = await saveContact(req.body, user_id, groupExist.batchID); //// insert contact if group already exists
         } else {
           const batchID = Date.now() + Math.floor(Math.random() * 1000000);
           result = await saveContact(req.body, user_id, batchID); //// insert contact if group do not exists
