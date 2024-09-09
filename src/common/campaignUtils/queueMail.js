@@ -15,7 +15,6 @@ const queueMail = async (data, campaignID) => {
           data,
           element
         );
-      console.log("subject", subject);
       await Emailqueue.create({
         subject: subject,
         fromName: data.campaignInfo.fromName,
@@ -23,6 +22,7 @@ const queueMail = async (data, campaignID) => {
         recipientName: element.json.name,
         recipientEmail: element.json.email,
         group: element.json.group,
+        company: element.json.company,
         schedule: data.schedule,
         templateName: data.template.name,
         templateData: template,
