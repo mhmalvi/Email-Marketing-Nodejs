@@ -10,13 +10,10 @@ module.exports.fetchGroupsByID = async (user_id) => {
     where: { user_id: JSON.parse(user_id) },
     attributes: [
       "group",
-      [
-        Sequelize.fn("MAX", Sequelize.col("updatedAt", "batchID")),
-        "updatedAt",
-        "batchID",
-      ],
+      "batchID",
+      [(Sequelize.fn("MAX", Sequelize.col("updatedAt")), "updatedAt")],
     ],
-    group: ["group"],
+    group: ["group", "batchID"],
   });
 };
 module.exports.fetchGroupsByPagination = async (user_id, per_page, offset) => {
@@ -26,12 +23,9 @@ module.exports.fetchGroupsByPagination = async (user_id, per_page, offset) => {
     offset: offset,
     attributes: [
       "group",
-      [
-        Sequelize.fn("MAX", Sequelize.col("updatedAt", "batchID")),
-        "updatedAt",
-        "batchID",
-      ],
+      "batchID",
+      [(Sequelize.fn("MAX", Sequelize.col("updatedAt")), "updatedAt")],
     ],
-    group: ["group"],
+    group: ["group", "batchID"],
   });
 };
