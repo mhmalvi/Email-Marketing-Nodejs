@@ -26,6 +26,7 @@ const {
   emailValidator,
   convert_template_curly_brace_email_name_and_group,
 } = require("../../../config/utils");
+const { findOne } = require("../contactsUtils/findOne");
 
 const updateTable = async () => {
   const users = await User.findAll({ order: [["id", "DESC"]] });
@@ -52,10 +53,11 @@ const sendMail = async (req, res) => {
         where: { email: mail.fromEmail },
       }); ////////////  get app password of the sender from db //////////////////
       var template = mail.templateData;
+      const contact = await findOne(mail.id); //// fetch contact from contacts table
       template = await convert_template_curly_brace_email_name_and_group(
-        mail,
+        contact,
         template
-      ); ////// replace template {email},{name},{group} with recipients' email,name,group //////
+      ); ////// replace template {email},{name},{group},{company} with recipients' email,name,group and company //////
       var id = mail.id;
       // Step 2: Read the template from a file.
       const templatePath = path.join(__dirname, "../../views/hbs/mail.hbs");
