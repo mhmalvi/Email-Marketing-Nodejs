@@ -97,13 +97,13 @@ function replaceMultipleStrings(str, replacements) {
 }
 
 const convert_curly_brace_email_name_and_group_to_recipient_email_and_name_and_group =
-  async (data, element) => {
+  async (data, contact) => {
     const subject = data.campaignInfo.subject;
     const replacementsMatch = [
-      { search: "{email}", replace: element.json.email },
-      { search: "{name}", replace: element.json.name },
-      { search: "{group}", replace: element.json.group },
-      { search: "{company}", replace: element.json.company },
+      { search: "{email}", replace: contact.json.email },
+      { search: "{name}", replace: contact.json.name },
+      { search: "{group}", replace: contact.json.group },
+      { search: "{company}", replace: contact.json.company },
     ];
     const newStrMatch = await replaceMultipleStrings(
       subject,
@@ -116,8 +116,6 @@ const convert_template_curly_brace_email_name_and_group = async (
   contact,
   template
 ) => {
-  console.log(contact.json);
-  
   const json = contact.json;
   const replacementsMatch = [
     { search: "{email}", replace: json.email },

@@ -53,7 +53,6 @@ const sendMail = async (req, res) => {
         where: { email: mail.fromEmail },
       }); ////////////  get app password of the sender from db //////////////////
       var template = mail.templateData;
-      console.log("mail", mail.contactID);
 
       const contact = await findOne(mail.contactID); //// fetch contact from contacts table
       console.log("contact", contact);

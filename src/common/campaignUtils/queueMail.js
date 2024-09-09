@@ -1,19 +1,20 @@
 const {
   convert_curly_brace_email_name_and_group_to_recipient_email_and_name_and_group,
 } = require("../../../config/utils");
+const { findOne } = require("../contactsUtils/findOne");
 const { saveEmail } = require("./saveEmail");
 
 const Contact = require("../../../models").Contact;
 const Emailqueue = require("../../../models").EmailQueue;
 const queueMail = async (data, campaignID) => {
   try {
-    console.log("data.schedule", data.schedule);
     await data.recipient.forEach(async (element) => {
+      const contact = await findOne(element.id)
       const template = data.template.data;
       const subject =
         await convert_curly_brace_email_name_and_group_to_recipient_email_and_name_and_group(
           data,
-          element
+          contact
         );
       await Emailqueue.create({
         subject: subject,
@@ -28,7 +29,7 @@ const queueMail = async (data, campaignID) => {
         templateData: template,
         campaignID: campaignID,
         userID: data.userID,
-        contactID:element.id,
+        contactID: element.id,
         open: 0,
       });
     });
