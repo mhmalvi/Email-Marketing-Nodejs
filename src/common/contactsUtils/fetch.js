@@ -46,6 +46,11 @@ const searchContactsPagination = async (userID, offset, per_page, keyword) => {
     where: {
       [Op.or]: [
         {
+          batchID: {
+            [Op.like]: `${data.keyword}%`,
+          },
+        },
+        {
           name: {
             [Op.like]: `${keyword}%`,
           },
