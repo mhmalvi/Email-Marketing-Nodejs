@@ -18,13 +18,8 @@ const {
 } = require("../../../common/subscription/resumeSubscriptionDB");
 
 const createSubscription = async (req, res) => {
-  const {
-    userID,
-    stripeCustomerID,
-    priceID,
-    amount,
-    paymentSourceID,
-  } = req.body;
+  const { userID, stripeCustomerID, priceID, amount, paymentSourceID } =
+    req.body;
   // console.log("userID", userID);
   const requiredFields = {
     userID,
@@ -42,7 +37,7 @@ const createSubscription = async (req, res) => {
   } else {
     const subscription = await Subscribe.findOne({
       where: { userID: userID },
-    });
+    }); ///////// find subscription from DB
     var response = "";
     if (subscription.subscriptionID == null) {
       response = await create(
@@ -63,16 +58,6 @@ const createSubscription = async (req, res) => {
       const subscription_item = await retrieveSingleSubscription(
         subscription.subscriptionID
       ); ////////// fetch subscription stripe
-      // if (subscription_item.status == "canceled") {
-      //   const resumeResponse = await resumeSubscription(subscription_item.id); ////////// resume subscription stripe
-      //   if (resumeResponse.status == "active") {
-      //     await resumeSubscriptionDB(
-      //       resumeResponse.items.data[0].plan.id,
-      //       resumeResponse.current_period_end,
-      //       userID
-      //     ); ////////// resume subscription db
-      //   }
-      // }
       response = await update(
         priceID,
         userID,
