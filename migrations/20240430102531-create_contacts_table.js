@@ -20,8 +20,9 @@ module.exports = {
       json: { type: Sequelize.STRING, allowNull: false },
       name: { type: Sequelize.INTEGER, allowNull: false },
       email: { type: Sequelize.STRING, allowNull: false },
-      company: { type: Sequelize.TEXT, allowNull: true },
+      company: { type: Sequelize.STRING, allowNull: true },
       group: { type: Sequelize.TEXT, allowNull: true },
+      company: { type: Sequelize.STRING, allowNull: true },
       createdAt: { type: Sequelize.DATE },
       updatedAt: { type: Sequelize.DATE },
     });
