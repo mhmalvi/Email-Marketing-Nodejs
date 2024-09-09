@@ -53,11 +53,11 @@ const sendMail = async (req, res) => {
         where: { email: mail.fromEmail },
       }); ////////////  get app password of the sender from db //////////////////
       var template = mail.templateData;
-      console.log("mail", mail);
-      
-      const contact = await findOne(mail.id); //// fetch contact from contacts table
+      console.log("mail", mail.contactID);
+
+      const contact = await findOne(mail.contactID); //// fetch contact from contacts table
       console.log("contact", contact);
-      
+
       template = await convert_template_curly_brace_email_name_and_group(
         contact,
         template
