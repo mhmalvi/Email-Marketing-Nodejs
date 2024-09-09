@@ -17,18 +17,23 @@ const searchContacts = async (data) => {
     where: {
       [Op.or]: [
         {
+          batchID: {
+            [Op.like]: `${data.keyword}%`,
+          },
+        },
+        {
           name: {
-            [Op.like]: `%${data.keyword}%`,
+            [Op.like]: `${data.keyword}%`,
           },
         },
         {
           email: {
-            [Op.like]: `%${data.keyword}%`,
+            [Op.like]: `${data.keyword}%`,
           },
         },
         {
           group: {
-            [Op.like]: `%${data.keyword}%`,
+            [Op.like]: `${data.keyword}%`,
           },
         },
       ],

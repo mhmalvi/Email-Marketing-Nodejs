@@ -30,7 +30,7 @@ const insertContact = async (req, res) => {
 
     const chunkSize = 500; // Define chunk size based on your needs
     let chunkedContacts = chunkArray(data, chunkSize);
-    const batchID = "BAT" + Date.now() + Math.floor(Math.random() * 1000000);
+    const batchID = Date.now() + Math.floor(Math.random() * 1000000);
     var batch = "";
     for (const chunk of chunkedContacts) {
       const validContacts = [];
@@ -123,8 +123,7 @@ const insertContactManually = async (req, res) => {
             userCollectionExist.batchID
           ); //// insert contact if group already exists
         } else {
-          const batchID =
-            "BAT" + Date.now() + Math.floor(Math.random() * 1000000);
+          const batchID = Date.now() + Math.floor(Math.random() * 1000000);
           result = await saveContact(req.body, user_id, batchID); //// insert contact if group do not exists
         }
         if (result) {
