@@ -25,6 +25,7 @@ module.exports = {
       templateName: { type: Sequelize.TEXT, allowNull: false },
       templateData: { type: Sequelize.TEXT("long"), allowNull: false },
       campaignID: { type: Sequelize.INTEGER, allowNull: false },
+      contactID:{type:Sequelize.INTEGER("long")},
       userID: { type: Sequelize.INTEGER, allowNull: false },
       schedule: { type: Sequelize.STRING, allowNull: true },
       open: {

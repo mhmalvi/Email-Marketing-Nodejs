@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       templateName: DataTypes.TEXT,
       templateData: DataTypes.TEXT("long"),
       campaignID: DataTypes.INTEGER,
+      contactID:DataTypes.INTEGER("long"),
       userID: DataTypes.INTEGER,
       schedule: DataTypes.DATE,
       open: DataTypes.INTEGER,
