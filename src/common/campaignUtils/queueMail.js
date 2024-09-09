@@ -9,7 +9,7 @@ const Emailqueue = require("../../../models").EmailQueue;
 const queueMail = async (data, campaignID) => {
   try {
     await data.recipient.forEach(async (element) => {
-      const contact = await findOne(element.id)
+      const contact = await findOne(element.id) ////fetch contact from contacts table
       const template = data.template.data;
       const subject =
         await convert_curly_brace_email_name_and_group_to_recipient_email_and_name_and_group(
