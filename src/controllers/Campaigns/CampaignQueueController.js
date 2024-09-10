@@ -28,7 +28,7 @@ const campaignQueue = async (req, res) => {
     const campaign = await saveCampaign(req.body); ////// create individual campaigns
 
     //////////////////////////////////////////////
-res.send(data.template.data)
+res.json(data.template.data)
     // if (campaign) {
     //   const result = await queueMail(data, campaign.id); ////// queue emails ////////
     //   if (result === 1) {
