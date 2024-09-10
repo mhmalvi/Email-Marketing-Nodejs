@@ -11,7 +11,7 @@ module.exports.searchGroups = async (data) => {
     ],
     where: {
       group: {
-        [Op.like]: `%${data.keyword}%`,
+        [Op.like]: `${data.keyword}%`,
       },
       user_id: JSON.parse(data.userID),
     },
@@ -33,7 +33,7 @@ module.exports.searchGroupsPagination = async (
     ],
     where: {
       group: {
-        [Op.like]: `%${keyword}%`,
+        [Op.like]: `${keyword}%`,
       },
       user_id: JSON.parse(userID),
     },
