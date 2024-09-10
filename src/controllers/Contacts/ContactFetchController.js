@@ -10,7 +10,6 @@ const {
   fetchContactsByPagination,
 } = require("../../common/groupsUtils/fetchContactsPagination");
 const { getPagingData, getPagination, fieldsValidation } = require("../../../config/utils");
-const { fetchByBatchID, fetchByBatchIDPagination } = require("../../common/contactsUtils/fetchByBatchID");
 
 const fetchContact = async (req, res) => {
   const data = JSON.parse(req.body.userID);
