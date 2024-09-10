@@ -104,10 +104,10 @@ const convert_curly_brace_email_name_and_group_to_recipient_email_and_name_and_g
       { search: "{name}", replace: contact.json.name },
       { search: "{group}", replace: contact.json.group },
       { search: "{company}", replace: contact.json.company },
-      { search: "{level1}", replace: json.level1 },
-      { search: "{level2}", replace: json.level2 },
-      { search: "{level3}", replace: json.level3 },
-      { search: "{level4}", replace: json.level4 },
+      { search: "{level1}", replace: contact.json.level1 },
+      { search: "{level2}", replace: contact.json.level2 },
+      { search: "{level3}", replace: contact.json.level3 },
+      { search: "{level4}", replace: contact.json.level4 },
     ];
     const newStrMatch = await replaceMultipleStrings(
       subject,
