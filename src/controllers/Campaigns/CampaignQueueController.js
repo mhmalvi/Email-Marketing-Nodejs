@@ -29,20 +29,20 @@ const campaignQueue = async (req, res) => {
 
     //////////////////////////////////////////////
 res.send(data.template.data)
-    if (campaign) {
-      const result = await queueMail(data, campaign.id); ////// queue emails ////////
-      if (result === 1) {
-        res.status(200).json({
-          message: "Queued",
-          status: 200,
-        });
-      } else {
-        res.status(500).json({
-          message: "Failed",
-          status: 500,
-        });
-      }
-    }
+    // if (campaign) {
+    //   const result = await queueMail(data, campaign.id); ////// queue emails ////////
+    //   if (result === 1) {
+    //     res.status(200).json({
+    //       message: "Queued",
+    //       status: 200,
+    //     });
+    //   } else {
+    //     res.status(500).json({
+    //       message: "Failed",
+    //       status: 500,
+    //     });
+    //   }
+    // }
   } else {
     res.status(422).json({
       message: "Email limit reached",
