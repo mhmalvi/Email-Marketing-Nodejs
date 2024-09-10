@@ -10,7 +10,7 @@ const {
   fetchContactsByPagination,
 } = require("../../common/groupsUtils/fetchContactsPagination");
 const { getPagingData, getPagination, fieldsValidation } = require("../../../config/utils");
-const { fetchByBatchID } = require("../../common/contactsUtils/fetchByBatchID");
+const { fetchByBatchID, fetchByBatchIDPagination } = require("../../common/contactsUtils/fetchByBatchID");
 
 const fetchContact = async (req, res) => {
   const data = JSON.parse(req.body.userID);
@@ -104,7 +104,7 @@ const contactFetchByBatch = async (req, res) => {
     const result = await fetchByBatchID(userID, batchID); /////// fetch contacts by group //////
     const totalPages = result.length / per_page;
     const count = result.length;
-    const result2 = await fetchByGroupPagination(
+    const result2 = await fetchByBatchIDPagination(
       userID,
       offset,
       batchID,
