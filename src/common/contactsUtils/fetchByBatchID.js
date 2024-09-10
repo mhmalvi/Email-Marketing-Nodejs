@@ -1,7 +1,7 @@
 const Contact = require("../../../models").Contact;
 module.exports.fetchByBatchID = async (user_id, batchID) => {
   return await Contact.findAll({
-    where: { user_id: user_id, batchID: batchID },
+    where: { user_id: JSON.parse(user_id), batchID: JSON.parse(batchID) },
     order: [["id", "DESC"]],
   });
 };
@@ -13,9 +13,9 @@ module.exports.fetchByBatchIDPagination = async (
   per_page
 ) => {
   return await Contact.findAll({
-    where: { user_id: userID, batchID: batchID },
+    where: { user_id: JSON.parse(userID), batchID: JSON.parse(batchID) },
     order: [["id", "DESC"]],
-    limit: per_page,
+    limit: JSON.parse(per_page),
     offset: offset,
   });
 };
