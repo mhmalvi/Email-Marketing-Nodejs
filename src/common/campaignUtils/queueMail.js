@@ -6,7 +6,7 @@ const { saveEmail } = require("./saveEmail");
 
 const Contact = require("../../../models").Contact;
 const Emailqueue = require("../../../models").EmailQueue;
-const queueMail = async (data, campaignID) => {
+const queueMail = async (data, campaignID, req, res) => {
   try {
     await data.recipient.forEach(async (element) => {
       const contact = await findOne(element.id); ////fetch contact from contacts table
@@ -16,22 +16,23 @@ const queueMail = async (data, campaignID) => {
           data,
           contact
         );
-      await Emailqueue.create({
-        subject: subject,
-        fromName: data.campaignInfo.fromName,
-        fromEmail: data.campaignInfo.fromMail,
-        recipientName: element.json.name,
-        recipientEmail: element.json.email,
-        group: element.json.group,
-        company: element.json.company,
-        schedule: data.schedule,
-        templateName: data.template.name,
-        templateData: template,
-        campaignID: campaignID,
-        userID: data.userID,
-        contactID: element.id,
-        open: 0,
-      });
+      res.send(template);
+      // await Emailqueue.create({
+      //   subject: subject,
+      //   fromName: data.campaignInfo.fromName,
+      //   fromEmail: data.campaignInfo.fromMail,
+      //   recipientName: element.json.name,
+      //   recipientEmail: element.json.email,
+      //   group: element.json.group,
+      //   company: element.json.company,
+      //   schedule: data.schedule,
+      //   templateName: data.template.name,
+      //   templateData: template,
+      //   campaignID: campaignID,
+      //   userID: data.userID,
+      //   contactID: element.id,
+      //   open: 0,
+      // });
     });
     return 1;
     // }
