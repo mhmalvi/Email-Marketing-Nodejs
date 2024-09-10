@@ -61,7 +61,7 @@ const sendMail = async (req, res) => {
         contact,
         template
       ); ////// replace template {email},{name},{group},{company} with recipients' email,name,group and company //////
-      res.send(template);
+      
       var id = mail.id;
       // Step 2: Read the template from a file.
       const templatePath = path.join(__dirname, "../../views/hbs/mail.hbs");
