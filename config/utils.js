@@ -122,6 +122,10 @@ const convert_template_curly_brace_email_name_and_group = async (
     { search: "{name}", replace: json.name },
     { search: "{group}", replace: json.group },
     { search: "{company}", replace: json.company },
+    { search: "{level1}", replace: json.level1 },
+    { search: "{level2}", replace: json.level2 },
+    { search: "{level3}", replace: json.level3 },
+    { search: "{level4}", replace: json.level4 },
   ];
   const newStrMatch = await replaceMultipleStrings(template, replacementsMatch);
   return newStrMatch;
