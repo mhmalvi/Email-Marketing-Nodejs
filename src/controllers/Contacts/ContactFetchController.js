@@ -10,6 +10,7 @@ const {
   fetchContactsByPagination,
 } = require("../../common/groupsUtils/fetchContactsPagination");
 const { getPagingData, getPagination } = require("../../../config/utils");
+const { fetchByBatchID } = require("../../common/contactsUtils/fetchByBatchID");
 
 const fetchContact = async (req, res) => {
   const data = JSON.parse(req.body.userID);
@@ -87,4 +88,44 @@ const contactFetchByGroup = async (req, res) => {
     });
   }
 };
-module.exports = { fetchContact, contactFetchByGroup };
+
+const contactFetchByBatch = async (req, res) => {
+  const { userID, batchID, page } = req.body;
+  const requiredFields = { userID, batchID, page };
+  const missingFields = await fieldsValidation(requiredFields);
+  if (missingFields.length > 0) {
+    res.status(422).json({
+      message: `Missing fields are ${missingFields.join(", ")}`,
+      status: 422,
+    });
+  } else {
+    const per_page = 8;
+    offset = (page - 1) * per_page;
+    const result = await fetchByBatchID(userID, batchID); /////// fetch contacts by group //////
+    const totalPages = result.length / per_page;
+    const count = result.length;
+    const result2 = await fetchByGroupPagination(
+      userID,
+      offset,
+      batchID,
+      per_page
+    ); //////// fetch contacts by group with pagination //////////////
+    // console.log(result2);
+    if (result2.length > 0) {
+      res.status(200).json({
+        message: "success",
+        status: 200,
+        total: count,
+        contacts: result2,
+        totalPages: Math.ceil(totalPages),
+        current_page: page,
+      });
+    } else {
+      res.status(404).json({
+        message: "No contacts found",
+        status: 404,
+      });
+    }
+  }
+};
+module.exports = { fetchContact, contactFetchByGroup, contactFetchByBatch };
