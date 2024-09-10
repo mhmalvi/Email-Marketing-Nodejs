@@ -9,7 +9,7 @@ const {
 const {
   fetchContactsByPagination,
 } = require("../../common/groupsUtils/fetchContactsPagination");
-const { getPagingData, getPagination } = require("../../../config/utils");
+const { getPagingData, getPagination, fieldsValidation } = require("../../../config/utils");
 const { fetchByBatchID } = require("../../common/contactsUtils/fetchByBatchID");
 
 const fetchContact = async (req, res) => {
