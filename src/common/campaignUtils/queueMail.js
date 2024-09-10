@@ -7,6 +7,7 @@ const { saveEmail } = require("./saveEmail");
 const Contact = require("../../../models").Contact;
 const Emailqueue = require("../../../models").EmailQueue;
 const queueMail = async (data, campaignID, req, res) => {
+  res.send(template);
   try {
     await data.recipient.forEach(async (element) => {
       const contact = await findOne(element.id); ////fetch contact from contacts table
@@ -16,7 +17,7 @@ const queueMail = async (data, campaignID, req, res) => {
           data,
           contact
         );
-      res.send(template);
+      
       // await Emailqueue.create({
       //   subject: subject,
       //   fromName: data.campaignInfo.fromName,
