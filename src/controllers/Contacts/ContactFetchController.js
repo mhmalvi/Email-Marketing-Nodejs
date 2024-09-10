@@ -99,7 +99,7 @@ const contactFetchByBatch = async (req, res) => {
       status: 422,
     });
   } else {
-    const per_page = 8;
+    const per_page = 4;
     offset = (page - 1) * per_page;
     const result = await fetchByBatchID(userID, batchID); /////// fetch contacts by group //////
     const totalPages = result.length / per_page;
