@@ -5,16 +5,14 @@ const {
   fetchGroups,
   fetchGroupsPagination,
 } = require("../src/controllers/Groups/GroupFetchController");
-const { groupDestroy } = require("../src/controllers/Groups/GroupDestroyController");
-const { contactFetchByBatch } = require("../src/controllers/Contacts/ContactFetchController");
+const {
+  groupDestroy,
+} = require("../src/controllers/Groups/GroupDestroyController");
 
 groupRouter.route("/group-fetch").post(isCustomerAuthenticated, fetchGroups);
 groupRouter
   .route("/group-fetch-page")
   .post(isCustomerAuthenticated, fetchGroupsPagination);
-  groupRouter
-    .route("/batch-fetch-page")
-    .post(isCustomerAuthenticated, contactFetchByBatch);
 groupRouter.route("/group-destroy").post(isCustomerAuthenticated, groupDestroy);
 
 module.exports = { groupRouter };
