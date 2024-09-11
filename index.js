@@ -57,6 +57,10 @@ const { contactusRoutes } = require("./routes/contactus-routes");
 const { userRouter } = require("./routes/user-routes");
 const { pixelTracker } = require("./routes/pixelTracker-routes");
 const { searchGroupSocket } = require("./src/socket/searchGroupSocket");
+const { findUser } = require("./src/common/users/findUser");
+const {
+  pendingInvoice,
+} = require("./src/common/stripe/Invoice/pendingInvoice");
 /////////// routes import end /////////////
 
 const server = createServer(app);
@@ -164,4 +168,13 @@ io.on("connection", async (socket) => {
 
   // --------------------------------------------------------------------------------------
 
+  await socket.on("due", async (data) => {
+    const searchPendingInvoice = async () => {
+      const socketId = socket.id;
+      const user = await findUser(data.userID); //// fetch stripe cutomer ID
+      const paginate = await pendingInvoice(user.stripeCustomerID); ////fetch pending invoices from stripe
+      await io.to(socketId).emit("due", paginate);
+    };
+    await searchPendingInvoice();
+  }); ///// socket for due checking
 });
