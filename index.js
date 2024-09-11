@@ -175,10 +175,10 @@ io.on("connection", async (socket) => {
       const paginate = await pendingInvoice(user.stripeCustomerID); ////fetch pending invoices from stripe
       
       if (paginate.data.length > 0) {
-        const hasDue = "true";
+        const hasDue = true;
         await io.to(socketId).emit("due", hasDue);
       } else {
-        const hasDue = "false";
+        const hasDue = false;
         await io.to(socketId).emit("due", hasDue );
       }
     };
