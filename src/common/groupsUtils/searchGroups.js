@@ -41,9 +41,18 @@ module.exports.searchGroupsPagination = async (
       [Sequelize.fn("MAX", Sequelize.col("batchID")), "batchID"],
     ],
     where: {
-      group: {
-        [Op.like]: `${keyword}%`,
-      },
+      [Op.or]: [
+        {
+          batchID: {
+            [Op.like]: `${keyword}%`,
+          },
+        },
+        {
+          group: {
+            [Op.like]: `${keyword}%`,
+          },
+        },
+      ],
       user_id: JSON.parse(userID),
     },
     group: ["group"],
