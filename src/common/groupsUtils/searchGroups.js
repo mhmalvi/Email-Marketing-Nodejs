@@ -10,9 +10,18 @@ module.exports.searchGroups = async (data) => {
       [Sequelize.fn("MAX", Sequelize.col("batchID")), "batchID"],
     ],
     where: {
-      group: {
-        [Op.like]: `${data.keyword}%`,
-      },
+      [Op.or]: [
+        {
+          batchID: {
+            [Op.like]: `${data.keyword}%`,
+          },
+        },
+        {
+          group: {
+            [Op.like]: `${data.keyword}%`,
+          },
+        },
+      ],
       user_id: JSON.parse(data.userID),
     },
     group: ["group"],
