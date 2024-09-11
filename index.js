@@ -174,11 +174,10 @@ io.on("connection", async (socket) => {
       const user = await findUser(data.userID); //// fetch stripe cutomer ID
       const paginate = await pendingInvoice(user.stripeCustomerID); ////fetch pending invoices from stripe
       if (paginate.data.length > 0) {
-        await io.to(socketId).emit("due", "true");
+        await io.to(socketId).emit("due", (hasDue = true));
       } else {
-        await io.to(socketId).emit("due", "false");
+        await io.to(socketId).emit("due", (hasDue = false));
       }
-      
     };
     await searchPendingInvoice();
   }); ///// socket for due checking
