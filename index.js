@@ -97,8 +97,8 @@ app
 //   res.render("mail", { layout: "mail" });
 // });
 // // Increase the JSON body size limit
-app.use(bodyParser.json({ limit: "50mb" }));
-app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
+app.use(bodyParser.json({ limit: '100mb' }));
+app.use(bodyParser.urlencoded({ limit: "100mb", extended: true }));
 app
   .use("/google", authRouter)
   .use(
