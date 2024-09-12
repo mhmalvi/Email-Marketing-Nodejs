@@ -106,6 +106,7 @@ const sendMail = async (req, res) => {
     } else {
       console.log("false");
     }
+    
     //  ////////////////////////////////////////////////////////////////
     mail.open = 0;
     await mail.save();
