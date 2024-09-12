@@ -96,8 +96,9 @@ app
 // app.get("/", (req, res) => {
 //   res.render("mail", { layout: "mail" });
 // });
-// app.use(bodyParser.json({ limit: "1000mb" })); // Adjust the limit as needed
-// app.use(bodyParser.urlencoded({ limit: "1000mb", extended: true }));
+// // Increase the JSON body size limit
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app
   .use("/google", authRouter)
   .use(
