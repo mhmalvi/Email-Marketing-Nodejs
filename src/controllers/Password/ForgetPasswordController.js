@@ -94,8 +94,8 @@ const mail = async (to, token) => {
     port: 587,
     secure: false, // Use `true` for port 465, `false` for all other ports
     auth: {
-      user: "dev.quadque@gmail.com",
-      pass: "oablcrbwmcpzpttp",
+      user: "quadquetech@gmail.com",
+      pass: "aqkhozkqsotogknb",
     },
   });
   const templatePath = path.join(__dirname, "../../views/hbs/forgetPass.hbs");
