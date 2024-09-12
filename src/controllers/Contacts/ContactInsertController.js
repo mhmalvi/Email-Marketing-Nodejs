@@ -28,7 +28,7 @@ const insertContact = async (req, res) => {
       });
     }
 
-    const chunkSize = 1000; // Define chunk size based on your needs
+    const chunkSize = 100; // Define chunk size based on your needs
     let chunkedContacts = chunkArray(data, chunkSize);
     const batchID = Date.now() + Math.floor(Math.random() * 1000000);
     var batch = "";
