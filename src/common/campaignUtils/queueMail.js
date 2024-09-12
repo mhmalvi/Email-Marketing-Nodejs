@@ -16,7 +16,7 @@ const queueMail = async (data, campaignID) => {
           data,
           contact
         );
-      
+
       await Emailqueue.create({
         subject: subject,
         fromName: data.campaignInfo.fromName,
@@ -44,6 +44,7 @@ const queueMail = async (data, campaignID) => {
 const fetchQueuedMails = async () => {
   return await Emailqueue.findAll({
     where: { deliver: 0 },
+    limit: 50, // Limits the result to 50 records
   });
 };
 
