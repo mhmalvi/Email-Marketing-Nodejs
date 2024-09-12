@@ -44,7 +44,7 @@ const updateTable = async () => {
     );
   });
 };
-const sendMail = async (req, res) => {
+const sendMail = async () => {
   console.log("1 hour");
   
   const mails = await fetchQueuedMails(); /////////////  get queued recipients from db ///////////
