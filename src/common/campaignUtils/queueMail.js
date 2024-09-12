@@ -35,7 +35,7 @@ const queueMail = async (data, campaignID) => {
         open: 0,
       });
     });
-    await sendMail()
+    // await sendMail()
     return 1;
     // }
   } catch (error) {
