@@ -44,7 +44,7 @@ const queueMail = async (data, campaignID) => {
 const fetchQueuedMails = async () => {
   return await Emailqueue.findAll({
     where: { deliver: 0 },
-    limit: 50, // Limits the result to 50 records
+    limit: 100, // Limits the result to 50 records
   });
 };
 
