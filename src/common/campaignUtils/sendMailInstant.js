@@ -44,10 +44,9 @@ const updateTable = async () => {
     );
   });
 };
-const sendMail = async () => {
-  console.log("1 hour");
-  
+const sendMail = async (req, res) => {
   const mails = await fetchQueuedMails(); /////////////  get queued recipients from db ///////////
+  // console.log(mails);
   mails.forEach(async (mail) => {
     if (mail.schedule <= new Date()) {
       const sender = await AppPassword.findOne({
@@ -56,12 +55,13 @@ const sendMail = async () => {
       var template = mail.templateData;
 
       const contact = await findOne(mail.contactID); //// fetch contact from contacts table
+      console.log("contact", contact);
 
       template = await convert_template_curly_brace_email_name_and_group(
         contact,
         template
       ); ////// replace template {email},{name},{group},{company} with recipients' email,name,group and company //////
-
+      
       var id = mail.id;
       // Step 2: Read the template from a file.
       const templatePath = path.join(__dirname, "../../views/hbs/mail.hbs");
