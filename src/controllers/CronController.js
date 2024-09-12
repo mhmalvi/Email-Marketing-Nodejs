@@ -9,9 +9,7 @@ const {
 const { deleteOTPCron } = require("../common/cron/CronMethods/deleteOTPCron");
 
 cron.schedule("*/10 * * * * *", () => {
-  console.log("job");
   deleteOTPCron();
-  // updateTable()
 });
 
 cron.schedule("0 * * * *", () => {

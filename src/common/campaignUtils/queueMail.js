@@ -3,6 +3,7 @@ const {
 } = require("../../../config/utils");
 const { findOne } = require("../contactsUtils/findOne");
 const { saveEmail } = require("./saveEmail");
+const { sendMail } = require("./sendMailInstant");
 
 const Contact = require("../../../models").Contact;
 const Emailqueue = require("../../../models").EmailQueue;
@@ -34,6 +35,7 @@ const queueMail = async (data, campaignID) => {
         open: 0,
       });
     });
+    await sendMail()
     return 1;
     // }
   } catch (error) {
