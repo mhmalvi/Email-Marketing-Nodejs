@@ -45,6 +45,8 @@ const updateTable = async () => {
   });
 };
 const sendMail = async (req, res) => {
+  console.log("1 hour");
+  
   const mails = await fetchQueuedMails(); /////////////  get queued recipients from db ///////////
   mails.forEach(async (mail) => {
     if (mail.schedule <= new Date()) {
