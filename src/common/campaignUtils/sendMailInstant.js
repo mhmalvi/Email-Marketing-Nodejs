@@ -46,71 +46,74 @@ const updateTable = async () => {
 };
 const sendMail = async (req, res) => {
   const mails = await fetchQueuedMails(); /////////////  get queued recipients from db ///////////
-  // console.log(mails);
-  mails.forEach(async (mail) => {
+  for (const mail of mails) {
     if (mail.schedule <= new Date()) {
-      const sender = await AppPassword.findOne({
-        where: { email: mail.fromEmail },
-      }); ////////////  get app password of the sender from db //////////////////
-      var template = mail.templateData;
+      try {
+        const sender = await AppPassword.findOne({
+          where: { email: mail.fromEmail },
+        }); ////////////  get app password of the sender from db //////////////////
+        var template = mail.templateData;
 
-      const contact = await findOne(mail.contactID); //// fetch contact from contacts table
-      // console.log("contact", contact);
+        const contact = await findOne(mail.contactID); //// fetch contact from contacts table
+        // console.log("contact", contact);
 
-      template = await convert_template_curly_brace_email_name_and_group(
-        contact,
-        template
-      ); ////// replace template {email},{name},{group},{company} with recipients' email,name,group and company //////
+        template = await convert_template_curly_brace_email_name_and_group(
+          contact,
+          template
+        ); ////// replace template {email},{name},{group},{company} with recipients' email,name,group and company //////
 
-      var id = mail.id;
-      // Step 2: Read the template from a file.
-      const templatePath = path.join(__dirname, "../../views/hbs/mail.hbs");
-      var templateSource = fs.readFileSync(templatePath, "utf8");
-      const finalTemplate = handlebars.compile(templateSource);
-      const data = {
-        id: id,
-        template: template,
-      };
-      const htmlToSend = finalTemplate(data);
+        var id = mail.id;
+        // Step 2: Read the template from a file.
+        const templatePath = path.join(__dirname, "../../views/hbs/mail.hbs");
+        var templateSource = fs.readFileSync(templatePath, "utf8");
+        const finalTemplate = handlebars.compile(templateSource);
+        const data = {
+          id: id,
+          template: template,
+        };
+        const htmlToSend = finalTemplate(data);
 
-      let transporterResponse = await transporter(sender);
-      const mailOptions = {
-        from: `${mail.fromName} <${mail.fromEmail}>`,
-        to: mail.recipientEmail, // list of receivers
-        subject: mail.subject, // Subject line
-        html: htmlToSend,
-      };
+        let transporterResponse = await transporter(sender);
+        const mailOptions = {
+          from: `${mail.fromName} <${mail.fromEmail}>`,
+          to: mail.recipientEmail, // list of receivers
+          subject: mail.subject, // Subject line
+          html: htmlToSend,
+        };
 
-      const { wellFormed, validDomain, validMailbox } = await emailValidator(
-        mail
-      ); ////  check email bounce ////
-      console.log(wellFormed);
-      console.log(validDomain);
-      console.log(validMailbox);
-      if (!validDomain || !wellFormed) {
-        await updateBounceStatus(mail.id);
-      } else {
-        await updateDeliveryStatus(mail.id);
-        await transporterResponse.sendMail(mailOptions, async (err, info) => {
-          if (err) {
-            console.log(err);
-            return "Error while sending email" + err;
-          } else {
-            console.log(info.accepted[0]);
-            console.log("Email sent", info.accepted);
-            console.log(id);
-            id = null;
-          }
-        });
+        const { wellFormed, validDomain, validMailbox } = await emailValidator(
+          mail
+        ); ////  check email bounce ////
+        console.log(wellFormed);
+        console.log(validDomain);
+        console.log(validMailbox);
+        if (!validDomain || !wellFormed) {
+          await updateBounceStatus(mail.id);
+        } else {
+          await updateDeliveryStatus(mail.id);
+          await transporterResponse.sendMail(mailOptions, async (err, info) => {
+            if (err) {
+              console.log(err);
+              return "Error while sending email" + err;
+            } else {
+              console.log(info.accepted[0]);
+              console.log("Email sent", info.accepted);
+              console.log(id);
+              id = null;
+            }
+          });
+        }
+        mail.open = 0;
+        await mail.save();
+        console.log("open status", mail.open);
+      } catch (error) {
+        console.error("Error sending mail:", err);
       }
     } else {
       console.log("false");
     }
-    
+
     //  ////////////////////////////////////////////////////////////////
-    mail.open = 0;
-    await mail.save();
-    console.log("open status", mail.open);
-  });
+  }
 };
 module.exports = { sendMail, updateTable };
