@@ -8,11 +8,13 @@ const {
 } = require("../common/cron/CronMethods/blockSubscriptionCron");
 const { deleteOTPCron } = require("../common/cron/CronMethods/deleteOTPCron");
 
-cron.schedule("*/20 * * * *", () => {
-  sendMail();
+cron.schedule("*/5 * * * *", () => {
   deleteOTPCron();
 });
 
+cron.schedule("*/20 * * * *", () => {
+  sendMail();
+});
 
 cron.schedule("* * * * *", () => {
   blockSubscription();
