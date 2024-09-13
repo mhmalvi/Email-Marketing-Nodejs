@@ -45,7 +45,7 @@ const updateTable = async () => {
   });
 };
 const sendMail = async (req, res) => {
-  const BATCH_SIZE = 100; // Number of emails per batch
+  const BATCH_SIZE = 1; // Number of emails per batch
   const BATCH_DELAY = 120000; // 2 minutes delay in milliseconds (2 * 60 * 1000)
   const mails = await fetchQueuedMails(); /////////////  get queued recipients from db ///////////
   for (let i = 0; i < mails.length; i += BATCH_SIZE) {
