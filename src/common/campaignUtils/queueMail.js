@@ -8,7 +8,9 @@ const Contact = require("../../../models").Contact;
 const Emailqueue = require("../../../models").EmailQueue;
 const queueMail = async (data, campaignID) => {
   try {
-    await data.recipient.forEach(async (element) => {
+    const recipients = data.recipient;
+    // await data.recipient.forEach(async (element) => {
+    for (const element of recipients) {
       const contact = await findOne(element.id); ////fetch contact from contacts table
       const template = data.template.data;
       const subject =
@@ -33,7 +35,7 @@ const queueMail = async (data, campaignID) => {
         contactID: element.id,
         open: 0,
       });
-    });
+    }
     return 1;
     // }
   } catch (error) {
