@@ -12,6 +12,9 @@ const transporter = async (data) => {
       user: data.email,
       pass: app_password,
     },
+    tls: {
+      rejectUnauthorized: true   // Reject invalid or self-signed certificates
+    }
   });
   return customTransporter;
 };

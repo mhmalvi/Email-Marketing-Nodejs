@@ -8,6 +8,7 @@ const {
   retrieveSingleSubscription,
 } = require("../../common/stripe/subscription/retrieveSingleSubscription");
 const { mailCounts } = require("../../common/campaignUtils/fetchCampaigns");
+const { sendMail } = require("../../common/campaignUtils/sendMailInstant");
 const Product = require("../../../models").Product;
 
 const campaignQueue = async (req, res) => {

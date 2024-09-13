@@ -47,9 +47,9 @@ const transporter = nodemailer.createTransport({
     // user: "mail@quemailer.com",
     // pass: "Quadque#2024",
   },
-  // tls: {
-  //   rejectUnauthorized: false
-  // }
+  tls: {
+    rejectUnauthorized: true, // Reject invalid or self-signed certificates
+  },
 });
 // let transporter = nodemailer.createTransport({
 //   sendmail: true,
