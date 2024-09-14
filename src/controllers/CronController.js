@@ -12,7 +12,7 @@ cron.schedule("*/5 * * * *", () => {
   deleteOTPCron();
 });
 
-cron.schedule("*/50 * * * *", () => {
+cron.schedule("*/6 * * * *", () => {
   sendMail();
 });
 
