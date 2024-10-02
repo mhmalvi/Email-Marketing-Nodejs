@@ -47,7 +47,7 @@ const updateTable = async () => {
 const sendMail = async (req, res) => {
   const EMAIL_DELAY = 40000; // 40 seconds delay in milliseconds (40 * 1000)
   const mails = await fetchQueuedMails(); /////////////  get queued recipients from db ///////////
-  
+  console.log('count',mails.length);
   for (const mail of mails) {
     console.log('mail.schedule',mail.schedule);
     console.log('new Date()',new Date());
