@@ -49,6 +49,8 @@ const sendMail = async (req, res) => {
   const mails = await fetchQueuedMails(); /////////////  get queued recipients from db ///////////
   
   for (const mail of mails) {
+    console.log('mail.schedule',mail.schedule);
+    console.log('new Date()',new Date());
     if (mail.schedule <= new Date()) {
       try {
         const sender = await AppPassword.findOne({
