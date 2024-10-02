@@ -45,90 +45,74 @@ const updateTable = async () => {
   });
 };
 const sendMail = async (req, res) => {
-  const BATCH_SIZE = 30; // Number of emails per batch
-  const BATCH_DELAY = 120000; // 2 minutes delay in milliseconds (2 * 60 * 1000)
+  const EMAIL_DELAY = 40000; // 40 seconds delay in milliseconds (40 * 1000)
   const mails = await fetchQueuedMails(); /////////////  get queued recipients from db ///////////
-  for (let i = 0; i < mails.length; i += BATCH_SIZE) {
-    const batch = mails.slice(i, i + BATCH_SIZE); // Slice the array to get a batch of mails
-    for (const mail of batch) {
-      if (mail.schedule <= new Date()) {
-        try {
-          const sender = await AppPassword.findOne({
-            where: { email: mail.fromEmail },
-          }); ////////////  get app password of the sender from db //////////////////
-          var template = mail.templateData;
+  
+  for (const mail of mails) {
+    if (mail.schedule <= new Date()) {
+      try {
+        const sender = await AppPassword.findOne({
+          where: { email: mail.fromEmail },
+        }); ////////////  get app password of the sender from db //////////////////
+        
+        var template = mail.templateData;
+        const contact = await findOne(mail.contactID); //// fetch contact from contacts table
 
-          const contact = await findOne(mail.contactID); //// fetch contact from contacts table
-          // console.log("contact", contact);
+        template = await convert_template_curly_brace_email_name_and_group(
+          contact,
+          template
+        ); ////// replace template {email},{name},{group},{company} with recipients' email,name,group and company //////
 
-          template = await convert_template_curly_brace_email_name_and_group(
-            contact,
-            template
-          ); ////// replace template {email},{name},{group},{company} with recipients' email,name,group and company //////
+        const id = mail.id;
+        // Step 2: Read the template from a file.
+        const templatePath = path.join(__dirname, "../../views/hbs/mail.hbs");
+        const templateSource = fs.readFileSync(templatePath, "utf8");
+        const finalTemplate = handlebars.compile(templateSource);
+        const data = {
+          id: id,
+          template: template,
+        };
+        const htmlToSend = finalTemplate(data);
 
-          var id = mail.id;
-          // Step 2: Read the template from a file.
-          const templatePath = path.join(__dirname, "../../views/hbs/mail.hbs");
-          var templateSource = fs.readFileSync(templatePath, "utf8");
-          const finalTemplate = handlebars.compile(templateSource);
-          const data = {
-            id: id,
-            template: template,
-          };
-          const htmlToSend = finalTemplate(data);
+        let transporterResponse = await transporter(sender);
+        const mailOptions = {
+          from: `${mail.fromName} <${mail.fromEmail}>`,
+          to: mail.recipientEmail, // list of receivers
+          subject: mail.subject, // Subject line
+          html: htmlToSend,
+        };
 
-          let transporterResponse = await transporter(sender);
-          const mailOptions = {
-            from: `${mail.fromName} <${mail.fromEmail}>`,
-            to: mail.recipientEmail, // list of receivers
-            subject: mail.subject, // Subject line
-            html: htmlToSend,
-          };
-
-          const { wellFormed, validDomain, validMailbox } =
-            await emailValidator(mail); ////  check email bounce ////
-          console.log(wellFormed);
-          console.log(validDomain);
-          console.log(validMailbox);
-          if (!validDomain || !wellFormed) {
-            await updateBounceStatus(mail.id);
-          } else {
-            await updateDeliveryStatus(mail.id);
-            await transporterResponse.sendMail(
-              mailOptions,
-              async (err, info) => {
-                if (err) {
-                  console.log(err);
-                  return "Error while sending email" + err;
-                } else {
-                  console.log(info.accepted[0]);
-                  console.log("Email sent", info.accepted);
-                  console.log(id);
-                  id = null;
-                }
-              }
-            );
-          }
-          mail.open = 0;
-          await mail.save();
-          console.log("open status", mail.open);
-        } catch (error) {
-          console.error("Error sending mail:", err);
+        const { wellFormed, validDomain, validMailbox } = await emailValidator(mail); ////  check email bounce ////
+        
+        if (!validDomain || !wellFormed) {
+          await updateBounceStatus(mail.id);
+        } else {
+          await updateDeliveryStatus(mail.id);
+          await transporterResponse.sendMail(mailOptions, async (err, info) => {
+            console.log('hello');
+            if (err) {
+              console.log(`Error while sending email to ${mail.recipientEmail}:`, err);
+              return "Error while sending email" + err;
+            } else {
+              console.log(`Email sent to: ${info.accepted[0]}`);
+            }
+          });
         }
-      } else {
-        console.log("false");
-      }
 
-      //  ////////////////////////////////////////////////////////////////
+        mail.open = 0;
+        await mail.save();
+        console.log(`Open status for ${mail.recipientEmail}: ${mail.open}`);
+        
+      } catch (err) {
+        console.error(`Error sending email to ${mail.recipientEmail}:`, err);
+      }
+    } else {
+      console.log(`Scheduled time not reached for ${mail.recipientEmail}`);
     }
-    if (i + BATCH_SIZE < mails.length) {
-      console.log(
-        `Waiting for ${
-          BATCH_DELAY / 1000
-        } seconds before sending the next batch...`
-      );
-      await new Promise((resolve) => setTimeout(resolve, BATCH_DELAY));
-    }
+
+    // Wait 40 seconds before sending the next email
+    console.log(`Waiting for 40 seconds before sending the next email...`);
+    await new Promise((resolve) => setTimeout(resolve, EMAIL_DELAY));
   }
 };
 module.exports = { sendMail, updateTable };
