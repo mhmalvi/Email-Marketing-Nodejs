@@ -89,6 +89,7 @@ const sendMail = async (req, res) => {
         } else {
           await updateDeliveryStatus(mail.id);
           await transporterResponse.sendMail(mailOptions, async (err, info) => {
+            console.log('hello');
             if (err) {
               console.log(`Error while sending email to ${mail.recipientEmail}:`, err);
               return "Error while sending email" + err;
