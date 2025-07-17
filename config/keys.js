@@ -10,8 +10,8 @@ module.exports = {
     user: "tanjib@quadque.tech",
     pass: "ksegkoofkhobnuzj",
   },
-  redirectUri: "https://backend.quemailer.com/google/callback",
-  baseUrl:"https://"
+  redirectUri: process.env.REDIRECT_URI,
+  baseUrl: process.env.BASE_URL,
 };
 // "access_token": "ya29.a0Ad52N39OKS8U34R7Vs2lmF-RPM4FM6pBFQqM81nEjZuzFEufQBEBNmCYlHc8wvZrpKH8TgqI7rER66LX8sn59EHsgUZc61Pu1j4qX91HuN6Srfzqgixh7yl53kXRuuyMa4ypca_Zk9MFISMboP6ClK-RqT8lTxlKNkGGaCgYKAdcSARMSFQHGX2Mipj1t1i3DUjiSv6eZrkQUCA0171"
 

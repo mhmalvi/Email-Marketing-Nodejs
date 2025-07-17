@@ -28,12 +28,14 @@
     "email-validator-helper": "^0.0.10",
     "express": "^4.19.2",
     "express-handlebars": "^7.1.2",
+    "express-rate-limit": "^8.0.1",
     "express-router": "0.0.1",
     "express-session": "^1.18.0",
-    "express-validator": "^7.1.0",
+    "express-validator": "^7.2.1",
     "googleapis": "^105.0.0",
     "handlebars": "^4.7.8",
     "html-to-text": "^9.0.5",
+    "jest": "^30.0.4",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.43",
     "mysql": "^2.18.1",
@@ -47,7 +49,8 @@
     "passport-google-oidc": "^0.1.0",
     "sendmail": "^1.6.1",
     "sequelize": "^6.37.3",
-    "socket.io": "^4.6.1"
+    "socket.io": "^4.6.1",
+    "supertest": "^7.1.3"
   },
   "devDependencies": {
     "sequelize-cli": "^6.6.2"

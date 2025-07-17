@@ -26,7 +26,7 @@ async function sendMail(req, res) {
 async function getUser(req, res) {
   console.log(req.params.email);
   try {
-    const url = `https://gmail.googleapis.com/gmail/v1/users/${req.params.email}/profile`;
+    const url = `${process.env.GMAIL_API_PROFILE}/${req.params.email}/profile`;
     const { token } = await oAuth2Client.getAccessToken();
     const config = generateConfig(url, token);
     const response = await axios(config);

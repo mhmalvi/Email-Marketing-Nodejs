@@ -65,7 +65,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
   logger.info("You are logged in");
   logger.debug(req);
   let ip = "";
-  fetch("https://api.ipify.org?format=json")
+  fetch(process.env.GOOGLE_API_IP_URL)
     .then((response) => response.json())
     .then((data) => {
       //   console.log(data.ip);
@@ -102,13 +102,13 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
     // return req.user.email;
     await saveToken(data);
     res.redirect(
-      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${newUser.id}&photo=${req.user.picture}&token=${token}`
+      `${process.env.FRONTEND_AUTH_URL}?userName=${req.user.displayName}&email=${req.user.email}&userID=${newUser.id}&photo=${req.user.picture}&token=${token}`
     );
   } else {
     // return req.user.email;
     const token = await saveToken(data);
     res.redirect(
-      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${user.id}&photo=${req.user.picture}&token=${token.token}`
+      `${process.env.FRONTEND_AUTH_URL}?userName=${req.user.displayName}&email=${req.user.email}&userID=${user.id}&photo=${req.user.picture}&token=${token.token}`
     );
   }
   // const userData = {

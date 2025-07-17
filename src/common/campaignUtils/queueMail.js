@@ -32,7 +32,6 @@ const queueMail = async (data, campaignID) => {
       });
     }
     return 1;
-    // }
   } catch (error) {
     return error;
   }
