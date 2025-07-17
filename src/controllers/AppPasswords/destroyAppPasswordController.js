@@ -1,12 +1,13 @@
 const express = require("express");
 const AppPassword = require("../../../models").AppPassword;
 const { destroy } = require("../../common/appPassUtils/destroy");
+const logger = require("../../common/utils/logger");
 
 const destroyAppPassword = async (req, res) => {
   if (req.body.id && req.body.userID) {
-    console.log(req.body);
+    logger.debug(req.body);
     const result = await destroy(req.body);
-    console.log(result);
+    logger.debug(result);
     if (result === 1) {
       res.status(201).json({
         message: "Deleted",

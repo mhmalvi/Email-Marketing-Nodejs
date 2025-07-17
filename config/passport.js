@@ -2,12 +2,19 @@ require("dotenv").config();
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const keys = require('./keys')
+const User = require("../models").User;
+const logger = require("../src/common/utils/logger");
 
 passport.serializeUser((user, done) => {
-  done(null, user);
+  done(null, user.id);
 });
-passport.deserializeUser(function (user, done) {
-  done(null, user);
+passport.deserializeUser(async function (id, done) {
+  try {
+    const user = await User.findByPk(id);
+    done(null, user);
+  } catch (err) {
+    done(err);
+  }
 });
 
 passport.use(
@@ -15,13 +22,12 @@ passport.use(
     {
       clientID: keys.google.clientID, // Your Credentials here.
       clientSecret: keys.google.clientSecret, // Your Credentials here.
-      callbackURL: keys.redirectUri,
-      // callbackURL: "https://developers.google.com/oauthplayground",
-      // callbackURL: "http://localhost:5000/google/callback",
+      callbackURL: process.env.GOOGLE_OAUTH_PLAYGROUND,
+      // callbackURL: process.env.GOOGLE_CALLBACK_LOCAL,
       passReqToCallback: true,
     },
     function (request, accessToken, refreshToken, profile, done) {
-      console.log("sffgsg");
+      logger.debug("sffgsg");
       return done(null, profile);
     }
   )

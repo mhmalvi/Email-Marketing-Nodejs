@@ -3,14 +3,10 @@ const { saveCampaign } = require("../../common/campaignUtils/saveCampaign");
 const { queueMail } = require("../../common/campaignUtils/queueMail");
 
 const campaignQueue = async (req, res) => {
-  console.log(req.body);
   const data = req.body;
-  const campaign = await saveCampaign(req.body); ////// create individual campaigns
-  console.log(campaign.id);
-  //////////////////////////////////////////////
+  const campaign = await saveCampaign(req.body);
   if (campaign) {
-    const result = await queueMail(data, campaign.id); ////// queue emails ////////
-    console.log(result);
+    const result = await queueMail(data, campaign.id);
     if (result === 1) {
       res.status(200).json({
         message: "Queued",

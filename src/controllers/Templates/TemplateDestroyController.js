@@ -1,10 +1,11 @@
 const { destroy } = require("../../common/templateUtils/delete");
+const logger = require("../../common/utils/logger");
 
 const templateDestroy = async (req, res) => {
-  console.log(req.body);
+  logger.debug(req.body);
   if (req.body.id && req.body.client_id) {
     const result = await destroy(req.body);
-    console.log(result);
+    logger.debug(result);
     if (result === 1) {
       res.status(201).json({
         message: "Template deleted",

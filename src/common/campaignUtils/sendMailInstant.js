@@ -16,12 +16,21 @@ const {
   updateBounceStatus,
 } = require("./updateQueueMail");
 
-const { log } = require("console");
+const logger = require("../utils/logger");
 const { fetchOne } = require("../appPassUtils/fetchOne");
 const {
   emailValidator,
   convert_template_curly_brace_email_name_and_group,
 } = require("../../../config/utils");
+
+const { Worker } = require('bullmq');
+const Redis = require('ioredis');
+const connection = new Redis(process.env.REDIS_URL || 'redis://localhost:6379');
+
+// Cache the template in memory at startup
+const templatePath = path.join(__dirname, "../../views/hbs/mail.hbs");
+const templateSource = fs.readFileSync(templatePath, "utf8");
+const finalTemplate = handlebars.compile(templateSource);
 
 const sendMail = async (req, res) => {
   const mails = await fetchQueuedMails(); /////////////  get queued recipients from db ///////////
@@ -37,10 +46,7 @@ const sendMail = async (req, res) => {
         template
       ); ////// replace template {email},{name},{group} with recipients' email,name,group //////
       var id = mail.id;
-      // Step 2: Read the template from a file.
-      const templatePath = path.join(__dirname, "../../views/hbs/mail.hbs");
-      var templateSource = fs.readFileSync(templatePath, "utf8");
-      const finalTemplate = handlebars.compile(templateSource);
+      // Use cached template
       const data = {
         id: id,
         template: template,
@@ -57,32 +63,39 @@ const sendMail = async (req, res) => {
       const { wellFormed, validDomain, validMailbox } = await emailValidator(
         mail
       ); ////  check email bounce ////
-      console.log(wellFormed);
-      console.log(validDomain);
-      console.log(validMailbox);
+      logger.debug(`wellFormed: ${wellFormed}`);
+      logger.debug(`validDomain: ${validDomain}`);
+      logger.debug(`validMailbox: ${validMailbox}`);
       if (!validDomain || !wellFormed) {
         await updateBounceStatus(mail.id);
       } else {
         await updateDeliveryStatus(mail.id);
         await transporterResponse.sendMail(mailOptions, async (err, info) => {
           if (err) {
-            console.log(err);
+            logger.error(err);
             return "Error while sending email" + err;
           } else {
-            console.log(info.accepted[0]);
-            console.log("Email sent", info.accepted);
-            console.log(id);
+            logger.info(`Email sent to: ${info.accepted[0]}`);
+            logger.debug(`Email sent: ${JSON.stringify(info.accepted)}`);
+            logger.debug(`Mail ID: ${id}`);
             id = null;
           }
         });
       }
     } else {
-      console.log("false");
+      logger.debug("Mail not scheduled yet");
     }
     //  ////////////////////////////////////////////////////////////////
     mail.open = 0;
     await mail.save();
-    console.log("open status", mail.open);
+    logger.debug(`open status: ${mail.open}`);
   });
 };
+
+// BullMQ Worker to process email jobs
+const emailWorker = new Worker('emailQueue', async job => {
+  // You can pass job data as needed
+  await sendMail();
+}, { connection });
+
 module.exports = { sendMail };

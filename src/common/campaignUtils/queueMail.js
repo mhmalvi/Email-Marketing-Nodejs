@@ -8,7 +8,7 @@ const Emailqueue = require("../../../models").EmailQueue;
 const queueMail = async (data, campaignID) => {
   try {
     console.log(data.campaignInfo.subject);
-    await data.recipient.forEach(async (element) => {
+    for (const element of data.recipient) {
       const template = data.template.data;
       const subject =
         await convert_curly_brace_email_name_and_group_to_recipient_email_and_name_and_group(
@@ -30,9 +30,8 @@ const queueMail = async (data, campaignID) => {
         userID: data.userID,
         open:0
       });
-    });
+    }
     return 1;
-    // }
   } catch (error) {
     return error;
   }

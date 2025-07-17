@@ -1,12 +1,13 @@
 const express = require("express");
 const { saveTemplate } = require("../../common/templateUtils/insert");
 const { findOne } = require("../../common/templateUtils/findOne");
+const logger = require("../../common/utils/logger");
 const insertTemplate = async (req, res) => {
   if (req.body.name && req.body.template && req.body.user_id) {
     const response = await findOne(req.body);
-    console.log(response);
+    logger.debug(response);
     if (response === null) {
-      console.log(response);
+      logger.debug(response);
       const results = await saveTemplate(req.body);
       if (results) {
         res.status(201).json({

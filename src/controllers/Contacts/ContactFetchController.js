@@ -15,24 +15,14 @@ const fetchContact = async (req, res) => {
   const data = JSON.parse(req.body.userID);
   const page = req.body.page;
   const size = req.body.per_page;
-  // console.log(page);
-  // console.log(size);
   if (data) {
-    // const { limit, offset } = getPagination(page, size);
-    // console.log(limit);
     offset = (page - 1) * size;
-    // const result = await fetch(data, size, offset);
     const total = await Contact.findAll({
       where: { user_id: data },
       order: [["id", "DESC"]],
     });
     const totalPages = total.length / size;
-    console.log(Math.ceil(totalPages));
     const result = await fetch(data, size, offset);
-    // result.push(totalPages);
-    // console.log(result);
-    // const response = await getPagingData(result, page, size);
-    // console.log(response);
     if (result) {
       res.status(200).json({
         message: "success",
@@ -55,7 +45,7 @@ const contactFetchByGroup = async (req, res) => {
   const { user_id, group, page, per_page } = req.body;
   if (user_id && group) {
     offset = (page - 1) * per_page;
-    const result = await fetchByGroup(user_id, group); /////// fetch contacts by group //////
+    const result = await fetchByGroup(user_id, group);
     const totalPages = result.length / per_page;
     const count = result.length;
     const result2 = await fetchByGroupPagination(
@@ -63,8 +53,7 @@ const contactFetchByGroup = async (req, res) => {
       user_id,
       per_page,
       offset
-    ); //////// fetch contacts by group with pagination //////////////
-    console.log(result2);
+    );
     if (result2.length > 0) {
       res.status(200).json({
         message: "success",

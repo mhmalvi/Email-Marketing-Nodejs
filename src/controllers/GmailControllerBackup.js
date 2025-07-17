@@ -10,7 +10,6 @@ const SCOPES = ["https://www.googleapis.com/auth/gmail.readonly"];
 const { isExists } = require("date-fns");
 const CREDENTIALS_PATH = path.join(process.cwd(), "credentials.json");
 const TOKEN_PATH = path.join(process.cwd(), "token.json");
-// const port = process.env.PORT || 3000;
 require("dotenv").config();
 
 const mailList = async (req, res) => {

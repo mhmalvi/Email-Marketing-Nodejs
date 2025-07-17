@@ -7,11 +7,9 @@ const fetchGroups = async (req, res) => {
     var contactArray = [];
     const { user_id } = req.body;
     const contacts = await fetchContacts(user_id);
-    //   console.log(contacts);
     await contacts.forEach((contact) => {
       const group = contact.json.group;
       if (group) {
-        //   console.log(contact.json.group);
         if (!contactArray.includes(group)) {
           contactArray.push(group);
         }

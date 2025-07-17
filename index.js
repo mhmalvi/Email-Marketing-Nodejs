@@ -16,10 +16,17 @@ const { appPasswordRouter } = require("./routes/appPassword-routes");
 const { cronRoutes } = require("./routes/cron-routes");
 const { randomAlphaNumeric, getIp } = require("./src/common/utils");
 const path = require('path')
+const logger = require("./src/common/utils/logger");
+const rateLimit = require("express-rate-limit");
+const { body, validationResult } = require("express-validator");
 
 require("./config/passport");
 const cors = require("cors");
 const { pixelTracker } = require("./routes/pixelTracker-routes");
+
+if (!process.env.SESSION_SECRET) {
+  throw new Error('SESSION_SECRET environment variable is required');
+}
 
 const app = express();
 const port = 5000;
@@ -27,13 +34,20 @@ const port = 5000;
 app
   .use(
     cors({
-      origin: "*",
+      origin: (origin, callback) => {
+        const allowedOrigins = process.env.CORS_WHITELIST ? process.env.CORS_WHITELIST.split(',') : [];
+        if (!origin || allowedOrigins.includes(origin)) {
+          callback(null, true);
+        } else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      },
       methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
     })
   )
   .use(
     session({
-      secret: process.env.secret,
+      secret: process.env.SESSION_SECRET,
       resave: false,
       saveUninitialized: false,
     })
@@ -41,16 +55,32 @@ app
   .use(passport.initialize())
   .use(passport.session())
   .use(bodyParser.json())
-  .listen(port, () => console.log("server running on port" + port))
+  .listen(port, () => logger.info("server running on port" + port))
 //   app.set("views", path.join(__dirname, "./src/ejs/mail.ejs"));
 //   app.set("view engine", "ejs");
 // app.get("/", (req, res) => {
 //   res.render("mail", { name: "World" });
 // });
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  message: "Too many requests from this IP, please try again later."
+});
+app.use(limiter);
 app
   .use("/google", authRouter)
   .use(
     "/api",
+    [
+      body("email").optional().isEmail().withMessage("Invalid email format"),
+      (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+          return res.status(400).json({ errors: errors.array() });
+        }
+        next();
+      },
+    ],
     gmailRouter,
     contactRouter,
     templateRouter,

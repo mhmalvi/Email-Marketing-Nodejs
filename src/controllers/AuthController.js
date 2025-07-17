@@ -11,13 +11,14 @@ const { randomAlphaNumeric } = require("../../config/utils");
 const { saveToken } = require("../common/utils");
 const keys = require("../../config/keys");
 const EmailValidator = require("email-deep-validator");
+const logger = require("../common/utils/logger");
 const isUserEmailExists = async (req, res) => {
   const baseUrl = process.env.BASE_URL;
   const user = await User.findOne({ where: { email: req.body.email } });
   if (user) {
     const otp = generateOTP();
     user.otp = otp;
-    console.log(user);
+    logger.info(user);
     await user.save();
     const file = path.join(__dirname, "../views/ejs/otp-mail.ejs");
     const data = await ejs.renderFile(file, {
@@ -32,10 +33,10 @@ const isUserEmailExists = async (req, res) => {
     };
     const info = await transporter.sendMail(mailOptions, function (err, info) {
       if (err) {
-        console.log(err);
+        logger.error(err);
         return "Error while sending email" + err;
       } else {
-        console.log("Email sent", info);
+        logger.info("Email sent", info);
         return "Email sent";
       }
     });
@@ -50,7 +51,7 @@ const isUserEmailExists = async (req, res) => {
 };
 
 const verifyOTP = async (req, res) => {
-  console.log(req.body);
+  logger.info(req.body);
   if (
     req.body.otp &&
     req.body.email &&
@@ -58,8 +59,7 @@ const verifyOTP = async (req, res) => {
     req.body.otp !== 0
   ) {
     const user = await User.findOne({
-      where: { email: req.body.email },
-      where: { otp: req.body.otp },
+      where: { email: req.body.email, otp: req.body.otp },
     });
 
     if (user) {
@@ -131,14 +131,14 @@ const getUser = async (req, res) => {
 };
 const logout = async (req, res) => {
   const bearerHeader = req.headers["authorization"];
-  console.log(bearerHeader);
+  logger.info(bearerHeader);
   const token = await Token.findOne({
     where: { token: bearerHeader },
   });
   if (token) {
     // req.session.destroy;
     const result = await token.destroy();
-    console.log(result);
+    logger.info(result);
     if (result) {
       res.status(201).json({
         message: "Deleted",
