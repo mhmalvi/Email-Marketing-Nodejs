@@ -7,6 +7,7 @@ const { randomAlphaNumeric } = require("../config/utils");
 const { google } = require("googleapis");
 const { saveCredentials } = require("../src/controllers/GmailAuthController");
 const { saveToken } = require("../src/common/utils");
+const logger = require("../src/common/utils/logger");
 
 authRouter.get("/home", (req, res) => {
   res.send("Home Page");
@@ -54,13 +55,13 @@ authRouter.get(
 
 // failed route if the authentication fails
 authRouter.get("/failed", (req, res) => {
-  console.log("User is not authenticated");
+  logger.info("User is not authenticated");
   res.send("Failed");
 });
 
 // Success route if the authentication is successful
 authRouter.get("/success", isLoggedIn, async (req, res) => {
-  console.log("You are logged in");
+  logger.info("You are logged in");
   const token = "Bearer " + randomAlphaNumeric(60);
   const user = await User.findOne({ where: { email: req.user.email } });
   var newUser = "";
@@ -72,7 +73,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
     role: 3,
     photo: req.user.picture,
   };
-  // console.log(data);
+  // logger.debug(data);
   if (user === null) {
     newUser = await User.create({
       userName: req.user.displayName,
@@ -82,9 +83,9 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
       photo: req.user.picture,
     });
 
-    console.log(newUser.id);
+    logger.debug(newUser.id);
     data.userID = newUser.id;
-    console.log(data);
+    logger.debug(data);
     // return req.user.email;
     await saveToken(data);
     res.redirect(
@@ -103,12 +104,12 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
 authRouter.get("/logout", isLoggedIn, (req, res, next) => {
   req.logout(function(err) {
     if (err) {
-      console.log("Error during logout:", err);
+      logger.error("Error during logout:", err);
       return next(err);
     }
     req.session.destroy((err) => {
       if (err) {
-        console.log("Error while destroying session:", err);
+        logger.error("Error while destroying session:", err);
       }
       res.redirect("/google/home");
     });

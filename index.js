@@ -16,6 +16,7 @@ const { appPasswordRouter } = require("./routes/appPassword-routes");
 const { cronRoutes } = require("./routes/cron-routes");
 const { randomAlphaNumeric, getIp } = require("./src/common/utils");
 const path = require('path')
+const logger = require("./src/common/utils/logger");
 
 require("./config/passport");
 const cors = require("cors");
@@ -52,7 +53,7 @@ app
   .use(passport.initialize())
   .use(passport.session())
   .use(bodyParser.json())
-  .listen(port, () => console.log("server running on port" + port))
+  .listen(port, () => logger.info("server running on port" + port))
 //   app.set("views", path.join(__dirname, "./src/ejs/mail.ejs"));
 //   app.set("view engine", "ejs");
 // app.get("/", (req, res) => {

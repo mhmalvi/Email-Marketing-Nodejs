@@ -1,12 +1,13 @@
 const express = require("express");
 const AppPassword = require("../../../models").AppPassword;
 const { fetchAll } = require("../../common/appPassUtils/fetchAll");
+const logger = require("../../common/utils/logger");
 
 const fetchAppPasswords = async (req, res) => {
   if (req.body.userID) {
-    console.log(req.body.userID);
+    logger.debug(req.body.userID);
     const emails = await fetchAll(req.body.userID);
-    console.log(emails);
+    logger.debug(emails);
     if (emails) {
       res.status(200).json({
         message: "success",

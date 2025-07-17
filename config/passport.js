@@ -3,6 +3,7 @@ const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const keys = require('./keys')
 const User = require("../models").User;
+const logger = require("../src/common/utils/logger");
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
@@ -27,7 +28,7 @@ passport.use(
       passReqToCallback: true,
     },
     function (request, accessToken, refreshToken, profile, done) {
-      console.log("sffgsg");
+      logger.debug("sffgsg");
       return done(null, profile);
     }
   )

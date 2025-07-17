@@ -1,6 +1,7 @@
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 const User = require("../../../../models").User;
+const logger = require("../../utils/logger");
 const deleteOTPCron = async () => {
   const users = await User.findAll({
     where: {
@@ -13,12 +14,12 @@ const deleteOTPCron = async () => {
   ////////////////////////////////////////////////////////
   if (users.length > 0) {
     users.forEach(async (element) => {
-      await console.log("curr", new Date());
-      await console.log("db", element.updatedAt);
+      await logger.debug("curr", new Date());
+      await logger.debug("db", element.updatedAt);
       const addTwentyMinutes = new Date(
         element.updatedAt.setMinutes(element.updatedAt.getMinutes() + 20)
       ); ////// add 20 minutes to updatedAt datetime ///////
-      await console.log("db twenty", addTwentyMinutes);
+      await logger.debug("db twenty", addTwentyMinutes);
 
       if (new Date() >= addTwentyMinutes) {
         ////  if current date time is equal or greater than updatedAt+20_minutes delete that otp ////
