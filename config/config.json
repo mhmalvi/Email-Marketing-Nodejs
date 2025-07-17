@@ -1,23 +1,23 @@
 {
   "development": {
-    "username": "root",
-    "password": null,
+    "username": "app_user",
+    "password": "app_password",
     "database": "email_marketing",
     "host": "localhost",
     "dialect": "mysql",
     "port": 3306
   },
   "production": {
-    "username": "root",
-    "password": null,
+    "username": "app_user",
+    "password": "app_password",
     "database": "email_marketing",
     "host": "localhost",
     "dialect": "mysql",
     "port": 3306
   },
   "test": {
-    "username": "root",
-    "password": null,
+    "username": "app_user",
+    "password": "app_password",
     "database": "email_marketing_test",
     "host": "localhost",
     "dialect": "mysql",
