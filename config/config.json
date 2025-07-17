@@ -15,8 +15,8 @@
   },
   "test": {
     "username": "root",
-    "password": null,
-    "database": "database_test",
+    "password": "Quadque#2024",
+    "database": "email_marketing_test",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }
