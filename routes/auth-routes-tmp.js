@@ -76,9 +76,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
   console.log(req.user);
   // credentials = JSON.stringify(req.user);
   const token = "Bearer " + randomAlphaNumeric(60);
-  const user = await User.findOne({
-    where: { email: req.user.email },
-  });
+  const user = await User.findOne({ where: { email: req.user.email } });
   var newUser = "";
   const data = {
     email: req.user.email,
@@ -103,7 +101,7 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
     // return req.user.email;
     await saveToken(data);
     res.redirect(
-      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${userName.id}&photo=${req.user.picture}&token=${token}`
+      `https://www.quemailer.com/auth?userName=${req.user.displayName}&email=${req.user.email}&userID=${newUser.id}&photo=${req.user.picture}&token=${token}`
     );
   } else {
     // return req.user.email;
@@ -176,17 +174,18 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
 });
 
 // Route that logs out the authenticated user
-authRouter.get("/logout", isLoggedIn, (req, res) => {
-  req.session.destroy((err) => {
+authRouter.get("/logout", isLoggedIn, (req, res, next) => {
+  req.logout(function(err) {
     if (err) {
-      console.log("Error while destroying session:", err);
-    } else {
-      req.logout(() => {
-        console.log("You are logged out");
-
-        res.redirect("/google/home");
-      });
+      console.log("Error during logout:", err);
+      return next(err);
     }
+    req.session.destroy((err) => {
+      if (err) {
+        console.log("Error while destroying session:", err);
+      }
+      res.redirect("/google/home");
+    });
   });
 });
 

@@ -58,8 +58,7 @@ const verifyOTP = async (req, res) => {
     req.body.otp !== 0
   ) {
     const user = await User.findOne({
-      where: { email: req.body.email },
-      where: { otp: req.body.otp },
+      where: { email: req.body.email, otp: req.body.otp },
     });
 
     if (user) {

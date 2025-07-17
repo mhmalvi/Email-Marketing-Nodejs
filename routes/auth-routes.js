@@ -62,9 +62,7 @@ authRouter.get("/failed", (req, res) => {
 authRouter.get("/success", isLoggedIn, async (req, res) => {
   console.log("You are logged in");
   const token = "Bearer " + randomAlphaNumeric(60);
-  const user = await User.findOne({
-    where: { email: req.user.email },
-  });
+  const user = await User.findOne({ where: { email: req.user.email } });
   var newUser = "";
   var data = {
     email: req.user.email,
@@ -102,17 +100,18 @@ authRouter.get("/success", isLoggedIn, async (req, res) => {
 });
 
 // Route that logs out the authenticated user
-authRouter.get("/logout", isLoggedIn, (req, res) => {
-  req.session.destroy((err) => {
+authRouter.get("/logout", isLoggedIn, (req, res, next) => {
+  req.logout(function(err) {
     if (err) {
-      console.log("Error while destroying session:", err);
-    } else {
-      req.logout(() => {
-        console.log("You are logged out");
-
-        res.redirect("/google/home");
-      });
+      console.log("Error during logout:", err);
+      return next(err);
     }
+    req.session.destroy((err) => {
+      if (err) {
+        console.log("Error while destroying session:", err);
+      }
+      res.redirect("/google/home");
+    });
   });
 });
 

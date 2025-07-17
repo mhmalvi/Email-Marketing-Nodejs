@@ -70,9 +70,7 @@ const list = async (req, res) => {
 const saveCredentials = async (req, res) => {
   if (req.body.email && req.body.userName && req.body.token && req.body.image) {
     // console.log(req.body);
-    const user = await User.findOne({
-      where: { email: req.body.email },
-    });
+    const user = await User.findOne({ where: { /* add appropriate conditions here */ } });
     const data = {
       email: req.body.email,
       token: req.body.token,

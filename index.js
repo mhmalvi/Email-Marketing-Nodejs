@@ -21,19 +21,30 @@ require("./config/passport");
 const cors = require("cors");
 const { pixelTracker } = require("./routes/pixelTracker-routes");
 
+if (!process.env.SESSION_SECRET) {
+  throw new Error('SESSION_SECRET environment variable is required');
+}
+
 const app = express();
 const port = 5000;
 
 app
   .use(
     cors({
-      origin: "*",
+      origin: (origin, callback) => {
+        const allowedOrigins = process.env.CORS_WHITELIST ? process.env.CORS_WHITELIST.split(',') : [];
+        if (!origin || allowedOrigins.includes(origin)) {
+          callback(null, true);
+        } else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      },
       methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
     })
   )
   .use(
     session({
-      secret: process.env.secret,
+      secret: process.env.SESSION_SECRET,
       resave: false,
       saveUninitialized: false,
     })
