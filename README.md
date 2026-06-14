@@ -1,6 +1,8 @@
 <!-- repo-card -->
 ![Email-Marketing-Nodejs](docs/assets/social-card.png)
 
+![Email-Marketing-Nodejs — architecture](docs/assets/architecture.png)
+
 # Email Marketing Platform
 
 A full-featured email marketing backend built with Node.js and Express. The platform supports campaign management, contact list segmentation, email template design, scheduled sending via cron jobs, open/click tracking with pixel tracking, and Stripe-based subscription billing.
